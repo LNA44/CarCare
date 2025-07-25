@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Vehicle {
+struct Bike {
+	let id: UUID
 	let brand : Brand
-	let model : Model
+	let model : String
 	let year : Int
 	let mileage : Int
-	let fuel : Fuel
-	let totalFuelCost : Int
+	let bikeType: BikeType
 }

@@ -10,11 +10,10 @@ import CoreData
 @objc(ManagedMaintenance)
 class ManagedMaintenance: NSManagedObject {
 	@NSManaged var maintenanceType: String
-	@NSManaged var cost: Double
 	@NSManaged var date: Date
 	@NSManaged var id: UUID
 	
-	@NSManaged var vehicle : ManagedVehicle
+	@NSManaged var vehicle : ManagedBike
 }
 
 extension ManagedMaintenance {
@@ -28,7 +27,6 @@ extension ManagedMaintenance {
 	static func new(from local: LocalMaintenance, in context: NSManagedObjectContext) throws {
 		let managed = ManagedMaintenance(context: context)
 		managed.maintenanceType = local.maintenanceType
-		managed.cost = local.cost
 		managed.date = local.date
 		managed.id = local.id
 		
@@ -37,6 +35,6 @@ extension ManagedMaintenance {
 	}
 	
 	var local: LocalMaintenance { 
-		LocalMaintenance(id: id, maintenanceType: maintenanceType, date: date, cost: Double(cost))
+		LocalMaintenance(id: id, maintenanceType: maintenanceType, date: date)
 	}
 }

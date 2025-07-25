@@ -7,6 +7,7 @@
 
 import Foundation
 
-protocol VehicleStore {
-	func insert(_ vehicle: LocalVehicle) throws
+protocol BikeStore {
+	func insert(_ bike: LocalBike) throws
+	func retrieve () throws -> LocalBike?
 }

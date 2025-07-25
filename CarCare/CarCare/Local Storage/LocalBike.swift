@@ -1,5 +1,5 @@
 //
-//  MocalMileageRecord.swift
+//  LocalVehicle.swift
 //  CarCare
 //
 //  Created by Ordinateur elena on 15/07/2025.
@@ -7,8 +7,11 @@
 
 import Foundation
 
-struct LocalMileageRecord {
+struct LocalBike {
 	let id: UUID
+	let year: Int
+	let model: String
+	let brand: Brand
 	let mileage: Int
-	let month: String
+	let bikeType: BikeType
 }

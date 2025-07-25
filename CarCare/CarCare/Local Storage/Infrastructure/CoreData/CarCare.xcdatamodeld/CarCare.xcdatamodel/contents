@@ -1,34 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788.4" systemVersion="24F74" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
-    <entity name="ManagedFuelRefill" representedClassName="ManagedFuelRefill" syncable="YES">
-        <attribute name="amount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="fuelType" attributeType="String"/>
+    <entity name="ManagedBike" representedClassName="ManagedBike" syncable="YES">
+        <attribute name="bikeType" optional="YES" attributeType="String"/>
+        <attribute name="brand" attributeType="String"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <relationship name="vehicle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedVehicle" inverseName="fuelRefill" inverseEntity="ManagedVehicle"/>
+        <attribute name="mileage" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="model" attributeType="String"/>
+        <attribute name="year" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="maintenance" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedMaintenance" inverseName="bike" inverseEntity="ManagedMaintenance"/>
     </entity>
     <entity name="ManagedMaintenance" representedClassName="ManagedMaintenance" syncable="YES">
-        <attribute name="cost" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="maintenanceType" attributeType="String"/>
-        <relationship name="vehicle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedVehicle" inverseName="maintenance" inverseEntity="ManagedVehicle"/>
-    </entity>
-    <entity name="ManagedMileageRecord" representedClassName="ManagedMileageRecord" syncable="YES">
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="mileage" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="month" attributeType="String"/>
-        <relationship name="vehicle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedVehicle" inverseName="mileageRecord" inverseEntity="ManagedVehicle"/>
-    </entity>
-    <entity name="ManagedVehicle" representedClassName="ManagedVehicle" syncable="YES">
-        <attribute name="brand" attributeType="String"/>
-        <attribute name="fuel" attributeType="String"/>
-        <attribute name="mileage" attributeType="String"/>
-        <attribute name="model" attributeType="String"/>
-        <attribute name="totalFuelCost" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="year" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="fuelRefill" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedFuelRefill" inverseName="vehicle" inverseEntity="ManagedFuelRefill"/>
-        <relationship name="maintenance" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedMaintenance" inverseName="vehicle" inverseEntity="ManagedMaintenance"/>
-        <relationship name="mileageRecord" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedMileageRecord" inverseName="vehicle" inverseEntity="ManagedMileageRecord"/>
+        <relationship name="bike" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedBike" inverseName="maintenance" inverseEntity="ManagedBike"/>
     </entity>
 </model>

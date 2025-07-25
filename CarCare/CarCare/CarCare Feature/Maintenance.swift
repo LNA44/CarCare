@@ -8,7 +8,7 @@
 import Foundation
 
 struct Maintenance {
+	let id: UUID
 	let maintenanceType : MaintenanceType
-	let cost : Double
 	let date : Date
 }

@@ -9,9 +9,26 @@ import SwiftUI
 
 @main
 struct CarCareApp: App {
+	let dependencyContainer = DependencyContainer.shared
+	
+	@StateObject private var appState: AppState
+	
+	init() {
+		let appState = AppState(vehicleLoader: dependencyContainer.VehicleLoader)
+		_appState = StateObject(wrappedValue: appState)
+	}
+	
     var body: some Scene {
         WindowGroup {
-            ContentView()
+			switch appState.status {
+			case .loading:
+				LoadingView()
+			case .needsVehicleRegistration:
+				RegistrationView()
+					.environmentObject(appState)
+			case .ready:
+				ContentView()
+			}
         }
     }
 }

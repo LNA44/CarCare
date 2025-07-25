@@ -39,3 +39,4 @@ final class CoreDataLocalStore {
 		return try result.get()
 	}
 }
+
