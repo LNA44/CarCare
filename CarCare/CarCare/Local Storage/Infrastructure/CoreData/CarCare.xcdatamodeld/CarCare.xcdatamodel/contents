@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788.4" systemVersion="24F74" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="ManagedBike" representedClassName="ManagedBike" syncable="YES">
+        <attribute name="bikeType" optional="YES" attributeType="String"/>
+        <attribute name="brand" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="mileage" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="model" attributeType="String"/>
+        <attribute name="year" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="maintenance" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedMaintenance" inverseName="bike" inverseEntity="ManagedMaintenance"/>
+    </entity>
+    <entity name="ManagedMaintenance" representedClassName="ManagedMaintenance" syncable="YES">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="maintenanceType" attributeType="String"/>
+        <relationship name="bike" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedBike" inverseName="maintenance" inverseEntity="ManagedBike"/>
+    </entity>
+</model>

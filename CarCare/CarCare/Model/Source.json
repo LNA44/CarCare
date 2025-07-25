@@ -1,0 +1,16 @@
+[
+	{
+		"constructeur": "Toyota",
+		"modele": "Corolla",
+		"typeEntretien": "Vidange",
+		"intervalleKilometres": 10000,
+		"intervalleMois": 12
+	},
+	{
+		"constructeur": "Toyota",
+		"modele": "Corolla",
+		"typeEntretien": "Plaquettes",
+		"intervalleKilometres": 30000,
+		"intervalleMois": null
+	}
+]
