@@ -14,7 +14,7 @@ struct CarCareApp: App {
 	@StateObject private var appState: AppState
 	
 	init() {
-		let appState = AppState(vehicleLoader: dependencyContainer.VehicleLoader)
+		let appState = AppState(vehicleLoader: dependencyContainer.BikeLoader)
 		_appState = StateObject(wrappedValue: appState)
 	}
 	

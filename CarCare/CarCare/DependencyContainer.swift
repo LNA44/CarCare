@@ -27,7 +27,7 @@ final class DependencyContainer {
 		LocalMaintenanceLoader(store: store)
 	} ()
 	
-	lazy var VehicleLoader: LocalBikeLoader = {
+	lazy var BikeLoader: LocalBikeLoader = {
 		LocalBikeLoader(store: store)
 	} ()
 }

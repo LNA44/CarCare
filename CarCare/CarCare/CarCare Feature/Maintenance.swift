@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Maintenance {
+struct Maintenance: Equatable {
 	let id: UUID
 	let maintenanceType : MaintenanceType
 	let date : Date

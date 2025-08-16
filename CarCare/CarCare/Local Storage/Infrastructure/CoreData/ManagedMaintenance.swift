@@ -12,6 +12,7 @@ class ManagedMaintenance: NSManagedObject {
 	@NSManaged var maintenanceType: String
 	@NSManaged var date: Date
 	@NSManaged var id: UUID
+	@NSManaged var status: Int
 	
 	@NSManaged var vehicle : ManagedBike
 }
