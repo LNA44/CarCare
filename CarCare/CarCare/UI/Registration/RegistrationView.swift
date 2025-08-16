@@ -75,17 +75,6 @@ struct RegistrationView: View {
 						}
 					}
 					.padding(.horizontal, 70)
-					
-					/*VStack {
-						Text("Carburant")
-						Picker("Carburant", selection: $viewModel.fuel) {
-							ForEach(Fuel.allCases) { fuel in
-								Text(fuel.rawValue).tag(fuel)
-							}
-						}
-						.pickerStyle(MenuPickerStyle())
-					}*/
-					
 				}
 				.padding(.vertical, 50)
 				.bold()
@@ -97,14 +86,12 @@ struct RegistrationView: View {
 					Text("Ajouter le véhicule")
 						.foregroundColor(.white)
 				}
-				
 				.frame(width: 180)
 				.padding()
 				.background(Color .red)
 				.cornerRadius(10)
 			}
 			.navigationDestination(isPresented: $viewModel.shouldNavigate) {
-				
 			}
 		}
 	}

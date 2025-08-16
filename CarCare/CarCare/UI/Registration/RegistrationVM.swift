@@ -27,7 +27,7 @@ final class RegistrationVM: ObservableObject {
 	private let loader: LocalBikeLoader
 	
 	//MARK: -Initialization
-	init(loader: LocalBikeLoader = DependencyContainer.shared.VehicleLoader) {
+	init(loader: LocalBikeLoader = DependencyContainer.shared.BikeLoader) {
 		self.loader = loader
 		let initialModels = Brand.Decathlon.models
 		self.models = initialModels
@@ -36,11 +36,11 @@ final class RegistrationVM: ObservableObject {
 	
 	//MARK: -Methods
 	func addVehicle() {
-		guard let yearInt = Int(year), let mileageInt = Int(mileage) else {
+		guard let yearInt = Int(year) else {
 			print("Année ou kilométrage invalides")
 			return
 		}
-		let vehicle = Bike(id: UUID(), brand: brand, model: model, year: yearInt, mileage: mileageInt, bikeType: bikeType)
+		let vehicle = Bike(id: UUID(), brand: brand, model: model, year: yearInt, bikeType: bikeType)
 		do {
 			try loader.save(vehicle)
 			print("Vélo sauvegardé avec succès")

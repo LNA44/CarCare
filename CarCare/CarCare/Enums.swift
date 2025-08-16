@@ -53,15 +53,19 @@ enum Brand: String, CaseIterable, Identifiable {
 enum MaintenanceType: String, CaseIterable, Identifiable {
 	var id: String { rawValue }
 	
-	case Tires = "Tires"
-	case BrakePads = "Brake Pads"
-	case BrakeDiscsAndPads = "Brake Discs and Pads"
-	case EngineOil = "Engine Oil"
-	case Coolant = "Coolant"
-	case Battery = "Battery"
-	case VehicleInspection = "Vehicle Inspection"
-	case AirConditioning = "Air Conditioning"
-	case Unknown = "Unknown"
+	case Tires = "Pneus" // A ADAPTER
+	case BrakePads = "Plaquettes de frein"
+	case Battery = "Batterie"
+	case Unknown = "Inconnu"
+	
+	var frequencyInDays: Int {
+		switch self { // A ADAPTER
+		case .Tires: return 7       // 1 semaine
+		case .BrakePads: return 7      // 1 semaine
+		case .Battery: return 30     // 1 mois
+		case .Unknown: return 0
+		}
+	}
 }
 
 //BikeType

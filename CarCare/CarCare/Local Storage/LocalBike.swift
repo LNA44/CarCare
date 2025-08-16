@@ -12,6 +12,5 @@ struct LocalBike {
 	let year: Int
 	let model: String
 	let brand: Brand
-	let mileage: Int
 	let bikeType: BikeType
 }

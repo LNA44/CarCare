@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DashboardView: View {
 	@StateObject var viewModel = DashboardVM()
+	@State private var showAddMaintenance = false
 	
 	let formatter: DateFormatter = {
 		let df = DateFormatter()
@@ -18,59 +19,48 @@ struct DashboardView: View {
 	}()
 	
 	var body: some View {
-		VStack(spacing: 20) {
+		VStack(spacing: 40) {
 			Text("\(viewModel.brand) \(viewModel.model) (\(viewModel.year))")
 				.font(.largeTitle)
 				.bold()
 				.padding(.top)
+				.padding(.horizontal, 15)
+				.multilineTextAlignment(.center)
 			
-			Text("\(viewModel.mileage)")
+			HStack {
+				Text("Entretien")
+					.font(.title2)
+			}
 			
-			VStack(alignment: .leading, spacing: 5) {
-				Text("Dernier entretien")
-					.font(.headline)
-				HStack {
-					Text("\(viewModel.lastMaintenance?.maintenanceType ?? .Unknown)")
+			Text("\(viewModel.overallMaintenanceStatus().label)")
+				.font(.system(size: 20, weight: .bold))
+				.foregroundColor(viewModel.overallMaintenanceStatus().label == "À jour" ? .green : .red)
 						
-					if let date = viewModel.lastMaintenance?.date {
-						Text(formatter.string(from: date))
+			VStack(spacing: 5) {
+				Text("Dernier entretien")
+					.font(.title2)
+				HStack {
+					if (viewModel.lastMaintenance != nil) {
+						Text("\(viewModel.lastMaintenance?.maintenanceType ?? .Unknown)")
+						
+						if let date = viewModel.lastMaintenance?.date {
+							Text(formatter.string(from: date))
+						} else {
+							Text("Pas de date")
+						}
 					} else {
-						Text("Pas de date")
+						Text("Pas d'entretien réalisé")
 					}
 				}
-				.font(.subheadline)
 				.foregroundColor(.gray)
 			}
-			.frame(maxWidth: .infinity, alignment: .leading)
+			.frame(maxWidth: .infinity, alignment: .center)
 			.padding(.horizontal)
-			
-			VStack(alignment: .leading, spacing: 10) {
-				Text("Entretiens à venir")
-					.font(.headline)
-				
-				/*if viewModel.upcomingMaintenances.isEmpty {
-					Text("Aucun entretien à venir")
-						.foregroundColor(.gray)
-				} else {
-					ForEach(viewModel.upcomingMaintenances) { entretien in
-						HStack {
-							Text(entretien.title)
-							Spacer()
-							Text(dateFormatter.string(from: entretien.date))
-								.foregroundColor(.gray)
-								.font(.subheadline)
-						}
-						.padding(.horizontal)
-					}
-				}*/
-			}
-			.frame(maxWidth: .infinity, alignment: .leading)
 			
 			Spacer()
 			
-			// Bouton ajouter un entretien
 			Button(action: {
-				//viewModel.addMaintenance()
+				showAddMaintenance = true
 			}) {
 				Text("Ajouter un entretien")
 					.frame(maxWidth: .infinity)
@@ -81,7 +71,13 @@ struct DashboardView: View {
 			}
 			.padding(.bottom)
 		}
+		.sheet(isPresented: $showAddMaintenance) {
+			AddMaintenanceView(viewModel: viewModel, showingSheet: $showAddMaintenance)
+		}
 		.navigationBarBackButtonHidden(true)
+		.onAppear {
+			viewModel.fetchBikeData()
+		}
 	}
 }
 
