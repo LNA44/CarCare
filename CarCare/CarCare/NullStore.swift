@@ -17,4 +17,5 @@ extension NullStore: MaintenanceStore {
 extension NullStore: BikeStore {
 	func insert(_ bike: LocalBike) throws {}
 	func retrieve () throws -> LocalBike? {nil}
+	func update(_ bike: LocalBike) throws {}
 }

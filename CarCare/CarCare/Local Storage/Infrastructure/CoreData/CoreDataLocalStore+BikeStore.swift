@@ -25,4 +25,18 @@ extension CoreDataLocalStore: BikeStore {
 			}
 		}
 	}
+	
+	func update(_ bike: LocalBike) throws {
+		try performSync { context in
+			Result {
+				if let managedBike = try ManagedBike.find(in: context).first(where: { $0.id == bike.id }) {
+					managedBike.brand = bike.brand.rawValue
+					managedBike.model = bike.model
+					managedBike.year = Int32(bike.year)
+					managedBike.bikeType = bike.bikeType.rawValue
+					try context.save()
+				}
+			}
+		}
+	}
 }

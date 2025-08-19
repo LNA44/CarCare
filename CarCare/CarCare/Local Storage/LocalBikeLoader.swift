@@ -20,7 +20,13 @@ struct LocalBikeLoader {
 	}
 	
 	func save(_ bike: Bike) throws {
-		try store.insert(bike.toLocal())
+		if let _ = try store.retrieve() { //Si velo existe déjà on le met à jour
+			try store.update(bike.toLocal())
+			print("update dans le loader OK")
+		} else {
+			try store.insert(bike.toLocal()) //sinon on le crée
+			print("le velo a été créé")
+		}
 	}
 }
 

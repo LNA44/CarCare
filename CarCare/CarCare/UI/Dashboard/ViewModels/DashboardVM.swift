@@ -16,6 +16,7 @@ final class DashboardVM: ObservableObject {
 	@Published var lastMaintenance: Maintenance? = nil
 	@Published var selectedMaintenanceType: MaintenanceType
 	@Published var selectedMaintenanceDate: Date
+	@Published var bike: Bike? = nil
 	
 	//MARK: -Private properties
 	private let maintenanceLoader: LocalMaintenanceLoader
@@ -33,13 +34,14 @@ final class DashboardVM: ObservableObject {
 	//MARK: -Methods
 	func fetchBikeData() {
 		do {
-			guard let bike = try bikeLoader.load() else {
-				print("erreur dans le chargement du vélo")
+			guard let unwrappedBike = try bikeLoader.load() else {
+				print("problème de chargement du vélo")
 				return
 			}
-			self.model = bike.model
-			self.brand = bike.brand
-			self.year = bike.year
+			self.model = unwrappedBike.model
+			self.brand = unwrappedBike.brand
+			self.year = unwrappedBike.year
+			bike = unwrappedBike
 		} catch {
 			print("erreur dans le chargement du vélo")
 		}
@@ -101,6 +103,20 @@ final class DashboardVM: ObservableObject {
 			fetchLastMaintenance()
 		} catch {
 			print("erreur lors de la sauvegarde de la maintenance")
+		}
+	}
+	
+	func modifyBikeInformations(brand: Brand, model: String, year: Int, type: BikeType) {
+		guard var bike = bike else { return }
+		bike.brand = brand
+		bike.model = model
+		bike.year = year
+		bike.bikeType = type
+		do {
+			try bikeLoader.save(bike)
+			print("modif dans le VM OK")
+		} catch {
+			print("erreur lors de la modification du vélo")
 		}
 	}
 }

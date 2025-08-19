@@ -64,15 +64,6 @@ struct RegistrationView: View {
 								.background(Color .gray)
 								.cornerRadius(10)
 						}
-						
-						VStack {
-							Text("Kilométrage")
-							TextField("Kilométrage", text: $viewModel.mileage)
-								.frame(height: 40)
-								.multilineTextAlignment(.center)
-								.background(Color .gray)
-								.cornerRadius(10)
-						}
 					}
 					.padding(.horizontal, 70)
 				}

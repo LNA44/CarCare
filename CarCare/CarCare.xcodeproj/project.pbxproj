@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F3B77C942E50714E00548F2D /* MaintenanceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B77C932E50714E00548F2D /* MaintenanceStatus.swift */; };
 		F3B77C962E5080D000548F2D /* AddMaintenanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B77C952E5080D000548F2D /* AddMaintenanceView.swift */; };
+		F3B77CA62E50DF9300548F2D /* BikeModificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B77CA52E50DF9300548F2D /* BikeModificationsView.swift */; };
 		F3BFC99D2E33810900043AB8 /* Source.json in Resources */ = {isa = PBXBuildFile; fileRef = F3BFC9822E33810900043AB8 /* Source.json */; };
 		F3BFC99E2E33810900043AB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3BFC9952E33810900043AB8 /* Assets.xcassets */; };
 		F3BFC9A02E33810900043AB8 /* Maintenance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9692E33810900043AB8 /* Maintenance.swift */; };
@@ -71,6 +72,7 @@
 		F31F73E82E26585B00334333 /* CarCareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarCareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3B77C932E50714E00548F2D /* MaintenanceStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceStatus.swift; sourceTree = "<group>"; };
 		F3B77C952E5080D000548F2D /* AddMaintenanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMaintenanceView.swift; sourceTree = "<group>"; };
+		F3B77CA52E50DF9300548F2D /* BikeModificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeModificationsView.swift; sourceTree = "<group>"; };
 		F3BFC9692E33810900043AB8 /* Maintenance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Maintenance.swift; sourceTree = "<group>"; };
 		F3BFC96B2E33810900043AB8 /* Bike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bike.swift; sourceTree = "<group>"; };
 		F3BFC96E2E33810900043AB8 /* CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelpers.swift; sourceTree = "<group>"; };
@@ -149,6 +151,72 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F3B77C9D2E50DF0800548F2D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F3BFC9842E33810900043AB8 /* DashboardView.swift */,
+				F3B77C952E5080D000548F2D /* AddMaintenanceView.swift */,
+				F3B77CA52E50DF9300548F2D /* BikeModificationsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F3B77C9E2E50DF1200548F2D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F3BFC9852E33810900043AB8 /* DashboardVM.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		F3B77C9F2E50DF2600548F2D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F3BFC9872E33810900043AB8 /* Fuel_FollowUpView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F3B77CA02E50DF2C00548F2D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F3BFC9892E33810900043AB8 /* Maintenance_FollowUpView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F3B77CA12E50DF3000548F2D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F3BFC98B2E33810900043AB8 /* Mileage_FollowUpView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F3B77CA22E50DF3600548F2D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F3BFC98D2E33810900043AB8 /* RegistrationView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F3B77CA32E50DF3B00548F2D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F3BFC98E2E33810900043AB8 /* RegistrationVM.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		F3B77CA42E50DF4600548F2D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F3BFC9902E33810900043AB8 /* Vehicle_ProfileView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		F3BFC96C2E33810900043AB8 /* CarCare Feature */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,9 +274,8 @@
 		F3BFC9862E33810900043AB8 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				F3BFC9842E33810900043AB8 /* DashboardView.swift */,
-				F3BFC9852E33810900043AB8 /* DashboardVM.swift */,
-				F3B77C952E5080D000548F2D /* AddMaintenanceView.swift */,
+				F3B77C9E2E50DF1200548F2D /* ViewModels */,
+				F3B77C9D2E50DF0800548F2D /* Views */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -216,7 +283,7 @@
 		F3BFC9882E33810900043AB8 /* Fuel */ = {
 			isa = PBXGroup;
 			children = (
-				F3BFC9872E33810900043AB8 /* Fuel_FollowUpView.swift */,
+				F3B77C9F2E50DF2600548F2D /* Views */,
 			);
 			path = Fuel;
 			sourceTree = "<group>";
@@ -224,7 +291,7 @@
 		F3BFC98A2E33810900043AB8 /* Maintenance */ = {
 			isa = PBXGroup;
 			children = (
-				F3BFC9892E33810900043AB8 /* Maintenance_FollowUpView.swift */,
+				F3B77CA02E50DF2C00548F2D /* Views */,
 			);
 			path = Maintenance;
 			sourceTree = "<group>";
@@ -232,7 +299,7 @@
 		F3BFC98C2E33810900043AB8 /* Mileage */ = {
 			isa = PBXGroup;
 			children = (
-				F3BFC98B2E33810900043AB8 /* Mileage_FollowUpView.swift */,
+				F3B77CA12E50DF3000548F2D /* Views */,
 			);
 			path = Mileage;
 			sourceTree = "<group>";
@@ -240,8 +307,8 @@
 		F3BFC98F2E33810900043AB8 /* Registration */ = {
 			isa = PBXGroup;
 			children = (
-				F3BFC98D2E33810900043AB8 /* RegistrationView.swift */,
-				F3BFC98E2E33810900043AB8 /* RegistrationVM.swift */,
+				F3B77CA32E50DF3B00548F2D /* ViewModels */,
+				F3B77CA22E50DF3600548F2D /* Views */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -249,7 +316,7 @@
 		F3BFC9912E33810900043AB8 /* VehicleProfile */ = {
 			isa = PBXGroup;
 			children = (
-				F3BFC9902E33810900043AB8 /* Vehicle_ProfileView.swift */,
+				F3B77CA42E50DF4600548F2D /* Views */,
 			);
 			path = VehicleProfile;
 			sourceTree = "<group>";
@@ -397,6 +464,7 @@
 				F3BFC9A02E33810900043AB8 /* Maintenance.swift in Sources */,
 				F3BFC9A22E33810900043AB8 /* Bike.swift in Sources */,
 				F3BFC9A32E33810900043AB8 /* CarCare.xcdatamodeld in Sources */,
+				F3B77CA62E50DF9300548F2D /* BikeModificationsView.swift in Sources */,
 				F3BFC9A42E33810900043AB8 /* CoreDataHelpers.swift in Sources */,
 				F3BFC9A52E33810900043AB8 /* CoreDataLocalStore.swift in Sources */,
 				F3BFC9A62E33810900043AB8 /* CoreDataLocalStore+MaintenanceStore.swift in Sources */,

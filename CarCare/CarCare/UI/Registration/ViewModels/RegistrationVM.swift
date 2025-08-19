@@ -19,7 +19,6 @@ final class RegistrationVM: ObservableObject {
 	@Published var models: [String]
 	@Published var model: String
 	@Published var year: String = ""
-	@Published var mileage: String = ""
 	@Published var bikeType: BikeType = .Manual
 	@Published var shouldNavigate = false
 	

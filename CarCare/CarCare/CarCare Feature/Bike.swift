@@ -9,8 +9,8 @@ import Foundation
 
 struct Bike {
 	let id: UUID
-	let brand : Brand
-	let model : String
-	let year : Int
-	let bikeType: BikeType
+	var brand : Brand
+	var model : String
+	var year : Int
+	var bikeType: BikeType
 }
