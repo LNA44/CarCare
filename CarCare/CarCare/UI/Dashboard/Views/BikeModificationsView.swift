@@ -11,7 +11,7 @@ struct BikeModificationsView: View {
 	@ObservedObject var viewModel: DashboardVM
 	@Binding var showingSheet: Bool
 	@State private var selectedBrand: Brand = .Unknown
-	@State private var selectedModel: String = ""
+	@State private var selectedModel: String? = nil //optionnel pour la modif de selectedBrand et selectedModel pas encore redéfini
 	@State private var yearText: String = ""
 	@State private var selectedType: BikeType = .Manual
 
@@ -35,15 +35,27 @@ struct BikeModificationsView: View {
 						}
 					}
 					.onChange(of: selectedBrand) { newBrand in
-						// Réinitialise le modèle pour qu'il soit valide
-						selectedModel = newBrand.models.first ?? ""
+						if !newBrand.models.contains(selectedModel ?? "") {
+							selectedModel = newBrand.models.first ?? ""
+						}
 					}
 					.pickerStyle(MenuPickerStyle()) // Menu déroulant
 				}
 				
 				VStack {
 					Text("Modèle")
-					Picker("Modèle", selection: $selectedModel) {
+					Picker("Modèle", selection: Binding(
+						get: { //quand picker affiché
+							// Si selectedModel n'est pas dans la liste, on prend le premier modèle
+							if let selectedModel = selectedModel, selectedBrand.models.contains(selectedModel) {
+								return selectedModel
+							} else {
+								return selectedBrand.models.first ?? ""
+							}
+						},
+						set: { selectedModel = $0 //quand utilisateur change sélection dans picker : assigne cette valeur à selectedModel
+						}
+					)) {
 						ForEach(selectedBrand.models, id: \.self) { model in
 							Text(model).tag(model)
 						}
@@ -76,7 +88,7 @@ struct BikeModificationsView: View {
 			.bold()
 			
 			Button(action: {
-				viewModel.modifyBikeInformations(brand: selectedBrand, model: selectedModel, year: Int(yearText) ?? 0, type: selectedType)
+				viewModel.modifyBikeInformations(brand: selectedBrand, model: selectedModel ?? "", year: Int(yearText) ?? 0, type: selectedType)
 				showingSheet = false
 				viewModel.fetchBikeData()
 			}) {
@@ -88,12 +100,17 @@ struct BikeModificationsView: View {
 			.background(Color .red)
 			.cornerRadius(10)
 			.onAppear {
-				if let bike = viewModel.bike {// récupéré via ton VM
-					let validModel = bike.brand.models.contains(bike.model) ? bike.model : bike.brand.models.first ?? ""
+				if let bike = viewModel.bike {
 					selectedBrand = bike.brand
-					selectedModel = validModel
 					selectedType = bike.bikeType
 					yearText = String(bike.year)
+					// Vérifie que le modèle enregistré existe bien dans la liste des modèles de la marque
+					if bike.brand.models.contains(bike.model) {
+						selectedModel = bike.model
+					} else {
+						// Sinon on prend le premier modèle disponible
+						selectedModel = bike.brand.models.first ?? ""
+					}
 				}
 			}
 		}

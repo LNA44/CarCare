@@ -14,8 +14,22 @@ final class DashboardVM: ObservableObject {
 	@Published var mileage: Int = 0
 	@Published var year: Int = 0
 	@Published var lastMaintenance: Maintenance? = nil
-	@Published var selectedMaintenanceType: MaintenanceType
-	@Published var selectedMaintenanceDate: Date
+	@Published var selectedMaintenanceType: MaintenanceType {
+		didSet {
+			let maintenances = fetchAllMaintenance()
+			lastMaintenance = maintenances
+				.filter { $0.maintenanceType == selectedMaintenanceType }
+				.max(by: { $0.date < $1.date })
+		}
+	}
+	@Published var selectedMaintenanceDate: Date {
+		didSet {
+			let maintenances = fetchAllMaintenance()
+			lastMaintenance = maintenances
+				.filter { $0.maintenanceType == selectedMaintenanceType }
+				.max(by: { $0.date < $1.date })
+		}
+	}
 	@Published var bike: Bike? = nil
 	
 	//MARK: -Private properties
@@ -52,9 +66,7 @@ final class DashboardVM: ObservableObject {
 			let allMaintenance = try maintenanceLoader.load()
 			let sortedMaintenance = allMaintenance
 				.sorted { $0.date > $1.date } //tri décroissant
-			if let lastMaintenance = sortedMaintenance.first {
-				self.lastMaintenance = lastMaintenance
-			}
+			self.lastMaintenance = sortedMaintenance.first
 		} catch {
 			print("erreur dans le chargement de la dernière maintenance")
 		}
@@ -107,14 +119,13 @@ final class DashboardVM: ObservableObject {
 	}
 	
 	func modifyBikeInformations(brand: Brand, model: String, year: Int, type: BikeType) {
-		guard var bike = bike else { return }
-		bike.brand = brand
-		bike.model = model
-		bike.year = year
-		bike.bikeType = type
+		guard bike != nil else { return }
+			bike!.brand = brand
+			bike!.model = model
+			bike!.year = year
+			bike!.bikeType = type
 		do {
-			try bikeLoader.save(bike)
-			print("modif dans le VM OK")
+			try bikeLoader.save(bike!)
 		} catch {
 			print("erreur lors de la modification du vélo")
 		}

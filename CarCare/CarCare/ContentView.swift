@@ -13,13 +13,7 @@ struct ContentView: View {
 			DashboardView()
 				.tabItem { Label("Accueil", systemImage: "house")}
 			Maintenance_FollowUpView()
-				.tabItem { Label("Profil", systemImage: "wrench") }
-			Fuel_FollowUpView()
-				.tabItem { Label("Réglages", systemImage: "fuelpump") }
-			Mileage_FollowUpView()
-				.tabItem { Label("Réglages", systemImage: "speedometer") }
-			Vehicle_ProfileView()
-				.tabItem { Label("Réglages", systemImage: "car") }
+				.tabItem { Label("Entretiens", systemImage: "wrench") }
 		}
 	}
 }

@@ -79,6 +79,7 @@ struct DashboardView: View {
 			.navigationBarBackButtonHidden(true)
 			.onAppear {
 				viewModel.fetchBikeData()
+				viewModel.fetchLastMaintenance()
 			}
 			.toolbar {
 				ToolbarItem(placement: .navigationBarTrailing) {
