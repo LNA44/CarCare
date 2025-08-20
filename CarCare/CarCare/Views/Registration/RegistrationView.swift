@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct RegistrationView: View {
-	@StateObject var viewModel = RegistrationVM()
+	@EnvironmentObject var bikeVM: BikeVM
 	@EnvironmentObject var appState: AppState
+	@State private var shouldNavigate = false
 	
     var body: some View {
 		NavigationStack {
@@ -37,7 +38,7 @@ struct RegistrationView: View {
 					
 					VStack {
 						Text("Marque")
-						Picker("Marque", selection: $viewModel.brand) {
+						Picker("Marque", selection: $bikeVM.brand) {
 							ForEach(Brand.allCases) { brand in
 								Text(brand.rawValue).tag(brand)
 							}
@@ -47,8 +48,8 @@ struct RegistrationView: View {
 					
 					VStack {
 						Text("Modèle")
-						Picker("Modèle", selection: $viewModel.model) {
-							ForEach(viewModel.models, id: \.self) { model in
+						Picker("Modèle", selection: $bikeVM.model) {
+							ForEach(bikeVM.models, id: \.self) { model in
 								Text(model).tag(model)
 							}
 						}
@@ -58,11 +59,15 @@ struct RegistrationView: View {
 					VStack (spacing: 50){
 						VStack {
 							Text("Année")
-							TextField("Année", text: $viewModel.year)
-								.frame(height: 40)
-								.multilineTextAlignment(.center)
-								.background(Color .gray)
-								.cornerRadius(10)
+							TextField("Année", text: Binding(
+								get: { String(bikeVM.year) }, // get convertit l’Int en String pour l’affichage
+								set: { bikeVM.year = Int($0) ?? bikeVM.year } //set convertit le String saisi en Int, en laissant l’ancienne valeur si conversion impossible.
+							))
+							.keyboardType(.numberPad)
+							.frame(height: 40)
+							.multilineTextAlignment(.center)
+							.background(Color .gray)
+							.cornerRadius(10)
 						}
 					}
 					.padding(.horizontal, 70)
@@ -71,10 +76,13 @@ struct RegistrationView: View {
 				.bold()
 				
 				Button(action: {
-					viewModel.addVehicle()
+					let success = bikeVM.addBike()
+					if success {
+						shouldNavigate = true
+					}
 					appState.status = .ready
 				}) {
-					Text("Ajouter le véhicule")
+					Text("Ajouter le vélo")
 						.foregroundColor(.white)
 				}
 				.frame(width: 180)
@@ -82,7 +90,7 @@ struct RegistrationView: View {
 				.background(Color .red)
 				.cornerRadius(10)
 			}
-			.navigationDestination(isPresented: $viewModel.shouldNavigate) {
+			.navigationDestination(isPresented: $shouldNavigate) {
 			}
 		}
 	}

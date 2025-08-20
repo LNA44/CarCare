@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class RegistrationVM: ObservableObject {
+/*final class RegistrationVM: ObservableObject {
 	//MARK: -Public properties
 	@Published var brand: Brand = .Decathlon {
 		didSet {
@@ -20,7 +20,6 @@ final class RegistrationVM: ObservableObject {
 	@Published var model: String
 	@Published var year: String = ""
 	@Published var bikeType: BikeType = .Manual
-	@Published var shouldNavigate = false
 	
 	//MARK: -Private properties
 	private let loader: LocalBikeLoader
@@ -34,7 +33,7 @@ final class RegistrationVM: ObservableObject {
 	}
 	
 	//MARK: -Methods
-	func addVehicle() {
+	func addBike() {
 		guard let yearInt = Int(year) else {
 			print("Année ou kilométrage invalides")
 			return
@@ -49,3 +48,4 @@ final class RegistrationVM: ObservableObject {
 		}
 	}
 }
+*/

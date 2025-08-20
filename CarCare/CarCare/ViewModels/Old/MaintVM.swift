@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MaintenanceVM: ObservableObject {
+/*class MaintVM: ObservableObject {
 	//MARK: -Public properties
 	@Published var maintenances: [Maintenance] = []
 	
@@ -62,4 +62,16 @@ class MaintenanceVM: ObservableObject {
 			print("erreur dans la modif de la maintenance")
 		}
 	}
+	
+	func addMaintenance() {
+		let maintenance = Maintenance(id: UUID(), maintenanceType: selectedMaintenanceType, date: selectedMaintenanceDate, reminder: true)
+		do {
+			try maintenanceLoader.save(maintenance)
+			print("maintenance sauvegardée avec succès")
+			fetchLastMaintenance()
+		} catch {
+			print("erreur lors de la sauvegarde de la maintenance")
+		}
+	}
 }
+*/

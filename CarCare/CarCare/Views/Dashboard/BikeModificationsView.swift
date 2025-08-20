@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BikeModificationsView: View {
-	@ObservedObject var viewModel: DashboardVM
+	@EnvironmentObject var bikeVM: BikeVM
 	@Binding var showingSheet: Bool
 	@State private var selectedBrand: Brand = .Unknown
 	@State private var selectedModel: String? = nil //optionnel pour la modif de selectedBrand et selectedModel pas encore redéfini
@@ -88,9 +88,9 @@ struct BikeModificationsView: View {
 			.bold()
 			
 			Button(action: {
-				viewModel.modifyBikeInformations(brand: selectedBrand, model: selectedModel ?? "", year: Int(yearText) ?? 0, type: selectedType)
+				bikeVM.modifyBikeInformations(brand: selectedBrand, model: selectedModel ?? "", year: Int(yearText) ?? 0, type: selectedType)
 				showingSheet = false
-				viewModel.fetchBikeData()
+				bikeVM.fetchBikeData()
 			}) {
 				Text("Modifier les informations")
 					.foregroundColor(.white)
@@ -100,7 +100,7 @@ struct BikeModificationsView: View {
 			.background(Color .red)
 			.cornerRadius(10)
 			.onAppear {
-				if let bike = viewModel.bike {
+				if let bike = bikeVM.bike {
 					selectedBrand = bike.brand
 					selectedType = bike.bikeType
 					yearText = String(bike.year)

@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct AddMaintenanceView: View {
-	@ObservedObject var viewModel: DashboardVM
+	@EnvironmentObject var maintenanceVM: MaintenanceVM
 	@Binding var showingSheet: Bool
 	
     var body: some View {
         Text("Maintenance effectuée")
 		
 		Text("Type")
-		Picker("Type", selection: $viewModel.selectedMaintenanceType) {
+		Picker("Type", selection: $maintenanceVM.selectedMaintenanceType) {
 			ForEach(MaintenanceType.allCases) { maintenanceType in
 				Text(maintenanceType.rawValue).tag(maintenanceType)
 			}
@@ -24,13 +24,13 @@ struct AddMaintenanceView: View {
 		
 		DatePicker(
 			"Date de maintenance",
-			selection: $viewModel.selectedMaintenanceDate,  // binding vers une Date
+			selection: $maintenanceVM.selectedMaintenanceDate,  // binding vers une Date
 			displayedComponents: [.date]         // on peut choisir date, heure ou les deux
 		)
 		.datePickerStyle(.compact)
 		
 		Button(action: {
-			viewModel.addMaintenance()
+			maintenanceVM.addMaintenance()
 			showingSheet = false // ferme la sheet
 		}) {
 			Text("Ajouter l'entretien")

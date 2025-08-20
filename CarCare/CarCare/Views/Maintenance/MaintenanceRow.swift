@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct MaintenanceRow: View {
-	@StateObject var viewModel: MaintenanceVM
+	@EnvironmentObject var maintenanceVM: MaintenanceVM
 	let maintenanceType: MaintenanceType
 
     var body: some View {
-		let daysRemaining = viewModel.daysUntilNextMaintenance(type: maintenanceType)
-		let nextDate = viewModel.nextMaintenanceDate(for: maintenanceType)
+		let daysRemaining = maintenanceVM.daysUntilNextMaintenance(type: maintenanceType)
+		let nextDate = maintenanceVM.nextMaintenanceDate(for: maintenanceType)
 		
 		VStack(alignment: .leading) {
 			HStack {

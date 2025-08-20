@@ -8,38 +8,39 @@
 import SwiftUI
 
 struct MaintenanceView: View {
-	@StateObject var viewModel = MaintenanceVM()
+	@EnvironmentObject var maintenanceVM: MaintenanceVM
 	var lastMaintenanceByType: [MaintenanceType: Maintenance] {
 		Dictionary(
-			grouping: viewModel.maintenances,
+			grouping: maintenanceVM.maintenances,
 			by: { $0.maintenanceType }
 		).compactMapValues { maintenances in
 			maintenances.max(by: { $0.date < $1.date }) // garde la dernière
 		}
 		.filter { $0.key != .Unknown } // on enlève Unknown
 	}
-	
+
 	//MARK: -Body
 	var body: some View {
+		let sortedKeys: [MaintenanceType] = Array(lastMaintenanceByType.keys).sorted { $0.rawValue < $1.rawValue }
 		NavigationStack {
 			VStack(spacing: 20) {
 				VStack {
 					Text("Entretiens à venir")
 					List {
-						ForEach(lastMaintenanceByType.keys.sorted { $0.rawValue < $1.rawValue }, id: \.self) { type in
+						ForEach(sortedKeys, id: \.self) { type in
 							if let maintenance = lastMaintenanceByType[type] {
-								NavigationLink(destination: MaintenanceDetailsView(viewModel: viewModel, maintenanceID: maintenance.id)) {
-									MaintenanceRow(viewModel: viewModel, maintenanceType: type)
+								NavigationLink(destination: MaintenanceDetailsView(maintenanceID: maintenance.id)) {
+									MaintenanceRow(maintenanceType: type)
 								}
 							}
 						}
 					}
 					.onAppear {
-						viewModel.fetchAllMaintenance()
+						maintenanceVM.fetchAllMaintenance()
 					}
 				}
 				NavigationLink(destination: MaintenanceHistoryView()) {
-					Text("Historique des entretiens (\(viewModel.calculateNumberOfMaintenance()))")
+					Text("Historique des entretiens (\(maintenanceVM.calculateNumberOfMaintenance()))")
 				}
 				Spacer()
 			}

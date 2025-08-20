@@ -68,7 +68,7 @@ enum MaintenanceType: String, CaseIterable, Identifiable {
 	}
 }
 
-extension MaintenanceType {
+extension MaintenanceType: Hashable {
 	var readableFrequency: String {
 		if frequencyInDays < 30 {
 			return "tous les \(frequencyInDays) jour\(frequencyInDays > 1 ? "s" : "")"

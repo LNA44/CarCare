@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct DashboardView: View {
-	@StateObject var viewModel = DashboardVM()
+	@EnvironmentObject var bikeVM: BikeVM
+	@EnvironmentObject var maintenanceVM: MaintenanceVM
 	@State private var showAddMaintenance = false
 	@State private var showBikeModification = false
 	
@@ -22,7 +23,7 @@ struct DashboardView: View {
 	var body: some View {
 		NavigationStack {
 			VStack(spacing: 40) {
-				Text("\(viewModel.brand) \(viewModel.model) (\(viewModel.year))")
+				Text("\(bikeVM.brand) \(bikeVM.model) (\(bikeVM.year))")
 					.font(.largeTitle)
 					.bold()
 					.padding(.top)
@@ -34,18 +35,18 @@ struct DashboardView: View {
 						.font(.title2)
 				}
 				
-				Text("\(viewModel.overallMaintenanceStatus().label)")
+				Text("\(maintenanceVM.overallMaintenanceStatus().label)")
 					.font(.system(size: 20, weight: .bold))
-					.foregroundColor(viewModel.overallMaintenanceStatus().label == "À jour" ? .green : .red)
+					.foregroundColor(maintenanceVM.overallMaintenanceStatus().label == "À jour" ? .green : .red)
 				
 				VStack(spacing: 5) {
 					Text("Dernier entretien")
 						.font(.title2)
 					HStack {
-						if (viewModel.lastMaintenance != nil) {
-							Text("\(viewModel.lastMaintenance?.maintenanceType ?? .Unknown)")
+						if (maintenanceVM.lastMaintenance != nil) {
+							Text("\(maintenanceVM.lastMaintenance?.maintenanceType ?? .Unknown)")
 							
-							if let date = viewModel.lastMaintenance?.date {
+							if let date = maintenanceVM.lastMaintenance?.date {
 								Text(formatter.string(from: date))
 							} else {
 								Text("Pas de date")
@@ -74,12 +75,15 @@ struct DashboardView: View {
 				.padding(.bottom)
 			}
 			.sheet(isPresented: $showAddMaintenance) {
-				AddMaintenanceView(viewModel: viewModel, showingSheet: $showAddMaintenance)
+				AddMaintenanceView(showingSheet: $showAddMaintenance)
+			}
+			.sheet(isPresented: $showBikeModification) {
+				BikeModificationsView(showingSheet: $showBikeModification)
 			}
 			.navigationBarBackButtonHidden(true)
 			.onAppear {
-				viewModel.fetchBikeData()
-				viewModel.fetchLastMaintenance()
+				bikeVM.fetchBikeData()
+				maintenanceVM.fetchLastMaintenance()
 			}
 			.toolbar {
 				ToolbarItem(placement: .navigationBarTrailing) {
@@ -90,10 +94,6 @@ struct DashboardView: View {
 					}
 				}
 			}
-		}
-		
-		.sheet(isPresented: $showBikeModification) {
-			BikeModificationsView(viewModel: viewModel, showingSheet: $showBikeModification)
 		}
 	}
 }

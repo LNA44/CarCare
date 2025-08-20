@@ -9,15 +9,16 @@ import SwiftUI
 
 struct MaintenanceDetailsView: View {
 	@Environment(\.dismiss) private var dismiss
-	@ObservedObject var viewModel: MaintenanceVM
+	@EnvironmentObject var maintenanceVM: MaintenanceVM
 	let maintenanceID: UUID // on reçoit juste l'ID
 	var maintenance: Maintenance? { // computed property : on retrouve la "vraie" donnée à partir du viewModel
-		viewModel.maintenances.first(where: { $0.id == maintenanceID })
+		maintenanceVM.maintenances.first(where: { $0.id == maintenanceID })
 	}
+	@State private var showAddMaintenance = false
 	
 	var body: some View {
 		if let maintenance = maintenance {
-			let daysRemaining = viewModel.daysUntilNextMaintenance(type: maintenance.maintenanceType)
+			let daysRemaining = maintenanceVM.daysUntilNextMaintenance(type: maintenance.maintenanceType)
 			
 			VStack {
 				Text("\(maintenance.maintenanceType)")
@@ -30,13 +31,21 @@ struct MaintenanceDetailsView: View {
 					Toggle("", isOn: Binding(
 						get: { maintenance.reminder }, //appelé lors du dessin de la vue (aussi après modif du toggle pour redessiner la vue)
 						set: { newValue in //modification du toggle
-							viewModel.updateReminder(for: maintenance, value: newValue)
+							maintenanceVM.updateReminder(for: maintenance, value: newValue)
 							//viewModel.fetchAllMaintenance()
 						}
 					))
 					.labelsHidden()
+					
+					Button (action: {
+						showAddMaintenance = true
+					}) {
+						
+					}
 				}
-				
+			}
+			.sheet(isPresented: $showAddMaintenance) {
+				AddMaintenanceView(showingSheet: $showAddMaintenance)
 			}
 			.navigationBarBackButtonHidden(true)
 			.toolbar {

@@ -1,18 +1,14 @@
 //
-//  DashboardVM.swift
+//  MaintenanceVM.swift
 //  CarCare
 //
-//  Created by Ordinateur elena on 24/07/2025.
+//  Created by Ordinateur elena on 20/08/2025.
 //
 
 import Foundation
 
-final class DashboardVM: ObservableObject {
-	//MARK: -Public properties
-	@Published var model: String = ""
-	@Published var brand: Brand = .Unknown
-	@Published var mileage: Int = 0
-	@Published var year: Int = 0
+final class MaintenanceVM: ObservableObject {
+	@Published var maintenances: [Maintenance] = []
 	@Published var lastMaintenance: Maintenance? = nil
 	@Published var selectedMaintenanceType: MaintenanceType {
 		didSet {
@@ -30,40 +26,21 @@ final class DashboardVM: ObservableObject {
 				.max(by: { $0.date < $1.date })
 		}
 	}
-	@Published var bike: Bike? = nil
 	
 	//MARK: -Private properties
-	private let maintenanceLoader: LocalMaintenanceLoader
-	private let bikeLoader: LocalBikeLoader
+	private let loader: LocalMaintenanceLoader
 	
 	//MARK: -Initialization
-	init(maintenanceLoader: LocalMaintenanceLoader = DependencyContainer.shared.MaintenanceLoader,
-		 bikeLoader: LocalBikeLoader = DependencyContainer.shared.BikeLoader, selectedMaintenanceType: MaintenanceType = .Unknown, selectedMaintenanceDate: Date = Date()) {
-		self.maintenanceLoader = maintenanceLoader
-		self.bikeLoader = bikeLoader
+	init(loader: LocalMaintenanceLoader = DependencyContainer.shared.MaintenanceLoader, selectedMaintenanceType: MaintenanceType = .Unknown, selectedMaintenanceDate: Date = Date()) {
+		self.loader = loader
 		self.selectedMaintenanceType = selectedMaintenanceType
 		self.selectedMaintenanceDate = selectedMaintenanceDate
 	}
 	
 	//MARK: -Methods
-	func fetchBikeData() {
-		do {
-			guard let unwrappedBike = try bikeLoader.load() else {
-				print("problème de chargement du vélo")
-				return
-			}
-			self.model = unwrappedBike.model
-			self.brand = unwrappedBike.brand
-			self.year = unwrappedBike.year
-			bike = unwrappedBike
-		} catch {
-			print("erreur dans le chargement du vélo")
-		}
-	}
-	
 	func fetchLastMaintenance() {
 		do {
-			let allMaintenance = try maintenanceLoader.load()
+			let allMaintenance = try loader.load()
 			let sortedMaintenance = allMaintenance
 				.sorted { $0.date > $1.date } //tri décroissant
 			self.lastMaintenance = sortedMaintenance.first
@@ -71,7 +48,6 @@ final class DashboardVM: ObservableObject {
 			print("erreur dans le chargement de la dernière maintenance")
 		}
 	}
-	
 	
 	func overallMaintenanceStatus() -> MaintenanceStatus {
 		//pour vérifier que tous les status des entretiens sont au vert sinon afficher "à prévoir"
@@ -87,7 +63,11 @@ final class DashboardVM: ObservableObject {
 	
 	func fetchAllMaintenance() -> [Maintenance] {
 		do {
-			return try maintenanceLoader.load()
+			let loaded = try loader.load()
+			DispatchQueue.main.async {
+				self.maintenances = loaded
+			}
+			return loaded
 		} catch {
 			print("erreur dans le chargement de toutes les maintenances")
 			return []
@@ -110,7 +90,7 @@ final class DashboardVM: ObservableObject {
 	func addMaintenance() {
 		let maintenance = Maintenance(id: UUID(), maintenanceType: selectedMaintenanceType, date: selectedMaintenanceDate, reminder: true)
 		do {
-			try maintenanceLoader.save(maintenance)
+			try loader.save(maintenance)
 			print("maintenance sauvegardée avec succès")
 			fetchLastMaintenance()
 		} catch {
@@ -118,16 +98,37 @@ final class DashboardVM: ObservableObject {
 		}
 	}
 	
-	func modifyBikeInformations(brand: Brand, model: String, year: Int, type: BikeType) {
-		guard bike != nil else { return }
-			bike!.brand = brand
-			bike!.model = model
-			bike!.year = year
-			bike!.bikeType = type
+	func lastMaintenance(of type: MaintenanceType) -> Maintenance? {
+		let filtered = maintenances.filter { $0.maintenanceType == type }
+		return filtered.max(by: { $0.date < $1.date })
+	}
+	
+	func nextMaintenanceDate(for type: MaintenanceType) -> Date? {
+		guard let lastMaintenance = lastMaintenance(of: type) else { return nil }
+		guard type.frequencyInDays > 0 else { return nil} // Pas de prochaine date pour Unknown
+		return Calendar.current.date(byAdding: .day, value: type.frequencyInDays, to: lastMaintenance.date)
+	}
+	
+	func daysUntilNextMaintenance(type: MaintenanceType) -> Int? {
+		guard let nextDate = nextMaintenanceDate(for: type) else { return nil }
+		return Calendar.current.dateComponents([.day], from: Date(), to: nextDate).day
+	}
+	
+	func calculateNumberOfMaintenance() -> Int {
+		return maintenances.count
+	}
+	
+	func updateReminder(for maintenance: Maintenance, value: Bool) {
 		do {
-			try bikeLoader.save(bike!)
+			var updated = maintenance
+			updated.reminder = value
+			try loader.update(updated)
+			
+			if let index = maintenances.firstIndex(where: { $0.id == maintenance.id }) {
+				maintenances[index] = updated
+			}
 		} catch {
-			print("erreur lors de la modification du vélo")
+			print("erreur dans la modif de la maintenance")
 		}
 	}
 }
