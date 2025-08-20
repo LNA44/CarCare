@@ -11,4 +11,5 @@ struct LocalMaintenance {
 	let id: UUID
 	let maintenanceType: String
 	let date: Date
+	let reminder: Bool
 }

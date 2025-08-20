@@ -68,6 +68,17 @@ enum MaintenanceType: String, CaseIterable, Identifiable {
 	}
 }
 
+extension MaintenanceType {
+	var readableFrequency: String {
+		if frequencyInDays < 30 {
+			return "tous les \(frequencyInDays) jour\(frequencyInDays > 1 ? "s" : "")"
+		} else {
+			let months = frequencyInDays / 30
+			return "tous les \(months) mois"
+		}
+	}
+}
+
 //BikeType
 enum BikeType: String, CaseIterable {
 	case Manual = "Manual"

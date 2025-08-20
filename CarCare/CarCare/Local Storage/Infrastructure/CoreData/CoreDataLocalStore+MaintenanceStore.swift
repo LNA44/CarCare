@@ -24,4 +24,12 @@ extension CoreDataLocalStore: MaintenanceStore {
 			}
 		}
 	}
+	
+	func update(_ maintenance: LocalMaintenance) throws {
+		try performSync { context in
+			Result {
+				try ManagedMaintenance.update(from: maintenance, in: context)
+			}
+		}
+	}
 }

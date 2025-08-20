@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		F339FAA82E54813700F2CECC /* MaintenanceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FAA72E54813700F2CECC /* MaintenanceVM.swift */; };
 		F339FAAA2E54842A00F2CECC /* MaintenanceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FAA92E54842A00F2CECC /* MaintenanceRow.swift */; };
+		F339FB232E54D06C00F2CECC /* MaintenanceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */; };
+		F339FB252E54D34D00F2CECC /* MaintenanceHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB242E54D34D00F2CECC /* MaintenanceHistoryView.swift */; };
+		F339FB272E54D63B00F2CECC /* DaysIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */; };
 		F3B77C942E50714E00548F2D /* MaintenanceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B77C932E50714E00548F2D /* MaintenanceStatus.swift */; };
 		F3B77C962E5080D000548F2D /* AddMaintenanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B77C952E5080D000548F2D /* AddMaintenanceView.swift */; };
 		F3B77CA62E50DF9300548F2D /* BikeModificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B77CA52E50DF9300548F2D /* BikeModificationsView.swift */; };
@@ -72,6 +75,9 @@
 		F31F73E82E26585B00334333 /* CarCareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarCareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F339FAA72E54813700F2CECC /* MaintenanceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceVM.swift; sourceTree = "<group>"; };
 		F339FAA92E54842A00F2CECC /* MaintenanceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceRow.swift; sourceTree = "<group>"; };
+		F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceDetailsView.swift; sourceTree = "<group>"; };
+		F339FB242E54D34D00F2CECC /* MaintenanceHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceHistoryView.swift; sourceTree = "<group>"; };
+		F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysIndicatorView.swift; sourceTree = "<group>"; };
 		F3B77C932E50714E00548F2D /* MaintenanceStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceStatus.swift; sourceTree = "<group>"; };
 		F3B77C952E5080D000548F2D /* AddMaintenanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMaintenanceView.swift; sourceTree = "<group>"; };
 		F3B77CA52E50DF9300548F2D /* BikeModificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeModificationsView.swift; sourceTree = "<group>"; };
@@ -182,6 +188,9 @@
 			children = (
 				F3BFC9892E33810900043AB8 /* MaintenanceView.swift */,
 				F339FAA92E54842A00F2CECC /* MaintenanceRow.swift */,
+				F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */,
+				F339FB242E54D34D00F2CECC /* MaintenanceHistoryView.swift */,
+				F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -446,12 +455,14 @@
 				F3BFC9A62E33810900043AB8 /* CoreDataLocalStore+MaintenanceStore.swift in Sources */,
 				F3BFC9A82E33810900043AB8 /* CoreDataLocalStore+BikeStore.swift in Sources */,
 				F3BFC9A92E33810900043AB8 /* ManagedMaintenance.swift in Sources */,
+				F339FB252E54D34D00F2CECC /* MaintenanceHistoryView.swift in Sources */,
 				F339FAAA2E54842A00F2CECC /* MaintenanceRow.swift in Sources */,
 				F3BFC9AB2E33810900043AB8 /* ManagedBike.swift in Sources */,
 				F3BFC9AC2E33810900043AB8 /* LocalMaintenance.swift in Sources */,
 				F3BFC9AD2E33810900043AB8 /* LocalMaintenanceLoader.swift in Sources */,
 				F3BFC9B02E33810900043AB8 /* LocalBike.swift in Sources */,
 				F3BFC9B12E33810900043AB8 /* LocalBikeLoader.swift in Sources */,
+				F339FB232E54D06C00F2CECC /* MaintenanceDetailsView.swift in Sources */,
 				F3BFC9B22E33810900043AB8 /* MaintenanceStore.swift in Sources */,
 				F3BFC9B42E33810900043AB8 /* BikeStore.swift in Sources */,
 				F3BFC9B52E33810900043AB8 /* DashboardView.swift in Sources */,
@@ -466,6 +477,7 @@
 				F3BFC9BE2E33810900043AB8 /* AppState.swift in Sources */,
 				F3B77C962E5080D000548F2D /* AddMaintenanceView.swift in Sources */,
 				F3BFC9BF2E33810900043AB8 /* CarCareApp.swift in Sources */,
+				F339FB272E54D63B00F2CECC /* DaysIndicatorView.swift in Sources */,
 				F3BFC9C02E33810900043AB8 /* ContentView.swift in Sources */,
 				F3BFC9C12E33810900043AB8 /* DependencyContainer.swift in Sources */,
 				F3BFC9C22E33810900043AB8 /* Enums.swift in Sources */,

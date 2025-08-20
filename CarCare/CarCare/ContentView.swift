@@ -12,7 +12,7 @@ struct ContentView: View {
 		TabView {
 			DashboardView()
 				.tabItem { Label("Accueil", systemImage: "house")}
-			Maintenance_FollowUpView()
+			MaintenanceView()
 				.tabItem { Label("Entretiens", systemImage: "wrench") }
 		}
 	}

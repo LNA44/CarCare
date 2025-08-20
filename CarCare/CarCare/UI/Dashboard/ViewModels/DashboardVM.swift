@@ -108,7 +108,7 @@ final class DashboardVM: ObservableObject {
 	}
 	
 	func addMaintenance() {
-		let maintenance = Maintenance(id: UUID(), maintenanceType: selectedMaintenanceType, date: selectedMaintenanceDate)
+		let maintenance = Maintenance(id: UUID(), maintenanceType: selectedMaintenanceType, date: selectedMaintenanceDate, reminder: true)
 		do {
 			try maintenanceLoader.save(maintenance)
 			print("maintenance sauvegardée avec succès")

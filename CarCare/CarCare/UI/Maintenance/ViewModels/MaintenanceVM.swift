@@ -44,4 +44,22 @@ class MaintenanceVM: ObservableObject {
 		guard let nextDate = nextMaintenanceDate(for: type) else { return nil }
 		return Calendar.current.dateComponents([.day], from: Date(), to: nextDate).day
 	}
+	
+	func calculateNumberOfMaintenance() -> Int {
+		return maintenances.count
+	}
+	
+	func updateReminder(for maintenance: Maintenance, value: Bool) {
+		do {
+			var updated = maintenance
+			updated.reminder = value
+			try loader.update(updated)
+			
+			if let index = maintenances.firstIndex(where: { $0.id == maintenance.id }) {
+				maintenances[index] = updated
+			}
+		} catch {
+			print("erreur dans la modif de la maintenance")
+		}
+	}
 }

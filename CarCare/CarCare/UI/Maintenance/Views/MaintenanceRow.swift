@@ -21,27 +21,7 @@ struct MaintenanceRow: View {
 					.bold()
 				
 				Spacer()
-				VStack(alignment: .leading) {
-					Image(systemName: "triangle.fill")
-						.resizable()
-						.frame(width: 10, height: 5)
-						.rotationEffect(.degrees(180))
-						.foregroundColor(.black)
-						.offset(x: triangleOffset(for: daysRemaining))
-					HStack {
-						Rectangle()
-							.fill(colorFirstRectangle(for: daysRemaining))
-							.frame(width: 20, height: 10)
-						
-						Rectangle()
-							.fill(colorSecondRectangle(for: daysRemaining))
-							.frame(width: 20, height: 10)
-						
-						Rectangle()
-							.fill(colorThirdRectangle(for: daysRemaining))
-							.frame(width: 20, height: 10)
-					}
-				}
+				DaysIndicatorView(days: daysRemaining, rectangleWidth: 20, rectangleHeight: 10, triangleWidth: 5, triangleHeight: 5, spacing: 2)
 			}
 			
 			if let nextDate = nextDate {
@@ -61,47 +41,6 @@ struct MaintenanceRow: View {
 	}
 }
 
-extension MaintenanceRow {
-	func colorFirstRectangle(for days: Int?) -> Color {
-		guard let days else { return .gray }
-		switch days {
-		case let x where x > 30: return .green
-		case 1...30: return .gray
-		case ..<1: return .gray
-		default: return .gray
-		}
-	}
-	
-	func colorSecondRectangle(for days: Int?) -> Color {
-		guard let days else { return .gray }
-		switch days {
-		case let x where x > 30: return .gray
-		case 1...30: return .orange
-		case ..<1: return .gray
-		default: return .gray
-		}
-	}
-	
-	func colorThirdRectangle(for days: Int?) -> Color {
-		guard let days else { return .gray }
-		switch days {
-		case let x where x > 30: return .gray
-		case 1...30: return .gray
-		case ..<1: return .red
-		default: return .gray
-		}
-	}
-	
-	func triangleOffset(for days: Int?) -> CGFloat {
-		guard let days else { return 0 }
-		switch days {
-		case let x where x > 30: return 0       // triangle au-dessus du premier rectangle
-		case 1...30: return 25                  // décalage pour le deuxième rectangle
-		case ..<1: return 50                   // décalage pour le troisième rectangle
-		default: return 0
-		}
-	}
-}
 
 /*#Preview {
     MaintenanceRow(viewModel: <#T##MaintenanceVM#>)

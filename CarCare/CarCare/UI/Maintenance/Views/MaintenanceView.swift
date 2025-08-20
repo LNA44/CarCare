@@ -7,25 +7,48 @@
 
 import SwiftUI
 
-struct Maintenance_FollowUpView: View {
+struct MaintenanceView: View {
 	@StateObject var viewModel = MaintenanceVM()
+	var lastMaintenanceByType: [MaintenanceType: Maintenance] {
+		Dictionary(
+			grouping: viewModel.maintenances,
+			by: { $0.maintenanceType }
+		).compactMapValues { maintenances in
+			maintenances.max(by: { $0.date < $1.date }) // garde la dernière
+		}
+		.filter { $0.key != .Unknown } // on enlève Unknown
+	}
 	
 	//MARK: -Body
-    var body: some View {
-        Text("Entretiens à venir")
-		List {
-			ForEach(MaintenanceType.allCases.filter {$0 != .Unknown}) { type in
-				MaintenanceRow(viewModel: viewModel, maintenanceType: type)
+	var body: some View {
+		NavigationStack {
+			VStack(spacing: 20) {
+				VStack {
+					Text("Entretiens à venir")
+					List {
+						ForEach(lastMaintenanceByType.keys.sorted { $0.rawValue < $1.rawValue }, id: \.self) { type in
+							if let maintenance = lastMaintenanceByType[type] {
+								NavigationLink(destination: MaintenanceDetailsView(viewModel: viewModel, maintenanceID: maintenance.id)) {
+									MaintenanceRow(viewModel: viewModel, maintenanceType: type)
+								}
+							}
+						}
+					}
+					.onAppear {
+						viewModel.fetchAllMaintenance()
+					}
+				}
+				NavigationLink(destination: MaintenanceHistoryView()) {
+					Text("Historique des entretiens (\(viewModel.calculateNumberOfMaintenance()))")
+				}
+				Spacer()
 			}
 		}
-		.onAppear {
-			viewModel.fetchAllMaintenance()
-		}
-    }
+	}
 }
 
 #Preview {
-    Maintenance_FollowUpView()
+    MaintenanceView()
 }
 
 
