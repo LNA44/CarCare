@@ -19,10 +19,11 @@ struct BikeModificationsView: View {
     var body: some View {
 		ScrollView {
 			VStack {
-				Text("Modifiez les informations de votre vélo")
+				Text("Modifie les informations de ton vélo")
 					.font(.largeTitle)
 					.multilineTextAlignment(.center)
 			}
+			.padding(.top, 20)
 			.padding(.horizontal, 20)
 			
 			
@@ -78,7 +79,7 @@ struct BikeModificationsView: View {
 						TextField("Année", text: $yearText)
 							.frame(height: 40)
 							.multilineTextAlignment(.center)
-							.background(Color .gray)
+							.background(Color .gray.opacity(0.2))
 							.cornerRadius(10)
 					}
 				}
@@ -95,7 +96,7 @@ struct BikeModificationsView: View {
 				Text("Modifier les informations")
 					.foregroundColor(.white)
 			}
-			.frame(width: 180)
+			.frame(width: 240)
 			.padding()
 			.background(Color .red)
 			.cornerRadius(10)

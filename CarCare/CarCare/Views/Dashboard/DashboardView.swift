@@ -22,13 +22,21 @@ struct DashboardView: View {
 	
 	var body: some View {
 		NavigationStack {
-			VStack(spacing: 40) {
-				Text("\(bikeVM.brand) \(bikeVM.model) (\(bikeVM.year))")
-					.font(.largeTitle)
-					.bold()
-					.padding(.top)
-					.padding(.horizontal, 15)
-					.multilineTextAlignment(.center)
+			VStack(spacing: 20) {
+				VStack {
+					Text("\(bikeVM.brand) \(bikeVM.model) (\(bikeVM.year))")
+						.font(.largeTitle)
+						.bold()
+						.padding(.top)
+						.padding(.horizontal, 15)
+						.multilineTextAlignment(.center)
+					
+					Image("bicycle")
+						.resizable()
+						.scaledToFit()
+						.frame(width: 70, height: 70)
+				}
+				.padding(.bottom, 20)
 				
 				HStack {
 					Text("Entretien")
@@ -39,12 +47,20 @@ struct DashboardView: View {
 					.font(.system(size: 20, weight: .bold))
 					.foregroundColor(maintenanceVM.overallMaintenanceStatus().label == "À jour" ? .green : .red)
 				
-				VStack(spacing: 5) {
-					Text("Dernier entretien")
-						.font(.title2)
+				Divider()
+					.frame(width: 200, height: 1)
+					.background(Color.gray.opacity(0.2)) // couleur du trait
+					.padding(.vertical, 30)
+				
+				VStack(spacing: 10) {
+					HStack {
+						Image(systemName: "gearshape.fill")
+						Text("Dernier entretien")
+							.font(.title2)
+					}
 					HStack {
 						if (maintenanceVM.lastMaintenance != nil) {
-							Text("\(maintenanceVM.lastMaintenance?.maintenanceType ?? .Unknown)")
+							Text("\(maintenanceVM.lastMaintenance?.maintenanceType.rawValue ?? "")")
 							
 							if let date = maintenanceVM.lastMaintenance?.date {
 								Text(formatter.string(from: date))
@@ -72,7 +88,7 @@ struct DashboardView: View {
 						.foregroundColor(.white)
 						.padding(.horizontal)
 				}
-				.padding(.bottom)
+				.padding(.bottom, 40)
 			}
 			.sheet(isPresented: $showAddMaintenance) {
 				AddMaintenanceView(showingSheet: $showAddMaintenance)

@@ -32,7 +32,7 @@ final class CoreDataLocalStore {
 		}
 	}
 	
-	func performSync<R>(_ action: (NSManagedObjectContext) -> Result<R, Error>) throws -> R {
+	func performSync<R>(_ action: (NSManagedObjectContext) -> Result<R, Error>) throws -> R { //utile si background context intégré un jour
 		let context = self.context
 		var result: Result<R, Error>!
 		context.performAndWait { result = action(context) }

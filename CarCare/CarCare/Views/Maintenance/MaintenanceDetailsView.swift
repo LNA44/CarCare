@@ -20,40 +20,85 @@ struct MaintenanceDetailsView: View {
 		if let maintenance = maintenance {
 			let daysRemaining = maintenanceVM.daysUntilNextMaintenance(type: maintenance.maintenanceType)
 			
-			VStack {
-				Text("\(maintenance.maintenanceType)")
-				DaysIndicatorView(days: daysRemaining, rectangleWidth: 40, rectangleHeight: 20, triangleWidth: 10, triangleHeight: 10, spacing: 4)
-				Text("\(message(for: daysRemaining))")
-				
-				HStack {
-					Text("Fréquence : \(maintenance.maintenanceType.readableFrequency)")
-					
-					Toggle("", isOn: Binding(
-						get: { maintenance.reminder }, //appelé lors du dessin de la vue (aussi après modif du toggle pour redessiner la vue)
-						set: { newValue in //modification du toggle
-							maintenanceVM.updateReminder(for: maintenance, value: newValue)
-							//viewModel.fetchAllMaintenance()
+			ScrollView {
+				VStack {
+					VStack(spacing: 50) {
+						VStack(spacing: 20) {
+							Text("\(maintenance.maintenanceType.rawValue)")
+								.font(.title)
+								.bold()
+								.padding(.bottom, 40)
+							
+							VStack(spacing: 20) {
+								DaysIndicatorView(days: daysRemaining, rectangleWidth: 40, rectangleHeight: 20, triangleWidth: 10, triangleHeight: 10, spacing: 4)
+								Text("\(message(for: daysRemaining))")
+									.multilineTextAlignment(.center)
+									.foregroundColor(color(for: daysRemaining))
+									.padding(10)
+							}
+							.padding(.bottom, 20)
 						}
-					))
-					.labelsHidden()
-					
-					Button (action: {
-						showAddMaintenance = true
-					}) {
+						
+						HStack {
+							Image(systemName: "alarm") // icône réveil
+									.foregroundColor(.black)  // couleur de l'icône
+							
+							Text("Fréquence : \(maintenance.maintenanceType.readableFrequency)")
+							
+							Spacer()
+							
+							Toggle("", isOn: Binding(
+								get: { maintenance.reminder }, //appelé lors du dessin de la vue (aussi après modif du toggle pour redessiner la vue)
+								set: { newValue in //modification du toggle
+									maintenanceVM.updateReminder(for: maintenance, value: newValue)
+								}
+							))
+							.labelsHidden()
+						}
+						.padding(.horizontal, 20)
+						
+						Button (action: {
+							showAddMaintenance = true
+						}) {
+							Text("Mettre à jour")
+								.frame(width: 290)
+								.padding()
+								.background(Color.blue.cornerRadius(10))
+								.foregroundColor(.white)
+								.padding(.horizontal)
+						}
 						
 					}
-				}
-			}
-			.sheet(isPresented: $showAddMaintenance) {
-				AddMaintenanceView(showingSheet: $showAddMaintenance)
-			}
-			.navigationBarBackButtonHidden(true)
-			.toolbar {
-				ToolbarItem(placement: .navigationBarLeading) {
-					Button("Retour") {
-						dismiss()
+					.sheet(isPresented: $showAddMaintenance) {
+						AddMaintenanceView(showingSheet: $showAddMaintenance)
+					}
+					.navigationBarBackButtonHidden(true)
+					.toolbar {
+						ToolbarItem(placement: .navigationBarLeading) {
+							Button("Retour") {
+								dismiss()
+							}
+						}
+					}
+					.padding(.vertical, 20)
+					.background(.ultraThinMaterial) // carte translucide
+					.cornerRadius(15) // coins arrondis
+					.shadow(radius: 5) // ombre subtile
+					
+					.padding(20)
+					
+					Divider()
+						.frame(width: 200, height: 1)
+						.background(Color.gray.opacity(0.2)) // couleur du trait
+						.padding(.vertical, 20)
+					
+					VStack(spacing: 20) {
+						Text("Conseils & infos")
+							.bold()
+						Text("\(maintenance.maintenanceType.description)")
 					}
 				}
+				Spacer()
 			}
 		} else {
 			Text("Maintenance introuvable")
@@ -74,8 +119,21 @@ extension MaintenanceDetailsView {
 			return "Tu es à jour"
 		}
 	}
+	
+	func color(for days: Int?) -> Color {
+		guard let days else { return .gray }
+		
+		switch days {
+		case ..<1:
+			return .red
+		case 1..<30:
+			return .orange
+		default:
+			return .green
+		}
+	}
 }
 
 /*#Preview {
-    MaintenanceDetailsView()
-}*/
+ MaintenanceDetailsView()
+ }*/
