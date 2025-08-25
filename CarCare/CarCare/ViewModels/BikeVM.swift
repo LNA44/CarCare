@@ -9,7 +9,7 @@ import Foundation
 
 final class BikeVM: ObservableObject {
 	//MARK: -Public properties
-	@Published var model: String = ""
+	@Published var model: String = "Unknown"
 	@Published var brand: Brand = .Unknown {
 		didSet {
 			// Met à jour la liste des modèles et sélectionne le premier automatiquement
@@ -20,8 +20,9 @@ final class BikeVM: ObservableObject {
 	@Published var mileage: Int = 0
 	@Published var year: Int = 0
 	@Published var bike: Bike? = nil
-	@Published var models: [String] = []
+	@Published var models: [String] = ["Unknown"]
 	@Published var bikeType: BikeType = .Manual
+	@Published var identificationNumber: String = ""
 
 	//MARK: -Private properties
 	private let bikeLoader: LocalBikeLoader
@@ -41,18 +42,20 @@ final class BikeVM: ObservableObject {
 			self.model = unwrappedBike.model
 			self.brand = unwrappedBike.brand
 			self.year = unwrappedBike.year
+			self.identificationNumber = unwrappedBike.identificationNumber
 			bike = unwrappedBike
 		} catch {
 			print("erreur dans le chargement du vélo")
 		}
 	}
 	
-	func modifyBikeInformations(brand: Brand, model: String, year: Int, type: BikeType) {
+	func modifyBikeInformations(brand: Brand, model: String, year: Int, type: BikeType, identificationNumber: String) {
 		guard bike != nil else { return }
 			bike!.brand = brand
 			bike!.model = model
 			bike!.year = year
 			bike!.bikeType = type
+			bike!.identificationNumber = identificationNumber
 		do {
 			try bikeLoader.save(bike!)
 		} catch {
@@ -61,7 +64,7 @@ final class BikeVM: ObservableObject {
 	}
 	
 	func addBike() -> Bool {
-		let bike = Bike(id: UUID(), brand: brand, model: model, year: year, bikeType: bikeType)
+		let bike = Bike(id: UUID(), brand: brand, model: model, year: year, bikeType: bikeType, identificationNumber: identificationNumber)
 		do {
 			try bikeLoader.save(bike)
 			print("Vélo sauvegardé avec succès")

@@ -72,20 +72,42 @@ struct MaintenanceDetailsView: View {
 					.sheet(isPresented: $showAddMaintenance) {
 						AddMaintenanceView(showingSheet: $showAddMaintenance)
 					}
-					.navigationBarBackButtonHidden(true)
-					.toolbar {
-						ToolbarItem(placement: .navigationBarLeading) {
-							Button("Retour") {
-								dismiss()
-							}
-						}
-					}
+					
 					.padding(.vertical, 20)
 					.background(.ultraThinMaterial) // carte translucide
 					.cornerRadius(15) // coins arrondis
 					.shadow(radius: 5) // ombre subtile
 					
 					.padding(20)
+					
+					Text("Historique des entretiens")
+					
+					VStack(alignment: .leading, spacing: 0) {
+						ForEach(Array(maintenanceVM.maintenancesForOneType.enumerated()), id: \.element.id) { index, maintenanceItem in
+							HStack {
+								Spacer()
+								VStack {
+									
+									Image(systemName: "wrench")
+									
+									if index != maintenanceVM.maintenancesForOneType.count - 1 {
+										Rectangle()
+											.fill(Color.gray)
+											.frame(width: 2)
+											.frame(height: 10)
+											.padding(.bottom, 5)
+									}
+								}
+								
+								Text("\(formattedDate(maintenanceItem.date))")
+									.padding(.leading, 8)
+								
+								Spacer()
+							}
+						}
+					}
+					.padding(.top, 15)
+					
 					
 					Divider()
 						.frame(width: 200, height: 1)
@@ -97,9 +119,22 @@ struct MaintenanceDetailsView: View {
 							.bold()
 						Text("\(maintenance.maintenanceType.description)")
 					}
+					.padding(.bottom, 20)
+				}
+				.onAppear {
+					maintenanceVM.fetchAllMaintenanceForOneType(type: maintenance.maintenanceType)
 				}
 				Spacer()
 			}
+			.navigationBarBackButtonHidden(true)
+			.toolbar {
+				ToolbarItem(placement: .navigationBarLeading) {
+					Button("Retour") {
+						dismiss()
+					}
+				}
+			}
+			
 		} else {
 			Text("Maintenance introuvable")
 		}
@@ -131,6 +166,12 @@ extension MaintenanceDetailsView {
 		default:
 			return .green
 		}
+	}
+	
+	func formattedDate(_ date: Date) -> String {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "dd/MM/yyyy"
+		return formatter.string(from: date)
 	}
 }
 

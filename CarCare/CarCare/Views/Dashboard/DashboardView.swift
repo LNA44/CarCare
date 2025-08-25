@@ -31,6 +31,10 @@ struct DashboardView: View {
 						.padding(.horizontal, 15)
 						.multilineTextAlignment(.center)
 					
+					if !bikeVM.identificationNumber.isEmpty {
+						Text("Numéro d'identification : \(bikeVM.identificationNumber)")
+					}
+					
 					Image("bicycle")
 						.resizable()
 						.scaledToFit()

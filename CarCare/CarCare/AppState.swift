@@ -10,10 +10,10 @@ import CoreData
 
 class AppState: ObservableObject {
 	enum Status {
-		case loading, needsVehicleRegistration, ready
+		case needsVehicleRegistration, ready
 	}
 
-	@Published var status: Status = .loading
+	@Published var status: Status = .needsVehicleRegistration
 
 	private let vehicleLoader: LocalBikeLoader
 
@@ -35,8 +35,4 @@ class AppState: ObservableObject {
 			status = .needsVehicleRegistration
 		}
 	}
-
-	/*func refresh() {
-		checkVehiclePresence()
-	}*/
 }

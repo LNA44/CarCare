@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-	@StateObject private var bikeVM = BikeVM()
-	@StateObject private var maintenanceVM = MaintenanceVM()
+	@EnvironmentObject var bikeVM: BikeVM
+	@EnvironmentObject var maintenanceVM: MaintenanceVM
 	
 	var body: some View {
 		TabView {
@@ -20,6 +20,8 @@ struct ContentView: View {
 			MaintenanceView()
 				.environmentObject(maintenanceVM)
 				.tabItem { Label("Entretiens", systemImage: "wrench") }
+			SettingsView()
+				.tabItem { Label("Paramètres", systemImage: "gear") }
 		}
 	}
 }

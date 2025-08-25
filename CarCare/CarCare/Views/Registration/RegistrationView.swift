@@ -69,6 +69,19 @@ struct RegistrationView: View {
 							.background(Color .gray)
 							.cornerRadius(10)
 						}
+						
+						VStack {
+							Text("Numéro d'identification (optionnel)")
+							TextField("identificationNumber", text: Binding(
+								get: { bikeVM.identificationNumber ?? "" },
+								set: { bikeVM.identificationNumber = $0 }
+							))
+							.keyboardType(.numberPad)
+							.frame(height: 40)
+							.multilineTextAlignment(.center)
+							.background(Color .gray)
+							.cornerRadius(10)
+						}
 					}
 					.padding(.horizontal, 70)
 				}

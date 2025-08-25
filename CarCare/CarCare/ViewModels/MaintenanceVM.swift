@@ -8,6 +8,7 @@
 import Foundation
 
 final class MaintenanceVM: ObservableObject {
+	weak var notificationVM: NotificationViewModel?  // Référence faible pour éviter les rétentions cycliques
 	@Published var maintenances: [Maintenance] = []
 	@Published var lastMaintenance: Maintenance? = nil
 	@Published var selectedMaintenanceType: MaintenanceType {
@@ -26,18 +27,25 @@ final class MaintenanceVM: ObservableObject {
 				.max(by: { $0.date < $1.date })
 		}
 	}
+	@Published var maintenancesForOneType: [Maintenance] = []
 	
 	//MARK: -Private properties
 	private let loader: LocalMaintenanceLoader
 	
 	//MARK: -Initialization
-	init(loader: LocalMaintenanceLoader = DependencyContainer.shared.MaintenanceLoader, selectedMaintenanceType: MaintenanceType = .Unknown, selectedMaintenanceDate: Date = Date()) {
+	init(loader: LocalMaintenanceLoader = DependencyContainer.shared.MaintenanceLoader, selectedMaintenanceType: MaintenanceType = .Unknown, selectedMaintenanceDate: Date = Date(), notificationVM: NotificationViewModel? = nil) {
 		self.loader = loader
 		self.selectedMaintenanceType = selectedMaintenanceType
 		self.selectedMaintenanceDate = selectedMaintenanceDate
+		self.notificationVM = notificationVM
 	}
 	
 	//MARK: -Methods
+	// Méthode pour injecter notificationVM après initialisation
+	   func setNotificationVM(_ notificationVM: NotificationViewModel) {
+		   self.notificationVM = notificationVM
+	   }
+	
 	func fetchLastMaintenance() {
 		do {
 			let allMaintenance = try loader.load()
@@ -46,6 +54,15 @@ final class MaintenanceVM: ObservableObject {
 			self.lastMaintenance = sortedMaintenance.first
 		} catch {
 			print("erreur dans le chargement de la dernière maintenance")
+		}
+	}
+	
+	func fetchAllMaintenanceForOneType(type: MaintenanceType) {
+		do {
+			let allMaintenance = try loader.load()
+			self.maintenancesForOneType = allMaintenance.filter { $0.maintenanceType == type }
+		} catch {
+			print("erreur dans le chargement des maintenances passées")
 		}
 	}
 	
@@ -127,6 +144,7 @@ final class MaintenanceVM: ObservableObject {
 			if let index = maintenances.firstIndex(where: { $0.id == maintenance.id }) {
 				maintenances[index] = updated
 			}
+			notificationVM?.updateReminder(for: updated, value: value)
 		} catch {
 			print("erreur dans la modif de la maintenance")
 		}

@@ -14,6 +14,7 @@ struct BikeModificationsView: View {
 	@State private var selectedModel: String? = nil //optionnel pour la modif de selectedBrand et selectedModel pas encore redéfini
 	@State private var yearText: String = ""
 	@State private var selectedType: BikeType = .Manual
+	@State private var identificationNumber: String = ""
 
 
     var body: some View {
@@ -82,6 +83,15 @@ struct BikeModificationsView: View {
 							.background(Color .gray.opacity(0.2))
 							.cornerRadius(10)
 					}
+					
+					VStack {
+						Text("Numéro d'identification")
+						TextField("NuméroIdentification", text: $identificationNumber)
+							.frame(height: 40)
+							.multilineTextAlignment(.center)
+							.background(Color .gray.opacity(0.2))
+							.cornerRadius(10)
+					}
 				}
 				.padding(.horizontal, 70)
 			}
@@ -89,7 +99,7 @@ struct BikeModificationsView: View {
 			.bold()
 			
 			Button(action: {
-				bikeVM.modifyBikeInformations(brand: selectedBrand, model: selectedModel ?? "", year: Int(yearText) ?? 0, type: selectedType)
+				bikeVM.modifyBikeInformations(brand: selectedBrand, model: selectedModel ?? "", year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
 				showingSheet = false
 				bikeVM.fetchBikeData()
 			}) {

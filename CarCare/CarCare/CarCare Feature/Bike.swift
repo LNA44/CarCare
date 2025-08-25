@@ -13,4 +13,5 @@ struct Bike {
 	var model : String
 	var year : Int
 	var bikeType: BikeType
+	var identificationNumber: String
 }
