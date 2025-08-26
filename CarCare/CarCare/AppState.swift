@@ -14,12 +14,14 @@ class AppState: ObservableObject {
 	}
 
 	@Published var status: Status = .needsVehicleRegistration
+	@Published var error: AppError?
+	@Published var showAlert: Bool = false
 
 	private let vehicleLoader: LocalBikeLoader
 
 	init(vehicleLoader: LocalBikeLoader) {
 		self.vehicleLoader = vehicleLoader
-		checkVehiclePresence()
+			checkVehiclePresence()
 	}
 
 	private func checkVehiclePresence() {
@@ -31,8 +33,8 @@ class AppState: ObservableObject {
 				status = .ready
 			}
 		} catch {
-			print("Erreur Core Data :", error)
-			status = .needsVehicleRegistration
+			self.error = AppError.bikeNotFound
+			showAlert = true
 		}
 	}
 }

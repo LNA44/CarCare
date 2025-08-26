@@ -19,33 +19,52 @@ final class BikeVM: ObservableObject {
 	}
 	@Published var mileage: Int = 0
 	@Published var year: Int = 0
-	@Published var bike: Bike? = nil
+	@Published var bike: Bike? = nil {
+		didSet {
+			if bike != nil {
+				notificationVM.checkAndScheduleNotifications()
+			}
+		}
+	}
 	@Published var models: [String] = ["Unknown"]
 	@Published var bikeType: BikeType = .Manual
 	@Published var identificationNumber: String = ""
+	@Published var error: AppError?
+	@Published var showAlert: Bool = false
 
 	//MARK: -Private properties
 	private let bikeLoader: LocalBikeLoader
+	private let notificationVM: NotificationViewModel
 	
 	//MARK: -Initialization
-	init(bikeLoader: LocalBikeLoader = DependencyContainer.shared.BikeLoader) {
+	init(bikeLoader: LocalBikeLoader = DependencyContainer.shared.BikeLoader, notificationVM: NotificationViewModel) {
 		self.bikeLoader = bikeLoader
+		self.notificationVM = notificationVM
 	}
 	
 	//MARK: -Methods
 	func fetchBikeData() {
 		do {
 			guard let unwrappedBike = try bikeLoader.load() else {
-				print("problème de chargement du vélo")
-				return
+				throw AppError.bikeNotFound
 			}
 			self.model = unwrappedBike.model
 			self.brand = unwrappedBike.brand
 			self.year = unwrappedBike.year
 			self.identificationNumber = unwrappedBike.identificationNumber
 			bike = unwrappedBike
+		} catch let error as LoadingCocoaError { //erreurs de load
+			self.error = AppError.loadingDataFailed(error)
+			showAlert = true
+		} catch let error as StoreError { //erreurs de CoreDataLocalStore
+			self.error = AppError.dataUnavailable(error)
+			showAlert = true
+		} catch let error as FetchCocoaError {
+			self.error = AppError.fetchDataFailed(error)
+			showAlert = true
 		} catch {
-			print("erreur dans le chargement du vélo")
+			self.error = AppError.unknown
+			showAlert = true
 		}
 	}
 	
@@ -58,8 +77,18 @@ final class BikeVM: ObservableObject {
 			bike!.identificationNumber = identificationNumber
 		do {
 			try bikeLoader.save(bike!)
+		} catch let error as LoadingCocoaError { //erreurs de load
+			self.error = AppError.loadingDataFailed(error)
+			showAlert = true
+		} catch let error as StoreError { //erreurs de CoreDataLocalStore
+			self.error = AppError.dataUnavailable(error)
+			showAlert = true
+		} catch let error as SaveCocoaError {
+			self.error = AppError.saveDataFailed(error)
+			showAlert = true
 		} catch {
-			print("erreur lors de la modification du vélo")
+			self.error = AppError.unknown
+			showAlert = true
 		}
 	}
 	
@@ -67,10 +96,22 @@ final class BikeVM: ObservableObject {
 		let bike = Bike(id: UUID(), brand: brand, model: model, year: year, bikeType: bikeType, identificationNumber: identificationNumber)
 		do {
 			try bikeLoader.save(bike)
-			print("Vélo sauvegardé avec succès")
 			return true
+		} catch let error as LoadingCocoaError { //erreurs de load
+			self.error = AppError.loadingDataFailed(error)
+			showAlert = true
+			return false
+		} catch let error as StoreError { //erreurs de CoreDataLocalStore
+			self.error = AppError.dataUnavailable(error)
+			showAlert = true
+			return false
+		} catch let error as SaveCocoaError {
+			self.error = AppError.saveDataFailed(error)
+			showAlert = true
+			return false
 		} catch {
-			print("Erreur lors de la sauvegarde")
+			self.error = AppError.unknown
+			showAlert = true
 			return false
 		}
 	}

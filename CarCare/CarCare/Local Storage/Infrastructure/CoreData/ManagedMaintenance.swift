@@ -48,6 +48,7 @@ extension ManagedMaintenance {
 			try context.save()
 		}
 	}
+	
 	var local: LocalMaintenance {
 		LocalMaintenance(id: id, maintenanceType: maintenanceType, date: date, reminder: reminder)
 	}

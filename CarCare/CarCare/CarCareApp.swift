@@ -11,59 +11,62 @@ import SwiftUI
 struct CarCareApp: App {
 	let dependencyContainer = DependencyContainer.shared
 	@Environment(\.scenePhase) private var scenePhase // quand utilisateur revient dans l'app
-	@StateObject private var bikeVM = BikeVM()
-	@StateObject private var maintenanceVM = MaintenanceVM()
 	@StateObject private var notificationVM: NotificationViewModel
+	@StateObject private var bikeVM: BikeVM
+	@StateObject private var maintenanceVM = MaintenanceVM()
 	@StateObject private var appState: AppState
+	@StateObject private var themeVM = ThemeViewModel()
 	@AppStorage("hasSeenNotificationIntro") private var hasSeenNotificationIntro: Bool = false
 	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
 	
 	init() {
 		let appState = AppState(vehicleLoader: dependencyContainer.BikeLoader)
 		_appState = StateObject(wrappedValue: appState)
+		
 		let maintenanceVM = MaintenanceVM()
-		
-		
 		let notificationVM = NotificationViewModel(maintenanceVM: maintenanceVM)
-		// NotificationViewModel dépend de maintenanceVM
-		//_notificationVM = StateObject(wrappedValue: NotificationViewModel(maintenanceVM: maintenanceVM))
-		
-		// Passe notificationVM à maintenanceVM via l'init (ou setter)
 		maintenanceVM.notificationVM = notificationVM
-		
-		// Injection de notificationVM dans maintenanceVM
-		//_maintenanceVM.wrappedValue.setNotificationVM(_notificationVM.wrappedValue)
 		_maintenanceVM = StateObject(wrappedValue: maintenanceVM)
 		_notificationVM = StateObject(wrappedValue: notificationVM)
+		
+		let bikeVM = BikeVM(notificationVM: notificationVM) // injecte notificationVM
+			_bikeVM = StateObject(wrappedValue: bikeVM)
 	}
 	
-    var body: some Scene {
-        WindowGroup {
-			switch appState.status {
-			case .needsVehicleRegistration:
-				if hasSeenNotificationIntro {
-					RegistrationView()
-						.environmentObject(appState)
+	var body: some Scene {
+		WindowGroup {
+			ZStack {
+				switch appState.status {
+				case .needsVehicleRegistration:
+					if hasSeenNotificationIntro {
+						RegistrationView()
+							.environmentObject(appState)
+							.environmentObject(bikeVM)
+					} else {
+						NotificationIntroView()
+							.environmentObject(maintenanceVM)
+							.environmentObject(notificationVM) //obligatoire car sinon on ne peut pas instancier NitifcationVM dans l'init de NotificationIntroView car maintenanceVM est un environment
+					}
+				case .ready:
+					ContentView()
 						.environmentObject(bikeVM)
-				} else {
-					NotificationIntroView()
 						.environmentObject(maintenanceVM)
-						.environmentObject(notificationVM) //obligatoire car sinon on ne peut pas instancier NitifcationVM dans l'init de NotificationIntroView car maintenanceVM est un environment
+						.environmentObject(themeVM)
 				}
-			case .ready:
-				ContentView()
-					.environmentObject(bikeVM)
-					.environmentObject(maintenanceVM)
 			}
+			.alert(isPresented: $appState.showAlert) {
+					Alert(
+						title: Text("Erreur"),
+						message: Text(appState.error?.errorDescription ?? "Erreur inconnue"),
+						dismissButton: .default(Text("OK")) {
+							appState.showAlert = false
+						}
+					)
+				}
 		}
 		.onChange(of: scenePhase) { newPhase in
 			if newPhase == .active {
-				ThemeManager.shared.applyInterfaceStyle(isDarkMode)
-				if bikeVM.bike != nil {
-					notificationVM.checkAndScheduleNotifications()
-				}
-				print("Aucun vélo enregistré → pas de notification")
-				return
+				themeVM.applyInterfaceStyle()
 			}
 		}
 	}

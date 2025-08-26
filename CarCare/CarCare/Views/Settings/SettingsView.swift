@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct SettingsView: View {
-	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
+	@EnvironmentObject var themeVM: ThemeViewModel
 	
 	var body: some View {
 		NavigationView {
 			Form {
 				Section(header: Text("Apparence")) {
-					Toggle(isOn: $isDarkMode) {
+					Toggle(isOn: $themeVM.isDarkMode) {
 						Text("Mode sombre")
 					}
-					.onChange(of: isDarkMode) { value in
+					.onChange(of: themeVM.isDarkMode) { value in
 						// Met à jour l'interface
-						ThemeManager.shared.applyInterfaceStyle(value)
+						themeVM.applyInterfaceStyle()
 					}
 				}
 				
@@ -42,7 +42,7 @@ struct SettingsView: View {
 			}
 			.navigationTitle("Paramètres")
 			.onAppear {
-				ThemeManager.shared.applyInterfaceStyle(isDarkMode) // applique le style au chargement
+				themeVM.applyInterfaceStyle() // applique le style au chargement
 			}
 		}
 	}

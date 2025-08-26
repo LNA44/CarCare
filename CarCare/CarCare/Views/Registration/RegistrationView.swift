@@ -106,6 +106,16 @@ struct RegistrationView: View {
 			.navigationDestination(isPresented: $shouldNavigate) {
 			}
 		}
+		.alert(isPresented: $bikeVM.showAlert) {
+			Alert(
+				title: Text("Erreur"),
+				message: Text(bikeVM.error?.errorDescription ?? "Erreur inconnue"),
+				dismissButton: .default(Text("OK")) {
+					bikeVM.showAlert = false
+					bikeVM.error = nil
+				}
+			)
+		}
 	}
 }
 

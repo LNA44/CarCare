@@ -115,6 +115,26 @@ struct DashboardView: View {
 				}
 			}
 		}
+		.alert(isPresented: $bikeVM.showAlert) {
+			Alert(
+				title: Text("Erreur liée au vélo"),
+				message: Text(bikeVM.error?.errorDescription ?? "Erreur inconnue"),
+				dismissButton: .default(Text("OK")) {
+					bikeVM.showAlert = false
+					bikeVM.error = nil
+				}
+			)
+		}
+		.alert(isPresented: $maintenanceVM.showAlert) {
+			Alert(
+				title: Text("Erreur liée aux entretiens"),
+				message: Text(maintenanceVM.error?.errorDescription ?? "Erreur inconnue"),
+				dismissButton: .default(Text("OK")) {
+					maintenanceVM.showAlert = false
+					maintenanceVM.error = nil
+				}
+			)
+		}
 	}
 }
 

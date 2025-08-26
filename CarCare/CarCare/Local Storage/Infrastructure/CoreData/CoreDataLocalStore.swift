@@ -14,11 +14,6 @@ final class CoreDataLocalStore {
 	private let container: NSPersistentContainer
 	private let context: NSManagedObjectContext
 	
-	enum StoreError: Error {
-		case modelNotFound
-		case failedToLoadPersistentContainer(Error)
-	}
-	
 	init(storeURL: URL) throws {
 		guard let model = CoreDataLocalStore.model else {
 			throw StoreError.modelNotFound

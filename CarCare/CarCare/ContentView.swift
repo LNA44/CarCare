@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
 	@EnvironmentObject var bikeVM: BikeVM
 	@EnvironmentObject var maintenanceVM: MaintenanceVM
+	@EnvironmentObject var themeVM: ThemeViewModel
 	
 	var body: some View {
 		TabView {
@@ -21,6 +22,7 @@ struct ContentView: View {
 				.environmentObject(maintenanceVM)
 				.tabItem { Label("Entretiens", systemImage: "wrench") }
 			SettingsView()
+				.environmentObject(themeVM)
 				.tabItem { Label("Paramètres", systemImage: "gear") }
 		}
 	}

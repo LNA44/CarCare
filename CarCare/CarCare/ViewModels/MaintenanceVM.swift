@@ -13,21 +13,31 @@ final class MaintenanceVM: ObservableObject {
 	@Published var lastMaintenance: Maintenance? = nil
 	@Published var selectedMaintenanceType: MaintenanceType {
 		didSet {
-			let maintenances = fetchAllMaintenance()
-			lastMaintenance = maintenances
-				.filter { $0.maintenanceType == selectedMaintenanceType }
-				.max(by: { $0.date < $1.date })
+			do {
+				let maintenances = try fetchAllMaintenance()
+				lastMaintenance = maintenances
+					.filter { $0.maintenanceType == selectedMaintenanceType }
+					.max(by: { $0.date < $1.date })
+			} catch {
+				lastMaintenance = nil
+			}
 		}
 	}
 	@Published var selectedMaintenanceDate: Date {
 		didSet {
-			let maintenances = fetchAllMaintenance()
-			lastMaintenance = maintenances
-				.filter { $0.maintenanceType == selectedMaintenanceType }
-				.max(by: { $0.date < $1.date })
+			do {
+				let maintenances = try fetchAllMaintenance()
+				lastMaintenance = maintenances
+					.filter { $0.maintenanceType == selectedMaintenanceType }
+					.max(by: { $0.date < $1.date })
+			} catch {
+				lastMaintenance = nil
+			}
 		}
 	}
 	@Published var maintenancesForOneType: [Maintenance] = []
+	@Published var error: AppError?
+	@Published var showAlert: Bool = false
 	
 	//MARK: -Private properties
 	private let loader: LocalMaintenanceLoader
@@ -52,8 +62,18 @@ final class MaintenanceVM: ObservableObject {
 			let sortedMaintenance = allMaintenance
 				.sorted { $0.date > $1.date } //tri décroissant
 			self.lastMaintenance = sortedMaintenance.first
+		} catch let error as LoadingCocoaError { //erreurs de load
+			self.error = AppError.loadingDataFailed(error)
+			showAlert = true
+		} catch let error as StoreError { //erreurs de CoreDataLocalStore
+			self.error = AppError.dataUnavailable(error)
+			showAlert = true
+		} catch let error as FetchCocoaError {
+			self.error = AppError.fetchDataFailed(error)
+			showAlert = true
 		} catch {
-			print("erreur dans le chargement de la dernière maintenance")
+			self.error = AppError.unknown
+			showAlert = true
 		}
 	}
 	
@@ -61,21 +81,31 @@ final class MaintenanceVM: ObservableObject {
 		do {
 			let allMaintenance = try loader.load()
 			self.maintenancesForOneType = allMaintenance.filter { $0.maintenanceType == type }
+		} catch let error as LoadingCocoaError { //erreurs de load
+			self.error = AppError.loadingDataFailed(error)
+			showAlert = true
+		} catch let error as StoreError { //erreurs de CoreDataLocalStore
+			self.error = AppError.dataUnavailable(error)
+			showAlert = true
+		} catch let error as FetchCocoaError {
+			self.error = AppError.fetchDataFailed(error)
+			showAlert = true
 		} catch {
-			print("erreur dans le chargement des maintenances passées")
+			self.error = AppError.unknown
+			showAlert = true
 		}
 	}
 	
 	func overallMaintenanceStatus() -> MaintenanceStatus {
 		//pour vérifier que tous les status des entretiens sont au vert sinon afficher "à prévoir"
-		let maintenances = fetchAllMaintenance()
-		let allUpToDate = MaintenanceType.allCases
-			.filter { $0 != .Unknown } // on ignore Unknown
-			.allSatisfy { type in
-				determineMaintenanceStatus(for: type, maintenances: maintenances) == .aJour
-			}
-
-		return allUpToDate ? .aJour : .aPrevoir
+			let maintenances = fetchAllMaintenance()
+			let allUpToDate = MaintenanceType.allCases
+				.filter { $0 != .Unknown } // on ignore Unknown
+				.allSatisfy { type in
+					determineMaintenanceStatus(for: type, maintenances: maintenances) == .aJour
+				}
+			
+			return allUpToDate ? .aJour : .aPrevoir
 	}
 	
 	func fetchAllMaintenance() -> [Maintenance] {
@@ -85,8 +115,21 @@ final class MaintenanceVM: ObservableObject {
 				self.maintenances = loaded
 			}
 			return loaded
+		} catch let error as LoadingCocoaError { //erreurs de load
+			self.error = AppError.loadingDataFailed(error)
+			showAlert = true
+			return []
+		} catch let error as StoreError { //erreurs de CoreDataLocalStore
+			self.error = AppError.dataUnavailable(error)
+			showAlert = true
+			return []
+		} catch let error as FetchCocoaError {
+			self.error = AppError.fetchDataFailed(error)
+			showAlert = true
+			return []
 		} catch {
-			print("erreur dans le chargement de toutes les maintenances")
+			self.error = AppError.unknown
+			showAlert = true
 			return []
 		}
 	}
@@ -108,10 +151,19 @@ final class MaintenanceVM: ObservableObject {
 		let maintenance = Maintenance(id: UUID(), maintenanceType: selectedMaintenanceType, date: selectedMaintenanceDate, reminder: true)
 		do {
 			try loader.save(maintenance)
-			print("maintenance sauvegardée avec succès")
 			fetchLastMaintenance()
+		} catch let error as LoadingCocoaError { //erreurs de load
+			self.error = AppError.loadingDataFailed(error)
+			showAlert = true
+		} catch let error as StoreError { //erreurs de CoreDataLocalStore
+			self.error = AppError.dataUnavailable(error)
+			showAlert = true
+		} catch let error as SaveCocoaError {
+			self.error = AppError.saveDataFailed(error)
+			showAlert = true
 		} catch {
-			print("erreur lors de la sauvegarde de la maintenance")
+			self.error = AppError.unknown
+			showAlert = true
 		}
 	}
 	
@@ -145,8 +197,21 @@ final class MaintenanceVM: ObservableObject {
 				maintenances[index] = updated
 			}
 			notificationVM?.updateReminder(for: updated, value: value)
+		} catch let error as LoadingCocoaError { //erreurs de load
+			self.error = AppError.loadingDataFailed(error)
+			showAlert = true
+		} catch let error as StoreError { //erreurs de CoreDataLocalStore
+			self.error = AppError.dataUnavailable(error)
+			showAlert = true
+		} catch let error as FetchCocoaError {
+			self.error = AppError.fetchDataFailed(error)
+			showAlert = true
+		} catch let error as SaveCocoaError {
+			self.error = AppError.saveDataFailed(error)
+			showAlert = true
 		} catch {
-			print("erreur dans la modif de la maintenance")
+			self.error = AppError.unknown
+			showAlert = true
 		}
 	}
 }

@@ -43,6 +43,16 @@ struct AddMaintenanceView: View {
 					.padding(.horizontal)
 			}
 		}
+		.alert(isPresented: $maintenanceVM.showAlert) {
+			Alert(
+				title: Text("Erreur"),
+				message: Text(maintenanceVM.error?.errorDescription ?? "Erreur inconnue"),
+				dismissButton: .default(Text("OK")) {
+					maintenanceVM.showAlert = false
+					maintenanceVM.error = nil
+				}
+			)
+		}
 	}
 }
 

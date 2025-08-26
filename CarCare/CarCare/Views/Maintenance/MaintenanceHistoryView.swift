@@ -8,8 +8,21 @@
 import SwiftUI
 
 struct MaintenanceHistoryView: View {
+	@EnvironmentObject var maintenanceVM: MaintenanceVM
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+		VStack {
+			Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+		}
+		.alert(isPresented: $maintenanceVM.showAlert) {
+			Alert(
+				title: Text("Erreur"),
+				message: Text(maintenanceVM.error?.errorDescription ?? "Erreur inconnue"),
+				dismissButton: .default(Text("OK")) {
+					maintenanceVM.showAlert = false
+					maintenanceVM.error = nil
+				}
+			)
+		}
     }
 }
 

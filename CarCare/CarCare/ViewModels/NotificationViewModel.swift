@@ -7,6 +7,7 @@
 
 import Foundation
 import UserNotifications
+import Combine
 
 final class NotificationViewModel: ObservableObject {
 	@Published var error: AppError?
@@ -14,6 +15,7 @@ final class NotificationViewModel: ObservableObject {
 	@Published var showSuccessAlert = false
 	@Published var isAuthorized = false
 
+	private var cancellables = Set<AnyCancellable>()
 	private let notificationManager: NotificationManagerProtocol
 	var maintenanceVM: MaintenanceVM
 
@@ -24,6 +26,15 @@ final class NotificationViewModel: ObservableObject {
 	) {
 		self.notificationManager = notificationManager
 		self.maintenanceVM = maintenanceVM
+		
+		// Observer les erreurs du manager
+		notificationManager.notificationErrorPublisher
+			.compactMap { $0 as? AppError }
+			.receive(on: DispatchQueue.main)
+			.sink { [weak self] appError in
+				self?.error = appError
+			}
+			.store(in: &cancellables)
 	}
 
 	// Méthode appelée par la vue
