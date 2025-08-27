@@ -13,4 +13,5 @@ struct LocalBike {
 	let model: String
 	let brand: Brand
 	let bikeType: BikeType
+	let identificationNumber: String
 }

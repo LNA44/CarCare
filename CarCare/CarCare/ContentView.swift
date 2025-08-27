@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+	@EnvironmentObject var bikeVM: BikeVM
+	@EnvironmentObject var maintenanceVM: MaintenanceVM
+	@EnvironmentObject var themeVM: ThemeViewModel
+	
 	var body: some View {
 		TabView {
 			DashboardView()
+				.environmentObject(bikeVM)
+				.environmentObject(maintenanceVM)
 				.tabItem { Label("Accueil", systemImage: "house")}
-			Maintenance_FollowUpView()
-				.tabItem { Label("Profil", systemImage: "wrench") }
-			Fuel_FollowUpView()
-				.tabItem { Label("Réglages", systemImage: "fuelpump") }
-			Mileage_FollowUpView()
-				.tabItem { Label("Réglages", systemImage: "speedometer") }
-			Vehicle_ProfileView()
-				.tabItem { Label("Réglages", systemImage: "car") }
+			MaintenanceView()
+				.environmentObject(maintenanceVM)
+				.tabItem { Label("Entretiens", systemImage: "wrench") }
+			SettingsView()
+				.environmentObject(themeVM)
+				.tabItem { Label("Paramètres", systemImage: "gear") }
 		}
 	}
 }

@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Maintenance: Equatable {
+struct Maintenance: Equatable, Identifiable, Hashable {
 	let id: UUID
 	let maintenanceType : MaintenanceType
 	let date : Date
+	var reminder: Bool
 }

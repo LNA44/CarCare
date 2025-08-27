@@ -1,11 +1,10 @@
 //
-//  Enums.swift
+//  Bike_Enum.swift
 //  CarCare
 //
-//  Created by Ordinateur elena on 15/07/2025.
+//  Created by Ordinateur elena on 20/08/2025.
 //
 
-//Vehicle
 enum Brand: String, CaseIterable, Identifiable {
 	case Decathlon = "Decathlon"
 	case Trek = "Trek"
@@ -47,29 +46,4 @@ enum Brand: String, CaseIterable, Identifiable {
 			return []
 		}
 	}
-}
-
-//Maintenance
-enum MaintenanceType: String, CaseIterable, Identifiable {
-	var id: String { rawValue }
-	
-	case Tires = "Pneus" // A ADAPTER
-	case BrakePads = "Plaquettes de frein"
-	case Battery = "Batterie"
-	case Unknown = "Inconnu"
-	
-	var frequencyInDays: Int {
-		switch self { // A ADAPTER
-		case .Tires: return 7       // 1 semaine
-		case .BrakePads: return 7      // 1 semaine
-		case .Battery: return 30     // 1 mois
-		case .Unknown: return 0
-		}
-	}
-}
-
-//BikeType
-enum BikeType: String, CaseIterable {
-	case Manual = "Manual"
-	case Electric = "Electric"
 }

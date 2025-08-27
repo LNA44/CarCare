@@ -7,10 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F339FAAA2E54842A00F2CECC /* MaintenanceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FAA92E54842A00F2CECC /* MaintenanceRow.swift */; };
+		F339FB232E54D06C00F2CECC /* MaintenanceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */; };
+		F339FB252E54D34D00F2CECC /* MaintenanceHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB242E54D34D00F2CECC /* MaintenanceHistoryView.swift */; };
+		F339FB272E54D63B00F2CECC /* DaysIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */; };
+		F3823AE92E5C635E00B9331B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3823AE82E5C635E00B9331B /* SettingsView.swift */; };
+		F3823AEC2E5C680F00B9331B /* NotificationIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3823AEB2E5C680F00B9331B /* NotificationIntroView.swift */; };
+		F3823AEE2E5C69BF00B9331B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3823AED2E5C69BF00B9331B /* NotificationManager.swift */; };
+		F3823AF32E5C8DA600B9331B /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3823AF22E5C8DA600B9331B /* LegalView.swift */; };
+		F3823AF52E5C9AB700B9331B /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3823AF42E5C9AB700B9331B /* NotificationViewModel.swift */; };
+		F3823AF72E5C9E4400B9331B /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3823AF62E5C9E4400B9331B /* AppError.swift */; };
+		F3823AFB2E5CAFA000B9331B /* ThemeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3823AFA2E5CAFA000B9331B /* ThemeViewModel.swift */; };
 		F3B77C942E50714E00548F2D /* MaintenanceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B77C932E50714E00548F2D /* MaintenanceStatus.swift */; };
 		F3B77C962E5080D000548F2D /* AddMaintenanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B77C952E5080D000548F2D /* AddMaintenanceView.swift */; };
 		F3B77CA62E50DF9300548F2D /* BikeModificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B77CA52E50DF9300548F2D /* BikeModificationsView.swift */; };
-		F3BFC99D2E33810900043AB8 /* Source.json in Resources */ = {isa = PBXBuildFile; fileRef = F3BFC9822E33810900043AB8 /* Source.json */; };
+		F3BDB2E82E55EFDE0041F142 /* BikeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BDB2E72E55EFDE0041F142 /* BikeVM.swift */; };
+		F3BDB2EA2E55F0840041F142 /* MaintenanceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BDB2E92E55F0840041F142 /* MaintenanceVM.swift */; };
+		F3BDB2EF2E5603120041F142 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BDB2EE2E5603120041F142 /* Brand.swift */; };
+		F3BDB2F12E56033C0041F142 /* MaintenanceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BDB2F02E56033C0041F142 /* MaintenanceType.swift */; };
+		F3BDB2F32E56035B0041F142 /* BikeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BDB2F22E56035B0041F142 /* BikeType.swift */; };
 		F3BFC99E2E33810900043AB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3BFC9952E33810900043AB8 /* Assets.xcassets */; };
 		F3BFC9A02E33810900043AB8 /* Maintenance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9692E33810900043AB8 /* Maintenance.swift */; };
 		F3BFC9A22E33810900043AB8 /* Bike.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC96B2E33810900043AB8 /* Bike.swift */; };
@@ -28,19 +43,12 @@
 		F3BFC9B22E33810900043AB8 /* MaintenanceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC97E2E33810900043AB8 /* MaintenanceStore.swift */; };
 		F3BFC9B42E33810900043AB8 /* BikeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9802E33810900043AB8 /* BikeStore.swift */; };
 		F3BFC9B52E33810900043AB8 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9842E33810900043AB8 /* DashboardView.swift */; };
-		F3BFC9B62E33810900043AB8 /* DashboardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9852E33810900043AB8 /* DashboardVM.swift */; };
-		F3BFC9B72E33810900043AB8 /* Fuel_FollowUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9872E33810900043AB8 /* Fuel_FollowUpView.swift */; };
-		F3BFC9B82E33810900043AB8 /* Maintenance_FollowUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9892E33810900043AB8 /* Maintenance_FollowUpView.swift */; };
-		F3BFC9B92E33810900043AB8 /* Mileage_FollowUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC98B2E33810900043AB8 /* Mileage_FollowUpView.swift */; };
+		F3BFC9B82E33810900043AB8 /* MaintenanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9892E33810900043AB8 /* MaintenanceView.swift */; };
 		F3BFC9BA2E33810900043AB8 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC98D2E33810900043AB8 /* RegistrationView.swift */; };
-		F3BFC9BB2E33810900043AB8 /* RegistrationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC98E2E33810900043AB8 /* RegistrationVM.swift */; };
-		F3BFC9BC2E33810900043AB8 /* Vehicle_ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9902E33810900043AB8 /* Vehicle_ProfileView.swift */; };
-		F3BFC9BD2E33810900043AB8 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9922E33810900043AB8 /* LoadingView.swift */; };
 		F3BFC9BE2E33810900043AB8 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9942E33810900043AB8 /* AppState.swift */; };
 		F3BFC9BF2E33810900043AB8 /* CarCareApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9962E33810900043AB8 /* CarCareApp.swift */; };
 		F3BFC9C02E33810900043AB8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9972E33810900043AB8 /* ContentView.swift */; };
 		F3BFC9C12E33810900043AB8 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9982E33810900043AB8 /* DependencyContainer.swift */; };
-		F3BFC9C22E33810900043AB8 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9992E33810900043AB8 /* Enums.swift */; };
 		F3BFC9C32E33810900043AB8 /* NullStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC99A2E33810900043AB8 /* NullStore.swift */; };
 		F3BFC9C42E33810900043AB8 /* BikeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9802E33810900043AB8 /* BikeStore.swift */; };
 		F3BFC9C72E33810900043AB8 /* LocalMaintenance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9782E33810900043AB8 /* LocalMaintenance.swift */; };
@@ -70,9 +78,25 @@
 /* Begin PBXFileReference section */
 		F31F73DB2E26585A00334333 /* CarCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F31F73E82E26585B00334333 /* CarCareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarCareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F339FAA92E54842A00F2CECC /* MaintenanceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceRow.swift; sourceTree = "<group>"; };
+		F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceDetailsView.swift; sourceTree = "<group>"; };
+		F339FB242E54D34D00F2CECC /* MaintenanceHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceHistoryView.swift; sourceTree = "<group>"; };
+		F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysIndicatorView.swift; sourceTree = "<group>"; };
+		F3823AE82E5C635E00B9331B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F3823AEB2E5C680F00B9331B /* NotificationIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationIntroView.swift; sourceTree = "<group>"; };
+		F3823AED2E5C69BF00B9331B /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		F3823AF22E5C8DA600B9331B /* LegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalView.swift; sourceTree = "<group>"; };
+		F3823AF42E5C9AB700B9331B /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		F3823AF62E5C9E4400B9331B /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		F3823AFA2E5CAFA000B9331B /* ThemeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeViewModel.swift; sourceTree = "<group>"; };
 		F3B77C932E50714E00548F2D /* MaintenanceStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceStatus.swift; sourceTree = "<group>"; };
 		F3B77C952E5080D000548F2D /* AddMaintenanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMaintenanceView.swift; sourceTree = "<group>"; };
 		F3B77CA52E50DF9300548F2D /* BikeModificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeModificationsView.swift; sourceTree = "<group>"; };
+		F3BDB2E72E55EFDE0041F142 /* BikeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeVM.swift; sourceTree = "<group>"; };
+		F3BDB2E92E55F0840041F142 /* MaintenanceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceVM.swift; sourceTree = "<group>"; };
+		F3BDB2EE2E5603120041F142 /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
+		F3BDB2F02E56033C0041F142 /* MaintenanceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceType.swift; sourceTree = "<group>"; };
+		F3BDB2F22E56035B0041F142 /* BikeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeType.swift; sourceTree = "<group>"; };
 		F3BFC9692E33810900043AB8 /* Maintenance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Maintenance.swift; sourceTree = "<group>"; };
 		F3BFC96B2E33810900043AB8 /* Bike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bike.swift; sourceTree = "<group>"; };
 		F3BFC96E2E33810900043AB8 /* CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelpers.swift; sourceTree = "<group>"; };
@@ -87,22 +111,14 @@
 		F3BFC97D2E33810900043AB8 /* LocalBikeLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalBikeLoader.swift; sourceTree = "<group>"; };
 		F3BFC97E2E33810900043AB8 /* MaintenanceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceStore.swift; sourceTree = "<group>"; };
 		F3BFC9802E33810900043AB8 /* BikeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStore.swift; sourceTree = "<group>"; };
-		F3BFC9822E33810900043AB8 /* Source.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Source.json; sourceTree = "<group>"; };
 		F3BFC9842E33810900043AB8 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		F3BFC9852E33810900043AB8 /* DashboardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVM.swift; sourceTree = "<group>"; };
-		F3BFC9872E33810900043AB8 /* Fuel_FollowUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fuel_FollowUpView.swift; sourceTree = "<group>"; };
-		F3BFC9892E33810900043AB8 /* Maintenance_FollowUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Maintenance_FollowUpView.swift; sourceTree = "<group>"; };
-		F3BFC98B2E33810900043AB8 /* Mileage_FollowUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mileage_FollowUpView.swift; sourceTree = "<group>"; };
+		F3BFC9892E33810900043AB8 /* MaintenanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceView.swift; sourceTree = "<group>"; };
 		F3BFC98D2E33810900043AB8 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
-		F3BFC98E2E33810900043AB8 /* RegistrationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVM.swift; sourceTree = "<group>"; };
-		F3BFC9902E33810900043AB8 /* Vehicle_ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle_ProfileView.swift; sourceTree = "<group>"; };
-		F3BFC9922E33810900043AB8 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		F3BFC9942E33810900043AB8 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F3BFC9952E33810900043AB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3BFC9962E33810900043AB8 /* CarCareApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarCareApp.swift; sourceTree = "<group>"; };
 		F3BFC9972E33810900043AB8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F3BFC9982E33810900043AB8 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
-		F3BFC9992E33810900043AB8 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		F3BFC99A2E33810900043AB8 /* NullStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullStore.swift; sourceTree = "<group>"; };
 		F3BFC99C2E33810900043AB8 /* CarCare.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CarCare.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,75 +167,88 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F3B77C9D2E50DF0800548F2D /* Views */ = {
+		F3823AE72E5C635000B9331B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F3823AE82E5C635E00B9331B /* SettingsView.swift */,
+				F3823AF22E5C8DA600B9331B /* LegalView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		F3823AEA2E5C67FF00B9331B /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				F3823AEB2E5C680F00B9331B /* NotificationIntroView.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		F3823AF12E5C8CAF00B9331B /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				F3823AED2E5C69BF00B9331B /* NotificationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		F3B77CA02E50DF2C00548F2D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F3823AEA2E5C67FF00B9331B /* Notification */,
+				F3823AE72E5C635000B9331B /* Settings */,
+				F3BDB2E42E55EF320041F142 /* Registration */,
+				F3BDB2E32E55EF1A0041F142 /* Dashboard */,
+				F3BDB2E22E55EF040041F142 /* Maintenance */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F3BDB2E22E55EF040041F142 /* Maintenance */ = {
+			isa = PBXGroup;
+			children = (
+				F3BFC9892E33810900043AB8 /* MaintenanceView.swift */,
+				F339FAA92E54842A00F2CECC /* MaintenanceRow.swift */,
+				F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */,
+				F339FB242E54D34D00F2CECC /* MaintenanceHistoryView.swift */,
+				F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */,
+			);
+			path = Maintenance;
+			sourceTree = "<group>";
+		};
+		F3BDB2E32E55EF1A0041F142 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
 				F3BFC9842E33810900043AB8 /* DashboardView.swift */,
 				F3B77C952E5080D000548F2D /* AddMaintenanceView.swift */,
 				F3B77CA52E50DF9300548F2D /* BikeModificationsView.swift */,
 			);
-			path = Views;
+			path = Dashboard;
 			sourceTree = "<group>";
 		};
-		F3B77C9E2E50DF1200548F2D /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				F3BFC9852E33810900043AB8 /* DashboardVM.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		F3B77C9F2E50DF2600548F2D /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				F3BFC9872E33810900043AB8 /* Fuel_FollowUpView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		F3B77CA02E50DF2C00548F2D /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				F3BFC9892E33810900043AB8 /* Maintenance_FollowUpView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		F3B77CA12E50DF3000548F2D /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				F3BFC98B2E33810900043AB8 /* Mileage_FollowUpView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		F3B77CA22E50DF3600548F2D /* Views */ = {
+		F3BDB2E42E55EF320041F142 /* Registration */ = {
 			isa = PBXGroup;
 			children = (
 				F3BFC98D2E33810900043AB8 /* RegistrationView.swift */,
 			);
-			path = Views;
+			path = Registration;
 			sourceTree = "<group>";
 		};
-		F3B77CA32E50DF3B00548F2D /* ViewModels */ = {
+		F3BDB2ED2E5602F00041F142 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				F3BFC98E2E33810900043AB8 /* RegistrationVM.swift */,
+				F3BDB2EE2E5603120041F142 /* Brand.swift */,
+				F3BDB2F02E56033C0041F142 /* MaintenanceType.swift */,
+				F3BDB2F22E56035B0041F142 /* BikeType.swift */,
+				F3823AF62E5C9E4400B9331B /* AppError.swift */,
 			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		F3B77CA42E50DF4600548F2D /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				F3BFC9902E33810900043AB8 /* Vehicle_ProfileView.swift */,
-			);
-			path = Views;
+			path = Enums;
 			sourceTree = "<group>";
 		};
 		F3BFC96C2E33810900043AB8 /* CarCare Feature */ = {
 			isa = PBXGroup;
 			children = (
+				F3BDB2ED2E5602F00041F142 /* Enums */,
 				F3BFC9692E33810900043AB8 /* Maintenance.swift */,
 				F3BFC96B2E33810900043AB8 /* Bike.swift */,
 				F3B77C932E50714E00548F2D /* MaintenanceStatus.swift */,
@@ -263,76 +292,15 @@
 			path = "Local Storage";
 			sourceTree = "<group>";
 		};
-		F3BFC9832E33810900043AB8 /* Model */ = {
+		F3BFC9932E33810900043AB8 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				F3BFC9822E33810900043AB8 /* Source.json */,
+				F3BDB2E72E55EFDE0041F142 /* BikeVM.swift */,
+				F3BDB2E92E55F0840041F142 /* MaintenanceVM.swift */,
+				F3823AF42E5C9AB700B9331B /* NotificationViewModel.swift */,
+				F3823AFA2E5CAFA000B9331B /* ThemeViewModel.swift */,
 			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		F3BFC9862E33810900043AB8 /* Dashboard */ = {
-			isa = PBXGroup;
-			children = (
-				F3B77C9E2E50DF1200548F2D /* ViewModels */,
-				F3B77C9D2E50DF0800548F2D /* Views */,
-			);
-			path = Dashboard;
-			sourceTree = "<group>";
-		};
-		F3BFC9882E33810900043AB8 /* Fuel */ = {
-			isa = PBXGroup;
-			children = (
-				F3B77C9F2E50DF2600548F2D /* Views */,
-			);
-			path = Fuel;
-			sourceTree = "<group>";
-		};
-		F3BFC98A2E33810900043AB8 /* Maintenance */ = {
-			isa = PBXGroup;
-			children = (
-				F3B77CA02E50DF2C00548F2D /* Views */,
-			);
-			path = Maintenance;
-			sourceTree = "<group>";
-		};
-		F3BFC98C2E33810900043AB8 /* Mileage */ = {
-			isa = PBXGroup;
-			children = (
-				F3B77CA12E50DF3000548F2D /* Views */,
-			);
-			path = Mileage;
-			sourceTree = "<group>";
-		};
-		F3BFC98F2E33810900043AB8 /* Registration */ = {
-			isa = PBXGroup;
-			children = (
-				F3B77CA32E50DF3B00548F2D /* ViewModels */,
-				F3B77CA22E50DF3600548F2D /* Views */,
-			);
-			path = Registration;
-			sourceTree = "<group>";
-		};
-		F3BFC9912E33810900043AB8 /* VehicleProfile */ = {
-			isa = PBXGroup;
-			children = (
-				F3B77CA42E50DF4600548F2D /* Views */,
-			);
-			path = VehicleProfile;
-			sourceTree = "<group>";
-		};
-		F3BFC9932E33810900043AB8 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				F3BFC9862E33810900043AB8 /* Dashboard */,
-				F3BFC9882E33810900043AB8 /* Fuel */,
-				F3BFC98A2E33810900043AB8 /* Maintenance */,
-				F3BFC98C2E33810900043AB8 /* Mileage */,
-				F3BFC98F2E33810900043AB8 /* Registration */,
-				F3BFC9912E33810900043AB8 /* VehicleProfile */,
-				F3BFC9922E33810900043AB8 /* LoadingView.swift */,
-			);
-			path = UI;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		F3BFC99B2E33810900043AB8 /* CarCare */ = {
@@ -340,15 +308,15 @@
 			children = (
 				F3BFC96C2E33810900043AB8 /* CarCare Feature */,
 				F3BFC9812E33810900043AB8 /* Local Storage */,
-				F3BFC9832E33810900043AB8 /* Model */,
-				F3BFC9932E33810900043AB8 /* UI */,
-				F3BFC9942E33810900043AB8 /* AppState.swift */,
+				F3BFC9932E33810900043AB8 /* ViewModels */,
+				F3B77CA02E50DF2C00548F2D /* Views */,
 				F3BFC9952E33810900043AB8 /* Assets.xcassets */,
 				F3BFC9962E33810900043AB8 /* CarCareApp.swift */,
 				F3BFC9972E33810900043AB8 /* ContentView.swift */,
+				F3BFC9942E33810900043AB8 /* AppState.swift */,
 				F3BFC9982E33810900043AB8 /* DependencyContainer.swift */,
-				F3BFC9992E33810900043AB8 /* Enums.swift */,
 				F3BFC99A2E33810900043AB8 /* NullStore.swift */,
+				F3823AF12E5C8CAF00B9331B /* Managers */,
 			);
 			path = CarCare;
 			sourceTree = "<group>";
@@ -442,7 +410,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3BFC99D2E33810900043AB8 /* Source.json in Resources */,
 				F3BFC99E2E33810900043AB8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,37 +429,46 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3BFC9A02E33810900043AB8 /* Maintenance.swift in Sources */,
+				F3BDB2E82E55EFDE0041F142 /* BikeVM.swift in Sources */,
+				F3823AF32E5C8DA600B9331B /* LegalView.swift in Sources */,
 				F3BFC9A22E33810900043AB8 /* Bike.swift in Sources */,
 				F3BFC9A32E33810900043AB8 /* CarCare.xcdatamodeld in Sources */,
 				F3B77CA62E50DF9300548F2D /* BikeModificationsView.swift in Sources */,
 				F3BFC9A42E33810900043AB8 /* CoreDataHelpers.swift in Sources */,
 				F3BFC9A52E33810900043AB8 /* CoreDataLocalStore.swift in Sources */,
+				F3823AF52E5C9AB700B9331B /* NotificationViewModel.swift in Sources */,
 				F3BFC9A62E33810900043AB8 /* CoreDataLocalStore+MaintenanceStore.swift in Sources */,
 				F3BFC9A82E33810900043AB8 /* CoreDataLocalStore+BikeStore.swift in Sources */,
+				F3BDB2F12E56033C0041F142 /* MaintenanceType.swift in Sources */,
+				F3BDB2EA2E55F0840041F142 /* MaintenanceVM.swift in Sources */,
+				F3BDB2EF2E5603120041F142 /* Brand.swift in Sources */,
 				F3BFC9A92E33810900043AB8 /* ManagedMaintenance.swift in Sources */,
+				F339FB252E54D34D00F2CECC /* MaintenanceHistoryView.swift in Sources */,
+				F339FAAA2E54842A00F2CECC /* MaintenanceRow.swift in Sources */,
 				F3BFC9AB2E33810900043AB8 /* ManagedBike.swift in Sources */,
+				F3823AE92E5C635E00B9331B /* SettingsView.swift in Sources */,
 				F3BFC9AC2E33810900043AB8 /* LocalMaintenance.swift in Sources */,
+				F3823AF72E5C9E4400B9331B /* AppError.swift in Sources */,
 				F3BFC9AD2E33810900043AB8 /* LocalMaintenanceLoader.swift in Sources */,
+				F3BDB2F32E56035B0041F142 /* BikeType.swift in Sources */,
 				F3BFC9B02E33810900043AB8 /* LocalBike.swift in Sources */,
 				F3BFC9B12E33810900043AB8 /* LocalBikeLoader.swift in Sources */,
+				F339FB232E54D06C00F2CECC /* MaintenanceDetailsView.swift in Sources */,
+				F3823AEC2E5C680F00B9331B /* NotificationIntroView.swift in Sources */,
 				F3BFC9B22E33810900043AB8 /* MaintenanceStore.swift in Sources */,
 				F3BFC9B42E33810900043AB8 /* BikeStore.swift in Sources */,
 				F3BFC9B52E33810900043AB8 /* DashboardView.swift in Sources */,
-				F3BFC9B62E33810900043AB8 /* DashboardVM.swift in Sources */,
-				F3BFC9B72E33810900043AB8 /* Fuel_FollowUpView.swift in Sources */,
-				F3BFC9B82E33810900043AB8 /* Maintenance_FollowUpView.swift in Sources */,
+				F3BFC9B82E33810900043AB8 /* MaintenanceView.swift in Sources */,
 				F3B77C942E50714E00548F2D /* MaintenanceStatus.swift in Sources */,
-				F3BFC9B92E33810900043AB8 /* Mileage_FollowUpView.swift in Sources */,
 				F3BFC9BA2E33810900043AB8 /* RegistrationView.swift in Sources */,
-				F3BFC9BB2E33810900043AB8 /* RegistrationVM.swift in Sources */,
-				F3BFC9BC2E33810900043AB8 /* Vehicle_ProfileView.swift in Sources */,
-				F3BFC9BD2E33810900043AB8 /* LoadingView.swift in Sources */,
 				F3BFC9BE2E33810900043AB8 /* AppState.swift in Sources */,
+				F3823AFB2E5CAFA000B9331B /* ThemeViewModel.swift in Sources */,
 				F3B77C962E5080D000548F2D /* AddMaintenanceView.swift in Sources */,
 				F3BFC9BF2E33810900043AB8 /* CarCareApp.swift in Sources */,
+				F339FB272E54D63B00F2CECC /* DaysIndicatorView.swift in Sources */,
+				F3823AEE2E5C69BF00B9331B /* NotificationManager.swift in Sources */,
 				F3BFC9C02E33810900043AB8 /* ContentView.swift in Sources */,
 				F3BFC9C12E33810900043AB8 /* DependencyContainer.swift in Sources */,
-				F3BFC9C22E33810900043AB8 /* Enums.swift in Sources */,
 				F3BFC9C32E33810900043AB8 /* NullStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

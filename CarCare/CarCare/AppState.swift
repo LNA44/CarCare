@@ -10,16 +10,18 @@ import CoreData
 
 class AppState: ObservableObject {
 	enum Status {
-		case loading, needsVehicleRegistration, ready
+		case needsVehicleRegistration, ready
 	}
 
-	@Published var status: Status = .loading
+	@Published var status: Status = .needsVehicleRegistration
+	@Published var error: AppError?
+	@Published var showAlert: Bool = false
 
 	private let vehicleLoader: LocalBikeLoader
 
 	init(vehicleLoader: LocalBikeLoader) {
 		self.vehicleLoader = vehicleLoader
-		checkVehiclePresence()
+			checkVehiclePresence()
 	}
 
 	private func checkVehiclePresence() {
@@ -31,12 +33,8 @@ class AppState: ObservableObject {
 				status = .ready
 			}
 		} catch {
-			print("Erreur Core Data :", error)
-			status = .needsVehicleRegistration
+			self.error = AppError.bikeNotFound
+			showAlert = true
 		}
 	}
-
-	/*func refresh() {
-		checkVehiclePresence()
-	}*/
 }

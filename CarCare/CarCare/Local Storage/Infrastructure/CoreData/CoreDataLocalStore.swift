@@ -14,11 +14,6 @@ final class CoreDataLocalStore {
 	private let container: NSPersistentContainer
 	private let context: NSManagedObjectContext
 	
-	enum StoreError: Error {
-		case modelNotFound
-		case failedToLoadPersistentContainer(Error)
-	}
-	
 	init(storeURL: URL) throws {
 		guard let model = CoreDataLocalStore.model else {
 			throw StoreError.modelNotFound
@@ -26,13 +21,13 @@ final class CoreDataLocalStore {
 		
 		do {
 			container = try NSPersistentContainer.load(name: CoreDataLocalStore.modelName, model: model, url: storeURL)
-			context = container.newBackgroundContext()
+			context = container.newBackgroundContext() //toutes les opérations sont réalisées sur le background
 		} catch {
 			throw StoreError.failedToLoadPersistentContainer(error)
 		}
 	}
 	
-	func performSync<R>(_ action: (NSManagedObjectContext) -> Result<R, Error>) throws -> R {
+	func performSync<R>(_ action: (NSManagedObjectContext) -> Result<R, Error>) throws -> R { //nécessaire car on est sur background context
 		let context = self.context
 		var result: Result<R, Error>!
 		context.performAndWait { result = action(context) }
