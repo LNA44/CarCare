@@ -22,118 +22,153 @@ struct DashboardView: View {
 	
 	var body: some View {
 		NavigationStack {
-			VStack(spacing: 20) {
-				VStack {
-					Text("\(bikeVM.brand) \(bikeVM.model) (\(bikeVM.year))")
-						.font(.largeTitle)
-						.bold()
-						.padding(.top)
-						.padding(.horizontal, 15)
-						.multilineTextAlignment(.center)
-					
-					if !bikeVM.identificationNumber.isEmpty {
-						Text("Numéro d'identification : \(bikeVM.identificationNumber)")
-					}
-					
-					Image("bicycle")
+			ScrollView {
+				VStack(spacing: 20) {
+					Text("Mon vélo")
+						.font(.custom("SpaceGrotesk-Bold", size: 20))
+
+					Image("Riding")
 						.resizable()
-						.scaledToFit()
-						.frame(width: 70, height: 70)
-				}
-				.padding(.bottom, 20)
-				
-				HStack {
-					Text("Entretien")
-						.font(.title2)
-				}
-				
-				Text("\(maintenanceVM.overallMaintenanceStatus().label)")
-					.font(.system(size: 20, weight: .bold))
-					.foregroundColor(maintenanceVM.overallMaintenanceStatus().label == "À jour" ? .green : .red)
-				
-				Divider()
-					.frame(width: 200, height: 1)
-					.background(Color.gray.opacity(0.2)) // couleur du trait
-					.padding(.vertical, 30)
-				
-				VStack(spacing: 10) {
-					HStack {
-						Image(systemName: "gearshape.fill")
-						Text("Dernier entretien")
-							.font(.title2)
-					}
-					HStack {
-						if (maintenanceVM.lastMaintenance != nil) {
-							Text("\(maintenanceVM.lastMaintenance?.maintenanceType.rawValue ?? "")")
-							
-							if let date = maintenanceVM.lastMaintenance?.date {
-								Text(formatter.string(from: date))
-							} else {
-								Text("Pas de date")
-							}
-						} else {
-							Text("Pas d'entretien réalisé")
+						.frame(width: 100, height: 100)
+						.clipShape(Circle())
+					
+					VStack {
+						Text("\(bikeVM.brand) \(bikeVM.model) (\(bikeVM.year))")
+							.font(.custom("SpaceGrotesk-Bold", size: 16))
+							.bold()
+							.padding(.top)
+							.padding(.horizontal, 15)
+							.multilineTextAlignment(.center)
+						
+						if !bikeVM.identificationNumber.isEmpty {
+							Text("Numéro d'identification : \(bikeVM.identificationNumber)")
+								.font(.custom("SpaceGrotesk-Bold", size: 16))
 						}
 					}
-					.foregroundColor(.gray)
-				}
-				.frame(maxWidth: .infinity, alignment: .center)
-				.padding(.horizontal)
-				
-				Spacer()
-				
-				Button(action: {
-					showAddMaintenance = true
-				}) {
-					Text("Ajouter un entretien")
-						.frame(maxWidth: .infinity)
-						.padding()
-						.background(Color.blue.cornerRadius(10))
+					.padding(.bottom, 20)
+					.foregroundColor(Color(.brown))
+					
+					VStack {
+						VStack(alignment: .leading, spacing: 10) {
+							Text("Entretien")
+								.font(.custom("SpaceGrotesk-Regular", size: 16))
+							
+							Text("\(maintenanceVM.overallMaintenanceStatus().label)")
+								.font(.custom("SpaceGrotesk-Bold", size: 24))
+								.foregroundColor(maintenanceVM.overallMaintenanceStatus().label == "À jour" ? .green : .red)
+						}
+						.padding(.horizontal, 20)
+					}
+					.frame(maxWidth: .infinity, alignment: .leading)
+					.frame(height: 100)
+					.background(Color("InputSurfaceColor"))
+					.cornerRadius(10)
+					.padding(.horizontal, 10)
+					
+					ZStack {
+						Image("Maintenance")
+							.resizable()
+							.frame(width: 370, height: 250)
+							.cornerRadius(10)
+							.scaledToFit()
+						
+						VStack(alignment: .leading) {
+							Text("Dernier entretien")
+								.font(.custom("SpaceGrotesk-Bold", size: 22))
+								.padding(.bottom, 5)
+							
+							if (maintenanceVM.lastMaintenance != nil) {
+								Text("\(maintenanceVM.lastMaintenance?.maintenanceType.rawValue ?? "")")
+									.font(.custom("SpaceGrotesk-Bold", size: 16))
+								
+								if let date = maintenanceVM.lastMaintenance?.date {
+									Text(formatter.string(from: date))
+										.font(.custom("SpaceGrotesk-Bold", size: 16))
+								} else {
+									Text("Pas de date")
+										.font(.custom("SpaceGrotesk-Bold", size: 16))
+								}
+							} else {
+								Text("Pas d'entretien réalisé")
+									.font(.custom("SpaceGrotesk-Bold", size: 16))
+							}
+						}
 						.foregroundColor(.white)
-						.padding(.horizontal)
-				}
-				.padding(.bottom, 40)
-			}
-			.sheet(isPresented: $showAddMaintenance) {
-				AddMaintenanceView(showingSheet: $showAddMaintenance)
-			}
-			.sheet(isPresented: $showBikeModification) {
-				BikeModificationsView(showingSheet: $showBikeModification)
-			}
-			.navigationBarBackButtonHidden(true)
-			.onAppear {
-				bikeVM.fetchBikeData()
-				maintenanceVM.fetchLastMaintenance()
-			}
-			.toolbar {
-				ToolbarItem(placement: .navigationBarTrailing) {
-					Button(action: {
+						.bold()
+						.padding(.vertical, 10)
+						.frame(width: 350, height: 250, alignment: .bottomLeading)
+						
+					}
+					.padding(10)
+					
+					/*Button(action: {
 						showBikeModification = true
 					}) {
-						Image(systemName: "slider.horizontal.3")
+						Text("Modifier les infos du vélo")
+							.frame(maxWidth: .infinity)
+							.padding()
+							.background(Color("InputSurfaceColor"))
+							.cornerRadius(10)
+							.foregroundColor(.black)
+							.font(.custom("SpaceGrotesk-Bold", size: 16))
+					}*/
+					
+					PrimaryButton(title: "Modifier les infos du vélo", font: .custom("SpaceGrotesk-Bold", size: 16), foregroundColor: .black, backgroundColor: Color("InputSurfaceColor")) {
+						showBikeModification = true
 					}
+					.padding(.horizontal, 10)
+					
+					/*Button(action: {
+						showAddMaintenance = true
+					}) {
+						Text("Ajouter un entretien")
+							.frame(maxWidth: .infinity)
+							.padding()
+							.background(Color("PrimaryColor"))
+							.cornerRadius(10)
+							.foregroundColor(.white)
+							.font(.custom("SpaceGrotesk-Bold", size: 16))
+
+					}*/
+					
+					PrimaryButton(title: "Ajouter un entretien", font: .custom("SpaceGrotesk-Bold", size: 16), foregroundColor: .white, backgroundColor: Color("PrimaryColor")) {
+						showAddMaintenance = true
+					}
+					.padding(.bottom, 40)
+					.padding(.horizontal, 10)
+				}
+				.sheet(isPresented: $showAddMaintenance) {
+					AddMaintenanceView(showingSheet: $showAddMaintenance)
+				}
+				.sheet(isPresented: $showBikeModification) {
+					BikeModificationsView(showingSheet: $showBikeModification)
+				}
+				.navigationBarBackButtonHidden(true)
+				.onAppear {
+					bikeVM.fetchBikeData()
+					maintenanceVM.fetchLastMaintenance()
 				}
 			}
-		}
-		.alert(isPresented: $bikeVM.showAlert) {
-			Alert(
-				title: Text("Erreur liée au vélo"),
-				message: Text(bikeVM.error?.errorDescription ?? "Erreur inconnue"),
-				dismissButton: .default(Text("OK")) {
-					bikeVM.showAlert = false
-					bikeVM.error = nil
-				}
-			)
-		}
-		.alert(isPresented: $maintenanceVM.showAlert) {
-			Alert(
-				title: Text("Erreur liée aux entretiens"),
-				message: Text(maintenanceVM.error?.errorDescription ?? "Erreur inconnue"),
-				dismissButton: .default(Text("OK")) {
-					maintenanceVM.showAlert = false
-					maintenanceVM.error = nil
-				}
-			)
+			.alert(isPresented: $bikeVM.showAlert) {
+				Alert(
+					title: Text("Erreur liée au vélo"),
+					message: Text(bikeVM.error?.errorDescription ?? "Erreur inconnue"),
+					dismissButton: .default(Text("OK")) {
+						bikeVM.showAlert = false
+						bikeVM.error = nil
+					}
+				)
+			}
+			.alert(isPresented: $maintenanceVM.showAlert) {
+				Alert(
+					title: Text("Erreur liée aux entretiens"),
+					message: Text(maintenanceVM.error?.errorDescription ?? "Erreur inconnue"),
+					dismissButton: .default(Text("OK")) {
+						maintenanceVM.showAlert = false
+						maintenanceVM.error = nil
+					}
+				)
+			}
 		}
 	}
 }

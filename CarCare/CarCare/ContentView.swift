@@ -15,16 +15,14 @@ struct ContentView: View {
 	var body: some View {
 		TabView {
 			DashboardView()
-				.environmentObject(bikeVM)
-				.environmentObject(maintenanceVM)
 				.tabItem { Label("Accueil", systemImage: "house")}
 			MaintenanceView()
-				.environmentObject(maintenanceVM)
 				.tabItem { Label("Entretiens", systemImage: "wrench") }
 			SettingsView()
-				.environmentObject(themeVM)
 				.tabItem { Label("Paramètres", systemImage: "gear") }
 		}
+		.environmentObject(bikeVM)
+		.environmentObject(maintenanceVM)
 	}
 }
 #Preview {

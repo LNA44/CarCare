@@ -11,6 +11,11 @@
 		F339FB232E54D06C00F2CECC /* MaintenanceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */; };
 		F339FB252E54D34D00F2CECC /* MaintenanceHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB242E54D34D00F2CECC /* MaintenanceHistoryView.swift */; };
 		F339FB272E54D63B00F2CECC /* DaysIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */; };
+		F37D82572E5F552400F92A50 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F37D82562E5F552400F92A50 /* Info.plist */; };
+		F37D827F2E5F5A1D00F92A50 /* SpaceGrotesk-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F37D827E2E5F5A1D00F92A50 /* SpaceGrotesk-Regular.ttf */; };
+		F37D82812E5F5A2600F92A50 /* SpaceGrotesk-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F37D82802E5F5A2600F92A50 /* SpaceGrotesk-Bold.ttf */; };
+		F37D82832E5F601800F92A50 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37D82822E5F601800F92A50 /* CustomTextField.swift */; };
+		F37D82852E5F80ED00F92A50 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37D82842E5F80ED00F92A50 /* PrimaryButton.swift */; };
 		F3823AE92E5C635E00B9331B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3823AE82E5C635E00B9331B /* SettingsView.swift */; };
 		F3823AEC2E5C680F00B9331B /* NotificationIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3823AEB2E5C680F00B9331B /* NotificationIntroView.swift */; };
 		F3823AEE2E5C69BF00B9331B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3823AED2E5C69BF00B9331B /* NotificationManager.swift */; };
@@ -82,6 +87,11 @@
 		F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceDetailsView.swift; sourceTree = "<group>"; };
 		F339FB242E54D34D00F2CECC /* MaintenanceHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceHistoryView.swift; sourceTree = "<group>"; };
 		F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysIndicatorView.swift; sourceTree = "<group>"; };
+		F37D82562E5F552400F92A50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F37D827E2E5F5A1D00F92A50 /* SpaceGrotesk-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpaceGrotesk-Regular.ttf"; sourceTree = "<group>"; };
+		F37D82802E5F5A2600F92A50 /* SpaceGrotesk-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpaceGrotesk-Bold.ttf"; sourceTree = "<group>"; };
+		F37D82822E5F601800F92A50 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		F37D82842E5F80ED00F92A50 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		F3823AE82E5C635E00B9331B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F3823AEB2E5C680F00B9331B /* NotificationIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationIntroView.swift; sourceTree = "<group>"; };
 		F3823AED2E5C69BF00B9331B /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -167,6 +177,25 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F37D827C2E5F559400F92A50 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F37D827D2E5F5A0500F92A50 /* Fonts */,
+				F37D82562E5F552400F92A50 /* Info.plist */,
+				F3BFC9952E33810900043AB8 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F37D827D2E5F5A0500F92A50 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F37D82802E5F5A2600F92A50 /* SpaceGrotesk-Bold.ttf */,
+				F37D827E2E5F5A1D00F92A50 /* SpaceGrotesk-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		F3823AE72E5C635000B9331B /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +229,8 @@
 				F3BDB2E42E55EF320041F142 /* Registration */,
 				F3BDB2E32E55EF1A0041F142 /* Dashboard */,
 				F3BDB2E22E55EF040041F142 /* Maintenance */,
+				F37D82822E5F601800F92A50 /* CustomTextField.swift */,
+				F37D82842E5F80ED00F92A50 /* PrimaryButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -306,11 +337,11 @@
 		F3BFC99B2E33810900043AB8 /* CarCare */ = {
 			isa = PBXGroup;
 			children = (
+				F37D827C2E5F559400F92A50 /* Resources */,
 				F3BFC96C2E33810900043AB8 /* CarCare Feature */,
 				F3BFC9812E33810900043AB8 /* Local Storage */,
 				F3BFC9932E33810900043AB8 /* ViewModels */,
 				F3B77CA02E50DF2C00548F2D /* Views */,
-				F3BFC9952E33810900043AB8 /* Assets.xcassets */,
 				F3BFC9962E33810900043AB8 /* CarCareApp.swift */,
 				F3BFC9972E33810900043AB8 /* ContentView.swift */,
 				F3BFC9942E33810900043AB8 /* AppState.swift */,
@@ -410,6 +441,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F37D82812E5F5A2600F92A50 /* SpaceGrotesk-Bold.ttf in Resources */,
+				F37D827F2E5F5A1D00F92A50 /* SpaceGrotesk-Regular.ttf in Resources */,
 				F3BFC99E2E33810900043AB8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -418,6 +451,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F37D82572E5F552400F92A50 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +473,7 @@
 				F3823AF52E5C9AB700B9331B /* NotificationViewModel.swift in Sources */,
 				F3BFC9A62E33810900043AB8 /* CoreDataLocalStore+MaintenanceStore.swift in Sources */,
 				F3BFC9A82E33810900043AB8 /* CoreDataLocalStore+BikeStore.swift in Sources */,
+				F37D82832E5F601800F92A50 /* CustomTextField.swift in Sources */,
 				F3BDB2F12E56033C0041F142 /* MaintenanceType.swift in Sources */,
 				F3BDB2EA2E55F0840041F142 /* MaintenanceVM.swift in Sources */,
 				F3BDB2EF2E5603120041F142 /* Brand.swift in Sources */,
@@ -461,6 +496,7 @@
 				F3BFC9B82E33810900043AB8 /* MaintenanceView.swift in Sources */,
 				F3B77C942E50714E00548F2D /* MaintenanceStatus.swift in Sources */,
 				F3BFC9BA2E33810900043AB8 /* RegistrationView.swift in Sources */,
+				F37D82852E5F80ED00F92A50 /* PrimaryButton.swift in Sources */,
 				F3BFC9BE2E33810900043AB8 /* AppState.swift in Sources */,
 				F3823AFB2E5CAFA000B9331B /* ThemeViewModel.swift in Sources */,
 				F3B77C962E5080D000548F2D /* AddMaintenanceView.swift in Sources */,
@@ -632,6 +668,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/CarCare/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -659,6 +696,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/CarCare/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
