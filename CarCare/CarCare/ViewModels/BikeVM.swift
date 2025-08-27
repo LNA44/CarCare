@@ -44,27 +44,39 @@ final class BikeVM: ObservableObject {
 	
 	//MARK: -Methods
 	func fetchBikeData() {
-		do {
-			guard let unwrappedBike = try bikeLoader.load() else {
-				throw AppError.bikeNotFound
+		DispatchQueue.global(qos: .userInitiated).async { //charge en arrière plan donc ne bloque pas l'UI
+			do {
+				guard let unwrappedBike = try self.bikeLoader.load() else {
+					throw AppError.bikeNotFound
+				}
+				DispatchQueue.main.async { // tout mettre à jour en une fois pour éviter création de la vue plusieurs fois
+					self.model = unwrappedBike.model
+					self.brand = unwrappedBike.brand
+					self.year = unwrappedBike.year
+					self.identificationNumber = unwrappedBike.identificationNumber
+					self.bike = unwrappedBike
+				}
+			} catch let error as LoadingCocoaError { //erreurs de load
+				DispatchQueue.main.async {
+					self.error = AppError.loadingDataFailed(error)
+					self.showAlert = true
+				}
+			} catch let error as StoreError { //erreurs de CoreDataLocalStore
+				DispatchQueue.main.async {
+					self.error = AppError.dataUnavailable(error)
+					self.showAlert = true
+				}
+			} catch let error as FetchCocoaError {
+				DispatchQueue.main.async {
+					self.error = AppError.fetchDataFailed(error)
+					self.showAlert = true
+				}
+			} catch {
+				DispatchQueue.main.async {
+					self.error = AppError.unknown
+					self.showAlert = true
+				}
 			}
-			self.model = unwrappedBike.model
-			self.brand = unwrappedBike.brand
-			self.year = unwrappedBike.year
-			self.identificationNumber = unwrappedBike.identificationNumber
-			bike = unwrappedBike
-		} catch let error as LoadingCocoaError { //erreurs de load
-			self.error = AppError.loadingDataFailed(error)
-			showAlert = true
-		} catch let error as StoreError { //erreurs de CoreDataLocalStore
-			self.error = AppError.dataUnavailable(error)
-			showAlert = true
-		} catch let error as FetchCocoaError {
-			self.error = AppError.fetchDataFailed(error)
-			showAlert = true
-		} catch {
-			self.error = AppError.unknown
-			showAlert = true
 		}
 	}
 	

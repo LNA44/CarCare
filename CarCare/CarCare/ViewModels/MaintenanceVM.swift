@@ -57,23 +57,35 @@ final class MaintenanceVM: ObservableObject {
 	   }
 	
 	func fetchLastMaintenance() {
-		do {
-			let allMaintenance = try loader.load()
-			let sortedMaintenance = allMaintenance
-				.sorted { $0.date > $1.date } //tri décroissant
-			self.lastMaintenance = sortedMaintenance.first
-		} catch let error as LoadingCocoaError { //erreurs de load
-			self.error = AppError.loadingDataFailed(error)
-			showAlert = true
-		} catch let error as StoreError { //erreurs de CoreDataLocalStore
-			self.error = AppError.dataUnavailable(error)
-			showAlert = true
-		} catch let error as FetchCocoaError {
-			self.error = AppError.fetchDataFailed(error)
-			showAlert = true
-		} catch {
-			self.error = AppError.unknown
-			showAlert = true
+		DispatchQueue.global(qos: .userInitiated).async { //chargement hors du thread principal
+			do {
+				let allMaintenance = try self.loader.load()
+				let sortedMaintenance = allMaintenance
+					.sorted { $0.date > $1.date } //tri décroissant
+				DispatchQueue.main.async {
+					self.lastMaintenance = sortedMaintenance.first
+				}
+			} catch let error as LoadingCocoaError { //erreurs de load
+				DispatchQueue.main.async {
+					self.error = AppError.loadingDataFailed(error)
+					self.showAlert = true
+				}
+			} catch let error as StoreError { //erreurs de CoreDataLocalStore
+				DispatchQueue.main.async {
+					self.error = AppError.dataUnavailable(error)
+					self.showAlert = true
+				}
+			} catch let error as FetchCocoaError {
+				DispatchQueue.main.async {
+					self.error = AppError.fetchDataFailed(error)
+					self.showAlert = true
+				}
+			} catch {
+				DispatchQueue.main.async {
+					self.error = AppError.unknown
+					self.showAlert = true
+				}
+			}
 		}
 	}
 	

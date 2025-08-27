@@ -22,28 +22,26 @@ struct MaintenanceView: View {
 	//MARK: -Body
 	var body: some View {
 		let sortedKeys: [MaintenanceType] = Array(lastMaintenanceByType.keys).sorted { $0.rawValue < $1.rawValue }
-		NavigationStack {
-			VStack(spacing: 20) {
-				VStack {
-					Text("Entretiens à venir")
-					List {
-						ForEach(sortedKeys, id: \.self) { type in
-							if let maintenance = lastMaintenanceByType[type] {
-								NavigationLink(destination: MaintenanceDetailsView(maintenanceID: maintenance.id)) {
-									MaintenanceRow(maintenanceType: type)
-								}
+		VStack(spacing: 20) {
+			VStack {
+				Text("Entretiens à venir")
+				List {
+					ForEach(sortedKeys, id: \.self) { type in
+						if let maintenance = lastMaintenanceByType[type] {
+							NavigationLink(destination: MaintenanceDetailsView(maintenanceID: maintenance.id)) {
+								MaintenanceRow(maintenanceType: type)
 							}
 						}
 					}
-					.onAppear {
-						maintenanceVM.fetchAllMaintenance()
-					}
 				}
-				NavigationLink(destination: MaintenanceHistoryView()) {
-					Text("Historique des entretiens (\(maintenanceVM.calculateNumberOfMaintenance()))")
+				.onAppear {
+					maintenanceVM.fetchAllMaintenance()
 				}
-				Spacer()
 			}
+			NavigationLink(destination: MaintenanceHistoryView()) {
+				Text("Historique des entretiens (\(maintenanceVM.calculateNumberOfMaintenance()))")
+			}
+			Spacer()
 		}
 		.alert(isPresented: $maintenanceVM.showAlert) {
 			Alert(

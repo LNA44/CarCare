@@ -89,7 +89,6 @@ struct RegistrationView: View {
 							CustomTextField(placeholder: "ID", text: Binding(
 								get: { bikeVM.identificationNumber },
 								set: { bikeVM.identificationNumber = $0 }))
-							.keyboardType(.numberPad)
 						}
 						.frame(maxWidth: .infinity)
 						

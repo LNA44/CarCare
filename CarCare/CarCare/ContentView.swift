@@ -13,18 +13,21 @@ struct ContentView: View {
 	@EnvironmentObject var themeVM: ThemeViewModel
 	
 	var body: some View {
-		TabView {
-			DashboardView()
-				.tabItem { Label("Accueil", systemImage: "house")}
-			MaintenanceView()
-				.tabItem { Label("Entretiens", systemImage: "wrench") }
-			SettingsView()
-				.tabItem { Label("Paramètres", systemImage: "gear") }
+		NavigationStack {
+			TabView {
+				DashboardView()
+					.tabItem { Label("Accueil", systemImage: "house")}
+				MaintenanceView()
+					.tabItem { Label("Entretiens", systemImage: "wrench") }
+				SettingsView()
+					.tabItem { Label("Paramètres", systemImage: "gear") }
+			}
 		}
 		.environmentObject(bikeVM)
 		.environmentObject(maintenanceVM)
 	}
 }
+
 #Preview {
 	ContentView()
 }
