@@ -24,24 +24,34 @@ struct MaintenanceView: View {
 		let sortedKeys: [MaintenanceType] = Array(lastMaintenanceByType.keys).sorted { $0.rawValue < $1.rawValue }
 		VStack(spacing: 20) {
 			VStack {
-				Text("Entretiens à venir")
 				List {
-					ForEach(sortedKeys, id: \.self) { type in
-						if let maintenance = lastMaintenanceByType[type] {
-							NavigationLink(destination: MaintenanceDetailsView(maintenanceID: maintenance.id)) {
-								MaintenanceRow(maintenanceType: type)
+					Section(header: Text("Entretiens à venir")
+						.font(.custom("SpaceGrotesk-Bold", size: 18))
+						.textCase(nil)) {
+							ForEach(sortedKeys, id: \.self) { type in
+								if let maintenance = lastMaintenanceByType[type] {
+									NavigationLink(destination: MaintenanceDetailsView(maintenanceID: maintenance.id)) {
+										ToDoMaintenanceRow(maintenanceType: type)
+									}
+								}
 							}
 						}
-					}
-				}
-				.onAppear {
-					maintenanceVM.fetchAllMaintenance()
+					Section(header: Text("Terminé")
+						.font(.custom("SpaceGrotesk-Bold", size: 18))
+						.textCase(nil)) {
+							ForEach(maintenanceVM.maintenances.reversed(), id: \.self) { maintenance in
+								DoneMaintenanceRow(maintenance: maintenance)
+							}
+						}
 				}
 			}
 			NavigationLink(destination: MaintenanceHistoryView()) {
 				Text("Historique des entretiens (\(maintenanceVM.calculateNumberOfMaintenance()))")
 			}
 			Spacer()
+		}
+		.onAppear {
+			maintenanceVM.updateMaintenanceCache()
 		}
 		.alert(isPresented: $maintenanceVM.showAlert) {
 			Alert(

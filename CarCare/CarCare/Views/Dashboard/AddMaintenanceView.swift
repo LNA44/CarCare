@@ -9,8 +9,8 @@ import SwiftUI
 
 struct AddMaintenanceView: View {
 	@EnvironmentObject var maintenanceVM: MaintenanceVM
-	@Binding var showingSheet: Bool
 	@State var showingDatePicker: Bool = false
+	@State private var goToDashboard = false
 	
 	let formatter: DateFormatter = {
 		let df = DateFormatter()
@@ -22,9 +22,6 @@ struct AddMaintenanceView: View {
 	
 	var body: some View {
 		VStack {
-			Text("Ajouter un entretien")
-				.font(.custom("SpaceGrotesk-Bold", size: 22))
-				.padding(.bottom, 40)
 			
 			VStack(spacing: 20) {
 				VStack {
@@ -37,6 +34,7 @@ struct AddMaintenanceView: View {
 							Text(maintenanceType.rawValue).tag(maintenanceType)
 						}
 					}
+					.tint(.brown)
 					.pickerStyle(MenuPickerStyle())
 					.frame(maxWidth: .infinity, alignment: .leading)
 					.frame(height: 40)
@@ -48,23 +46,11 @@ struct AddMaintenanceView: View {
 					Text("Date de l'entretien")
 						.font(.custom("SpaceGrotesk-Bold", size: 16))
 						.frame(maxWidth: .infinity, alignment: .leading)
-					/*HStack {
-					 DatePicker(
-					 "",
-					 selection: $maintenanceVM.selectedMaintenanceDate,  // binding vers une Date
-					 displayedComponents: [.date]         // on peut choisir date, heure ou les deux
-					 )
-					 .datePickerStyle(.compact)
-					 }
-					 .frame(maxWidth: .infinity,alignment: .leading)
-					 .frame(height: 40)
-					 .padding(.horizontal, 10)
-					 .background(Color("InputSurfaceColor"))
-					 .cornerRadius(10)*/
+					
 					Button(action: { showingDatePicker = true }) {
 						HStack {
 							Text(formatter.string(from: maintenanceVM.selectedMaintenanceDate))
-								.foregroundColor(.black)
+								.foregroundColor(.brown)
 							Spacer()
 							Image(systemName: "calendar")
 								.foregroundColor(.gray)
@@ -79,22 +65,23 @@ struct AddMaintenanceView: View {
 			
 			Spacer()
 			
-			/*Button(action: {
+			PrimaryButton(title: "Ajouter l'entretien", font: .custom("SpaceGrotesk-Bold", size: 16), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
 				maintenanceVM.addMaintenance()
-				showingSheet = false // ferme la sheet
-			}) {
-				Text("Ajouter l'entretien")
-					.frame(maxWidth: .infinity)
-					.padding()
-					.font(.custom("SpaceGrotesk-Bold", size: 16))
-					.background(Color("PrimaryColor"))
-					.foregroundColor(.white)
-					.cornerRadius(10)
-			}*/
-			
-			PrimaryButton(title: "Ajouter l'entretien", font: .custom("SpaceGrotesk-Bold", size: 16), foregroundColor: .white, backgroundColor: Color("PrimaryColor")) {
-				maintenanceVM.addMaintenance()
-				showingSheet = false // ferme la sheet
+				goToDashboard = true
+			}
+			// NavigationLink invisible mais déclenché par le Bool
+			NavigationLink(
+				destination: DashboardView(),
+				isActive: $goToDashboard
+			) {
+				EmptyView()
+			}
+		}
+		.toolbar {
+			ToolbarItem(placement: .principal) {
+				Text("Ajouter un entretien")
+					.font(.custom("SpaceGrotesk-Bold", size: 22))
+					.foregroundColor(.black)
 			}
 		}
 		.sheet(isPresented: $showingDatePicker) {

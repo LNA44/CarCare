@@ -18,8 +18,8 @@ struct MaintenanceDetailsView: View {
 	
 	var body: some View {
 		if let maintenance = maintenance {
-			let daysRemaining = maintenanceVM.daysUntilNextMaintenance(type: maintenance.maintenanceType)
-			
+			let daysRemaining = maintenanceVM.daysUntilNextMaintenance[maintenance.maintenanceType] ?? nil
+
 			ScrollView {
 				VStack {
 					VStack(spacing: 50) {
@@ -69,8 +69,9 @@ struct MaintenanceDetailsView: View {
 						}
 						
 					}
-					.sheet(isPresented: $showAddMaintenance) {
-						AddMaintenanceView(showingSheet: $showAddMaintenance)
+//ouvrir view au lieu de sheet
+					/*.sheet(isPresented: $showAddMaintenance) {
+						AddMaintenanceView()
 					}
 					
 					.padding(.vertical, 20)
@@ -78,7 +79,7 @@ struct MaintenanceDetailsView: View {
 					.cornerRadius(15) // coins arrondis
 					.shadow(radius: 5) // ombre subtile
 					
-					.padding(20)
+					.padding(20)*/
 					
 					Text("Historique des entretiens")
 					
@@ -188,3 +189,4 @@ extension MaintenanceDetailsView {
 /*#Preview {
  MaintenanceDetailsView()
  }*/
+

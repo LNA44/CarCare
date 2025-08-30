@@ -9,20 +9,15 @@ import SwiftUI
 
 struct BikeModificationsView: View {
 	@EnvironmentObject var bikeVM: BikeVM
-	@Binding var showingSheet: Bool
 	@State private var selectedBrand: Brand = .Unknown
 	@State private var selectedModel: String? = nil //optionnel pour la modif de selectedBrand et selectedModel pas encore redéfini
 	@State private var yearText: String = ""
 	@State private var selectedType: BikeType = .Manual
 	@State private var identificationNumber: String = ""
-	
+	@State private var goToDashboard = false
 	
 	var body: some View {
-		VStack {
-			Text("Mon vélo")
-				.font(.custom("SpaceGrotesk-Bold", size: 22))
-			//.padding(.bottom, 40)
-			
+		VStack {			
 			Image("Bicycle")
 				.resizable()
 				.frame(width: 70, height: 70)
@@ -36,7 +31,7 @@ struct BikeModificationsView: View {
 							Text(brand.rawValue).tag(brand)
 						}
 					}
-					.onChange(of: selectedBrand) { newBrand in
+					.onChange(of: selectedBrand) {_, newBrand in
 						if !newBrand.models.contains(selectedModel ?? "") {
 							selectedModel = newBrand.models.first ?? ""
 						}
@@ -67,6 +62,7 @@ struct BikeModificationsView: View {
 							Text(model).tag(model)
 						}
 					}
+					.tint(.brown)
 					.pickerStyle(MenuPickerStyle())
 					.frame(maxWidth: .infinity, alignment: .leading)
 					.frame(height: 40)
@@ -107,11 +103,18 @@ struct BikeModificationsView: View {
 			
 			Spacer()
 			
-			PrimaryButton(title: "Modifier les informations", font: .custom("SpaceGrotesk-Bold", size: 16), foregroundColor: .white, backgroundColor: Color("PrimaryColor")) {
+			PrimaryButton(title: "Modifier les informations", font: .custom("SpaceGrotesk-Bold", size: 16), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
 				bikeVM.modifyBikeInformations(brand: selectedBrand, model: selectedModel ?? "", year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
-				showingSheet = false
-				bikeVM.fetchBikeData()
+				goToDashboard = true
 			}
+			// NavigationLink invisible mais déclenché par le Bool
+			NavigationLink(
+				destination: DashboardView(),
+				isActive: $goToDashboard
+			) {
+				EmptyView()
+			}
+			
 		}
 		.onAppear {
 			if let bike = bikeVM.bike {
@@ -127,7 +130,13 @@ struct BikeModificationsView: View {
 				}
 			}
 		}
-		.padding(.top, 20)
+		.toolbar {
+			ToolbarItem(placement: .principal) {
+				Text("Mon vélo")
+					.font(.custom("SpaceGrotesk-Bold", size: 22))
+					.foregroundColor(.black) 
+			}
+		}
 		.padding(.horizontal, 10)
 		.alert(isPresented: $bikeVM.showAlert) {
 			Alert(

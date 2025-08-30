@@ -9,7 +9,7 @@ import CoreData
 
 extension CoreDataLocalStore: BikeStore {
 	func insert(_ bike: LocalBike) throws {
-		try performSync { context in
+		_ = try performSync { context in
 			Result {
 				try ManagedBike.new(from: bike, in: context)
 			}

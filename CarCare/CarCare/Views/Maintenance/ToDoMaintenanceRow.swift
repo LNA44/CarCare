@@ -7,13 +7,18 @@
 
 import SwiftUI
 
-struct MaintenanceRow: View {
+struct ToDoMaintenanceRow: View {
 	@EnvironmentObject var maintenanceVM: MaintenanceVM
 	let maintenanceType: MaintenanceType
+	let formatter: DateFormatter = {
+		let df = DateFormatter()
+		df.dateFormat = "dd/MM/yyyy" // jour/mois/année
+		return df
+	}()
 
     var body: some View {
-		let daysRemaining = maintenanceVM.daysUntilNextMaintenance(type: maintenanceType)
-		let nextDate = maintenanceVM.nextMaintenanceDate(for: maintenanceType)
+		let daysRemaining = maintenanceVM.daysUntilNextMaintenance[maintenanceType] ?? nil
+		let nextDate = maintenanceVM.nextMaintenanceDates[maintenanceType] ?? nil
 		
 		VStack(alignment: .leading) {
 			HStack {
@@ -25,9 +30,9 @@ struct MaintenanceRow: View {
 			}
 			
 			if let nextDate = nextDate {
-				Text("Prochaine maintenance prévue le \(nextDate.formatted(date: .abbreviated, time: .omitted))")
+				Text("\(formatter.string(from: nextDate))")
 			} else {
-				Text("Pas encore réalisée")
+				Text("Pas de date prévue")
 			}
 
 			if let daysRemaining = daysRemaining, daysRemaining >= 0 {

@@ -16,7 +16,7 @@ struct SettingsView: View {
 				Toggle(isOn: $themeVM.isDarkMode) {
 					Text("Mode sombre")
 				}
-				.onChange(of: themeVM.isDarkMode) { value in
+				.onChange(of: themeVM.isDarkMode) {_, value in
 					// Met à jour l'interface
 					themeVM.applyInterfaceStyle()
 				}

@@ -99,23 +99,7 @@ struct RegistrationView: View {
 				
 				Spacer()
 				
-				/*Button(action: {
-					let success = bikeVM.addBike()
-					if success {
-						shouldNavigate = true
-					}
-					appState.status = .ready
-				}) {
-					Text("Ajouter le vélo")
-						.foregroundColor(.white)
-				}
-				.frame(maxWidth: .infinity)
-				.padding(.vertical, 10)
-				.font(.custom("SpaceGrotesk-Bold", size: 16))
-				.background(Color("PrimaryColor"))
-				.cornerRadius(10)*/
-				
-				PrimaryButton(title: "Ajouter le vélo", font: .custom("SpaceGrotesk-Bold", size: 16), foregroundColor: .white, backgroundColor: Color("PrimaryColor")) {
+				PrimaryButton(title: "Ajouter le vélo", font: .custom("SpaceGrotesk-Bold", size: 16), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
 					let success = bikeVM.addBike()
 					if success {
 						shouldNavigate = true

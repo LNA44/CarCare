@@ -10,13 +10,7 @@ import Foundation
 final class BikeVM: ObservableObject {
 	//MARK: -Public properties
 	@Published var model: String = "Unknown"
-	@Published var brand: Brand = .Unknown {
-		didSet {
-			// Met à jour la liste des modèles et sélectionne le premier automatiquement
-			models = brand.models
-			model = models.first ?? ""
-		}
-	}
+	@Published var brand: Brand = .Unknown
 	@Published var mileage: Int = 0
 	@Published var year: Int = 0
 	@Published var bike: Bike? = nil {
@@ -43,7 +37,9 @@ final class BikeVM: ObservableObject {
 	}
 	
 	//MARK: -Methods
+	//synchronise bike et les published
 	func fetchBikeData() {
+		print("fetchBikeData appelée")
 		DispatchQueue.global(qos: .userInitiated).async { //charge en arrière plan donc ne bloque pas l'UI
 			do {
 				guard let unwrappedBike = try self.bikeLoader.load() else {
@@ -81,12 +77,20 @@ final class BikeVM: ObservableObject {
 	}
 	
 	func modifyBikeInformations(brand: Brand, model: String, year: Int, type: BikeType, identificationNumber: String) {
+		print("modifyBikeInformations appelée")
 		guard bike != nil else { return }
 			bike!.brand = brand
 			bike!.model = model
 			bike!.year = year
 			bike!.bikeType = type
 			bike!.identificationNumber = identificationNumber
+		//met à jour les published après modif
+		self.brand = brand
+		self.model = model
+		self.year = year
+		self.bikeType = type
+		self.identificationNumber = identificationNumber
+		
 		do {
 			try bikeLoader.save(bike!)
 		} catch let error as LoadingCocoaError { //erreurs de load
@@ -105,6 +109,7 @@ final class BikeVM: ObservableObject {
 	}
 	
 	func addBike() -> Bool {
+		print("addBike appelée")
 		let bike = Bike(id: UUID(), brand: brand, model: model, year: year, bikeType: bikeType, identificationNumber: identificationNumber)
 		do {
 			try bikeLoader.save(bike)
