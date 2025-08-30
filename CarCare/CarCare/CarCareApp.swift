@@ -39,18 +39,14 @@ struct CarCareApp: App {
 				switch appState.status {
 				case .needsVehicleRegistration:
 					if hasSeenNotificationIntro {
-						RegistrationView()
+						RegistrationView(bikeVM: bikeVM)
 							.environmentObject(appState)
-							.environmentObject(bikeVM)
 					} else {
-						NotificationIntroView()
-							.environmentObject(maintenanceVM)
-							.environmentObject(notificationVM) //obligatoire car sinon on ne peut pas instancier NitifcationVM dans l'init de NotificationIntroView car maintenanceVM est un environment
+						NotificationIntroView(maintenanceVM: maintenanceVM)
+							.environmentObject(notificationVM)
 					}
 				case .ready:
-					ContentView()
-						.environmentObject(bikeVM)
-						.environmentObject(maintenanceVM)
+					ContentView(bikeVM: bikeVM, maintenanceVM: maintenanceVM)
 						.environmentObject(themeVM)
 				}
 			}

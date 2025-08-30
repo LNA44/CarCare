@@ -10,7 +10,7 @@ import Foundation
 final class MaintenanceVM: ObservableObject {
 	weak var notificationVM: NotificationViewModel?  // Référence faible pour éviter les rétentions cycliques
 	@Published var maintenances: [Maintenance] = []
-	@Published var generalLastMaintenance: Maintenance? = nil
+	/*@Published var generalLastMaintenance: Maintenance? = nil
 	@Published var selectedMaintenanceType: MaintenanceType {
 		didSet {
 				generalLastMaintenance = maintenances
@@ -29,7 +29,7 @@ final class MaintenanceVM: ObservableObject {
 	}
 	@Published var maintenancesForOneType: [Maintenance] = []
 	@Published var nextMaintenanceDates: [MaintenanceType: Date?] = [:]
-	@Published var daysUntilNextMaintenance: [MaintenanceType: Int?] = [:]
+	@Published var daysUntilNextMaintenance: [MaintenanceType: Int?] = [:]*/
 	@Published var overallStatus: MaintenanceStatus = .aPrevoir
 	@Published var error: AppError?
 	@Published var showAlert: Bool = false
@@ -38,10 +38,10 @@ final class MaintenanceVM: ObservableObject {
 	private let loader: LocalMaintenanceLoader
 	
 	//MARK: -Initialization
-	init(loader: LocalMaintenanceLoader = DependencyContainer.shared.MaintenanceLoader, selectedMaintenanceType: MaintenanceType = .Unknown, selectedMaintenanceDate: Date = Date(), notificationVM: NotificationViewModel? = nil) {
+	init(loader: LocalMaintenanceLoader = DependencyContainer.shared.MaintenanceLoader, notificationVM: NotificationViewModel? = nil) {
 		self.loader = loader
-		self.selectedMaintenanceType = selectedMaintenanceType
-		self.selectedMaintenanceDate = selectedMaintenanceDate
+		//self.selectedMaintenanceType = selectedMaintenanceType
+		//self.selectedMaintenanceDate = selectedMaintenanceDate
 		self.notificationVM = notificationVM
 	}
 	
@@ -51,7 +51,7 @@ final class MaintenanceVM: ObservableObject {
 		   self.notificationVM = notificationVM
 	   }
 #warning("pourquoi async nécessaire?")
-	func fetchLastMaintenance() {
+	/*func fetchLastMaintenance() {
 		print("fetchLastMaintenance appelée")
 		DispatchQueue.global(qos: .userInitiated).async { //chargement hors du thread principal
 			do {
@@ -83,9 +83,9 @@ final class MaintenanceVM: ObservableObject {
 				}
 			}
 		}
-	}
+	}*/
 	
-	func fetchAllMaintenanceForOneType(type: MaintenanceType) {
+	/*func fetchAllMaintenanceForOneType(type: MaintenanceType) {
 		print("fetchAllMaintenanceForOneType appelée")
 		do {
 			let allMaintenance = try loader.load()
@@ -103,7 +103,7 @@ final class MaintenanceVM: ObservableObject {
 			self.error = AppError.unknown
 			showAlert = true
 		}
-	}
+	}*/
 	
 	func defineOverallMaintenanceStatus() -> MaintenanceStatus {
 		print("defineOverallMaintenanceStatus appelée")
@@ -153,7 +153,7 @@ final class MaintenanceVM: ObservableObject {
 			return dueDate >= Date() ? .aJour : .aPrevoir
 	}
 	
-	func addMaintenance() {
+	/*func addMaintenance() {
 		print("addMaintenance appelée")
 		let maintenance = Maintenance(id: UUID(), maintenanceType: selectedMaintenanceType, date: selectedMaintenanceDate, reminder: true)
 		do {
@@ -171,7 +171,7 @@ final class MaintenanceVM: ObservableObject {
 			self.error = AppError.unknown
 			showAlert = true
 		}
-	}
+	}*/
 	
 	func lastMaintenance(of type: MaintenanceType) -> Maintenance? {
 		print("lastMaintenance appelée")
@@ -193,7 +193,7 @@ final class MaintenanceVM: ObservableObject {
 	}
 	
 	// Pré-calcul pour la vue
-	func updateMaintenanceCache() { //tableau de chaque type avec dates et jours restants
+	/*func updateMaintenanceCache() { //tableau de chaque type avec dates et jours restants
 		print("updateMaintenanceCache appelée")
 		var nextDates: [MaintenanceType: Date?] = [:]
 		var daysRemaining: [MaintenanceType: Int?] = [:]
@@ -208,7 +208,7 @@ final class MaintenanceVM: ObservableObject {
 			self.nextMaintenanceDates = nextDates
 			self.daysUntilNextMaintenance = daysRemaining
 		}
-	}
+	}*/
 	
 	func calculateNumberOfMaintenance() -> Int {
 		print("calculateNumberOfMaintenance appelée")

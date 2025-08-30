@@ -8,15 +8,23 @@
 import SwiftUI
 
 struct DashboardView: View {
-	@EnvironmentObject var bikeVM: BikeVM
-	@EnvironmentObject var maintenanceVM: MaintenanceVM
-	
+	@ObservedObject var bikeVM: BikeVM
+	@ObservedObject var maintenanceVM: MaintenanceVM
+	@StateObject private var VM: DashboardVM
+	@State private var goToAdd = false
+
 	let formatter: DateFormatter = {
 		let df = DateFormatter()
 		df.dateStyle = .medium
 		df.timeStyle = .none
 		return df
 	}()
+	
+	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM) {
+		self.bikeVM = bikeVM
+		self.maintenanceVM = maintenanceVM
+		_VM = StateObject(wrappedValue: DashboardVM(maintenanceVM: maintenanceVM))
+	}
 	
 	var body: some View {
 		ScrollView {
@@ -74,10 +82,10 @@ struct DashboardView: View {
 							.font(.custom("SpaceGrotesk-Bold", size: 22))
 							.padding(.bottom, 5)
 						
-							Text("\(maintenanceVM.generalLastMaintenance?.maintenanceType.rawValue ?? "")")
+							Text("\(VM.generalLastMaintenance?.maintenanceType.rawValue ?? "")")
 								.font(.custom("SpaceGrotesk-Bold", size: 16))
 							
-							if let date = maintenanceVM.generalLastMaintenance?.date {
+							if let date = VM.generalLastMaintenance?.date {
 								Text(formatter.string(from: date))
 									.font(.custom("SpaceGrotesk-Bold", size: 16))
 							} else {
@@ -94,7 +102,7 @@ struct DashboardView: View {
 				.padding(10)
 				
 				NavigationLink(
-					destination: BikeModificationsView()
+					destination: BikeModificationsView(bikeVM: bikeVM)
 				) {
 					Text("Modifier les infos du vélo")
 						.font(.custom("SpaceGrotesk-Bold", size: 16))
@@ -107,7 +115,10 @@ struct DashboardView: View {
 				.padding(.horizontal, 10)
 				
 				NavigationLink(
-					destination: AddMaintenanceView()
+					destination: AddMaintenanceView(maintenanceVM: maintenanceVM, onAdd: {
+						VM.fetchLastMaintenance() //closure appelée après dismiss
+					}),
+					isActive: $goToAdd
 				) {
 					Text("Ajouter un entretien")
 						.font(.custom("SpaceGrotesk-Bold", size: 16))
@@ -123,8 +134,8 @@ struct DashboardView: View {
 			.navigationBarBackButtonHidden(true)
 			.onAppear {
 				bikeVM.fetchBikeData() //bikeData mises dans publised
-				maintenanceVM.fetchLastMaintenance()
-				maintenanceVM.fetchAllMaintenance() //utile pour status général entretien
+				VM.fetchLastMaintenance()
+				maintenanceVM.fetchAllMaintenance() //utile pour statut général entretien
 			}
 		}
 		

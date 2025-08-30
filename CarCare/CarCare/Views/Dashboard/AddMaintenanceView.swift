@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct AddMaintenanceView: View {
-	@EnvironmentObject var maintenanceVM: MaintenanceVM
+	@ObservedObject var maintenanceVM: MaintenanceVM
+	@StateObject private var VM: AddMaintenanceVM
 	@State var showingDatePicker: Bool = false
-	@State private var goToDashboard = false
+	@Environment(\.dismiss) var dismiss
+	var onAdd: () -> Void
 	
 	let formatter: DateFormatter = {
 		let df = DateFormatter()
@@ -20,16 +22,21 @@ struct AddMaintenanceView: View {
 		return df
 	}()
 	
+	init(maintenanceVM: MaintenanceVM, onAdd: @escaping () -> Void) {
+		self.maintenanceVM = maintenanceVM
+		self.onAdd = onAdd
+		_VM = StateObject(wrappedValue: AddMaintenanceVM(maintenanceVM: maintenanceVM))
+	}
+	
 	var body: some View {
 		VStack {
-			
 			VStack(spacing: 20) {
 				VStack {
 					Text("Type d'entretien")
 						.font(.custom("SpaceGrotesk-Bold", size: 16))
 						.frame(maxWidth: .infinity, alignment: .leading)
 					
-					Picker("Type", selection: $maintenanceVM.selectedMaintenanceType) {
+					Picker("Type", selection: $VM.selectedMaintenanceType) {
 						ForEach(MaintenanceType.allCases) { maintenanceType in
 							Text(maintenanceType.rawValue).tag(maintenanceType)
 						}
@@ -49,7 +56,7 @@ struct AddMaintenanceView: View {
 					
 					Button(action: { showingDatePicker = true }) {
 						HStack {
-							Text(formatter.string(from: maintenanceVM.selectedMaintenanceDate))
+							Text(formatter.string(from: VM.selectedMaintenanceDate ?? Date()))
 								.foregroundColor(.brown)
 							Spacer()
 							Image(systemName: "calendar")
@@ -66,15 +73,9 @@ struct AddMaintenanceView: View {
 			Spacer()
 			
 			PrimaryButton(title: "Ajouter l'entretien", font: .custom("SpaceGrotesk-Bold", size: 16), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
-				maintenanceVM.addMaintenance()
-				goToDashboard = true
-			}
-			// NavigationLink invisible mais déclenché par le Bool
-			NavigationLink(
-				destination: DashboardView(),
-				isActive: $goToDashboard
-			) {
-				EmptyView()
+				VM.addMaintenance()
+				onAdd() //pour recharger la dernière maintenance dans Dashboard
+				dismiss()
 			}
 		}
 		.toolbar {
@@ -87,7 +88,10 @@ struct AddMaintenanceView: View {
 		.sheet(isPresented: $showingDatePicker) {
 			DatePicker(
 				"Sélectionnez la date",
-				selection: $maintenanceVM.selectedMaintenanceDate,
+				selection: Binding(
+					get: { VM.selectedMaintenanceDate ?? Date() },   // valeur par défaut si nil
+					set: { VM.selectedMaintenanceDate = $0 }
+				),
 				displayedComponents: [.date]
 			)
 			.datePickerStyle(.wheel)

@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct MaintenanceView: View {
-	@EnvironmentObject var maintenanceVM: MaintenanceVM
+	@ObservedObject var maintenanceVM: MaintenanceVM
+	@StateObject private var VM: MaintenanceViewVM
+
 	var lastMaintenanceByType: [MaintenanceType: Maintenance] {
 		Dictionary(
 			grouping: maintenanceVM.maintenances,
@@ -19,9 +21,14 @@ struct MaintenanceView: View {
 		.filter { $0.key != .Unknown } // on enlève Unknown
 	}
 
+	//MARK: -Initialization
+	init(maintenanceVM: MaintenanceVM) {
+		self.maintenanceVM = maintenanceVM
+		_VM = StateObject(wrappedValue: MaintenanceViewVM(maintenanceVM: maintenanceVM))
+	}
 	//MARK: -Body
 	var body: some View {
-		let sortedKeys: [MaintenanceType] = Array(lastMaintenanceByType.keys).sorted { $0.rawValue < $1.rawValue }
+		let sortedKeys = VM.sortedMaintenanceKeys(from: maintenanceVM.maintenances)
 		VStack(spacing: 20) {
 			VStack {
 				List {
@@ -30,8 +37,8 @@ struct MaintenanceView: View {
 						.textCase(nil)) {
 							ForEach(sortedKeys, id: \.self) { type in
 								if let maintenance = lastMaintenanceByType[type] {
-									NavigationLink(destination: MaintenanceDetailsView(maintenanceID: maintenance.id)) {
-										ToDoMaintenanceRow(maintenanceType: type)
+									NavigationLink(destination: MaintenanceDetailsView(VM: VM, maintenanceVM: maintenanceVM, maintenanceID: maintenance.id)) {
+										ToDoMaintenanceRow(VM: VM, maintenanceType: type)
 									}
 								}
 							}
@@ -46,12 +53,9 @@ struct MaintenanceView: View {
 				}
 			}
 			NavigationLink(destination: MaintenanceHistoryView()) {
-				Text("Historique des entretiens (\(maintenanceVM.calculateNumberOfMaintenance()))")
+				Text("Historique des entretiens (\(VM.calculateNumberOfMaintenance()))")
 			}
 			Spacer()
-		}
-		.onAppear {
-			maintenanceVM.updateMaintenanceCache()
 		}
 		.alert(isPresented: $maintenanceVM.showAlert) {
 			Alert(
@@ -66,10 +70,10 @@ struct MaintenanceView: View {
 	}
 }
 
-#Preview {
+/*#Preview {
     MaintenanceView()
 }
-
+*/
 
 /*List {
 	ForEach(viewModel.categories.keys.sorted(), id: \.self) { key in

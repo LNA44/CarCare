@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct BikeModificationsView: View {
-	@EnvironmentObject var bikeVM: BikeVM
+	@ObservedObject var bikeVM: BikeVM
 	@State private var selectedBrand: Brand = .Unknown
-	@State private var selectedModel: String? = nil //optionnel pour la modif de selectedBrand et selectedModel pas encore redéfini
+	@State private var selectedModel: String = ""
 	@State private var yearText: String = ""
 	@State private var selectedType: BikeType = .Manual
 	@State private var identificationNumber: String = ""
-	@State private var goToDashboard = false
+	@Environment(\.dismiss) var dismiss
 	
 	var body: some View {
 		VStack {			
@@ -32,7 +32,7 @@ struct BikeModificationsView: View {
 						}
 					}
 					.onChange(of: selectedBrand) {_, newBrand in
-						if !newBrand.models.contains(selectedModel ?? "") {
+						if !newBrand.models.contains(selectedModel) {
 							selectedModel = newBrand.models.first ?? ""
 						}
 					}
@@ -47,15 +47,11 @@ struct BikeModificationsView: View {
 					Text("Modèle")
 						.frame(maxWidth: .infinity, alignment: .leading)
 					Picker("Modèle", selection: Binding(
-						get: { //quand picker affiché
-							// Si selectedModel n'est pas dans la liste, on prend le premier modèle
-							if let selectedModel = selectedModel, selectedBrand.models.contains(selectedModel) {
-								return selectedModel
-							} else {
-								return selectedBrand.models.first ?? ""
-							}
+						get: {
+							selectedBrand.models.contains(selectedModel) ? selectedModel : selectedBrand.models.first ?? ""
 						},
-						set: { selectedModel = $0 //quand utilisateur change sélection dans picker : assigne cette valeur à selectedModel
+						set: { newValue in
+							selectedModel = newValue
 						}
 					)) {
 						ForEach(selectedBrand.models, id: \.self) { model in
@@ -104,31 +100,16 @@ struct BikeModificationsView: View {
 			Spacer()
 			
 			PrimaryButton(title: "Modifier les informations", font: .custom("SpaceGrotesk-Bold", size: 16), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
-				bikeVM.modifyBikeInformations(brand: selectedBrand, model: selectedModel ?? "", year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
-				goToDashboard = true
+				bikeVM.modifyBikeInformations(brand: selectedBrand, model: selectedModel, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
+				dismiss()
 			}
-			// NavigationLink invisible mais déclenché par le Bool
-			NavigationLink(
-				destination: DashboardView(),
-				isActive: $goToDashboard
-			) {
-				EmptyView()
-			}
-			
 		}
 		.onAppear {
-			if let bike = bikeVM.bike {
-				selectedBrand = bike.brand
-				selectedType = bike.bikeType
-				yearText = String(bike.year)
-				// Vérifie que le modèle enregistré existe bien dans la liste des modèles de la marque
-				if bike.brand.models.contains(bike.model) {
-					selectedModel = bike.model
-				} else {
-					// Sinon on prend le premier modèle disponible
-					selectedModel = bike.brand.models.first ?? ""
-				}
-			}
+			self.selectedBrand = bikeVM.brand
+			self.selectedModel = bikeVM.model
+			self.selectedType = bikeVM.bikeType
+			self.yearText = String(bikeVM.year)
+			self.identificationNumber = bikeVM.identificationNumber
 		}
 		.toolbar {
 			ToolbarItem(placement: .principal) {

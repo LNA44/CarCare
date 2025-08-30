@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct RegistrationView: View {
-	@EnvironmentObject var bikeVM: BikeVM
+	@ObservedObject var bikeVM: BikeVM
 	@EnvironmentObject var appState: AppState
 	@State private var shouldNavigate = false
+	@State private var selectedBrand: Brand = .Unknown
+	@State private var selectedModel: String = ""
+	@State private var selectedType: BikeType = .Manual
+	@State private var yearText: String = ""
+	@State private var identificationNumber: String = ""
 	
 	var body: some View {
 		NavigationStack {
@@ -32,9 +37,14 @@ struct RegistrationView: View {
 							Text("Marque")
 								.frame(maxWidth: .infinity, alignment: .leading)
 							
-							Picker("Marque", selection: $bikeVM.brand) {
+							Picker("Marque", selection: $selectedBrand) {
 								ForEach(Brand.allCases) { brand in
 									Text(brand.rawValue).tag(brand)
+								}
+							}
+							.onChange(of: selectedBrand) {_, newBrand in
+								if !newBrand.models.contains(selectedModel) {
+									selectedModel = newBrand.models.first ?? ""
 								}
 							}
 							.pickerStyle(MenuPickerStyle()) // Menu déroulant
@@ -51,8 +61,15 @@ struct RegistrationView: View {
 							Text("Modèle")
 								.frame(maxWidth: .infinity, alignment: .leading)
 							
-							Picker("Modèle", selection: $bikeVM.model) {
-								ForEach(bikeVM.models, id: \.self) { model in
+							Picker("Modèle", selection: Binding(
+								get: {
+									selectedBrand.models.contains(selectedModel) ? selectedModel : selectedBrand.models.first ?? ""
+								},
+								set: { newValue in
+									selectedModel = newValue
+								}
+							)) {
+								ForEach(selectedBrand.models, id: \.self) { model in
 									Text(model).tag(model)
 								}
 							}
@@ -64,6 +81,22 @@ struct RegistrationView: View {
 						}
 						
 						VStack {
+							Text("Type")
+								.frame(maxWidth: .infinity, alignment: .leading)
+							Picker("Type", selection: $selectedType) {
+								ForEach(BikeType.allCases, id: \.self) { type in
+									Text(type.rawValue).tag(type)
+								}
+							}
+							.pickerStyle(MenuPickerStyle())
+							.frame(maxWidth: .infinity, alignment: .leading)
+							.frame(height: 40)
+							.background(Color("InputSurfaceColor"))
+							.cornerRadius(10)
+						}
+						.frame(maxWidth: .infinity)
+						
+						VStack {
 							Text("Année de fabrication")
 								.frame(maxWidth: .infinity, alignment: .leading)
 							
@@ -71,9 +104,7 @@ struct RegistrationView: View {
 							 get: { bikeVM.year == 0 ? "" : String(bikeVM.year) },
 							 set: { bikeVM.year = Int($0) ?? bikeVM.year } //set convertit le String saisi en Int, en laissant l’ancienne valeur si conversion impossible.
 							 ))*/
-							CustomTextField(placeholder: "Année", text: Binding(
-								get: { bikeVM.year == 0 ? "" : String(bikeVM.year) },
-								set: { bikeVM.year = Int($0) ?? bikeVM.year }))
+							CustomTextField(placeholder: "", text: $yearText)
 							.keyboardType(.numberPad)
 						}
 						.frame(maxWidth: .infinity)
@@ -86,9 +117,7 @@ struct RegistrationView: View {
 							 get: { bikeVM.identificationNumber },
 							 set: { bikeVM.identificationNumber = $0 }
 							 ))*/
-							CustomTextField(placeholder: "ID", text: Binding(
-								get: { bikeVM.identificationNumber },
-								set: { bikeVM.identificationNumber = $0 }))
+							CustomTextField(placeholder: "", text: $identificationNumber)
 						}
 						.frame(maxWidth: .infinity)
 						
@@ -100,7 +129,7 @@ struct RegistrationView: View {
 				Spacer()
 				
 				PrimaryButton(title: "Ajouter le vélo", font: .custom("SpaceGrotesk-Bold", size: 16), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
-					let success = bikeVM.addBike()
+					let success = bikeVM.addBike(brand: selectedBrand, model: selectedModel, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
 					if success {
 						shouldNavigate = true
 					}
@@ -111,7 +140,6 @@ struct RegistrationView: View {
 			.navigationDestination(isPresented: $shouldNavigate) {
 			}
 		}
-		
 		.alert(isPresented: $bikeVM.showAlert) {
 			Alert(
 				title: Text("Erreur"),
@@ -125,6 +153,7 @@ struct RegistrationView: View {
 	}
 }
 
-#Preview {
+/*#Preview {
     RegistrationView()
 }
+*/

@@ -9,7 +9,7 @@ import Foundation
 
 final class BikeVM: ObservableObject {
 	//MARK: -Public properties
-	@Published var model: String = "Unknown"
+	@Published var model: String = ""
 	@Published var brand: Brand = .Unknown
 	@Published var mileage: Int = 0
 	@Published var year: Int = 0
@@ -108,7 +108,7 @@ final class BikeVM: ObservableObject {
 		}
 	}
 	
-	func addBike() -> Bool {
+	func addBike(brand: Brand, model: String, year: Int, type: BikeType, identificationNumber: String) -> Bool {
 		print("addBike appelée")
 		let bike = Bike(id: UUID(), brand: brand, model: model, year: year, bikeType: bikeType, identificationNumber: identificationNumber)
 		do {

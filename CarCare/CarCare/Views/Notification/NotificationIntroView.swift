@@ -9,7 +9,7 @@ import SwiftUI
 import UserNotifications
 //apparait à la première ouverture de l'app
 struct NotificationIntroView: View {
-	@EnvironmentObject var maintenanceVM: MaintenanceVM
+	@ObservedObject var maintenanceVM: MaintenanceVM
 	@EnvironmentObject var notificationVM: NotificationViewModel
 	@AppStorage("hasSeenNotificationIntro") private var hasSeenNotificationIntro: Bool = false
 	
@@ -61,6 +61,7 @@ struct NotificationIntroView: View {
 	}
 }
 
-#Preview {
+/*#Preview {
     NotificationIntroView()
 }
+*/

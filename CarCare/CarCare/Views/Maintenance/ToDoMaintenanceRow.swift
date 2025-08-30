@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ToDoMaintenanceRow: View {
 	@EnvironmentObject var maintenanceVM: MaintenanceVM
+	@ObservedObject var VM: MaintenanceViewVM
 	let maintenanceType: MaintenanceType
 	let formatter: DateFormatter = {
 		let df = DateFormatter()
@@ -17,8 +18,8 @@ struct ToDoMaintenanceRow: View {
 	}()
 
     var body: some View {
-		let daysRemaining = maintenanceVM.daysUntilNextMaintenance[maintenanceType] ?? nil
-		let nextDate = maintenanceVM.nextMaintenanceDates[maintenanceType] ?? nil
+		let daysRemaining = VM.daysUntilNextMaintenance(type: maintenanceType) 
+		let nextDate = VM.nextMaintenanceDate(for: maintenanceType)
 		
 		VStack(alignment: .leading) {
 			HStack {

@@ -8,23 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-	@EnvironmentObject var bikeVM: BikeVM
-	@EnvironmentObject var maintenanceVM: MaintenanceVM
-	@EnvironmentObject var themeVM: ThemeViewModel
+	@ObservedObject var bikeVM: BikeVM
+	@ObservedObject var maintenanceVM: MaintenanceVM
+	//@EnvironmentObject var themeVM: ThemeViewModel
 	
 	var body: some View {
 		TabView {
 			NavigationStack {
-				DashboardView()
+				DashboardView(bikeVM: bikeVM, maintenanceVM: maintenanceVM)
 			}
 			.tabItem { Label("Accueil", systemImage: "house")}
-			.environmentObject(bikeVM)
-			.environmentObject(maintenanceVM)
 			NavigationStack {
-				MaintenanceView()
+				MaintenanceView(maintenanceVM: maintenanceVM)
 			}
 			.tabItem { Label("Entretiens", systemImage: "wrench") }
-			.environmentObject(maintenanceVM)
 			NavigationStack {
 				SettingsView()
 			}
@@ -33,6 +30,6 @@ struct ContentView: View {
 	}
 }
 
-#Preview {
+/*#Preview {
 	ContentView()
-}
+}*/

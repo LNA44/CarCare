@@ -9,7 +9,8 @@ import SwiftUI
 
 struct MaintenanceDetailsView: View {
 	@Environment(\.dismiss) private var dismiss
-	@EnvironmentObject var maintenanceVM: MaintenanceVM
+	@ObservedObject var VM: MaintenanceViewVM
+	@ObservedObject var maintenanceVM: MaintenanceVM
 	let maintenanceID: UUID // on reçoit juste l'ID
 	var maintenance: Maintenance? { // computed property : on retrouve la "vraie" donnée à partir du viewModel
 		maintenanceVM.maintenances.first(where: { $0.id == maintenanceID })
@@ -18,7 +19,9 @@ struct MaintenanceDetailsView: View {
 	
 	var body: some View {
 		if let maintenance = maintenance {
-			let daysRemaining = maintenanceVM.daysUntilNextMaintenance[maintenance.maintenanceType] ?? nil
+			let daysRemaining = VM.daysUntilNextMaintenance(type: maintenance.maintenanceType)
+			let maintenancesForOneType = VM.fetchAllMaintenanceForOneType(type: maintenance.maintenanceType)
+			
 
 			ScrollView {
 				VStack {
@@ -84,14 +87,14 @@ struct MaintenanceDetailsView: View {
 					Text("Historique des entretiens")
 					
 					VStack(alignment: .leading, spacing: 0) {
-						ForEach(Array(maintenanceVM.maintenancesForOneType.enumerated()), id: \.element.id) { index, maintenanceItem in
+						ForEach(Array(maintenancesForOneType.enumerated()), id: \.element.id) { index, item in
 							HStack {
 								Spacer()
 								VStack {
 									
 									Image(systemName: "wrench")
 									
-									if index != maintenanceVM.maintenancesForOneType.count - 1 {
+									if index != maintenancesForOneType.count - 1 {
 										Rectangle()
 											.fill(Color.gray)
 											.frame(width: 2)
@@ -100,7 +103,7 @@ struct MaintenanceDetailsView: View {
 									}
 								}
 								
-								Text("\(formattedDate(maintenanceItem.date))")
+								Text("\(formattedDate(item.date))")
 									.padding(.leading, 8)
 								
 								Spacer()
@@ -123,7 +126,7 @@ struct MaintenanceDetailsView: View {
 					.padding(.bottom, 20)
 				}
 				.onAppear {
-					maintenanceVM.fetchAllMaintenanceForOneType(type: maintenance.maintenanceType)
+					VM.fetchAllMaintenanceForOneType(type: maintenance.maintenanceType)
 				}
 				Spacer()
 			}
@@ -189,4 +192,5 @@ extension MaintenanceDetailsView {
 /*#Preview {
  MaintenanceDetailsView()
  }*/
+
 
