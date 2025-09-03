@@ -28,117 +28,166 @@ struct DashboardView: View {
 	
 	var body: some View {
 		ScrollView {
-			VStack(spacing: 20) {
-				Text("Mon vélo")
-					.font(.custom("SpaceGrotesk-Bold", size: 22))
-				
-				Image("Riding")
-					.resizable()
-					.frame(width: 100, height: 100)
-					.clipShape(Circle())
-				
-				VStack {
-					Text("\(bikeVM.brand) \(bikeVM.model) (\(bikeVM.year))")
-						.font(.custom("SpaceGrotesk-Bold", size: 16))
-						.bold()
-						.padding(.top)
-						.padding(.horizontal, 15)
-						.multilineTextAlignment(.center)
-					
-					if !bikeVM.identificationNumber.isEmpty {
-						Text("Numéro d'identification : \(bikeVM.identificationNumber)")
-							.font(.custom("SpaceGrotesk-Bold", size: 16))
+			VStack(spacing: 10) {
+					Image("Riding")
+						.resizable()
+						.frame(width: 100, height: 100)
+						.clipShape(Circle())
+						.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+
+					VStack {
+						Text("\(bikeVM.brand) - \(bikeVM.model)")
+							.font(.system(size: 24, weight: .bold, design: .rounded))
+							.padding(.top)
+							.padding(.horizontal, 15)
+							.multilineTextAlignment(.center)
+							.shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
+						
+						HStack {
+							Image(systemName: "birthday.cake")
+								.resizable()
+								.frame(width: 15, height: 15)
+								.foregroundColor(.brown)
+							Text("\(bikeVM.year)")
+						}
+						
+						if !bikeVM.identificationNumber.isEmpty {
+							Text("Numéro d'identification : \(bikeVM.identificationNumber)")
+								.font(.system(size: 16, weight: .regular, design: .rounded))
+						}
 					}
-				}
-				.padding(.bottom, 20)
-				.foregroundColor(Color(.brown))
+					.padding(.bottom, 20)
+					.foregroundColor(Color(.brown))
+				
+					Divider()
+					.frame(width: 150)
+					.padding(.bottom, 10)
 				
 				VStack {
-					VStack(alignment: .leading, spacing: 10) {
+					VStack(alignment: .center, spacing: 20) {
 						Text("Entretien")
-							.font(.custom("SpaceGrotesk-Regular", size: 16))
+							.font(.system(size: 27, weight: .bold, design: .rounded))
+							.foregroundColor(Color("TextColor"))
 						
 						Text("\(maintenanceVM.overallStatus.label)")
-							.font(.custom("SpaceGrotesk-Bold", size: 24))
-							.foregroundColor(maintenanceVM.overallStatus.label == "À jour" ? .green : .red)
+							.font(.system(size: 22, weight: .bold, design: .rounded))
+							.foregroundColor(Color(.white))
+							.padding(10)
+							.background(
+								maintenanceVM.overallStatus == .aJour ? Color("DoneColor") :
+								   maintenanceVM.overallStatus == .bientotAPrevoir ? Color("InProgressColor") :
+								   Color("ToDoColor")
+							)
+							.clipShape(Capsule())
+							.shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
 					}
 					.padding(.horizontal, 20)
 				}
-				.frame(maxWidth: .infinity, alignment: .leading)
+				.frame(maxWidth: .infinity, alignment: .center)
 				.frame(height: 100)
-				.background(Color("InputSurfaceColor"))
 				.cornerRadius(10)
 				.padding(.horizontal, 10)
-				
+				.padding(.bottom, 20)
+
 				ZStack {
-					Image("Maintenance")
-						.resizable()
-						.frame(width: 380, height: 250)
-						.cornerRadius(10)
-						.scaledToFit()
-					
-					VStack(alignment: .leading) {
-						Text("Dernier entretien")
-							.font(.custom("SpaceGrotesk-Bold", size: 22))
-							.padding(.bottom, 5)
+						Image("Maintenance")
+							.resizable()
+							.frame(width: 360, height: 250)
+							.cornerRadius(10)
+							.scaledToFit()
 						
-							Text("\(VM.generalLastMaintenance?.maintenanceType.rawValue ?? "")")
-								.font(.custom("SpaceGrotesk-Bold", size: 16))
+						VStack(alignment: .leading) {
+							Text("Dernier entretien")
+								.font(.system(size: 22, weight: .bold, design: .rounded))
+								.padding(.bottom, 5)
 							
-							if let date = VM.generalLastMaintenance?.date {
+							Text("\(maintenanceVM.generalLastMaintenance?.maintenanceType.rawValue ?? "")")
+								.font(.system(size: 16, weight: .bold, design: .rounded))
+							
+							if let date = maintenanceVM.generalLastMaintenance?.date {
 								Text(formatter.string(from: date))
-									.font(.custom("SpaceGrotesk-Bold", size: 16))
+									.font(.system(size: 16, weight: .bold, design: .rounded))
 							} else {
 								Text("Pas de date")
-									.font(.custom("SpaceGrotesk-Bold", size: 16))
+									.font(.system(size: 16, weight: .bold, design: .rounded))
 							}
-					}
-					.foregroundColor(.white)
-					.bold()
-					.padding(.vertical, 10)
-					.frame(width: 350, height: 250, alignment: .bottomLeading)
-					
-				}
-				.padding(10)
-				
-				NavigationLink(
-					destination: BikeModificationsView(bikeVM: bikeVM)
-				) {
-					Text("Modifier les infos du vélo")
-						.font(.custom("SpaceGrotesk-Bold", size: 16))
-						.foregroundColor(.black)
-						.frame(maxWidth: .infinity)
-						.padding()
-						.background(Color("InputSurfaceColor"))
-						.cornerRadius(10)
-				}
-				.padding(.horizontal, 10)
-				
-				NavigationLink(
-					destination: AddMaintenanceView(maintenanceVM: maintenanceVM, onAdd: {
-						VM.fetchLastMaintenance() //closure appelée après dismiss
-					}),
-					isActive: $goToAdd
-				) {
-					Text("Ajouter un entretien")
-						.font(.custom("SpaceGrotesk-Bold", size: 16))
+						}
 						.foregroundColor(.white)
-						.frame(maxWidth: .infinity)
-						.padding()
-						.background(Color("AppPrimaryColor"))
-						.cornerRadius(10)
+						.bold()
+						.padding(.horizontal, 10)
+						.padding(.vertical, 10)
+						.frame(width: 350, height: 250, alignment: .bottomLeading)
+						
+					}
+					.padding(.horizontal, 10)
+					.padding(.vertical, 10)
+					
+					VStack(spacing: 20) {
+						NavigationLink(
+							destination: BikeModificationsView(bikeVM: bikeVM)
+						) {
+							Text("Modifier les infos du vélo")
+								.font(.system(size: 16, weight: .bold, design: .rounded))
+								.foregroundColor(Color("TextColor"))
+								.frame(maxWidth: .infinity)
+								.padding()
+								.background(Color("BackgroundColor"))
+								.background(Color.white)
+								.cornerRadius(10)
+						}
+						.padding(.horizontal, 10)
+						.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+						
+						NavigationLink(
+							destination: AddMaintenanceView(maintenanceVM: maintenanceVM, onAdd: {
+								VM.fetchLastMaintenance() //closure appelée après dismiss
+								maintenanceVM.fetchAllMaintenance()
+							}),
+							isActive: $goToAdd
+						) {
+							Text("Ajouter un entretien")
+								.font(.system(size: 16, weight: .bold, design: .rounded))
+								.foregroundColor(.white)
+								.frame(maxWidth: .infinity)
+								.padding()
+								.background(Color("AppPrimaryColor"))
+								.cornerRadius(10)
+						}
+						.padding(.bottom, 20)
+						.padding(.horizontal, 10)
+						.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+					}
+					.padding(.top, 10)
 				}
-				.padding(.bottom, 40)
+				.padding(.top, 20)
+				.cornerRadius(15)
 				.padding(.horizontal, 10)
-			}
 			.navigationBarBackButtonHidden(true)
 			.onAppear {
 				bikeVM.fetchBikeData() //bikeData mises dans publised
 				VM.fetchLastMaintenance()
 				maintenanceVM.fetchAllMaintenance() //utile pour statut général entretien
 			}
+			.onReceive(maintenanceVM.$maintenances) { maintenances in
+				print("AllMaintenances mises à jour: \(maintenances)")
+			}
 		}
-		
+		.background(
+			LinearGradient(
+				gradient: Gradient(colors: [Color("BackgroundColor"), Color(.white)]),
+				startPoint: .top,
+				endPoint: .bottom
+			)
+		)
+		.toolbar {
+			ToolbarItem(placement: .principal) {
+				Text("Mon vélo")
+					.font(.system(size: 22, weight: .bold, design: .rounded))
+					.foregroundColor(Color("TextColor"))
+			}
+		}
+		.background(Color("BackgroundColor"))
+		.navigationBarTitleDisplayMode(.inline)
 		.alert(isPresented: $bikeVM.showAlert) {
 			Alert(
 				title: Text("Erreur liée au vélo"),

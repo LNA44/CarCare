@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct DaysIndicatorView: View {
-	let days: Int?
+	let days: Int
+	let frequency: Int
 	let rectangleWidth: CGFloat
 	let rectangleHeight: CGFloat
 	let triangleWidth: CGFloat
@@ -22,74 +23,57 @@ struct DaysIndicatorView: View {
 				.resizable()
 				.frame(width: triangleWidth, height: triangleHeight)
 				.rotationEffect(.degrees(180))
-				.foregroundColor(.black)
+				.foregroundColor(Color("TextColor"))
 				.offset(x: triangleOffset())
 			
 			// Rectangles
 			HStack(spacing: 2) {
 				Rectangle()
-					.fill(colorFirstRectangle(for: days))
+					.fill(colorForRectangle(index: 0))
 					.frame(width: rectangleWidth, height: rectangleHeight)
 				Rectangle()
-					.fill(colorSecondRectangle(for: days))
+					.fill(colorForRectangle(index: 1))
 					.frame(width: rectangleWidth, height: rectangleHeight)
 				Rectangle()
-					.fill(colorThirdRectangle(for: days))
+					.fill(colorForRectangle(index: 2))
 					.frame(width: rectangleWidth, height: rectangleHeight)
 			}
 		}
 	}
 	
-	func colorFirstRectangle(for days: Int?) -> Color {
-		guard let days else { return .gray }
-		switch days {
-		case let x where x > 30: return .green
-		case 1...30: return .gray
-		case ..<1: return .gray
-		default: return .gray
-		}
-	}
-	
-	func colorSecondRectangle(for days: Int?) -> Color {
-		guard let days else { return .gray }
-		switch days {
-		case let x where x > 30: return .gray
-		case 1...30: return .orange
-		case ..<1: return .gray
-		default: return .gray
-		}
-	}
-	
-	func colorThirdRectangle(for days: Int?) -> Color {
-		guard let days else { return .gray }
-		switch days {
-		case let x where x > 30: return .gray
-		case 1...30: return .gray
-		case ..<1: return .red
-		default: return .gray
-		}
-	}
-	
-	func triangleOffset(for days: Int?) -> CGFloat {
-		guard let days else { return 0 }
-		switch days {
-		case let x where x > 30: return 0       // triangle au-dessus du premier rectangle
-		case 1...30: return 25                  // décalage pour le deuxième rectangle
-		case ..<1: return 50                   // décalage pour le troisième rectangle
-		default: return 0
-		}
-	}
-	
-	func triangleOffset() -> CGFloat {
-		guard let days else { return 0 }
-		let totalRectangleWidth = rectangleWidth + spacing
-		switch days {
-		case let x where x > 30:
-			return -totalRectangleWidth // premier rectangle
-		case 1...30:
-			return 0 // deuxième rectangle
+	private func colorForRectangle(index: Int) -> Color {
+		let proportion = min(max(Double(days) / Double(frequency), 0), 1)
+		
+		switch index {
+		case 0: // premier rectangle
+			return proportion >= 2/3 ? Color("DoneColor") : Color("EmptyColor")
+		case 1: // deuxième rectangle
+			return proportion >= 1/3 && proportion < 2/3 ? Color("InProgressColor") : Color("EmptyColor")
+		case 2: // troisième rectangle
+			return proportion < 1/3 ? Color("ToDoColor") : Color("EmptyColor")
 		default:
-			return totalRectangleWidth // troisième rectangle
+			return Color("EmptyColor")
 		}
+	}
+
+	private func triangleOffset() -> CGFloat {
+		let proportion = min(max(Double(days) / Double(frequency), 0), 1)
+		
+		let step = rectangleWidth + spacing
+		let index: Int
+		
+		switch proportion {
+		case 0..<1/3:
+			index = 2 // triangle sur le dernier rectangle
+		case 1/3..<2/3:
+			index = 1 // triangle sur le deuxième rectangle
+		default:
+			index = 0 // triangle sur le premier rectangle
+		}
+		
+		// centrage du triangle
+		let totalWidth = 3 * rectangleWidth + 2 * spacing
+		let offset = CGFloat(index) * step + rectangleWidth / 2 - totalWidth / 2
+		return offset
 	}
 }

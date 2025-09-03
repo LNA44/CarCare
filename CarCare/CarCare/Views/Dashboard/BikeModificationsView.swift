@@ -18,17 +18,21 @@ struct BikeModificationsView: View {
 	
 	var body: some View {
 		VStack {			
-			Image("Bicycle")
+			Image(systemName: "bicycle")
 				.resizable()
-				.frame(width: 70, height: 70)
+				.frame(width: 70, height: 40)
+				.foregroundColor(Color("TextColor"))
+				.padding(.top, 10)
 			
 			VStack(spacing: 20) {
 				VStack {
 					Text("Marque")
 						.frame(maxWidth: .infinity, alignment: .leading)
+						.foregroundColor(Color("TextColor"))
 					Picker("Marque", selection: $selectedBrand) {
 						ForEach(Brand.allCases) { brand in
 							Text(brand.rawValue).tag(brand)
+								.font(.system(size: 16, weight: .regular, design: .rounded))
 						}
 					}
 					.onChange(of: selectedBrand) {_, newBrand in
@@ -36,6 +40,7 @@ struct BikeModificationsView: View {
 							selectedModel = newBrand.models.first ?? ""
 						}
 					}
+					.tint(Color("TextColor"))
 					.pickerStyle(MenuPickerStyle()) // Menu déroulant
 					.frame(maxWidth: .infinity, alignment: .leading)
 					.frame(height: 40)
@@ -46,6 +51,7 @@ struct BikeModificationsView: View {
 				VStack {
 					Text("Modèle")
 						.frame(maxWidth: .infinity, alignment: .leading)
+						.foregroundColor(Color("TextColor"))
 					Picker("Modèle", selection: Binding(
 						get: {
 							selectedBrand.models.contains(selectedModel) ? selectedModel : selectedBrand.models.first ?? ""
@@ -56,9 +62,10 @@ struct BikeModificationsView: View {
 					)) {
 						ForEach(selectedBrand.models, id: \.self) { model in
 							Text(model).tag(model)
+								.font(.system(size: 16, weight: .regular, design: .rounded))
 						}
 					}
-					.tint(.brown)
+					.tint(Color("TextColor"))
 					.pickerStyle(MenuPickerStyle())
 					.frame(maxWidth: .infinity, alignment: .leading)
 					.frame(height: 40)
@@ -69,11 +76,15 @@ struct BikeModificationsView: View {
 				VStack {
 					Text("Type")
 						.frame(maxWidth: .infinity, alignment: .leading)
+						.foregroundColor(Color("TextColor"))
+					
 					Picker("Type", selection: $selectedType) {
 						ForEach(BikeType.allCases, id: \.self) { type in
 							Text(type.rawValue).tag(type)
+								.font(.system(size: 16, weight: .regular, design: .rounded))
 						}
 					}
+					.tint(Color("TextColor"))
 					.pickerStyle(MenuPickerStyle())
 					.frame(maxWidth: .infinity, alignment: .leading)
 					.frame(height: 40)
@@ -85,21 +96,24 @@ struct BikeModificationsView: View {
 				VStack {
 					Text("Année")
 						.frame(maxWidth: .infinity, alignment: .leading)
+						.foregroundColor(Color("TextColor"))
+					
 					CustomTextField(placeholder: "", text: $yearText)
 				}
 				
 				VStack {
 					Text("Numéro d'identification")
 						.frame(maxWidth: .infinity, alignment: .leading)
+						.foregroundColor(Color("TextColor"))
+					
 					CustomTextField(placeholder: "", text: $identificationNumber)
 				}
 			}
-			.font(.custom("SpaceGrotesk-Bold", size: 16))
-			.bold()
+			.font(.system(size: 16, weight: .bold, design: .rounded))
 			
 			Spacer()
 			
-			PrimaryButton(title: "Modifier les informations", font: .custom("SpaceGrotesk-Bold", size: 16), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
+			PrimaryButton(title: "Modifier les informations", foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
 				bikeVM.modifyBikeInformations(brand: selectedBrand, model: selectedModel, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
 				dismiss()
 			}
@@ -114,8 +128,8 @@ struct BikeModificationsView: View {
 		.toolbar {
 			ToolbarItem(placement: .principal) {
 				Text("Mon vélo")
-					.font(.custom("SpaceGrotesk-Bold", size: 22))
-					.foregroundColor(.black) 
+					.font(.system(size: 22, weight: .bold, design: .rounded))
+					.foregroundColor(Color("TextColor"))
 			}
 		}
 		.padding(.horizontal, 10)

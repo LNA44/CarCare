@@ -9,133 +9,186 @@ import SwiftUI
 
 struct MaintenanceDetailsView: View {
 	@Environment(\.dismiss) private var dismiss
-	@ObservedObject var VM: MaintenanceViewVM
 	@ObservedObject var maintenanceVM: MaintenanceVM
+	@StateObject private var VM: MaintenanceDetailsVM
 	let maintenanceID: UUID // on reçoit juste l'ID
-	var maintenance: Maintenance? { // computed property : on retrouve la "vraie" donnée à partir du viewModel
-		maintenanceVM.maintenances.first(where: { $0.id == maintenanceID })
-	}
+	//@State var currentMaintenance: Maintenance?
 	@State private var showAddMaintenance = false
+	@State private var maintenancesForOneType: [Maintenance] = []
+	@State private var daysRemaining: Int?
 	
+	//MARK: -Initialization
+	init(maintenanceVM: MaintenanceVM, maintenanceID: UUID) {
+		self.maintenanceVM = maintenanceVM
+		_VM = StateObject(wrappedValue: MaintenanceDetailsVM(maintenanceVM: maintenanceVM))
+		self.maintenanceID = maintenanceID
+	}
+	
+	//MARK: -Body
 	var body: some View {
-		if let maintenance = maintenance {
-			let daysRemaining = VM.daysUntilNextMaintenance(type: maintenance.maintenanceType)
-			let maintenancesForOneType = VM.fetchAllMaintenanceForOneType(type: maintenance.maintenanceType)
-			
-
+		if let maintenance = maintenanceVM.maintenances.first(where: { $0.id == maintenanceID }) {
 			ScrollView {
-				VStack {
-					VStack(spacing: 50) {
-						VStack(spacing: 20) {
-							Text("\(maintenance.maintenanceType.rawValue)")
-								.font(.title)
-								.bold()
-								.padding(.bottom, 40)
-							
-							VStack(spacing: 20) {
-								DaysIndicatorView(days: daysRemaining, rectangleWidth: 40, rectangleHeight: 20, triangleWidth: 10, triangleHeight: 10, spacing: 4)
-								Text("\(message(for: daysRemaining))")
-									.multilineTextAlignment(.center)
-									.foregroundColor(color(for: daysRemaining))
-									.padding(10)
-							}
-							.padding(.bottom, 20)
-						}
-						
-						HStack {
-							Image(systemName: "alarm") // icône réveil
-									.foregroundColor(.black)  // couleur de l'icône
-							
-							Text("Fréquence : \(maintenance.maintenanceType.readableFrequency)")
-							
-							Spacer()
-							
-							Toggle("", isOn: Binding(
-								get: { maintenance.reminder }, //appelé lors du dessin de la vue (aussi après modif du toggle pour redessiner la vue)
-								set: { newValue in //modification du toggle
-									maintenanceVM.updateReminder(for: maintenance, value: newValue)
-								}
-							))
-							.labelsHidden()
-						}
-						.padding(.horizontal, 20)
-						
-						Button (action: {
-							showAddMaintenance = true
-						}) {
-							Text("Mettre à jour")
-								.frame(width: 290)
-								.padding()
-								.background(Color.blue.cornerRadius(10))
-								.foregroundColor(.white)
-								.padding(.horizontal)
-						}
-						
-					}
-//ouvrir view au lieu de sheet
-					/*.sheet(isPresented: $showAddMaintenance) {
-						AddMaintenanceView()
-					}
-					
-					.padding(.vertical, 20)
-					.background(.ultraThinMaterial) // carte translucide
-					.cornerRadius(15) // coins arrondis
-					.shadow(radius: 5) // ombre subtile
-					
-					.padding(20)*/
-					
-					Text("Historique des entretiens")
-					
-					VStack(alignment: .leading, spacing: 0) {
-						ForEach(Array(maintenancesForOneType.enumerated()), id: \.element.id) { index, item in
-							HStack {
-								Spacer()
-								VStack {
-									
-									Image(systemName: "wrench")
-									
-									if index != maintenancesForOneType.count - 1 {
-										Rectangle()
-											.fill(Color.gray)
-											.frame(width: 2)
-											.frame(height: 10)
-											.padding(.bottom, 5)
+				VStack(spacing: 20) {
+					VStack {
+						VStack(spacing: 50) {
+							VStack {
+								VStack(spacing: 20) {
+									if let daysRemaining = daysRemaining {
+										DaysIndicatorView(days: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays, rectangleWidth: 40, rectangleHeight: 20, triangleWidth: 10, triangleHeight: 10, spacing: 4)
+										Text("\(message(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays))")
+											.multilineTextAlignment(.center)
+											.foregroundColor(color(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays))
 									}
 								}
+								.padding(15)
+								.frame(maxWidth: 350)
+								.background(
+									Color("BackgroundColor")
+										.cornerRadius(15)
+								)
+								.overlay(
+									RoundedRectangle(cornerRadius: 15)
+										.stroke(Color("InputSurfaceColor"), lineWidth: 2)
+								)
+							}
+							.padding(.horizontal, 15)
+							
+							
+							HStack {
+								Image(systemName: "alarm") // icône réveil
+									.foregroundColor(.black)  // couleur de l'icône
 								
-								Text("\(formattedDate(item.date))")
-									.padding(.leading, 8)
+								Text("Fréquence : \(maintenance.maintenanceType.readableFrequency)")
+									.font(.system(size: 16, weight: .bold, design: .rounded))
+									.foregroundColor(Color("TextColor"))
 								
 								Spacer()
+								
+								Toggle("", isOn: Binding(
+									get: { maintenance.reminder }, //appelé lors du dessin de la vue (aussi après modif du toggle pour redessiner la vue)
+									set: { newValue in //modification du toggle
+										maintenanceVM.updateReminder(for: maintenance, value: newValue)
+									}
+								))
+								.tint(Color("DoneColor"))
+								.labelsHidden()
+							}
+							.padding(.horizontal, 20)
+							
+							NavigationLink(
+								destination: AddMaintenanceView(maintenanceVM: maintenanceVM, onAdd: {
+									//maintenanceVM.fetchAllMaintenance() //closure appelée après dismiss
+								})
+							) {
+								Text("Mettre à jour")
+									.font(.system(size: 16, weight: .bold, design: .rounded))
+									.foregroundColor(Color("TextColor"))
+									.frame(maxWidth: .infinity)
+									.padding()
+									.background(Color("AppPrimaryColor"))
+									.cornerRadius(10)
+							}
+							.padding(.horizontal, 15)
+							.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+						}
+						
+					}
+					.padding(.vertical, 20)
+					.background(Color("StackBackgroundColor"))
+					.cornerRadius(15)
+
+					VStack {
+						Text("Historique des entretiens")
+							.font(.system(size: 25, weight: .bold, design: .rounded))
+							.foregroundColor(Color("TextColor"))
+							.padding(.bottom, 20)
+							.drawingGroup()
+						
+						VStack(alignment: .leading, spacing: 0) {
+							ForEach(Array(maintenancesForOneType.reversed().enumerated()), id: \.element.id) { index, item in
+								
+								VStack {
+									HStack {
+										Image(systemName: "wrench")
+										Text("\(formattedDate(item.date))")
+											.padding(.leading, 8)
+											.font(.system(size: 16, weight: .bold, design: .rounded))
+											.foregroundColor(Color("TextColor"))
+									}
+									HStack {
+										if index != maintenancesForOneType.count - 1 {
+											Rectangle()
+												.fill(Color("AppPrimaryColor"))
+												.frame(width: 2)
+												.frame(height: 10)
+												.padding(.bottom, 5)
+										}
+										Spacer()
+									}
+									.padding(.leading, 130)
+								}
 							}
 						}
+						.padding(.top, 15)
 					}
-					.padding(.top, 15)
+					.padding(.vertical, 20)
+					.padding(.bottom, 10)
+					.background(Color("StackBackgroundColor"))
+					.cornerRadius(15)
 					
-					
-					Divider()
+					/*Divider()
 						.frame(width: 200, height: 1)
 						.background(Color.gray.opacity(0.2)) // couleur du trait
-						.padding(.vertical, 20)
+						.padding(.vertical, 20)*/
 					
 					VStack(spacing: 20) {
 						Text("Conseils & infos")
-							.bold()
+							.font(.system(size: 25, weight: .bold, design: .rounded))
+							.foregroundColor(Color("TextColor"))
+							.padding(.bottom, 20)
+						
 						Text("\(maintenance.maintenanceType.description)")
+							.font(.system(size: 16, weight: .regular, design: .rounded))
+							.foregroundColor(Color("TextColor"))
+							.padding(.leading, 20)
+							.frame(maxWidth: .infinity, alignment: .leading) // aligné à gauche
 					}
-					.padding(.bottom, 20)
+					//.frame(maxWidth: .infinity)
+					.padding(.vertical, 20)
+					.padding(.bottom, 10)
+					.background(Color("StackBackgroundColor"))
+					.cornerRadius(15)
 				}
+				.padding(.top, 15)
+				.background(Color("BackgroundColor"))
+				.cornerRadius(15)
+				.padding(.horizontal, 10)
 				.onAppear {
-					VM.fetchAllMaintenanceForOneType(type: maintenance.maintenanceType)
+					_ = VM.fetchAllMaintenanceForOneType(type: maintenance.maintenanceType)
 				}
 				Spacer()
 			}
+			.onAppear {
+				maintenancesForOneType = VM.fetchAllMaintenanceForOneType(type: maintenance.maintenanceType)
+				daysRemaining = VM.daysUntilNextMaintenance(type: maintenance.maintenanceType)
+			}
+			.background(Color("BackgroundColor"))
 			.navigationBarBackButtonHidden(true)
+				
 			.toolbar {
 				ToolbarItem(placement: .navigationBarLeading) {
-					Button("Retour") {
+					Button(action: {
 						dismiss()
+					}) {
+						Text("Retour")
+							.font(.system(size: 16, weight: .regular, design: .rounded))
+							.foregroundColor(Color("TextColor"))
 					}
+				}
+				ToolbarItem(placement: .principal) {
+					Text("\(maintenance.maintenanceType.rawValue)")
+						.font(.system(size: 22, weight: .bold, design: .rounded))
+						.foregroundColor(Color("TextColor"))
 				}
 			}
 			.alert(isPresented: $maintenanceVM.showAlert) {
@@ -148,7 +201,6 @@ struct MaintenanceDetailsView: View {
 					}
 				)
 			}
-			
 		} else {
 			Text("Maintenance introuvable")
 		}
@@ -156,29 +208,29 @@ struct MaintenanceDetailsView: View {
 }
 
 extension MaintenanceDetailsView {
-	func message(for days: Int?) -> String {
-		guard let days else { return "Nombre de jours inconnu" }
-		
-		switch days {
-		case ..<1:
-			return "C'est l'heure! Pense à prendre rendez-vous chez le réparateur le plus proche"
-		case 1...30:
+	func message(for days: Int, frequency: Int) -> String {
+		let proportion = min(max(Double(days) / Double(frequency), 0), 1)
+
+		switch proportion {
+		case 0..<1/3:
+			return "Tu es à jour"
+		case 1/3..<2/3:
 			return "Tu n'as pas encore à t'en préoccuper"
 		default:
-			return "Tu es à jour"
+			return "C'est l'heure! Pense à prendre rendez-vous chez le réparateur le plus proche"
 		}
 	}
 	
-	func color(for days: Int?) -> Color {
-		guard let days else { return .gray }
+	func color(for days: Int, frequency: Int) -> Color {
+		let proportion = min(max(Double(days) / Double(frequency), 0), 1)
 		
-		switch days {
-		case ..<1:
-			return .red
-		case 1..<30:
-			return .orange
+		switch proportion {
+		case 0..<1/3:
+			return Color("DoneColor")
+		case 1/3..<2/3:
+			return Color("InProgressColor")
 		default:
-			return .green
+			return Color("ToDoColor")
 		}
 	}
 	

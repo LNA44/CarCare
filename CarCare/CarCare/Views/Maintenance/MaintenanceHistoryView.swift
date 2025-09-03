@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MaintenanceHistoryView: View {
-	@EnvironmentObject var maintenanceVM: MaintenanceVM
+	@ObservedObject var maintenanceVM: MaintenanceVM
     var body: some View {
 		VStack {
 			Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
@@ -26,6 +26,7 @@ struct MaintenanceHistoryView: View {
     }
 }
 
-#Preview {
+/*#Preview {
     MaintenanceHistoryView()
 }
+*/

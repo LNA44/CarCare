@@ -12,22 +12,8 @@ final class AddMaintenanceVM: ObservableObject {
 	private let maintenanceLoader: LocalMaintenanceLoader
 	@Published var error: AppError?
 	@Published var showAlert: Bool = false
-	@Published var selectedMaintenanceType: MaintenanceType = .Unknown /*{
-		didSet {
-			generalLastMaintenance = maintenances
-				.filter { $0.maintenanceType == selectedMaintenanceType }
-				.max(by: { $0.date < $1.date })
-			generalLastMaintenance = nil
-		}
-	}*/
-	@Published var selectedMaintenanceDate: Date? /*{
-		didSet {
-				generalLastMaintenance = maintenances
-					.filter { $0.maintenanceType == selectedMaintenanceType }
-					.max(by: { $0.date < $1.date })
-				generalLastMaintenance = nil
-		}
-	}*/
+	@Published var selectedMaintenanceType: MaintenanceType = .Unknown 
+	@Published var selectedMaintenanceDate: Date? = Date()
 	
 	init(maintenanceLoader: LocalMaintenanceLoader = DependencyContainer.shared.MaintenanceLoader, maintenanceVM: MaintenanceVM) {
 		self.maintenanceLoader = maintenanceLoader
@@ -35,8 +21,8 @@ final class AddMaintenanceVM: ObservableObject {
 	}
 	
 	func addMaintenance() {
+		print("addMaintenance appelée")
 		if let selectedMaintenanceDate = selectedMaintenanceDate {
-			print("addMaintenance appelée")
 			let maintenance = Maintenance(id: UUID(), maintenanceType: selectedMaintenanceType, date: selectedMaintenanceDate, reminder: true)
 			do {
 				try maintenanceLoader.save(maintenance)

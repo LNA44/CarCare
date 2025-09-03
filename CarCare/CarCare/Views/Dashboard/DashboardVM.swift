@@ -8,7 +8,6 @@
 import Foundation
 
 final class DashboardVM: ObservableObject {
-	@Published var generalLastMaintenance: Maintenance? = nil
 	private let maintenanceVM: MaintenanceVM
 	private let maintenanceLoader: LocalMaintenanceLoader
 	@Published var error: AppError?
@@ -27,7 +26,7 @@ final class DashboardVM: ObservableObject {
 				let sortedMaintenance = allMaintenance
 					.sorted { $0.date > $1.date } //tri décroissant
 				DispatchQueue.main.async {
-					self.generalLastMaintenance = sortedMaintenance.first
+					self.maintenanceVM.generalLastMaintenance = sortedMaintenance.first
 				}
 			} catch let error as LoadingCocoaError { //erreurs de load
 				DispatchQueue.main.async {

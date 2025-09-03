@@ -9,11 +9,13 @@ import Foundation
 
 enum MaintenanceStatus {
 	case aJour
+	case bientotAPrevoir
 	case aPrevoir
 
 	var label: String {
 		switch self {
 		case .aJour: return "À jour"
+		case .bientotAPrevoir: return "Bientôt à prévoir"
 		case .aPrevoir: return "À prévoir"
 		}
 	}

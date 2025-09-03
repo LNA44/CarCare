@@ -18,8 +18,12 @@ struct DoneMaintenanceRow: View {
     var body: some View {
 		HStack {
 			Text("\(maintenance.maintenanceType.rawValue)")
+				.bold()
+			Spacer()
 			Text("\(formatter.string(from: maintenance.date))")
 		}
+		.padding(.trailing, 20)
+		.foregroundColor(Color("TextColor"))
     }
 }
 

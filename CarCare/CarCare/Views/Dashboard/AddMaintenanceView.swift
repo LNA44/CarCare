@@ -33,7 +33,8 @@ struct AddMaintenanceView: View {
 			VStack(spacing: 20) {
 				VStack {
 					Text("Type d'entretien")
-						.font(.custom("SpaceGrotesk-Bold", size: 16))
+						.font(.system(size: 16, weight: .bold, design: .rounded))
+						.foregroundColor(Color("TextColor"))
 						.frame(maxWidth: .infinity, alignment: .leading)
 					
 					Picker("Type", selection: $VM.selectedMaintenanceType) {
@@ -41,7 +42,7 @@ struct AddMaintenanceView: View {
 							Text(maintenanceType.rawValue).tag(maintenanceType)
 						}
 					}
-					.tint(.brown)
+					.tint(Color("TextColor"))
 					.pickerStyle(MenuPickerStyle())
 					.frame(maxWidth: .infinity, alignment: .leading)
 					.frame(height: 40)
@@ -51,14 +52,18 @@ struct AddMaintenanceView: View {
 				
 				VStack {
 					Text("Date de l'entretien")
-						.font(.custom("SpaceGrotesk-Bold", size: 16))
+						.font(.system(size: 16, weight: .bold, design: .rounded))
+						.foregroundColor(Color("TextColor"))
 						.frame(maxWidth: .infinity, alignment: .leading)
 					
 					Button(action: { showingDatePicker = true }) {
 						HStack {
 							Text(formatter.string(from: VM.selectedMaintenanceDate ?? Date()))
-								.foregroundColor(.brown)
+								.foregroundColor(Color("TextColor"))
+								.font(.system(size: 16, weight: .regular, design: .rounded))
+
 							Spacer()
+							
 							Image(systemName: "calendar")
 								.foregroundColor(.gray)
 						}
@@ -72,7 +77,7 @@ struct AddMaintenanceView: View {
 			
 			Spacer()
 			
-			PrimaryButton(title: "Ajouter l'entretien", font: .custom("SpaceGrotesk-Bold", size: 16), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
+			PrimaryButton(title: "Ajouter l'entretien", foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
 				VM.addMaintenance()
 				onAdd() //pour recharger la dernière maintenance dans Dashboard
 				dismiss()
@@ -81,8 +86,8 @@ struct AddMaintenanceView: View {
 		.toolbar {
 			ToolbarItem(placement: .principal) {
 				Text("Ajouter un entretien")
-					.font(.custom("SpaceGrotesk-Bold", size: 22))
-					.foregroundColor(.black)
+					.font(.system(size: 22, weight: .bold, design: .rounded))
+					.foregroundColor(Color("TextColor"))
 			}
 		}
 		.sheet(isPresented: $showingDatePicker) {

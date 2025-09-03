@@ -1,36 +1,24 @@
 //
-//  MaintenanceVM.swift
+//  MaintenanceDetailsVM.swift
 //  CarCare
 //
-//  Created by Ordinateur elena on 30/08/2025.
+//  Created by Ordinateur elena on 02/09/2025.
 //
 
 import Foundation
 
-final class MaintenanceViewVM: ObservableObject {
+final class MaintenanceDetailsVM: ObservableObject {
 	private let maintenanceVM: MaintenanceVM
 	private let maintenanceLoader: LocalMaintenanceLoader
 	@Published var error: AppError?
 	@Published var showAlert: Bool = false
+	@Published var daysUntilNextMaintenance: Int?
+	@Published var maintenancesForOneType: [Maintenance] = []
 	
 	init(maintenanceLoader: LocalMaintenanceLoader = DependencyContainer.shared.MaintenanceLoader, maintenanceVM: MaintenanceVM) {
 		self.maintenanceLoader = maintenanceLoader
 		self.maintenanceVM = maintenanceVM
 	}
-	
-	func sortedMaintenanceKeys(from maintenances: [Maintenance]) -> [MaintenanceType] {
-		let lastByType = Dictionary(grouping: maintenances, by: { $0.maintenanceType })
-			.compactMapValues { $0.max(by: { $0.date < $1.date }) }
-			.filter { $0.key != .Unknown }
-
-		return Array(lastByType.keys).sorted { $0.rawValue < $1.rawValue }
-	}
-	
-	func calculateNumberOfMaintenance() -> Int {
-		print("calculateNumberOfMaintenance appelée")
-		return maintenanceVM.maintenances.count
-	}
-	//Utile dans row
 	
 	func daysUntilNextMaintenance(type: MaintenanceType) -> Int? {
 		print("daysUntilNextMaintenance appelée")
@@ -71,5 +59,5 @@ final class MaintenanceViewVM: ObservableObject {
 		}
 		return []
 	}
-	
 }
+

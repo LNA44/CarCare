@@ -128,7 +128,7 @@ struct RegistrationView: View {
 				
 				Spacer()
 				
-				PrimaryButton(title: "Ajouter le vélo", font: .custom("SpaceGrotesk-Bold", size: 16), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
+				PrimaryButton(title: "Ajouter le vélo", foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
 					let success = bikeVM.addBike(brand: selectedBrand, model: selectedModel, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
 					if success {
 						shouldNavigate = true
