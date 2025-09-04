@@ -60,3 +60,4 @@ enum SaveCocoaError: Error {
 	case validationFailed      // validationMissingMandatoryProperty, validationNumberTooLarge/TooSmall, validationStringTooLong/TooShort
 	case unknown               // toutes les autres erreurs liées au save
 }
+

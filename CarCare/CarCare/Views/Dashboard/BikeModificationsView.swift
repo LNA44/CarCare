@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BikeModificationsView: View {
+	@EnvironmentObject var appState: AppState
 	@Environment(\.dismiss) private var dismiss
 	@ObservedObject var bikeVM: BikeVM
 	@State private var selectedBrand: Brand = .Unknown
@@ -15,9 +16,11 @@ struct BikeModificationsView: View {
 	@State private var yearText: String = ""
 	@State private var selectedType: BikeType = .Manual
 	@State private var identificationNumber: String = ""
+	var onDelete: (() -> Void)? = nil
+
 	
 	var body: some View {
-		VStack {			
+		VStack {
 			Image(systemName: "bicycle")
 				.resizable()
 				.frame(width: 70, height: 40)
@@ -113,9 +116,22 @@ struct BikeModificationsView: View {
 			
 			Spacer()
 			
-			PrimaryButton(title: "Modifier les informations", foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
-				bikeVM.modifyBikeInformations(brand: selectedBrand, model: selectedModel, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
-				dismiss()
+			VStack(spacing: 20) {
+				PrimaryButton(title: "Supprimer mon vélo", foregroundColor: .white, backgroundColor: Color("ToDoColor")) {
+					bikeVM.deleteCurrentBike()
+					DispatchQueue.main.async {
+						dismiss()
+						onDelete?() //previent dashboardview
+						//withAnimation(.easeInOut) {
+							appState.status = .needsVehicleRegistration
+						//}
+					}
+				}
+				
+				PrimaryButton(title: "Modifier les informations", foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
+					bikeVM.modifyBikeInformations(brand: selectedBrand, model: selectedModel, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
+						dismiss()
+				}
 			}
 		}
 		.onAppear {
@@ -154,7 +170,7 @@ struct BikeModificationsView: View {
 				}
 			)
 		}
-}
+	}
 }
 
 /*#Preview {

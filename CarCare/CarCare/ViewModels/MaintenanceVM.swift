@@ -75,7 +75,7 @@ final class MaintenanceVM: ObservableObject {
 				self.maintenances = filtered
 				self.overallStatus = self.defineOverallMaintenanceStatus(for: bikeType)
 				print("overallStatus après fetch: \(self.overallStatus)")
-
+				
 			}
 		} catch let error as LoadingCocoaError { //erreurs de load
 			self.error = AppError.loadingDataFailed(error)
@@ -146,6 +146,19 @@ final class MaintenanceVM: ObservableObject {
 		} catch let error as FetchCocoaError {
 			self.error = AppError.fetchDataFailed(error)
 			showAlert = true
+		} catch let error as SaveCocoaError {
+			self.error = AppError.saveDataFailed(error)
+			showAlert = true
+		} catch {
+			self.error = AppError.unknown
+			showAlert = true
+		}
+	}
+	
+	func deleteAllMaintenances() {
+		do {
+			try loader.deleteAll()
+			self.maintenances = []
 		} catch let error as SaveCocoaError {
 			self.error = AppError.saveDataFailed(error)
 			showAlert = true

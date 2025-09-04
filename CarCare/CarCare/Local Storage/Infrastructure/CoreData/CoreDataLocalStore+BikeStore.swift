@@ -40,4 +40,15 @@ extension CoreDataLocalStore: BikeStore {
 			}
 		}
 	}
+	
+	func delete(_ bike: LocalBike) throws {
+		try performSync { context in
+			Result {
+				if let managedBike = try ManagedBike.find(in: context).first(where: { $0.id == bike.id }) {
+					try ManagedBike.delete(managedBike, in: context)
+					try context.save()
+				}
+			}
+		}
+	}
 }

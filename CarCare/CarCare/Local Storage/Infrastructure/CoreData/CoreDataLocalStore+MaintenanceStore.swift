@@ -32,4 +32,12 @@ extension CoreDataLocalStore: MaintenanceStore {
 			}
 		}
 	}
+	
+	func delete() throws {
+		try performSync { context in
+			Result {
+				try ManagedMaintenance.deleteAll(in: context)
+			}
+		}
+	}
 }

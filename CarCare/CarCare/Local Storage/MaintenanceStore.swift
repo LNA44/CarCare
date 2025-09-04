@@ -11,4 +11,5 @@ protocol MaintenanceStore {
 	func insert(_ maintenance: LocalMaintenance) throws
 	func retrieve () throws -> [LocalMaintenance]
 	func update(_ maintenance: LocalMaintenance) throws
+	func delete() throws
 }

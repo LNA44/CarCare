@@ -23,11 +23,10 @@ struct RegistrationView: View {
 				VStack {
 					VStack (spacing: 20) {
 						Text("Bienvenue")
-							.font(.custom("SpaceGrotesk-Bold", size: 22))
+							.font(.system(size: 22, weight: .bold, design: .rounded))
 							.frame(maxWidth: .infinity, alignment: .leading)
 						
 						Text("Entrez les informations de votre vélo")
-							.font(.custom("SpaceGrotesk-Regular", size: 16))
 							.frame(maxWidth: .infinity, alignment: .leading)
 					}
 					.padding(.top, 40)
@@ -40,16 +39,16 @@ struct RegistrationView: View {
 							Picker("Marque", selection: $selectedBrand) {
 								ForEach(Brand.allCases) { brand in
 									Text(brand.rawValue).tag(brand)
+										.font(.system(size: 16, weight: .regular, design: .rounded))
 								}
 							}
+							.tint(Color("TextColor"))
 							.onChange(of: selectedBrand) {_, newBrand in
 								if !newBrand.models.contains(selectedModel) {
 									selectedModel = newBrand.models.first ?? ""
 								}
 							}
 							.pickerStyle(MenuPickerStyle()) // Menu déroulant
-							//.font(.custom("SpaceGrotesk-Regular", size: 16))
-							//.foregroundColor(.brown)
 							.frame(maxWidth: .infinity, alignment: .leading)
 							.frame(height: 40)
 							.background(Color("InputSurfaceColor"))
@@ -71,8 +70,10 @@ struct RegistrationView: View {
 							)) {
 								ForEach(selectedBrand.models, id: \.self) { model in
 									Text(model).tag(model)
+										.font(.system(size: 16, weight: .regular, design: .rounded))
 								}
 							}
+							.tint(Color("TextColor"))
 							.pickerStyle(MenuPickerStyle())
 							.frame(maxWidth: .infinity, alignment: .leading)
 							.frame(height: 40)
@@ -82,12 +83,15 @@ struct RegistrationView: View {
 						
 						VStack {
 							Text("Type")
+								.foregroundColor(Color("TextColor"))
 								.frame(maxWidth: .infinity, alignment: .leading)
 							Picker("Type", selection: $selectedType) {
 								ForEach(BikeType.allCases, id: \.self) { type in
 									Text(type.rawValue).tag(type)
+										.font(.system(size: 16, weight: .regular, design: .rounded))
 								}
 							}
+							.tint(Color("TextColor"))
 							.pickerStyle(MenuPickerStyle())
 							.frame(maxWidth: .infinity, alignment: .leading)
 							.frame(height: 40)
@@ -100,10 +104,6 @@ struct RegistrationView: View {
 							Text("Année de fabrication")
 								.frame(maxWidth: .infinity, alignment: .leading)
 							
-							/*TextField("Année", text: Binding(
-							 get: { bikeVM.year == 0 ? "" : String(bikeVM.year) },
-							 set: { bikeVM.year = Int($0) ?? bikeVM.year } //set convertit le String saisi en Int, en laissant l’ancienne valeur si conversion impossible.
-							 ))*/
 							CustomTextField(placeholder: "", text: $yearText)
 							.keyboardType(.numberPad)
 						}
@@ -113,10 +113,6 @@ struct RegistrationView: View {
 							Text("Numéro d'identification (optionnel)")
 								.frame(maxWidth: .infinity, alignment: .leading)
 							
-							/*TextField("ID", text: Binding(
-							 get: { bikeVM.identificationNumber },
-							 set: { bikeVM.identificationNumber = $0 }
-							 ))*/
 							CustomTextField(placeholder: "", text: $identificationNumber)
 						}
 						.frame(maxWidth: .infinity)
@@ -124,7 +120,8 @@ struct RegistrationView: View {
 					}
 					.padding(.top, 40)
 				}
-				.font(.custom("SpaceGrotesk-Bold", size: 16))
+				.font(.system(size: 16, weight: .bold, design: .rounded))
+				.foregroundColor(Color("TextColor"))
 				
 				Spacer()
 				
@@ -132,8 +129,8 @@ struct RegistrationView: View {
 					let success = bikeVM.addBike(brand: selectedBrand, model: selectedModel, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
 					if success {
 						shouldNavigate = true
+						appState.status = .ready
 					}
-					appState.status = .ready
 				}
 			}
 			.padding(.horizontal, 10)

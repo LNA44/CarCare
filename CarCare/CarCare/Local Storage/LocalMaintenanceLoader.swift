@@ -27,6 +27,10 @@ final class LocalMaintenanceLoader {
 	func update(_ maintenance: Maintenance) throws {
 		try store.update(maintenance.toLocal())
 	}
+	
+	func deleteAll() throws {
+		try store.delete()
+	}
 }
 
 private extension Array where Element == LocalMaintenance {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DashboardView: View {
-	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
+	@AppStorage("isDarkMode") private var isDarkMode = false
 	@ObservedObject var bikeVM: BikeVM
 	@ObservedObject var maintenanceVM: MaintenanceVM
 	@StateObject private var VM: DashboardVM
@@ -126,7 +126,10 @@ struct DashboardView: View {
 					
 					VStack(spacing: 20) {
 						NavigationLink(
-							destination: BikeModificationsView(bikeVM: bikeVM)
+							destination: BikeModificationsView(bikeVM: bikeVM) {
+								//closure de BikeModificationsView
+								maintenanceVM.deleteAllMaintenances()
+							}
 						) {
 							Text("Modifier les infos du vélo")
 								.font(.system(size: 16, weight: .bold, design: .rounded))
@@ -168,9 +171,14 @@ struct DashboardView: View {
 			.onAppear {
 				guard !didLoadData else { return } //evite boucle lors du changement de light dark mode
 				didLoadData = true
-				bikeVM.fetchBikeData() //bikeData mises dans publised
+				bikeVM.fetchBikeData() { //bikeData mises dans publised
 				VM.fetchLastMaintenance(for: bikeVM.bikeType)
 				maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType) //utile pour statut général entretien
+				}
+			}
+			.onChange(of: bikeVM.bikeType) { _, newValue in
+				VM.fetchLastMaintenance(for: newValue)
+				maintenanceVM.fetchAllMaintenance(for: newValue)
 			}
 		}
 		.background(
@@ -223,6 +231,7 @@ struct DashboardView: View {
 		}
 	}
 }
+
 
 /*#Preview {
     DashboardView()

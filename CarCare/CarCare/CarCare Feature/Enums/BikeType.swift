@@ -6,6 +6,6 @@
 //
 
 enum BikeType: String, CaseIterable {
-	case Manual = "Manual"
-	case Electric = "Electric"
+	case Manual = "Manuel"
+	case Electric = "Electrique"
 }

@@ -46,7 +46,7 @@ struct CarCareApp: App {
 					}
 				case .ready:
 					ContentView(bikeVM: bikeVM, maintenanceVM: maintenanceVM)
-						//.environmentObject(themeVM)
+						.environmentObject(appState)
 				}
 			}
 			.alert(isPresented: $appState.showAlert) {

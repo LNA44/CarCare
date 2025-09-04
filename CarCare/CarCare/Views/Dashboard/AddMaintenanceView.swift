@@ -42,6 +42,7 @@ struct AddMaintenanceView: View {
 					Picker("Type", selection: $VM.selectedMaintenanceType) {
 						ForEach(VM.filteredMaintenanceTypes(for: bikeVM.bikeType), id: \.self) { maintenanceType in
 							Text(maintenanceType.rawValue).tag(maintenanceType)
+								.font(.system(size: 16, weight: .regular, design: .rounded))
 						}
 					}
 					.tint(Color("TextColor"))

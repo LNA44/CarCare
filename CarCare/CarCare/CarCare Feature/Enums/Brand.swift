@@ -16,7 +16,7 @@ enum Brand: String, CaseIterable, Identifiable {
 	case Orbea = "Orbea"
 	case VanMoof = "VanMoof"
 	case Gazelle = "Gazelle"
-	case Unknown = "Unknown"
+	case Unknown = "Inconnu"
 	
 	var id: String { rawValue }
 	

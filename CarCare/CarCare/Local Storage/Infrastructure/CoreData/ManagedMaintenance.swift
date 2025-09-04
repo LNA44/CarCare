@@ -49,6 +49,13 @@ extension ManagedMaintenance {
 		}
 	}
 	
+	static func deleteAll(in context: NSManagedObjectContext) throws {
+		let request = NSFetchRequest<NSFetchRequestResult>(entityName: "ManagedMaintenance")
+		let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+		try context.execute(deleteRequest)
+		try context.save()
+	}
+	
 	var local: LocalMaintenance {
 		LocalMaintenance(id: id, maintenanceType: maintenanceType, date: date, reminder: reminder)
 	}

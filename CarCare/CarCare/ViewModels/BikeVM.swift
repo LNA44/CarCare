@@ -38,7 +38,7 @@ final class BikeVM: ObservableObject {
 	
 	//MARK: -Methods
 	//synchronise bike et les published
-	func fetchBikeData() {
+	func fetchBikeData(completion: (() -> Void)? = nil) {
 		print("fetchBikeData appelée")
 		DispatchQueue.global(qos: .userInitiated).async { //charge en arrière plan donc ne bloque pas l'UI
 			do {
@@ -49,8 +49,11 @@ final class BikeVM: ObservableObject {
 					self.model = unwrappedBike.model
 					self.brand = unwrappedBike.brand
 					self.year = unwrappedBike.year
+					self.bikeType = unwrappedBike.bikeType
 					self.identificationNumber = unwrappedBike.identificationNumber
 					self.bike = unwrappedBike
+					print("bike après réception: \(self.bike)")
+					completion?()
 				}
 			} catch let error as LoadingCocoaError { //erreurs de load
 				DispatchQueue.main.async {
@@ -110,7 +113,9 @@ final class BikeVM: ObservableObject {
 	
 	func addBike(brand: Brand, model: String, year: Int, type: BikeType, identificationNumber: String) -> Bool {
 		print("addBike appelée")
-		let bike = Bike(id: UUID(), brand: brand, model: model, year: year, bikeType: bikeType, identificationNumber: identificationNumber)
+		let bike = Bike(id: UUID(), brand: brand, model: model, year: year, bikeType: type, identificationNumber: identificationNumber)
+		print("Bike avant enregistrement: \(bike)")
+
 		do {
 			try bikeLoader.save(bike)
 			return true
@@ -130,6 +135,21 @@ final class BikeVM: ObservableObject {
 			self.error = AppError.unknown
 			showAlert = true
 			return false
+		}
+	}
+	
+	func deleteCurrentBike() {
+		print("on est dans deleteCurrentBike du VM")
+		do {
+			guard let bike = bike else { return }
+			try bikeLoader.delete(bike)
+			self.bike = nil
+		} catch let error as SaveCocoaError {
+			self.error = AppError.saveDataFailed(error)
+			showAlert = true
+		} catch {
+			self.error = AppError.unknown
+			showAlert = true
 		}
 	}
 }

@@ -79,17 +79,19 @@ struct MaintenanceView: View {
 						VStack {
 							HStack(spacing: 10) {
 								Image(systemName: "exclamationmark.triangle.fill")
-								Text("Enregistrez un entretien réalisé de chez catégorie pour voir les prochains entretiens à venir et l'historique.")
+								Text("Enregistrez un entretien réalisé de chaque catégorie pour voir les prochains entretiens à venir et l'historique.")
 									
 							}
 							.padding(.horizontal, 10)
 							.padding(10)
-							.overlay (
-								RoundedRectangle(cornerRadius: 10)
-									.stroke(Color.red, lineWidth: 2))
+							
 						}
+						.padding(.horizontal, 10)
 						.background(Color("ToDoColor"))
 						.cornerRadius(10)
+						.overlay (
+							RoundedRectangle(cornerRadius: 10)
+								.stroke(Color.red, lineWidth: 2))
 					}
 				}
 			}

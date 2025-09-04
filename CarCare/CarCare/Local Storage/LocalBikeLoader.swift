@@ -26,6 +26,10 @@ struct LocalBikeLoader {
 			try store.insert(bike.toLocal()) //sinon on le crée
 		}
 	}
+	
+	func delete(_ bike: Bike) throws {
+		try store.delete(bike.toLocal())
+	}
 }
 
 private extension Bike {
