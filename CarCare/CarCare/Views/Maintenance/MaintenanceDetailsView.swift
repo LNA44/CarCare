@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MaintenanceDetailsView: View {
 	@Environment(\.dismiss) private var dismiss
+	@ObservedObject var bikeVM: BikeVM // utile pour l'injecter dans AddMaintenanceView
 	@ObservedObject var maintenanceVM: MaintenanceVM
 	@StateObject private var VM: MaintenanceDetailsVM
 	let maintenanceID: UUID // on reçoit juste l'ID
@@ -18,7 +19,8 @@ struct MaintenanceDetailsView: View {
 	@State private var daysRemaining: Int?
 	
 	//MARK: -Initialization
-	init(maintenanceVM: MaintenanceVM, maintenanceID: UUID) {
+	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM, maintenanceID: UUID) {
+		self.bikeVM = bikeVM
 		self.maintenanceVM = maintenanceVM
 		_VM = StateObject(wrappedValue: MaintenanceDetailsVM(maintenanceVM: maintenanceVM))
 		self.maintenanceID = maintenanceID
@@ -76,7 +78,7 @@ struct MaintenanceDetailsView: View {
 							.padding(.horizontal, 20)
 							
 							NavigationLink(
-								destination: AddMaintenanceView(maintenanceVM: maintenanceVM, onAdd: {
+								destination: AddMaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, onAdd: {
 									//maintenanceVM.fetchAllMaintenance() //closure appelée après dismiss
 								})
 							) {
@@ -153,7 +155,6 @@ struct MaintenanceDetailsView: View {
 							.padding(.leading, 20)
 							.frame(maxWidth: .infinity, alignment: .leading) // aligné à gauche
 					}
-					//.frame(maxWidth: .infinity)
 					.padding(.vertical, 20)
 					.padding(.bottom, 10)
 					.background(Color("StackBackgroundColor"))
@@ -201,6 +202,16 @@ struct MaintenanceDetailsView: View {
 					}
 				)
 			}
+			.alert(isPresented: $VM.showAlert) {
+				Alert(
+					title: Text("Erreur"),
+					message: Text(VM.error?.errorDescription ?? "Erreur inconnue"),
+					dismissButton: .default(Text("OK")) {
+						VM.showAlert = false
+						VM.error = nil
+					}
+				)
+			}
 		} else {
 			Text("Maintenance introuvable")
 		}
@@ -209,7 +220,7 @@ struct MaintenanceDetailsView: View {
 
 extension MaintenanceDetailsView {
 	func message(for days: Int, frequency: Int) -> String {
-		let proportion = min(max(Double(days) / Double(frequency), 0), 1)
+		let proportion = min(max(Double(frequency - days) / Double(frequency), 0), 1)
 
 		switch proportion {
 		case 0..<1/3:
@@ -222,8 +233,8 @@ extension MaintenanceDetailsView {
 	}
 	
 	func color(for days: Int, frequency: Int) -> Color {
-		let proportion = min(max(Double(days) / Double(frequency), 0), 1)
-		
+		let proportion = min(max(Double(frequency - days) / Double(frequency), 0), 1)
+
 		switch proportion {
 		case 0..<1/3:
 			return Color("DoneColor")

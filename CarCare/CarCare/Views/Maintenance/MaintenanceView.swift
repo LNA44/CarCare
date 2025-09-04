@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MaintenanceView: View {
+	@ObservedObject var bikeVM: BikeVM
 	@ObservedObject var maintenanceVM: MaintenanceVM
 	@StateObject private var VM: MaintenanceViewVM
 
@@ -23,7 +24,8 @@ struct MaintenanceView: View {
 	}
 
 	//MARK: -Initialization
-	init(maintenanceVM: MaintenanceVM) {
+	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM) {
+		self.bikeVM = bikeVM
 		self.maintenanceVM = maintenanceVM
 		_VM = StateObject(wrappedValue: MaintenanceViewVM(maintenanceVM: maintenanceVM))
 	}
@@ -31,6 +33,7 @@ struct MaintenanceView: View {
 	//MARK: -Body
 	var body: some View {
 		let sortedKeys = VM.sortedMaintenanceKeys(from: maintenanceVM.maintenances)
+
 		VStack(spacing: 20) {
 			VStack {
 				if let lastMaintenanceByType = lastMaintenanceByType {
@@ -41,7 +44,7 @@ struct MaintenanceView: View {
 							.textCase(nil)) {
 								ForEach(sortedKeys, id: \.self) { type in
 									if let maintenance = lastMaintenanceByType[type] {
-										NavigationLink(destination: MaintenanceDetailsView(maintenanceVM: maintenanceVM, maintenanceID: maintenance.id)) {
+										NavigationLink(destination: MaintenanceDetailsView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, maintenanceID: maintenance.id)) {
 											ToDoMaintenanceRow(VM: VM, maintenanceType: type)
 										}
 									}
@@ -101,6 +104,16 @@ struct MaintenanceView: View {
 				}
 			)
 		}
+		.alert(isPresented: $VM.showAlert) {
+			Alert(
+				title: Text("Erreur"),
+				message: Text(VM.error?.errorDescription ?? "Erreur inconnue"),
+				dismissButton: .default(Text("OK")) {
+					VM.showAlert = false
+					VM.error = nil
+				}
+			)
+		}
 	}
 }
 
@@ -109,7 +122,7 @@ extension MaintenanceView {
 		if let lastMaintenanceByType = lastMaintenanceByType,
 		   let maintenance = lastMaintenanceByType[type] {
 			return AnyView(
-				NavigationLink(destination: MaintenanceDetailsView(maintenanceVM: maintenanceVM, maintenanceID: maintenance.id)) {
+				NavigationLink(destination: MaintenanceDetailsView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, maintenanceID: maintenance.id)) {
 					ToDoMaintenanceRow(VM: VM, maintenanceType: type)
 				}
 			)

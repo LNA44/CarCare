@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 final class MaintenanceVM: ObservableObject {
 	weak var notificationVM: NotificationViewModel?  // Référence faible pour éviter les rétentions cycliques
@@ -17,6 +18,7 @@ final class MaintenanceVM: ObservableObject {
 	
 	//MARK: -Private properties
 	private let loader: LocalMaintenanceLoader
+	private var cancellables = Set<AnyCancellable>()
 	
 	//MARK: -Initialization
 	init(loader: LocalMaintenanceLoader = DependencyContainer.shared.MaintenanceLoader, notificationVM: NotificationViewModel? = nil) {
@@ -25,16 +27,26 @@ final class MaintenanceVM: ObservableObject {
 	}
 	
 	//MARK: -Methods
+	func observeBikeType(_ bikeVM: BikeVM) {
+		bikeVM.$bike
+			.compactMap { $0?.bikeType }
+			.sink { [weak self] bikeType in
+				self?.fetchAllMaintenance(for: bikeType)
+			}
+			.store(in: &cancellables)
+	}
+	
 	// Méthode pour injecter notificationVM après initialisation
 	   func setNotificationVM(_ notificationVM: NotificationViewModel) {
 		   self.notificationVM = notificationVM
 	   }
 
-	func defineOverallMaintenanceStatus() -> MaintenanceStatus {
+	func defineOverallMaintenanceStatus(for bikeType: BikeType) -> MaintenanceStatus {
 		print("defineOverallMaintenanceStatus appelée")
 		
 		let statuses = MaintenanceType.allCases
 			.filter { $0 != .Unknown }
+			.filter { !(bikeType == .Manual && $0 == .Battery) }
 			.map { determineMaintenanceStatus(for: $0, maintenances: maintenances) }
 	
 		if statuses.contains(.aPrevoir) {
@@ -46,13 +58,22 @@ final class MaintenanceVM: ObservableObject {
 		}
 	}
 	
-	func fetchAllMaintenance() {
+	func fetchAllMaintenance(for bikeType: BikeType) {
 		print("fetchAllMaintenance appelée")
 		do {
 			let loaded = try loader.load()
+			
+			// Filtrage : on exclut la maintenance batterie si le vélo est manuel
+			let filtered: [Maintenance]
+			if bikeType == .Manual {
+				filtered = loaded.filter { $0.maintenanceType != .Battery }
+			} else {
+				filtered = loaded
+			}
+			
 			DispatchQueue.main.async {
-				self.maintenances = loaded
-				self.overallStatus = self.defineOverallMaintenanceStatus()
+				self.maintenances = filtered
+				self.overallStatus = self.defineOverallMaintenanceStatus(for: bikeType)
 				print("overallStatus après fetch: \(self.overallStatus)")
 
 			}
@@ -73,51 +94,31 @@ final class MaintenanceVM: ObservableObject {
 	
 	func determineMaintenanceStatus(for maintenanceType: MaintenanceType, maintenances: [Maintenance]) -> MaintenanceStatus {
 		print("determineMaintenanceStatus appelée")
-			
-			// Filtrer les maintenances de ce type
-			let filtered = maintenances.filter { $0.maintenanceType == maintenanceType }
-			
-			// S'il n'y a jamais eu de maintenance, c'est à prévoir
-			guard let lastMaintenance = filtered.max(by: { $0.date < $1.date }) else {
-				return .aPrevoir
-			}
-			
-			// Calculer la date de la prochaine maintenance
-			let nextDate = Calendar.current.date(byAdding: .day, value: maintenanceType.frequencyInDays, to: lastMaintenance.date)!
-			
-			// Nombre de jours restants
-			let daysRemaining = Calendar.current.dateComponents([.day], from: Date(), to: nextDate).day ?? 0
-			let frequency = maintenanceType.frequencyInDays
-			
-			let proportion = min(max(Double(frequency - daysRemaining) / Double(frequency), 0), 1)
-			
-			switch proportion {
-			case 0..<1/3:
+		// Filtrer les maintenances de ce type
+		let filtered = maintenances.filter { $0.maintenanceType == maintenanceType }
+		
+		// S'il n'y a jamais eu de maintenance, c'est à prévoir
+		guard let lastMaintenance = filtered.max(by: { $0.date < $1.date }) else {
+			return .aPrevoir
+		}
+		
+		// Calculer la date de la prochaine maintenance
+		let nextDate = Calendar.current.date(byAdding: .day, value: maintenanceType.frequencyInDays, to: lastMaintenance.date)!
+		
+		// Nombre de jours restants
+		let daysRemaining = Calendar.current.dateComponents([.day], from: Date(), to: nextDate).day ?? 0
+		let frequency = maintenanceType.frequencyInDays
+		
+		let proportion = min(max(Double(frequency - daysRemaining) / Double(frequency), 0), 1)
+
+		switch proportion {
+		case 0..<1/3:
 				return .aJour          // Très récent
 			case 1/3..<2/3:
 				return .bientotAPrevoir // À prévoir bientôt
 			default:
 				return .aPrevoir       // Dépassé ou urgent
 			}
-	}
-
-	func lastMaintenance(of type: MaintenanceType) -> Maintenance? {
-		print("lastMaintenance appelée")
-		let filtered = maintenances.filter { $0.maintenanceType == type }
-		return filtered.max(by: { $0.date < $1.date })
-	}
-	
-	func nextMaintenanceDate(for type: MaintenanceType) -> Date? {
-		print("nextMaintenanceDate appelée")
-		guard let lastMaintenance = lastMaintenance(of: type) else { return nil }
-		guard type.frequencyInDays > 0 else { return nil} // Pas de prochaine date pour Unknown
-		return Calendar.current.date(byAdding: .day, value: type.frequencyInDays, to: lastMaintenance.date)
-	}
-	
-	func daysUntilNextMaintenance(type: MaintenanceType) -> Int? {
-		print("daysUntilNextMaintenance appelée")
-		guard let nextDate = nextMaintenanceDate(for: type) else { return nil }
-		return Calendar.current.dateComponents([.day], from: Date(), to: nextDate).day
 	}
 
 	func calculateNumberOfMaintenance() -> Int {

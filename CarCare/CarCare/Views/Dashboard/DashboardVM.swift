@@ -18,12 +18,21 @@ final class DashboardVM: ObservableObject {
 		self.maintenanceVM = maintenanceVM
 		}
 	
-	func fetchLastMaintenance() {
+	func fetchLastMaintenance(for bikeType: BikeType) {
 		print("fetchLastMaintenance appelée")
 		DispatchQueue.global(qos: .userInitiated).async { //chargement hors du thread principal
 			do {
 				let allMaintenance = try self.maintenanceLoader.load()
-				let sortedMaintenance = allMaintenance
+				
+				// Filtrage : on ignore les batteries pour les vélos manuels
+				let filtered: [Maintenance]
+				if bikeType == .Manual {
+					filtered = allMaintenance.filter { $0.maintenanceType != .Battery }
+				} else {
+					filtered = allMaintenance
+				}
+				
+				let sortedMaintenance = filtered
 					.sorted { $0.date > $1.date } //tri décroissant
 				DispatchQueue.main.async {
 					self.maintenanceVM.generalLastMaintenance = sortedMaintenance.first

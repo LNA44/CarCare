@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct DashboardView: View {
+	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
 	@ObservedObject var bikeVM: BikeVM
 	@ObservedObject var maintenanceVM: MaintenanceVM
 	@StateObject private var VM: DashboardVM
 	@State private var goToAdd = false
+	@State private var didLoadData = false
 
 	let formatter: DateFormatter = {
 		let df = DateFormatter()
@@ -139,9 +141,9 @@ struct DashboardView: View {
 						.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
 						
 						NavigationLink(
-							destination: AddMaintenanceView(maintenanceVM: maintenanceVM, onAdd: {
-								VM.fetchLastMaintenance() //closure appelée après dismiss
-								maintenanceVM.fetchAllMaintenance()
+							destination: AddMaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, onAdd: {
+								VM.fetchLastMaintenance(for: bikeVM.bikeType) //closure appelée après dismiss
+								maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
 							}),
 							isActive: $goToAdd
 						) {
@@ -164,21 +166,22 @@ struct DashboardView: View {
 				.padding(.horizontal, 10)
 			.navigationBarBackButtonHidden(true)
 			.onAppear {
+				guard !didLoadData else { return } //evite boucle lors du changement de light dark mode
+				didLoadData = true
 				bikeVM.fetchBikeData() //bikeData mises dans publised
-				VM.fetchLastMaintenance()
-				maintenanceVM.fetchAllMaintenance() //utile pour statut général entretien
-			}
-			.onReceive(maintenanceVM.$maintenances) { maintenances in
-				print("AllMaintenances mises à jour: \(maintenances)")
+				VM.fetchLastMaintenance(for: bikeVM.bikeType)
+				maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType) //utile pour statut général entretien
 			}
 		}
 		.background(
-			LinearGradient(
-				gradient: Gradient(colors: [Color("BackgroundColor"), Color(.white)]),
-				startPoint: .top,
-				endPoint: .bottom
+				LinearGradient(
+					gradient: Gradient(colors: isDarkMode
+									   ? [Color.black, Color.gray]
+									   : [Color("BackgroundColor"), Color.white]),
+					startPoint: .top,
+					endPoint: .bottom
+				)
 			)
-		)
 		.toolbar {
 			ToolbarItem(placement: .principal) {
 				Text("Mon vélo")
@@ -205,6 +208,16 @@ struct DashboardView: View {
 				dismissButton: .default(Text("OK")) {
 					maintenanceVM.showAlert = false
 					maintenanceVM.error = nil
+				}
+			)
+		}
+		.alert(isPresented: $VM.showAlert) {
+			Alert(
+				title: Text("Erreur"),
+				message: Text(VM.error?.errorDescription ?? "Erreur inconnue"),
+				dismissButton: .default(Text("OK")) {
+					VM.showAlert = false
+					VM.error = nil
 				}
 			)
 		}

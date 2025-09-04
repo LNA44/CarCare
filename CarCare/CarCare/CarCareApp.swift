@@ -15,7 +15,6 @@ struct CarCareApp: App {
 	@StateObject private var bikeVM: BikeVM
 	@StateObject private var maintenanceVM = MaintenanceVM()
 	@StateObject private var appState: AppState
-	@StateObject private var themeVM = ThemeViewModel()
 	@AppStorage("hasSeenNotificationIntro") private var hasSeenNotificationIntro: Bool = false
 	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
 	
@@ -47,7 +46,7 @@ struct CarCareApp: App {
 					}
 				case .ready:
 					ContentView(bikeVM: bikeVM, maintenanceVM: maintenanceVM)
-						.environmentObject(themeVM)
+						//.environmentObject(themeVM)
 				}
 			}
 			.alert(isPresented: $appState.showAlert) {
@@ -59,11 +58,6 @@ struct CarCareApp: App {
 						}
 					)
 				}
-		}
-		.onChange(of: scenePhase) {_, newPhase in
-			if newPhase == .active {
-				themeVM.applyInterfaceStyle()
-			}
 		}
 	}
 }

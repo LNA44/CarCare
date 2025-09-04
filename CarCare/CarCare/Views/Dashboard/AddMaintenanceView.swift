@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct AddMaintenanceView: View {
+	@Environment(\.dismiss) private var dismiss
+	@ObservedObject var bikeVM: BikeVM
 	@ObservedObject var maintenanceVM: MaintenanceVM
 	@StateObject private var VM: AddMaintenanceVM
 	@State var showingDatePicker: Bool = false
-	@Environment(\.dismiss) var dismiss
 	var onAdd: () -> Void
 	
 	let formatter: DateFormatter = {
@@ -22,7 +23,8 @@ struct AddMaintenanceView: View {
 		return df
 	}()
 	
-	init(maintenanceVM: MaintenanceVM, onAdd: @escaping () -> Void) {
+	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM, onAdd: @escaping () -> Void) {
+		self.bikeVM = bikeVM
 		self.maintenanceVM = maintenanceVM
 		self.onAdd = onAdd
 		_VM = StateObject(wrappedValue: AddMaintenanceVM(maintenanceVM: maintenanceVM))
@@ -38,7 +40,7 @@ struct AddMaintenanceView: View {
 						.frame(maxWidth: .infinity, alignment: .leading)
 					
 					Picker("Type", selection: $VM.selectedMaintenanceType) {
-						ForEach(MaintenanceType.allCases) { maintenanceType in
+						ForEach(VM.filteredMaintenanceTypes(for: bikeVM.bikeType), id: \.self) { maintenanceType in
 							Text(maintenanceType.rawValue).tag(maintenanceType)
 						}
 					}
@@ -116,6 +118,28 @@ struct AddMaintenanceView: View {
 				dismissButton: .default(Text("OK")) {
 					maintenanceVM.showAlert = false
 					maintenanceVM.error = nil
+				}
+			)
+		}
+		.navigationBarBackButtonHidden(true)
+		.toolbar {
+			ToolbarItem(placement: .navigationBarLeading) {
+				Button(action: {
+					dismiss()
+				}) {
+					Text("Retour")
+						.font(.system(size: 16, weight: .regular, design: .rounded))
+						.foregroundColor(Color("TextColor"))
+				}
+			}
+		}
+		.alert(isPresented: $VM.showAlert) {
+			Alert(
+				title: Text("Erreur"),
+				message: Text(VM.error?.errorDescription ?? "Erreur inconnue"),
+				dismissButton: .default(Text("OK")) {
+					VM.showAlert = false
+					VM.error = nil
 				}
 			)
 		}

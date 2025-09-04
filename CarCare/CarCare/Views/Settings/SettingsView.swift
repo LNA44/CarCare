@@ -8,23 +8,23 @@
 import SwiftUI
 
 struct SettingsView: View {
-	@EnvironmentObject var themeVM: ThemeViewModel
-	
+	//@EnvironmentObject var themeVM: ThemeViewModel
+	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
+
 	var body: some View {
 		Form {
 			Section(header: Text("Apparence")
 				.foregroundColor(Color("TextColor"))
 				.font(.system(size: 16, weight: .bold, design: .rounded))
 			) {
-				Toggle(isOn: $themeVM.isDarkMode) {
+				Toggle(isOn: $isDarkMode) {
 					Text("Mode sombre")
 						.foregroundColor(Color("TextColor"))
 						.font(.system(size: 16, weight: .regular, design: .rounded))
 				}
 				.tint(Color("DoneColor"))
-				.onChange(of: themeVM.isDarkMode) {_, value in
-					// Met à jour l'interface
-					themeVM.applyInterfaceStyle()
+				.onChange(of: isDarkMode) { value in
+								applyInterfaceStyle(value)
 				}
 			}
 			
@@ -63,12 +63,19 @@ struct SettingsView: View {
 					.foregroundColor(Color("TextColor"))
 			}
 		}
-		.onAppear {
-			themeVM.applyInterfaceStyle() // applique le style au chargement
-		}
+	}
+}
+
+extension SettingsView {
+	private func applyInterfaceStyle(_ darkMode: Bool) {
+		guard let window = UIApplication.shared.connectedScenes
+			.compactMap({ $0 as? UIWindowScene })
+			.first?.windows.first else { return }
+		
+		window.overrideUserInterfaceStyle = darkMode ? .dark : .light
 	}
 }
 
 #Preview {
-    SettingsView()
+	SettingsView()
 }

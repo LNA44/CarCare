@@ -19,7 +19,7 @@ struct ContentView: View {
 			}
 			.tabItem { Label("Accueil", systemImage: "house")}
 			NavigationStack {
-				MaintenanceView(maintenanceVM: maintenanceVM)
+				MaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM)
 			}
 			.tabItem { Label("Entretiens", systemImage: "wrench") }
 			NavigationStack {

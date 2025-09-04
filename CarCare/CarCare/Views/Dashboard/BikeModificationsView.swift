@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct BikeModificationsView: View {
+	@Environment(\.dismiss) private var dismiss
 	@ObservedObject var bikeVM: BikeVM
 	@State private var selectedBrand: Brand = .Unknown
 	@State private var selectedModel: String = ""
 	@State private var yearText: String = ""
 	@State private var selectedType: BikeType = .Manual
 	@State private var identificationNumber: String = ""
-	@Environment(\.dismiss) var dismiss
 	
 	var body: some View {
 		VStack {			
@@ -125,11 +125,22 @@ struct BikeModificationsView: View {
 			self.yearText = String(bikeVM.year)
 			self.identificationNumber = bikeVM.identificationNumber
 		}
+		.navigationBarBackButtonHidden(true)
 		.toolbar {
 			ToolbarItem(placement: .principal) {
 				Text("Mon vélo")
 					.font(.system(size: 22, weight: .bold, design: .rounded))
 					.foregroundColor(Color("TextColor"))
+			}
+			
+			ToolbarItem(placement: .navigationBarLeading) {
+				Button(action: {
+					dismiss()
+				}) {
+					Text("Retour")
+						.font(.system(size: 16, weight: .regular, design: .rounded))
+						.foregroundColor(Color("TextColor"))
+				}
 			}
 		}
 		.padding(.horizontal, 10)
@@ -143,7 +154,7 @@ struct BikeModificationsView: View {
 				}
 			)
 		}
-	}
+}
 }
 
 /*#Preview {

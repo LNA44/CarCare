@@ -41,4 +41,12 @@ final class AddMaintenanceVM: ObservableObject {
 			}
 		}
 	}
+	
+	func filteredMaintenanceTypes(for bikeType: BikeType) -> [MaintenanceType] {
+		if bikeType == .Manual {
+			return MaintenanceType.allCases.filter { $0 != .Battery }
+		} else {
+			return MaintenanceType.allCases
+		}
+	}
 }
