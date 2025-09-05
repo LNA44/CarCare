@@ -1,0 +1,8 @@
+# Ignorer le dossier Space_Grotesk hors projet
+../Space_Grotesk/
+
+# Fichiers temporaires Xcode
+*.xcuserstate
+DerivedData/
+*.swp
+*.DS_Store
