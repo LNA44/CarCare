@@ -35,12 +35,12 @@ final class LocalMaintenanceLoader {
 
 private extension Array where Element == LocalMaintenance {
 	func toModels() -> [Maintenance] {
-		map { Maintenance(id: $0.id, maintenanceType: MaintenanceType(rawValue: $0.maintenanceType) ?? .Unknown, date: $0.date, reminder: $0.reminder) }
+		map { Maintenance(id: $0.id, maintenanceType: MaintenanceType(fromCoreDataString: $0.maintenanceType), date: $0.date, reminder: $0.reminder) }
 	}
 }
 
 private extension Maintenance {
 	func toLocal() -> LocalMaintenance {
-		LocalMaintenance(id: id, maintenanceType: maintenanceType.rawValue, date: date, reminder: reminder)
+		LocalMaintenance(id: id, maintenanceType: maintenanceType.localizedName, date: date, reminder: reminder)
 	}
 }

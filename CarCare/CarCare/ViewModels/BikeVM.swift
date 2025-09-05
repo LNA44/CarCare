@@ -52,7 +52,6 @@ final class BikeVM: ObservableObject {
 					self.bikeType = unwrappedBike.bikeType
 					self.identificationNumber = unwrappedBike.identificationNumber
 					self.bike = unwrappedBike
-					print("bike après réception: \(self.bike)")
 					completion?()
 				}
 			} catch let error as LoadingCocoaError { //erreurs de load

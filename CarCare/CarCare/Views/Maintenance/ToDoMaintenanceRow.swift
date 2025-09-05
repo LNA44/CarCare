@@ -13,7 +13,9 @@ struct ToDoMaintenanceRow: View {
 	let maintenanceType: MaintenanceType?
 	let formatter: DateFormatter = {
 		let df = DateFormatter()
-		df.dateFormat = "dd/MM/yyyy" // jour/mois/année
+		df.dateStyle = .medium
+		df.timeStyle = .none
+		df.locale = Locale.current  
 		return df
 	}()
 	
@@ -24,18 +26,18 @@ struct ToDoMaintenanceRow: View {
 			
 			HStack {
 				VStack(alignment: .leading, spacing: 3) {
-					Text("\(maintenanceType.rawValue)")
+					Text("\(maintenanceType.localizedName)")
 						.foregroundColor(Color("TextColor"))
 						.font(.system(size: 18, weight: .bold, design: .rounded))
 					
 					VStack {
 						if let daysRemaining = daysRemaining, daysRemaining >= 0 {
-							Text("\(daysRemaining) jours restants")
-						} else if let daysRemaining = daysRemaining, daysRemaining < 0 {
-							Text("0 jour restant")
-						} else {
-							Text("Nombre de jours restants inconnu")
-						}
+							   Text(String(format: NSLocalizedString("days_remaining_key", comment: "days remaining"), daysRemaining))
+						   } else if let daysRemaining = daysRemaining, daysRemaining < 0 {
+							   Text(String(format: NSLocalizedString("days_remaining_key", comment: "days remaining"), 0))
+						   } else {
+							   Text(NSLocalizedString("unknown_days_remaining_key", comment: "days remaining unknown"))
+						   }
 					}
 					.foregroundColor(Color("TextColor"))
 					.font(.system(size: 18, weight: .regular, design: .rounded))

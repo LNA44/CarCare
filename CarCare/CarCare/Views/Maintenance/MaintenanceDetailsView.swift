@@ -37,7 +37,9 @@ struct MaintenanceDetailsView: View {
 								VStack(spacing: 20) {
 									if let daysRemaining = daysRemaining {
 										DaysIndicatorView(days: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays, rectangleWidth: 40, rectangleHeight: 20, triangleWidth: 10, triangleHeight: 10, spacing: 4)
-										Text("\(message(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays))")
+										Text(
+											NSLocalizedString(message(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays), comment: "")
+										)
 											.multilineTextAlignment(.center)
 											.foregroundColor(color(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays))
 									}
@@ -60,7 +62,10 @@ struct MaintenanceDetailsView: View {
 								Image(systemName: "alarm") // icône réveil
 									.foregroundColor(.black)  // couleur de l'icône
 								
-								Text("Fréquence : \(maintenance.maintenanceType.readableFrequency)")
+								Text(String(
+									format: NSLocalizedString("frequency_key", comment: "Label pour la fréquence de maintenance"),
+									maintenance.maintenanceType.readableFrequency
+								))
 									.font(.system(size: 16, weight: .bold, design: .rounded))
 									.foregroundColor(Color("TextColor"))
 								
@@ -82,7 +87,7 @@ struct MaintenanceDetailsView: View {
 									//maintenanceVM.fetchAllMaintenance() //closure appelée après dismiss
 								})
 							) {
-								Text("Mettre à jour")
+								Text(NSLocalizedString("button_update_key", comment: ""))
 									.font(.system(size: 16, weight: .bold, design: .rounded))
 									.foregroundColor(Color(.white))
 									.frame(maxWidth: .infinity)
@@ -100,7 +105,7 @@ struct MaintenanceDetailsView: View {
 					.cornerRadius(15)
 
 					VStack {
-						Text("Historique des entretiens")
+						Text(NSLocalizedString("maintenance_history_key", comment: ""))
 							.font(.system(size: 25, weight: .bold, design: .rounded))
 							.foregroundColor(Color("TextColor"))
 							.padding(.bottom, 20)
@@ -138,18 +143,13 @@ struct MaintenanceDetailsView: View {
 					.background(Color("StackBackgroundColor"))
 					.cornerRadius(15)
 					
-					/*Divider()
-						.frame(width: 200, height: 1)
-						.background(Color.gray.opacity(0.2)) // couleur du trait
-						.padding(.vertical, 20)*/
-					
 					VStack(spacing: 20) {
-						Text("Conseils & infos")
+						Text(NSLocalizedString("advice_and_information_key", comment: ""))
 							.font(.system(size: 25, weight: .bold, design: .rounded))
 							.foregroundColor(Color("TextColor"))
 							.padding(.bottom, 20)
 						
-						Text("\(maintenance.maintenanceType.description)")
+						Text("\(maintenance.maintenanceType.localizedDescription)")
 							.font(.system(size: 16, weight: .regular, design: .rounded))
 							.foregroundColor(Color("TextColor"))
 							.padding(.leading, 20)
@@ -187,28 +187,28 @@ struct MaintenanceDetailsView: View {
 					}
 				}
 				ToolbarItem(placement: .principal) {
-					Text("\(maintenance.maintenanceType.rawValue)")
+					Text("\(maintenance.maintenanceType.localizedName)")
 						.font(.system(size: 22, weight: .bold, design: .rounded))
 						.foregroundColor(Color("TextColor"))
 				}
 			}
 			.alert(isPresented: $maintenanceVM.showAlert) {
 				Alert(
-					title: Text("Erreur"),
-					message: Text(maintenanceVM.error?.errorDescription ?? "Erreur inconnue"),
+					title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
+					message: Text(maintenanceVM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
 					dismissButton: .default(Text("OK")) {
-						maintenanceVM.showAlert = false
-						maintenanceVM.error = nil
+						bikeVM.showAlert = false
+						bikeVM.error = nil
 					}
 				)
 			}
 			.alert(isPresented: $VM.showAlert) {
 				Alert(
-					title: Text("Erreur"),
-					message: Text(VM.error?.errorDescription ?? "Erreur inconnue"),
+					title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
+					message: Text(VM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
 					dismissButton: .default(Text("OK")) {
-						VM.showAlert = false
-						VM.error = nil
+						bikeVM.showAlert = false
+						bikeVM.error = nil
 					}
 				)
 			}
@@ -224,11 +224,11 @@ extension MaintenanceDetailsView {
 
 		switch proportion {
 		case 0..<1/3:
-			return "Tu es à jour"
+			return "maintenance_message_up_to_date"
 		case 1/3..<2/3:
-			return "Tu n'as pas encore à t'en préoccuper"
+			return "maintenance_message_not_yet"
 		default:
-			return "C'est l'heure! Pense à prendre rendez-vous chez le réparateur le plus proche"
+			return "maintenance_message_due"
 		}
 	}
 	
@@ -247,7 +247,9 @@ extension MaintenanceDetailsView {
 	
 	func formattedDate(_ date: Date) -> String {
 		let formatter = DateFormatter()
-		formatter.dateFormat = "dd/MM/yyyy"
+		formatter.dateStyle = .medium
+		formatter.timeStyle = .none
+		formatter.locale = Locale.current  
 		return formatter.string(from: date)
 	}
 }

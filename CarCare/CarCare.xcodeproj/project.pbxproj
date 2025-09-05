@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		F339FAAA2E54842A00F2CECC /* ToDoMaintenanceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FAA92E54842A00F2CECC /* ToDoMaintenanceRow.swift */; };
 		F339FB232E54D06C00F2CECC /* MaintenanceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */; };
-		F339FB252E54D34D00F2CECC /* MaintenanceHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB242E54D34D00F2CECC /* MaintenanceHistoryView.swift */; };
 		F339FB272E54D63B00F2CECC /* DaysIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */; };
 		F37D82572E5F552400F92A50 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F37D82562E5F552400F92A50 /* Info.plist */; };
 		F37D82832E5F601800F92A50 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37D82822E5F601800F92A50 /* CustomTextField.swift */; };
@@ -70,6 +69,11 @@
 		F3D7FC9C2E633FE30042A29A /* DashboardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7FC9B2E633FE30042A29A /* DashboardVM.swift */; };
 		F3D7FC9E2E6342E40042A29A /* AddMaintenanceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7FC9D2E6342E40042A29A /* AddMaintenanceVM.swift */; };
 		F3D7FCA02E6344250042A29A /* MaintenanceViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7FC9F2E6344250042A29A /* MaintenanceViewVM.swift */; };
+		F3E8DDF72E6B35410056C714 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E8DDF52E6B35410056C714 /* Localizable.strings */; };
+		F3E8DDF82E6B35410056C714 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E8DDF52E6B35410056C714 /* Localizable.strings */; };
+		F3E8DDFE2E6B36280056C714 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E8DDFC2E6B36280056C714 /* Localizable.strings */; };
+		F3E8DE012E6B36320056C714 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E8DDFF2E6B36320056C714 /* Localizable.strings */; };
+		F3E8DE022E6B36320056C714 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E8DDFF2E6B36320056C714 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,7 +91,6 @@
 		F31F73E82E26585B00334333 /* CarCareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarCareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F339FAA92E54842A00F2CECC /* ToDoMaintenanceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoMaintenanceRow.swift; sourceTree = "<group>"; };
 		F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceDetailsView.swift; sourceTree = "<group>"; };
-		F339FB242E54D34D00F2CECC /* MaintenanceHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceHistoryView.swift; sourceTree = "<group>"; };
 		F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysIndicatorView.swift; sourceTree = "<group>"; };
 		F37D82562E5F552400F92A50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F37D82822E5F601800F92A50 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -135,6 +138,9 @@
 		F3D7FC9B2E633FE30042A29A /* DashboardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVM.swift; sourceTree = "<group>"; };
 		F3D7FC9D2E6342E40042A29A /* AddMaintenanceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMaintenanceVM.swift; sourceTree = "<group>"; };
 		F3D7FC9F2E6344250042A29A /* MaintenanceViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceViewVM.swift; sourceTree = "<group>"; };
+		F3E8DDF42E6B35410056C714 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localizable.strings; sourceTree = "<group>"; };
+		F3E8DDFD2E6B36280056C714 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localizable.strings; sourceTree = "<group>"; };
+		F3E8DE002E6B36320056C714 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -166,6 +172,9 @@
 		F31F73D22E26585A00334333 = {
 			isa = PBXGroup;
 			children = (
+				F3E8DDFF2E6B36320056C714 /* Localizable.strings */,
+				F3E8DDFA2E6B357E0056C714 /* fr.lproj */,
+				F3E8DDF62E6B35410056C714 /* es.lproj */,
 				F3BFC99B2E33810900043AB8 /* CarCare */,
 				F31F73EB2E26585B00334333 /* CarCareTests */,
 				F31F73DC2E26585A00334333 /* Products */,
@@ -238,7 +247,6 @@
 				F3D7FC952E6332FE0042A29A /* DoneMaintenanceRow.swift */,
 				F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */,
 				F3877CE72E672CF900CEECA9 /* MaintenanceDetailsVM.swift */,
-				F339FB242E54D34D00F2CECC /* MaintenanceHistoryView.swift */,
 				F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */,
 			);
 			path = Maintenance;
@@ -350,6 +358,22 @@
 			path = CarCare;
 			sourceTree = "<group>";
 		};
+		F3E8DDF62E6B35410056C714 /* es.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				F3E8DDF52E6B35410056C714 /* Localizable.strings */,
+			);
+			path = es.lproj;
+			sourceTree = "<group>";
+		};
+		F3E8DDFA2E6B357E0056C714 /* fr.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				F3E8DDFC2E6B36280056C714 /* Localizable.strings */,
+			);
+			path = fr.lproj;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -420,6 +444,8 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
+				fr,
 			);
 			mainGroup = F31F73D22E26585A00334333;
 			minimizedProjectReferenceProxies = 1;
@@ -440,6 +466,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3BFC99E2E33810900043AB8 /* Assets.xcassets in Resources */,
+				F3E8DE022E6B36320056C714 /* Localizable.strings in Resources */,
+				F3E8DDFE2E6B36280056C714 /* Localizable.strings in Resources */,
+				F3E8DDF82E6B35410056C714 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +477,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F37D82572E5F552400F92A50 /* Info.plist in Resources */,
+				F3E8DE012E6B36320056C714 /* Localizable.strings in Resources */,
+				F3E8DDF72E6B35410056C714 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,7 +506,6 @@
 				F3BDB2EA2E55F0840041F142 /* MaintenanceVM.swift in Sources */,
 				F3BDB2EF2E5603120041F142 /* Brand.swift in Sources */,
 				F3BFC9A92E33810900043AB8 /* ManagedMaintenance.swift in Sources */,
-				F339FB252E54D34D00F2CECC /* MaintenanceHistoryView.swift in Sources */,
 				F339FAAA2E54842A00F2CECC /* ToDoMaintenanceRow.swift in Sources */,
 				F3BFC9AB2E33810900043AB8 /* ManagedBike.swift in Sources */,
 				F3D7FCA02E6344250042A29A /* MaintenanceViewVM.swift in Sources */,
@@ -538,6 +568,33 @@
 			targetProxy = F31F73E92E26585B00334333 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F3E8DDF52E6B35410056C714 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F3E8DDF42E6B35410056C714 /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		F3E8DDFC2E6B36280056C714 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F3E8DDFD2E6B36280056C714 /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		F3E8DDFF2E6B36320056C714 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F3E8DE002E6B36320056C714 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F31F73FA2E26585B00334333 /* Debug */ = {
@@ -673,6 +730,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -702,6 +760,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

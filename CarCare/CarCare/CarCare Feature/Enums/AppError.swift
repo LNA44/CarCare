@@ -22,17 +22,32 @@ enum AppError: Error, LocalizedError {
 	case bikeNotFound
 	case unknown
 	
-	var errorDescription: String? {
+}
+
+extension AppError {
+	var localizedDescription: String {
 		switch self {
-		case .bikeLoadFailed(_): return "Une erreur est survenue lors du chargement du vélo."
-		case .dataUnavailable(let storeError): return "Vos données ne sont pas disponibles."
-		case .loadingDataFailed(let cocoaError): return "Erreur lors du chargement des données : \(cocoaError.localizedDescription)."
-		case .fetchDataFailed(let fetchCocoaError): return "Erreur lors du chargement des données : \(fetchCocoaError.localizedDescription)."
-		case .saveDataFailed(let saveCocoaError): return "Erreur lors de la sauvegarde des données : \(saveCocoaError.localizedDescription)."
-		case .notificationError: return "Une erreur est survenue lors de l'envoi de la notification."
-		case .notificationNotAuthorized: return "Les notifications ne sont pas autorisées."
-		case .bikeNotFound: return "Le vélo n'a pas été trouvé."
-		case .unknown: return "Une erreur inattendue est survenue."
+		case .bikeLoadFailed(_):
+			return NSLocalizedString("bike_load_failed", comment: "Error occurred while loading the bike") //fait appel à la trad en plsrs langues
+		case .dataUnavailable(_):
+			return NSLocalizedString("data_unavailable", comment: "Data unavailable")
+		case .loadingDataFailed(let cocoaError):
+			let format = NSLocalizedString("loading_data_failed", comment: "Error occurred while loading data")
+			return String(format: format, cocoaError.localizedDescription)
+		case .fetchDataFailed(let fetchCocoaError):
+			let format = NSLocalizedString("fetch_data_failed", comment: "Error occurred while fetching data")
+			return String(format: format, fetchCocoaError.localizedDescription)
+		case .saveDataFailed(let saveCocoaError):
+			let format = NSLocalizedString("save_data_failed", comment: "Error occurred while saving data")
+			return String(format: format, saveCocoaError.localizedDescription)
+		case .notificationError(_):
+			return NSLocalizedString("notification_error", comment: "Error occurred while sending notification")
+		case .notificationNotAuthorized:
+			return NSLocalizedString("notification_not_authorized", comment: "Notifications not authorized")
+		case .bikeNotFound:
+			return NSLocalizedString("bike_not_found", comment: "Bike not found")
+		case .unknown:
+			return NSLocalizedString("unknown_error_message", comment: "Unexpected error occurred")
 		}
 	}
 }

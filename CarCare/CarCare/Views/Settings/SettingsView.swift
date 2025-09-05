@@ -12,13 +12,12 @@ struct SettingsView: View {
 
 	var body: some View {
 		Form {
-			Section(header: Text("Apparence")
+			Section(header: Text(NSLocalizedString("appearence_key", comment: ""))
 				.foregroundColor(Color("TextColor"))
 				.font(.system(size: 16, weight: .bold, design: .rounded))
 			) {
 				Toggle(isOn: $isDarkMode) {
-					Text("Mode sombre")
-						.foregroundColor(Color("TextColor"))
+					Text(NSLocalizedString("dark_mode_key", comment: ""))						.foregroundColor(Color("TextColor"))
 						.font(.system(size: 16, weight: .regular, design: .rounded))
 				}
 				.tint(Color("DoneColor"))
@@ -27,7 +26,7 @@ struct SettingsView: View {
 				}
 			}
 			
-			Section(header: Text("Notifications")
+			Section(header: Text(NSLocalizedString("notifications_key", comment: ""))
 				.foregroundColor(Color("TextColor"))
 				.font(.system(size: 16, weight: .bold, design: .rounded))
 			) {
@@ -37,18 +36,18 @@ struct SettingsView: View {
 						UIApplication.shared.open(url)
 					}
 				}) {
-					Text("Gérer les notifications")
+					Text(NSLocalizedString("handle_notifications_key", comment: ""))
 						.foregroundColor(Color("TextColor"))
 						.font(.system(size: 16, weight: .regular, design: .rounded))
 				}
 			}
 			
-			Section(header: Text("Informations")
+			Section(header: Text(NSLocalizedString("information_key", comment: ""))
 				.foregroundColor(Color("TextColor"))
 				.font(.system(size: 16, weight: .bold, design: .rounded))
 			) {
 				NavigationLink(destination: LegalView()) {
-					Text("Mentions légales")
+					Text(NSLocalizedString("legal_notice_key", comment: ""))
 						.foregroundColor(Color("TextColor"))
 						.font(.system(size: 16, weight: .regular, design: .rounded))
 				}
@@ -57,7 +56,7 @@ struct SettingsView: View {
 		.background(Color("BackgroundColor"))
 		.toolbar {
 			ToolbarItem(placement: .principal) {
-				Text("Paramètres")
+				Text(NSLocalizedString("navigation_title_settings_key", comment: ""))
 					.font(.system(size: 22, weight: .bold, design: .rounded))
 					.foregroundColor(Color("TextColor"))
 			}

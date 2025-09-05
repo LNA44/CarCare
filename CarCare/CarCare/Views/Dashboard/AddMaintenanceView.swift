@@ -19,7 +19,7 @@ struct AddMaintenanceView: View {
 		let df = DateFormatter()
 		df.dateStyle = .medium   // format type "27 août 2025"
 		df.timeStyle = .none     // on n'affiche pas l'heure
-		df.locale = Locale(identifier: "fr_FR") // pour le français
+		df.locale = Locale.current
 		return df
 	}()
 	
@@ -34,14 +34,14 @@ struct AddMaintenanceView: View {
 		VStack {
 			VStack(spacing: 20) {
 				VStack {
-					Text("Type d'entretien")
+					Text(NSLocalizedString("maintenance_Type_key", comment: ""))
 						.font(.system(size: 16, weight: .bold, design: .rounded))
 						.foregroundColor(Color("TextColor"))
 						.frame(maxWidth: .infinity, alignment: .leading)
 					
 					Picker("Type", selection: $VM.selectedMaintenanceType) {
 						ForEach(VM.filteredMaintenanceTypes(for: bikeVM.bikeType), id: \.self) { maintenanceType in
-							Text(maintenanceType.rawValue).tag(maintenanceType)
+							Text(maintenanceType.localizedName).tag(maintenanceType)
 								.font(.system(size: 16, weight: .regular, design: .rounded))
 						}
 					}
@@ -54,7 +54,7 @@ struct AddMaintenanceView: View {
 				}
 				
 				VStack {
-					Text("Date de l'entretien")
+					Text(NSLocalizedString("maintenance_date_key", comment: ""))
 						.font(.system(size: 16, weight: .bold, design: .rounded))
 						.foregroundColor(Color("TextColor"))
 						.frame(maxWidth: .infinity, alignment: .leading)
@@ -80,7 +80,7 @@ struct AddMaintenanceView: View {
 			
 			Spacer()
 			
-			PrimaryButton(title: "Ajouter l'entretien", foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
+			PrimaryButton(title: NSLocalizedString("button_Add_Maintenance", comment: ""), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
 				VM.addMaintenance()
 				onAdd() //pour recharger la dernière maintenance dans Dashboard
 				dismiss()
@@ -88,7 +88,7 @@ struct AddMaintenanceView: View {
 		}
 		.toolbar {
 			ToolbarItem(placement: .principal) {
-				Text("Ajouter un entretien")
+				Text(NSLocalizedString("navigation_title_add_maintenance_key", comment: ""))
 					.font(.system(size: 22, weight: .bold, design: .rounded))
 					.foregroundColor(Color("TextColor"))
 			}
@@ -105,7 +105,7 @@ struct AddMaintenanceView: View {
 			.datePickerStyle(.wheel)
 			.labelsHidden()
 			.padding()
-			Button("Terminé") {
+			Button(NSLocalizedString("done_key", comment: "")) {
 				showingDatePicker = false   // ferme la sheet
 			}
 			.padding()
@@ -128,19 +128,19 @@ struct AddMaintenanceView: View {
 				Button(action: {
 					dismiss()
 				}) {
-					Text("Retour")
+					Text(NSLocalizedString("return_key", comment: ""))
 						.font(.system(size: 16, weight: .regular, design: .rounded))
 						.foregroundColor(Color("TextColor"))
 				}
 			}
 		}
-		.alert(isPresented: $VM.showAlert) {
+		.alert(isPresented: $bikeVM.showAlert) {
 			Alert(
-				title: Text("Erreur"),
-				message: Text(VM.error?.errorDescription ?? "Erreur inconnue"),
+				title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
+				message: Text(bikeVM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
 				dismissButton: .default(Text("OK")) {
-					VM.showAlert = false
-					VM.error = nil
+					bikeVM.showAlert = false
+					bikeVM.error = nil
 				}
 			)
 		}

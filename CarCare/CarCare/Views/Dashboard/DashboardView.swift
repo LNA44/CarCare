@@ -19,6 +19,7 @@ struct DashboardView: View {
 		let df = DateFormatter()
 		df.dateStyle = .medium
 		df.timeStyle = .none
+		df.locale = Locale.current
 		return df
 	}()
 	
@@ -54,8 +55,11 @@ struct DashboardView: View {
 						}
 						
 						if !bikeVM.identificationNumber.isEmpty {
-							Text("Numéro d'identification : \(bikeVM.identificationNumber)")
-								.font(.system(size: 16, weight: .regular, design: .rounded))
+							Text(String(
+								format: NSLocalizedString("identification_number_key", comment: "Label pour le numéro d'identification du vélo"),
+								bikeVM.identificationNumber
+							))
+							.font(.system(size: 16, weight: .regular, design: .rounded))
 						}
 					}
 					.padding(.bottom, 20)
@@ -67,7 +71,7 @@ struct DashboardView: View {
 				
 				VStack {
 					VStack(alignment: .center, spacing: 20) {
-						Text("Entretien")
+						Text(NSLocalizedString("maintenance_key", comment: ""))
 							.font(.system(size: 27, weight: .bold, design: .rounded))
 							.foregroundColor(Color("TextColor"))
 						
@@ -99,18 +103,18 @@ struct DashboardView: View {
 							.scaledToFit()
 						
 						VStack(alignment: .leading) {
-							Text("Dernier entretien")
+							Text(NSLocalizedString("last_maintenance_key", comment: ""))
 								.font(.system(size: 22, weight: .bold, design: .rounded))
 								.padding(.bottom, 5)
 							
-							Text("\(maintenanceVM.generalLastMaintenance?.maintenanceType.rawValue ?? "")")
+							Text("\(maintenanceVM.generalLastMaintenance?.maintenanceType.localizedName ?? "")")
 								.font(.system(size: 16, weight: .bold, design: .rounded))
 							
 							if let date = maintenanceVM.generalLastMaintenance?.date {
 								Text(formatter.string(from: date))
 									.font(.system(size: 16, weight: .bold, design: .rounded))
 							} else {
-								Text("Pas de date")
+								Text(NSLocalizedString("no_date_key", comment: ""))
 									.font(.system(size: 16, weight: .bold, design: .rounded))
 							}
 						}
@@ -131,7 +135,7 @@ struct DashboardView: View {
 								maintenanceVM.deleteAllMaintenances()
 							}
 						) {
-							Text("Modifier les infos du vélo")
+							Text(NSLocalizedString("button_modify_bike_information", comment: ""))
 								.font(.system(size: 16, weight: .bold, design: .rounded))
 								.foregroundColor(Color("TextColor"))
 								.frame(maxWidth: .infinity)
@@ -150,7 +154,7 @@ struct DashboardView: View {
 							}),
 							isActive: $goToAdd
 						) {
-							Text("Ajouter un entretien")
+							Text(NSLocalizedString("button_Add_Maintenance", comment: ""))
 								.font(.system(size: 16, weight: .bold, design: .rounded))
 								.foregroundColor(.white)
 								.frame(maxWidth: .infinity)
@@ -192,7 +196,7 @@ struct DashboardView: View {
 			)
 		.toolbar {
 			ToolbarItem(placement: .principal) {
-				Text("Mon vélo")
+				Text(NSLocalizedString("navigation_title_modify_bike_key", comment: ""))
 					.font(.system(size: 22, weight: .bold, design: .rounded))
 					.foregroundColor(Color("TextColor"))
 			}
@@ -201,8 +205,8 @@ struct DashboardView: View {
 		.navigationBarTitleDisplayMode(.inline)
 		.alert(isPresented: $bikeVM.showAlert) {
 			Alert(
-				title: Text("Erreur liée au vélo"),
-				message: Text(bikeVM.error?.errorDescription ?? "Erreur inconnue"),
+				title: Text(NSLocalizedString("bike_error", comment: "")),
+				message: Text(bikeVM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "")),
 				dismissButton: .default(Text("OK")) {
 					bikeVM.showAlert = false
 					bikeVM.error = nil
@@ -211,8 +215,8 @@ struct DashboardView: View {
 		}
 		.alert(isPresented: $maintenanceVM.showAlert) {
 			Alert(
-				title: Text("Erreur liée aux entretiens"),
-				message: Text(maintenanceVM.error?.errorDescription ?? "Erreur inconnue"),
+				title: Text(NSLocalizedString("maintenance_error", comment: "")),
+				message: Text(maintenanceVM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "")),
 				dismissButton: .default(Text("OK")) {
 					maintenanceVM.showAlert = false
 					maintenanceVM.error = nil
@@ -221,11 +225,11 @@ struct DashboardView: View {
 		}
 		.alert(isPresented: $VM.showAlert) {
 			Alert(
-				title: Text("Erreur"),
-				message: Text(VM.error?.errorDescription ?? "Erreur inconnue"),
+				title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
+				message: Text(VM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
 				dismissButton: .default(Text("OK")) {
-					VM.showAlert = false
-					VM.error = nil
+					bikeVM.showAlert = false
+					bikeVM.error = nil
 				}
 			)
 		}

@@ -11,13 +11,15 @@ struct DoneMaintenanceRow: View {
 	let maintenance: Maintenance
 	let formatter: DateFormatter = {
 		let df = DateFormatter()
-		df.dateFormat = "dd/MM/yyyy" // jour/mois/année
+		df.dateStyle = .medium      // ou .short, .long selon ce que tu veux
+		df.timeStyle = .none
+		df.locale = Locale.current  // s’adapte automatiquement à la langue de l’utilisateur
 		return df
 	}()
 	
     var body: some View {
 		HStack {
-			Text("\(maintenance.maintenanceType.rawValue)")
+			Text("\(maintenance.maintenanceType.localizedName)")
 				.bold()
 			Spacer()
 			Text("\(formatter.string(from: maintenance.date))")

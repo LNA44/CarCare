@@ -5,6 +5,8 @@
 //  Created by Ordinateur elena on 20/08/2025.
 //
 
+import Foundation
+
 enum Brand: String, CaseIterable, Identifiable {
 	case Decathlon = "Decathlon"
 	case Trek = "Trek"
@@ -16,7 +18,7 @@ enum Brand: String, CaseIterable, Identifiable {
 	case Orbea = "Orbea"
 	case VanMoof = "VanMoof"
 	case Gazelle = "Gazelle"
-	case Unknown = "Inconnu"
+	case Unknown = "Unknown"
 	
 	var id: String { rawValue }
 	
@@ -46,4 +48,8 @@ enum Brand: String, CaseIterable, Identifiable {
 			return []
 		}
 	}
+	
+	var localizedName: String {
+			NSLocalizedString(rawValue, comment: "Brand name")
+		}
 }

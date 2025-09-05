@@ -1,0 +1,119 @@
+/* 
+  Localizable.strings
+  CarCare
+
+  Created by Ordinateur elena on 05/09/2025.
+  
+*/
+
+//TabView
+"dashboard_key" = "Dasboard";
+"maintenance_key" = "Maintenance";
+"Settings_key" = "Settings";
+
+//NotificationIntroView
+"stay_informed_key" = "Stay informed";
+"enable_notifications_text_key" = "Enable notifications to be informed of maintenance reminders and never miss anything!";
+"enable_notifications_button_key" = "Enable notifications";
+"error_title_key" = "Error";
+"success_title_key" = "Success";
+"notifications_enabled_message_key" = "Notifications successfully enabled!";
+
+//RegistrationView
+"welcome_key" = "Welcome to the app!";
+"bike_info_key" = "Enter your bike information";
+"brand_key" = "Brand";
+"model_key" = "Model";
+"type_key" = "Type";
+"year_of_manufacture_key" = "Year of manufacture";
+"identification_number_message_key" = "Identification number (optionnal)";
+"button_add_bike_key" = "Add bike";
+
+//DashboardView
+"navigation_title_modify_bike_key" = "My bike";
+"last_maintenance_key" = "Last maintenance";
+"button_modify_bike_information" = "Modify bike information";
+"button_Add_Maintenance" = "Add maintenance";
+"no_date_key" = "No date";
+"identification_number_key" = "Identification number: %@";
+
+//BikeInformationView
+"return_key" = "Return";
+"button_delete_bike" = "Delete bike";
+"button_Modify_information_key" = "Modify information";
+
+//AddMaintenanceView
+"navigation_title_add_maintenance_key" = "Add maintenance";
+"maintenance_Type_key" = "Maintenance type";
+"maintenance_date_key" = "Maintenance date";
+"done_key" = "Done";
+
+//MaintenanceView
+"maintenances_to_come" = "Upcoming maintenance";
+"completed_maintenances" = "Completed maintenances";
+"record_maintenance_instructions_key" = "Record a completed maintenance for each category to view upcoming maintenance and history.";
+
+//ToDoRowMaintenances
+"days_remaining_key" = "%d day(s) remaining";
+"unknown_days_remaining_key" = "Number of days remaining unknown";
+
+//MaintenanceDetailsView
+"frequency_key" = "Frequency: %@";
+"every_days_key" = "every %d day(s)";
+"every_months_key" = "every %d month(s)";
+"button_update_key" = "Update";
+"maintenance_history_key" = "Maintenance history";
+"advice_and_information_key" = "Advice and information";
+
+//SettingsView
+"navigation_title_settings_key" = "Settings";
+"appearence_key" = "Appearence";
+"dark_mode_key" = "Dark mode";
+"notifications_key" = "Notifications";
+"handle_notifications_key" = "Handle notifications";
+"information_key" = "Information";
+"legal_notice_key" = "Legal notice";
+
+
+//Enum MaintenanceType
+"tires" = "Tires";
+"brake_pads" = "Brakepads";
+"battery" = "Battery";
+"unknown" = "Unknown";
+"tires_description" = "Basic cleaning consists of:\n- Wiping the frame with a damp cloth\n- Checking the condition of the tires\n- Checking the pressure";
+"brake_pads_description" = "Brake adjustment requires tools";
+"battery_description" = "Chain maintenance includes:\n- Cleaning with a degreaser\n- Lubricating the links\n- Checking for wear";
+"unknown_description" = "Unknown";
+
+//Enum BikeType
+"manual" = "Manual";
+"electric" = "Electric";
+
+//Error
+"error_title" = "Error";
+"unknown_error" = "Unknown error";
+"bike_error" = "Bike-related error";
+"maintenance_error" = "Maintenance-related error";
+
+"bike_load_failed" = "An error occurred while loading the bike.";
+"data_unavailable" = "Your data is not available.";
+"loading_data_failed" = "Error loading data: %@.";
+"fetch_data_failed" = "Error fetching data: %@.";
+"save_data_failed" = "Error saving data: %@.";
+"notification_error" = "An error occurred while sending the notification.";
+"notification_not_authorized" = "Notifications are not authorized.";
+"bike_not_found" = "The bike was not found.";
+"unknown_error_message" = "An unexpected error occurred.";
+
+//Enum MaintenanceStatus
+"maintenance_up_to_date" = "Up to date";
+"maintenance_soon_due" = "Soon to be planned";
+"maintenance_due" = "To be planned";
+
+//Enum Brand
+"Unknown" = "Unknown";
+
+//MaintenanceStatus message in MaintenanceDetailsView
+"maintenance_message_up_to_date" = "You're up to date";
+"maintenance_message_not_yet" = "No need to worry yet";
+"maintenance_message_due" = "It's time! Schedule an appointment with the nearest mechanic";

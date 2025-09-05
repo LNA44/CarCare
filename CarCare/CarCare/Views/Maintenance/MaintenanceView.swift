@@ -33,12 +33,11 @@ struct MaintenanceView: View {
 	//MARK: -Body
 	var body: some View {
 		let sortedKeys = VM.sortedMaintenanceKeys(from: maintenanceVM.maintenances)
-
 		VStack(spacing: 20) {
 			VStack {
 				if let lastMaintenanceByType = lastMaintenanceByType {
 					List {
-						Section(header: Text("Entretiens à venir")
+						Section(header: Text(NSLocalizedString("maintenances_to_come", comment: "Title for upcoming maintenance section"))
 							.font(.system(size: 27, weight: .bold, design: .rounded))
 							.foregroundColor(Color("TextColor"))
 							.textCase(nil)) {
@@ -50,7 +49,7 @@ struct MaintenanceView: View {
 									}
 								}
 							}
-						Section(header: Text("Terminés")
+						Section(header: Text(NSLocalizedString("completed_maintenances", comment: "Title for completed maintenance section"))
 							.font(.system(size: 27, weight: .bold, design: .rounded))
 							.foregroundColor(Color("TextColor"))
 							.textCase(nil)) {
@@ -63,11 +62,11 @@ struct MaintenanceView: View {
 					ZStack {
 						VStack(alignment: .leading, spacing: 40) {
 							
-							Text("Entretiens à venir")
+							Text(NSLocalizedString("maintenances_to_come", comment: "Title for upcoming maintenance section"))
 								.font(.system(size: 27, weight: .bold, design: .rounded))
 								.foregroundColor(Color("TextColor"))
 							
-							Text("Terminés")
+							Text(NSLocalizedString("completed_maintenances", comment: "Title for completed maintenance section"))
 								.font(.system(size: 27, weight: .bold, design: .rounded))
 								.foregroundColor(Color("TextColor"))
 							Spacer()
@@ -79,7 +78,8 @@ struct MaintenanceView: View {
 						VStack {
 							HStack(spacing: 10) {
 								Image(systemName: "exclamationmark.triangle.fill")
-								Text("Enregistrez un entretien réalisé de chaque catégorie pour voir les prochains entretiens à venir et l'historique.")
+								Text(NSLocalizedString("record_maintenance_instructions_key", comment: "Instructions pour enregistrer un entretien"))
+
 									
 							}
 							.padding(.horizontal, 10)
@@ -98,21 +98,21 @@ struct MaintenanceView: View {
 		}
 		.alert(isPresented: $maintenanceVM.showAlert) {
 			Alert(
-				title: Text("Erreur"),
-				message: Text(maintenanceVM.error?.errorDescription ?? "Erreur inconnue"),
+				title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
+				message: Text(maintenanceVM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
 				dismissButton: .default(Text("OK")) {
-					maintenanceVM.showAlert = false
-					maintenanceVM.error = nil
+					bikeVM.showAlert = false
+					bikeVM.error = nil
 				}
 			)
 		}
 		.alert(isPresented: $VM.showAlert) {
 			Alert(
-				title: Text("Erreur"),
-				message: Text(VM.error?.errorDescription ?? "Erreur inconnue"),
+				title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
+				message: Text(VM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
 				dismissButton: .default(Text("OK")) {
-					VM.showAlert = false
-					VM.error = nil
+					bikeVM.showAlert = false
+					bikeVM.error = nil
 				}
 			)
 		}

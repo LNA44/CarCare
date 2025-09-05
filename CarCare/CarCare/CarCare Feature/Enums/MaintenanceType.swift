@@ -4,14 +4,15 @@
 //
 //  Created by Ordinateur elena on 20/08/2025.
 //
+import Foundation
 
 enum MaintenanceType: String, CaseIterable, Identifiable {
 	var id: String { rawValue }
 	
-	case Tires = "Pneus" // A ADAPTER
-	case BrakePads = "Plaquettes de frein"
-	case Battery = "Batterie"
-	case Unknown = "Inconnu"
+	case Tires = "tires"
+	case BrakePads = "brake_pads"
+	case Battery = "battery"
+	case Unknown = "unknown"
 	
 	var frequencyInDays: Int {
 		switch self { // A ADAPTER
@@ -21,40 +22,52 @@ enum MaintenanceType: String, CaseIterable, Identifiable {
 		case .Unknown: return 0
 		}
 	}
-	
-	var description: String {
-		switch self {
-		case .Tires:
-			return """
-	Le nettoyage de base consiste à :
-	- Nettoyer le cadre avec un chiffon humide
-	- Vérifier l'état des pneus
-	- Contrôler la pression
-	"""
-		case .BrakePads:
-			return """
-	Le réglage des freins nécessite des outils 
-	"""
-		case .Battery:
-			return """
-	  L'entretien de la chaîne comprend :
-	  - Nettoyage avec un dégraissant
-	  - Lubrification des maillons
-	  - Vérification de l'usure
-	  """
-		case .Unknown:
-			return "Unknown"
-		}
-	}
 }
 
 extension MaintenanceType: Hashable {
 	var readableFrequency: String {
 		if frequencyInDays < 30 {
-			return "tous les \(frequencyInDays) jour\(frequencyInDays > 1 ? "s" : "")"
+			return String(format: NSLocalizedString("every_days_key", comment: ""), frequencyInDays)
 		} else {
 			let months = frequencyInDays / 30
-			return "tous les \(months) mois"
+			return String(format: NSLocalizedString("every_months_key", comment: ""), months)
+		}
+	}
+	
+	var localizedName: String {
+		NSLocalizedString(rawValue, comment: "")
+	}
+	
+	var localizedDescription: String {
+		switch self {
+		case .Tires:
+			return NSLocalizedString("tires_description", comment: "Description for tire maintenance")
+		case .BrakePads:
+			return NSLocalizedString("brake_pads_description", comment: "Description for brake pads maintenance")
+		case .Battery:
+			return NSLocalizedString("battery_description", comment: "Description for battery maintenance")
+		case .Unknown:
+			return NSLocalizedString("unknown_description", comment: "Description for unknown maintenance")
+		}
+	}
+}
+
+extension MaintenanceType {
+	init(fromCoreDataString string: String) {
+		switch string {
+		// FR
+		case "Pneus": self = .Tires
+		case "Plaquettes de frein": self = .BrakePads
+		case "Batterie": self = .Battery
+		// ES
+		case "Neumáticos": self = .Tires
+		case "Pastillas de freno": self = .BrakePads
+		case "Batería": self = .Battery
+		// EN
+		case "Tires": self = .Tires
+		case "Brakepads": self = .BrakePads
+		case "Battery": self = .Battery
+		default: self = .Unknown
 		}
 	}
 }

@@ -73,6 +73,7 @@ final class MaintenanceVM: ObservableObject {
 			
 			DispatchQueue.main.async {
 				self.maintenances = filtered
+				print("Maintenances: \(self.maintenances)")
 				self.overallStatus = self.defineOverallMaintenanceStatus(for: bikeType)
 				print("overallStatus après fetch: \(self.overallStatus)")
 				

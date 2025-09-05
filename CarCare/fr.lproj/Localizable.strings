@@ -1,0 +1,118 @@
+/* 
+  Localizable.strings
+  CarCare
+
+  Created by Ordinateur elena on 05/09/2025.
+  
+*/
+//TabView
+"dashboard_key" = "Accueil";
+"maintenance_key" = "Entretiens";
+"Settings_key" = "Paramètres";
+
+//NotificationIntroView
+"stay_informed_key" = "Restez informé";
+"enable_notifications_text_key" = "Activez les notifications pour être informé des rappels des entretiens à réaliser et ne rien manquer !";
+"enable_notifications_button_key" = "Activer les notifications";
+"error_title_key" = "Erreur";
+"success_title_key" = "Succès";
+"notifications_enabled_message_key" = "Notifications activées avec succès !";
+
+//RegistrationView
+"welcome_key" = "Bienvenue dans l'application!";
+"bike_info_key" = "Entre les informations de ton vélo";
+"brand_key" = "Marque";
+"model_key" = "Modèle";
+"type_key" = "Type";
+"year_of_manufacture_key" = "Année de fabrication";
+"identification_number_key" = "Numéro d'identification (optionnel)";
+"button_add_bike_key" = "Ajouter le vélo";
+
+//DashboardView
+"navigation_title_modify_bike_key" = "Mon vélo";
+"last_maintenance_key" = "Dernier entretien";
+"button_modify_bike_information" = "Modifer les infos du vélo";
+"button_Add_Maintenance" = "Ajouter un entretien";
+"no_date_key" = "Pas de date";
+"identification_number_key" = "Numéro d'identification : %@";
+
+//BikeInformationView
+"return_key" = "Retour";
+"button_delete_bike" = "Supprimer mon vélo";
+"button_Modify_information_key" = "Modifiers les informations";
+
+//AddMaintenanceView
+"navigation_title_add_maintenance_key" = "Ajouter un entretien";
+"maintenance_Type_key" = "Type d'entretien";
+"maintenance_date_key" = "Date de l'entretien";
+"done_key" = "Terminé";
+
+//MaintenanceView
+"maintenances_to_come" = "Maintenances à venir";
+"completed_maintenances" = "Maintenances terminées";
+"record_maintenance_instructions_key" = "Enregistrez un entretien réalisé de chaque catégorie pour voir les prochains entretiens à venir et l'historique.";
+
+//ToDoRowMaintenances
+"days_remaining_key" = "%d jour(s) restant(s)";
+"unknown_days_remaining_key" = "Nombre de jours restants inconnu";
+
+//MaintenanceDetailsView
+"frequency_key" = "Fréquence: %@";
+"every_days_key" = "tous les %d jour(s)";
+"every_months_key" = "tous les %d mois";
+"button_update_key" = "Mettre à jour";
+"maintenance_history_key" = "Historique d'entretien";
+"advice_and_information_key" = "Conseils & infos";
+
+//SettingsView
+"navigation_title_settings_key" = "Paramètres";
+"appearence_key" = "Apparence";
+"dark_mode_key" = "Mode sombre";
+"notifications_key" = "Notifications";
+"handle_notifications_key" = "Gérer les notifications";
+"information_key" = "Informations";
+"legal_notice_key" = "Mentions légales";
+
+//Enum MaintenanceType
+"tires" = "Pneus";
+"brake_pads" = "Plaquettes de frein";
+"battery" = "Batterie";
+"unknown" = "Inconnu";
+
+"tires_description" = "Le nettoyage de base consiste à :\n- Nettoyer le cadre avec un chiffon humide\n- Vérifier l'état des pneus\n- Contrôler la pression";
+"brake_pads_description" = "Le réglage des freins nécessite des outils";
+"battery_description" = "L'entretien de la chaîne comprend :\n- Nettoyage avec un dégraissant\n- Lubrification des maillons\n- Vérification de l'usure";
+"unknown_description" = "Inconnu";
+
+//Enum BikeType
+"manual" = "Manuel";
+"electric" = "Électrique";
+
+//Error
+"error_title" = "Erreur";
+"unknown_error" = "Erreur inconnue";
+"bike_error" = "Erreur liée au vélo";
+"maintenance_error" = "Erreur liée aux entretiens";
+
+"bike_load_failed" = "Une erreur est survenue lors du chargement du vélo.";
+"data_unavailable" = "Vos données ne sont pas disponibles.";
+"loading_data_failed" = "Erreur lors du chargement des données : %@.";
+"fetch_data_failed" = "Erreur lors du chargement des données : %@.";
+"save_data_failed" = "Erreur lors de la sauvegarde des données : %@.";
+"notification_error" = "Une erreur est survenue lors de l'envoi de la notification.";
+"notification_not_authorized" = "Les notifications ne sont pas autorisées.";
+"bike_not_found" = "Le vélo n'a pas été trouvé.";
+"unknown_error_message" = "Une erreur inattendue est survenue.";
+
+//Enum MaintenanceStatus
+"maintenance_up_to_date" = "À jour";
+"maintenance_soon_due" = "Bientôt à prévoir";
+"maintenance_due" = "À prévoir";
+
+//Enum Brand
+"Unknown" = "Inconnu";
+
+//MaintenanceStatus message in MaintenanceDetailsView
+"maintenance_message_up_to_date" = "Tu es à jour";
+"maintenance_message_not_yet" = "Tu n'as pas encore à t'en préoccuper";
+"maintenance_message_due" = "C'est l'heure! Pense à prendre rendez-vous chez le réparateur le plus proche";

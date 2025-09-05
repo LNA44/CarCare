@@ -22,23 +22,23 @@ struct RegistrationView: View {
 			VStack {
 				VStack {
 					VStack (spacing: 20) {
-						Text("Bienvenue")
+						Text(NSLocalizedString("welcome_key", comment: ""))
 							.font(.system(size: 22, weight: .bold, design: .rounded))
 							.frame(maxWidth: .infinity, alignment: .leading)
 						
-						Text("Entrez les informations de votre vélo")
+						Text(NSLocalizedString("bike_info_key", comment: ""))
 							.frame(maxWidth: .infinity, alignment: .leading)
 					}
 					.padding(.top, 40)
 					
 					VStack (spacing: 20) {
 						VStack {
-							Text("Marque")
+							Text(NSLocalizedString("brand_key", comment: ""))
 								.frame(maxWidth: .infinity, alignment: .leading)
 							
 							Picker("Marque", selection: $selectedBrand) {
 								ForEach(Brand.allCases) { brand in
-									Text(brand.rawValue).tag(brand)
+									Text(brand.localizedName).tag(brand)
 										.font(.system(size: 16, weight: .regular, design: .rounded))
 								}
 							}
@@ -57,7 +57,7 @@ struct RegistrationView: View {
 						}
 						
 						VStack {
-							Text("Modèle")
+							Text(NSLocalizedString("model_key", comment: ""))
 								.frame(maxWidth: .infinity, alignment: .leading)
 							
 							Picker("Modèle", selection: Binding(
@@ -82,12 +82,12 @@ struct RegistrationView: View {
 						}
 						
 						VStack {
-							Text("Type")
+							Text(NSLocalizedString("type_key", comment: ""))
 								.foregroundColor(Color("TextColor"))
 								.frame(maxWidth: .infinity, alignment: .leading)
 							Picker("Type", selection: $selectedType) {
 								ForEach(BikeType.allCases, id: \.self) { type in
-									Text(type.rawValue).tag(type)
+									Text(type.localizedName).tag(type)
 										.font(.system(size: 16, weight: .regular, design: .rounded))
 								}
 							}
@@ -101,7 +101,7 @@ struct RegistrationView: View {
 						.frame(maxWidth: .infinity)
 						
 						VStack {
-							Text("Année de fabrication")
+							Text(NSLocalizedString("year_of_manufacture_key", comment: ""))
 								.frame(maxWidth: .infinity, alignment: .leading)
 							
 							CustomTextField(placeholder: "", text: $yearText)
@@ -110,7 +110,7 @@ struct RegistrationView: View {
 						.frame(maxWidth: .infinity)
 						
 						VStack {
-							Text("Numéro d'identification (optionnel)")
+							Text(NSLocalizedString("identification_number_message_key", comment: ""))
 								.frame(maxWidth: .infinity, alignment: .leading)
 							
 							CustomTextField(placeholder: "", text: $identificationNumber)
@@ -125,7 +125,7 @@ struct RegistrationView: View {
 				
 				Spacer()
 				
-				PrimaryButton(title: "Ajouter le vélo", foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
+				PrimaryButton(title: NSLocalizedString("button_add_bike_key", comment: ""), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
 					let success = bikeVM.addBike(brand: selectedBrand, model: selectedModel, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
 					if success {
 						shouldNavigate = true
@@ -144,8 +144,8 @@ struct RegistrationView: View {
 		}
 		.alert(isPresented: $bikeVM.showAlert) {
 			Alert(
-				title: Text("Erreur"),
-				message: Text(bikeVM.error?.errorDescription ?? "Erreur inconnue"),
+				title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
+				message: Text(bikeVM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
 				dismissButton: .default(Text("OK")) {
 					bikeVM.showAlert = false
 					bikeVM.error = nil

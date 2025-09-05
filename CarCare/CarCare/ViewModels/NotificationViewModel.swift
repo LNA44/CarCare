@@ -12,7 +12,6 @@ import Combine
 final class NotificationViewModel: ObservableObject {
 	@Published var error: AppError?
 	@Published var isLoading = false
-	@Published var showSuccessAlert = false
 	@Published var isAuthorized = false
 
 	private var cancellables = Set<AnyCancellable>()
@@ -64,11 +63,9 @@ final class NotificationViewModel: ObservableObject {
 			DispatchQueue.main.async {
 				if settings.authorizationStatus == .authorized {
 					self.notificationManager.scheduleAllReminders(using: self.maintenanceVM)
-					self.showSuccessAlert = true
 				} else {
 					// Supprimer toutes les notifications planifiées
 					self.notificationManager.cancelAllNotifications(using: self.maintenanceVM)
-					self.showSuccessAlert = false
 				}
 			}
 		}
