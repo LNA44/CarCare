@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SettingsView: View {
-	//@EnvironmentObject var themeVM: ThemeViewModel
 	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
 
 	var body: some View {
@@ -24,7 +23,7 @@ struct SettingsView: View {
 				}
 				.tint(Color("DoneColor"))
 				.onChange(of: isDarkMode) { value in
-								applyInterfaceStyle(value)
+						applyInterfaceStyle(value)
 				}
 			}
 			

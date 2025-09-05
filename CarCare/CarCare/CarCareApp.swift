@@ -37,18 +37,31 @@ struct CarCareApp: App {
 			ZStack {
 				switch appState.status {
 				case .needsVehicleRegistration:
-					if hasSeenNotificationIntro {
-						RegistrationView(bikeVM: bikeVM)
-							.environmentObject(appState)
-					} else {
-						NotificationIntroView(maintenanceVM: maintenanceVM)
-							.environmentObject(notificationVM)
+					Group {
+						if hasSeenNotificationIntro {
+							RegistrationView(bikeVM: bikeVM)
+								.environmentObject(appState)
+						} else {
+							NotificationIntroView(maintenanceVM: maintenanceVM)
+								.environmentObject(notificationVM)
+						}
 					}
+					.transition(.asymmetric(
+							   insertion: .move(edge: .trailing).combined(with: .opacity), 
+							   removal: .move(edge: .leading).combined(with: .opacity)
+						   ))
+						   .zIndex(1)
 				case .ready:
 					ContentView(bikeVM: bikeVM, maintenanceVM: maintenanceVM)
 						.environmentObject(appState)
+						.transition(.asymmetric(
+								   insertion: .move(edge: .trailing).combined(with: .opacity),
+								   removal: .move(edge: .leading).combined(with: .opacity)
+							   ))
+							   .zIndex(0)
 				}
 			}
+			.animation(.easeInOut(duration: 0.3), value: appState.status)
 			.alert(isPresented: $appState.showAlert) {
 					Alert(
 						title: Text("Erreur"),

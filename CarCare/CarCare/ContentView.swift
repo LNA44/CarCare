@@ -10,7 +10,6 @@ import SwiftUI
 struct ContentView: View {
 	@ObservedObject var bikeVM: BikeVM
 	@ObservedObject var maintenanceVM: MaintenanceVM
-	//@EnvironmentObject var themeVM: ThemeViewModel
 	
 	var body: some View {
 		TabView {

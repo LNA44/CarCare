@@ -119,12 +119,9 @@ struct BikeModificationsView: View {
 			VStack(spacing: 20) {
 				PrimaryButton(title: "Supprimer mon vélo", foregroundColor: .white, backgroundColor: Color("ToDoColor")) {
 					bikeVM.deleteCurrentBike()
-					DispatchQueue.main.async {
-						dismiss()
-						onDelete?() //previent dashboardview
-						//withAnimation(.easeInOut) {
-							appState.status = .needsVehicleRegistration
-						//}
+					onDelete?()
+					withAnimation {
+						   appState.status = .needsVehicleRegistration
 					}
 				}
 				
