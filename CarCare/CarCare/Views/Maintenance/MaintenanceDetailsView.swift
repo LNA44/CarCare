@@ -84,7 +84,7 @@ struct MaintenanceDetailsView: View {
 							) {
 								Text("Mettre à jour")
 									.font(.system(size: 16, weight: .bold, design: .rounded))
-									.foregroundColor(Color("TextColor"))
+									.foregroundColor(Color(.white))
 									.frame(maxWidth: .infinity)
 									.padding()
 									.background(Color("AppPrimaryColor"))

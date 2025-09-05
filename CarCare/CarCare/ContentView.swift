@@ -26,6 +26,7 @@ struct ContentView: View {
 			}
 			.tabItem { Label("Paramètres", systemImage: "gear") }
 		}
+		.tint(Color("TextColor"))
 	}
 }
 

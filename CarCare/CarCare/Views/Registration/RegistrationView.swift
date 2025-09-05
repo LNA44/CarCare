@@ -136,6 +136,11 @@ struct RegistrationView: View {
 			.padding(.horizontal, 10)
 			.navigationDestination(isPresented: $shouldNavigate) {
 			}
+			.frame(maxWidth: .infinity)
+			.contentShape(Rectangle()) // rend la zone tappable même vide
+			.onTapGesture {
+				UIApplication.shared.endEditing()
+			}
 		}
 		.alert(isPresented: $bikeVM.showAlert) {
 			Alert(
@@ -147,6 +152,12 @@ struct RegistrationView: View {
 				}
 			)
 		}
+	}
+}
+
+extension UIApplication {
+	func endEditing() {
+		sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
 	}
 }
 

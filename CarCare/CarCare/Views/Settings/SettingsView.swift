@@ -22,7 +22,7 @@ struct SettingsView: View {
 						.font(.system(size: 16, weight: .regular, design: .rounded))
 				}
 				.tint(Color("DoneColor"))
-				.onChange(of: isDarkMode) { value in
+				.onChange(of: isDarkMode) {_, value in
 						applyInterfaceStyle(value)
 				}
 			}
