@@ -107,7 +107,6 @@ struct RegistrationView: View {
 							CustomTextField(placeholder: "", text: $yearText)
 							.keyboardType(.numberPad)
 						}
-						.frame(maxWidth: .infinity)
 						
 						VStack {
 							Text(NSLocalizedString("identification_number_message_key", comment: ""))
@@ -115,7 +114,6 @@ struct RegistrationView: View {
 							
 							CustomTextField(placeholder: "", text: $identificationNumber)
 						}
-						.frame(maxWidth: .infinity)
 						
 					}
 					.padding(.top, 40)

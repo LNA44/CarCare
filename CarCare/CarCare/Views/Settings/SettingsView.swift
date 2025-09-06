@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
 	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
+	@Environment(\.colorScheme) private var colorScheme
 
 	var body: some View {
 		Form {
@@ -17,7 +18,8 @@ struct SettingsView: View {
 				.font(.system(size: 16, weight: .bold, design: .rounded))
 			) {
 				Toggle(isOn: $isDarkMode) {
-					Text(NSLocalizedString("dark_mode_key", comment: ""))						.foregroundColor(Color("TextColor"))
+					Text(NSLocalizedString("dark_mode_key", comment: ""))
+						.foregroundColor(Color("TextColor"))
 						.font(.system(size: 16, weight: .regular, design: .rounded))
 				}
 				.tint(Color("DoneColor"))
@@ -52,6 +54,14 @@ struct SettingsView: View {
 						.font(.system(size: 16, weight: .regular, design: .rounded))
 				}
 			}
+		}
+		.onAppear {
+			// Au démarrage, synchroniser le toggle avec le système
+			isDarkMode = colorScheme == .dark
+		}
+		.onChange(of: colorScheme) { newScheme in
+			// Quand le téléphone change de mode, mettre à jour le toggle
+			isDarkMode = newScheme == .dark
 		}
 		.background(Color("BackgroundColor"))
 		.toolbar {

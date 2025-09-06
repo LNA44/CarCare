@@ -30,6 +30,7 @@ struct CustomTextField: View {
 				.padding(paddingValue)
 				.background(backgroundColor)
 				.cornerRadius(cornerRadius)
+				.frame(maxWidth: .infinity)
 		}
 	}
 }
