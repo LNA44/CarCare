@@ -40,15 +40,27 @@ final class MaintenanceVM: ObservableObject {
 	   func setNotificationVM(_ notificationVM: NotificationViewModel) {
 		   self.notificationVM = notificationVM
 	   }
-
+	
 	func defineOverallMaintenanceStatus(for bikeType: BikeType) -> MaintenanceStatus {
 		print("defineOverallMaintenanceStatus appelée")
 		
-		let statuses = MaintenanceType.allCases
+		// Cas spécial : pas de maintenances → statut à prévoir
+		guard !maintenances.isEmpty else {
+			return .aPrevoir
+		}
+		
+		let existingTypes = MaintenanceType.allCases
 			.filter { $0 != .Unknown }
 			.filter { !(bikeType == .Manual && $0 == .Battery) }
-			.map { determineMaintenanceStatus(for: $0, maintenances: maintenances) }
-	
+			// On ne garde que les types présents dans les maintenances
+			.filter { type in
+					maintenances.contains { (maintenance: Maintenance) in
+						maintenance.maintenanceType == type
+					}
+				}
+		
+		let statuses = existingTypes.map { determineMaintenanceStatus(for: $0, maintenances: maintenances) }
+		
 		if statuses.contains(.aPrevoir) {
 			return .aPrevoir
 		} else if statuses.contains(.bientotAPrevoir) {
@@ -166,6 +178,19 @@ final class MaintenanceVM: ObservableObject {
 		} catch {
 			self.error = AppError.unknown
 			showAlert = true
+		}
+	}
+	
+	func deleteOneMaintenance(maintenance: Maintenance, bikeType: BikeType) {
+		do {
+			try loader.deleteOne(maintenance)
+			// Supprime localement du tableau pour mettre à jour la vue
+			if let index = maintenances.firstIndex(of: maintenance) {
+				maintenances.remove(at: index)
+				overallStatus = defineOverallMaintenanceStatus(for: bikeType)
+			}
+		} catch {
+			
 		}
 	}
 }

@@ -105,7 +105,7 @@ struct BikeModificationsView: View {
 				}
 				
 				VStack {
-					Text(NSLocalizedString("identification_number_key", comment: ""))
+					Text(NSLocalizedString("identification_number_message_key", comment: ""))
 						.frame(maxWidth: .infinity, alignment: .leading)
 						.foregroundColor(Color("TextColor"))
 					

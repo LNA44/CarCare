@@ -127,6 +127,7 @@ struct RegistrationView: View {
 				
 				PrimaryButton(title: NSLocalizedString("button_add_bike_key", comment: ""), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
 					let success = bikeVM.addBike(brand: selectedBrand, model: selectedModel, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
+					print("Type de vélo: \(selectedType)")
 					if success {
 						shouldNavigate = true
 						appState.status = .ready

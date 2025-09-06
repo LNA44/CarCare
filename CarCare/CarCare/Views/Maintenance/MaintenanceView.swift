@@ -56,6 +56,15 @@ struct MaintenanceView: View {
 								ForEach(maintenanceVM.maintenances.reversed(), id: \.self) { maintenance in
 									DoneMaintenanceRow(maintenance: maintenance)
 								}
+								.onDelete { offsets in
+									// Convertir offsets de la vue inversée en indices du tableau original
+									let realOffsets = offsets.map { maintenanceVM.maintenances.count - 1 - $0 }
+									
+									realOffsets.forEach { index in
+										let maintenance = maintenanceVM.maintenances[index]
+										maintenanceVM.deleteOneMaintenance(maintenance: maintenance, bikeType: bikeVM.bikeType)
+									}
+								}
 							}
 					}
 				} else {

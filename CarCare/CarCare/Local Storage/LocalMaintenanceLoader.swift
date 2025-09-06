@@ -29,7 +29,11 @@ final class LocalMaintenanceLoader {
 	}
 	
 	func deleteAll() throws {
-		try store.delete()
+		try store.deleteAll()
+	}
+	
+	func deleteOne(_ maintenance: Maintenance) throws {
+		try store.deleteOne(maintenance.toLocal())
 	}
 }
 

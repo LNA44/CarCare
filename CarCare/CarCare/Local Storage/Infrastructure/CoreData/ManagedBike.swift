@@ -32,7 +32,7 @@ extension ManagedBike {
 		managed.year = Int32(local.year)
 		managed.model = local.model
 		managed.brand = local.brand.rawValue
-		managed.bikeType = local.bikeType.localizedName
+		managed.bikeType = local.bikeType.rawValue
 		managed.identificationNumber = local.identificationNumber
 		
 		try context.save()

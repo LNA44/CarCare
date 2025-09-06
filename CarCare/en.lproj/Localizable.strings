@@ -74,7 +74,6 @@
 "information_key" = "Information";
 "legal_notice_key" = "Legal notice";
 
-
 //Enum MaintenanceType
 "tires" = "Tires";
 "brake_pads" = "Brakepads";

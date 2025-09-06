@@ -33,10 +33,18 @@ extension CoreDataLocalStore: MaintenanceStore {
 		}
 	}
 	
-	func delete() throws {
+	func deleteAll() throws {
 		try performSync { context in
 			Result {
 				try ManagedMaintenance.deleteAll(in: context)
+			}
+		}
+	}
+	
+	func deleteOne(_ maintenance: LocalMaintenance) throws {
+		try performSync { context in
+			Result {
+				try ManagedMaintenance.deleteOne(from: maintenance, in: context)
 			}
 		}
 	}
