@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DaysIndicatorView: View {
+	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
+
 	let days: Int
 	let frequency: Int
 	let rectangleWidth: CGFloat
@@ -34,16 +36,15 @@ struct DaysIndicatorView: View {
 							startPoint: .leading,
 							endPoint: .trailing
 						))
-					.cornerRadius(6)
 					.frame(width: rectangleWidth, height: rectangleHeight)
-					.shadow(color: colorForRectangle(index: 0).opacity(0.5), radius: 4, x: 0, y: 2)
+					.shadow(color: isDarkMode ? .clear : colorForRectangle(index: 0).opacity(0.5),
+							   radius: 4, x: 0, y: 2)
 				Capsule()
 					.fill(LinearGradient(
 							colors: [colorForRectangle(index: 1).opacity(0.8), colorForRectangle(index: 1)],
 							startPoint: .leading,
 							endPoint: .trailing
 						))
-					.cornerRadius(6)
 					.frame(width: rectangleWidth, height: rectangleHeight)
 					.shadow(color: colorForRectangle(index: 1).opacity(0.5), radius: 4, x: 0, y: 2)
 				Capsule()
@@ -52,7 +53,6 @@ struct DaysIndicatorView: View {
 							startPoint: .leading,
 							endPoint: .trailing
 						))
-					.cornerRadius(6)
 					.frame(width: rectangleWidth, height: rectangleHeight)
 					.shadow(color: colorForRectangle(index: 2).opacity(0.5), radius: 4, x: 0, y: 2)
 			}

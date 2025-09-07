@@ -33,7 +33,7 @@ extension CoreDataLocalStore: BikeStore {
 					managedBike.brand = bike.brand.rawValue
 					managedBike.model = bike.model
 					managedBike.year = Int32(bike.year)
-					managedBike.bikeType = bike.bikeType.localizedName
+					managedBike.bikeType = bike.bikeType.rawValue
 					managedBike.identificationNumber = bike.identificationNumber
 					try context.save()
 				}

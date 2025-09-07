@@ -208,14 +208,12 @@ struct DashboardView: View {
 			}
 		}
 		.background(
-				LinearGradient(
-					gradient: Gradient(colors: isDarkMode
-									   ? [Color.black, Color.gray]
-									   : [Color("BackgroundColor"), Color.white]),
-					startPoint: .top,
-					endPoint: .bottom
-				)
+			LinearGradient(
+				gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor2")]),
+				startPoint: .top,
+				endPoint: .bottom
 			)
+		)
 		.toolbar {
 			ToolbarItem(placement: .principal) {
 				Text(NSLocalizedString("navigation_title_modify_bike_key", comment: ""))
@@ -223,7 +221,6 @@ struct DashboardView: View {
 					.foregroundColor(Color("TextColor"))
 			}
 		}
-		.background(Color("BackgroundColor"))
 		.navigationBarTitleDisplayMode(.inline)
 		.alert(isPresented: $bikeVM.showAlert) {
 			Alert(

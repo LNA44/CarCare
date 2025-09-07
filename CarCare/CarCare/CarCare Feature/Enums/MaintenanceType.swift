@@ -22,6 +22,15 @@ enum MaintenanceType: String, CaseIterable, Identifiable {
 		case .Unknown: return 0
 		}
 	}
+	
+	var iconName: String {
+			switch self {
+			case .Tires: return "wheels"
+			case .BrakePads: return "brake-pad"
+			case .Battery: return "battery"
+			case .Unknown: return "questionmark.circle"   
+			}
+		}
 }
 
 extension MaintenanceType: Hashable {

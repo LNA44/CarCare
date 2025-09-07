@@ -61,7 +61,7 @@ struct MaintenanceView: View {
 										DoneMaintenanceRow(maintenance: maintenance)
 											.listRowBackground(Color("MaintenanceHistoryColor"))
 									}
-									
+					
 									.onDelete { offsets in
 										// Convertir offsets de la vue inversée en indices du tableau original
 										let realOffsets = offsets.map { maintenanceVM.maintenances.count - 1 - $0 }

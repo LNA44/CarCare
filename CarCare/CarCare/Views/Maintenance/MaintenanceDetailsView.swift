@@ -33,10 +33,11 @@ struct MaintenanceDetailsView: View {
 			ScrollView {
 				VStack(spacing: 20) {
 					VStack {
-						Image("brake-pad")
+						Image(maintenance.maintenanceType.iconName)
 							.resizable()
 							.scaledToFit()
 							.frame(width: 80, height: 80)
+							.scaleEffect(maintenance.maintenanceType == .Battery ? 0.8 : 1.0) // exemple
 							.padding(10)
 							.background(Color("BackgroundColor"))
 							.clipShape(Circle())
@@ -57,14 +58,14 @@ struct MaintenanceDetailsView: View {
 											}
 									}
 								}
-								.padding(.top, 10)
+								.padding(.top, 20)
 							}
 							.padding(.horizontal, 15)
 							
 							
 							HStack {
 								Image(systemName: "alarm") // icône réveil
-									.foregroundColor(.black)  // couleur de l'icône
+									.foregroundColor(Color("TextColor"))  // couleur de l'icône
 								
 								Text(String(
 									format: NSLocalizedString("frequency_key", comment: "Label pour la fréquence de maintenance"),

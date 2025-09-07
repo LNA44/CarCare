@@ -26,6 +26,7 @@ struct SettingsView: View {
 				.onChange(of: isDarkMode) {_, value in
 						applyInterfaceStyle(value)
 				}
+				.listRowBackground(Color("MaintenanceHistoryColor"))
 			}
 			
 			Section(header: Text(NSLocalizedString("notifications_key", comment: ""))
@@ -42,6 +43,7 @@ struct SettingsView: View {
 						.foregroundColor(Color("TextColor"))
 						.font(.system(size: 16, weight: .regular, design: .rounded))
 				}
+				.listRowBackground(Color("MaintenanceHistoryColor"))
 			}
 			
 			Section(header: Text(NSLocalizedString("information_key", comment: ""))
@@ -54,15 +56,18 @@ struct SettingsView: View {
 						.font(.system(size: 16, weight: .regular, design: .rounded))
 				}
 			}
+			.listRowBackground(Color("MaintenanceHistoryColor"))
+
 		}
 		.onAppear {
 			// Au démarrage, synchroniser le toggle avec le système
 			isDarkMode = colorScheme == .dark
 		}
-		.onChange(of: colorScheme) { newScheme in
+		.onChange(of: colorScheme) {_, newScheme in
 			// Quand le téléphone change de mode, mettre à jour le toggle
 			isDarkMode = newScheme == .dark
 		}
+		.scrollContentBackground(.hidden) 
 		.background(Color("BackgroundColor"))
 		.toolbar {
 			ToolbarItem(placement: .principal) {
