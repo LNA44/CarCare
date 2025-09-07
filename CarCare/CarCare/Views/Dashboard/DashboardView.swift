@@ -14,7 +14,7 @@ struct DashboardView: View {
 	@StateObject private var VM: DashboardVM
 	@State private var goToAdd = false
 	@State private var didLoadData = false
-
+	
 	let formatter: DateFormatter = {
 		let df = DateFormatter()
 		df.dateStyle = .medium
@@ -32,41 +32,64 @@ struct DashboardView: View {
 	var body: some View {
 		ScrollView {
 			VStack(spacing: 10) {
-					Image("Riding")
-						.resizable()
-						.frame(width: 100, height: 100)
-						.clipShape(Circle())
-						.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+				ZStack {
+					Rectangle()
+							.fill(.regularMaterial)  // blur moderne
+							.frame(height: 200)
+							.cornerRadius(20)
+							.shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
 
+						
 					VStack {
-						Text("\(bikeVM.brand) - \(bikeVM.model)")
-							.font(.system(size: 24, weight: .bold, design: .rounded))
-							.padding(.top)
-							.padding(.horizontal, 15)
-							.multilineTextAlignment(.center)
-							.shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
-						
-						HStack {
-							Image(systemName: "birthday.cake")
-								.resizable()
-								.frame(width: 15, height: 15)
-								.foregroundColor(.brown)
-							Text("\(bikeVM.year)")
+						VStack {
+							Text("\(bikeVM.brand) - \(bikeVM.model)")
+								.font(.system(size: 24, weight: .bold, design: .rounded))
+								.padding(.top)
+								.padding(.horizontal, 15)
+								.multilineTextAlignment(.center)
+								.shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
+							
+							HStack {
+								Image(systemName: "birthday.cake")
+									.resizable()
+									.frame(width: 15, height: 15)
+									.foregroundColor(.brown)
+								Text("\(bikeVM.year)")
+							}
+							
+							if !bikeVM.identificationNumber.isEmpty {
+								Text(String(
+									format: NSLocalizedString("identification_number_key", comment: "Label pour le numéro d'identification du vélo"),
+									bikeVM.identificationNumber
+								))
+								.font(.system(size: 16, weight: .regular, design: .rounded))
+							}
 						}
-						
-						if !bikeVM.identificationNumber.isEmpty {
-							Text(String(
-								format: NSLocalizedString("identification_number_key", comment: "Label pour le numéro d'identification du vélo"),
-								bikeVM.identificationNumber
-							))
-							.font(.system(size: 16, weight: .regular, design: .rounded))
-						}
+						.padding(.top, 50)
 					}
 					.padding(.bottom, 20)
 					.foregroundColor(Color(.brown))
+					
+					ZStack {
+						Circle()
+							.fill(Color.white.opacity(0.2)) // overlay léger derrière
+							.frame(width: 110, height: 110)
+							.offset(y: -80)
+						Image("Riding")
+							.resizable()
+							.frame(width: 100, height: 100)
+							.clipShape(Circle())
+							.offset(y: -80)
+							.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+					}
+				}
+				.padding(.top, 20)
+				.padding(.horizontal, 15)
 				
-					Divider()
+				
+				Divider()
 					.frame(width: 150)
+					.padding(.top, 20)
 					.padding(.bottom, 10)
 				
 				VStack {
@@ -81,8 +104,8 @@ struct DashboardView: View {
 							.padding(10)
 							.background(
 								maintenanceVM.overallStatus == .aJour ? Color("DoneColor") :
-								   maintenanceVM.overallStatus == .bientotAPrevoir ? Color("InProgressColor") :
-								   Color("ToDoColor")
+									maintenanceVM.overallStatus == .bientotAPrevoir ? Color("InProgressColor") :
+									Color("ToDoColor")
 							)
 							.clipShape(Capsule())
 							.shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
@@ -94,90 +117,89 @@ struct DashboardView: View {
 				.cornerRadius(10)
 				.padding(.horizontal, 10)
 				.padding(.bottom, 20)
-
+				
 				ZStack {
-						Image("Maintenance")
-							.resizable()
-							.frame(width: 360, height: 250)
-							.cornerRadius(10)
-							.scaledToFit()
+					Image("Maintenance")
+						.resizable()
+						.frame(width: 360, height: 250)
+						.cornerRadius(10)
+						.scaledToFit()
+					
+					VStack(alignment: .leading) {
+						Text(NSLocalizedString("last_maintenance_key", comment: ""))
+							.font(.system(size: 22, weight: .bold, design: .rounded))
+							.padding(.bottom, 5)
 						
-						VStack(alignment: .leading) {
-							Text(NSLocalizedString("last_maintenance_key", comment: ""))
-								.font(.system(size: 22, weight: .bold, design: .rounded))
-								.padding(.bottom, 5)
-							
-							Text("\(maintenanceVM.generalLastMaintenance?.maintenanceType.localizedName ?? "")")
+						Text("\(maintenanceVM.generalLastMaintenance?.maintenanceType.localizedName ?? "")")
+							.font(.system(size: 16, weight: .bold, design: .rounded))
+						
+						if let date = maintenanceVM.generalLastMaintenance?.date {
+							Text(formatter.string(from: date))
 								.font(.system(size: 16, weight: .bold, design: .rounded))
-							
-							if let date = maintenanceVM.generalLastMaintenance?.date {
-								Text(formatter.string(from: date))
-									.font(.system(size: 16, weight: .bold, design: .rounded))
-							} else {
-								Text(NSLocalizedString("no_date_key", comment: ""))
-									.font(.system(size: 16, weight: .bold, design: .rounded))
-							}
+						} else {
+							Text(NSLocalizedString("no_date_key", comment: ""))
+								.font(.system(size: 16, weight: .bold, design: .rounded))
 						}
-						.foregroundColor(.white)
-						.bold()
-						.padding(.horizontal, 10)
-						.padding(.vertical, 10)
-						.frame(width: 350, height: 250, alignment: .bottomLeading)
-						
 					}
+					.foregroundColor(.white)
+					.bold()
 					.padding(.horizontal, 10)
 					.padding(.vertical, 10)
+					.frame(width: 350, height: 250, alignment: .bottomLeading)
 					
-					VStack(spacing: 20) {
-						NavigationLink(
-							destination: BikeModificationsView(bikeVM: bikeVM) {
-								//closure de BikeModificationsView
-								maintenanceVM.deleteAllMaintenances()
-							}
-						) {
-							Text(NSLocalizedString("button_modify_bike_information", comment: ""))
-								.font(.system(size: 16, weight: .bold, design: .rounded))
-								.foregroundColor(Color("TextColor"))
-								.frame(maxWidth: .infinity)
-								.padding()
-								.background(Color("BackgroundColor"))
-								.background(Color.white)
-								.cornerRadius(10)
-						}
-						.padding(.horizontal, 10)
-						.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
-						
-						NavigationLink(
-							destination: AddMaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, onAdd: {
-								VM.fetchLastMaintenance(for: bikeVM.bikeType) //closure appelée après dismiss
-								maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
-							}),
-							isActive: $goToAdd
-						) {
-							Text(NSLocalizedString("button_Add_Maintenance", comment: ""))
-								.font(.system(size: 16, weight: .bold, design: .rounded))
-								.foregroundColor(.white)
-								.frame(maxWidth: .infinity)
-								.padding()
-								.background(Color("AppPrimaryColor"))
-								.cornerRadius(10)
-						}
-						.padding(.bottom, 20)
-						.padding(.horizontal, 10)
-						.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
-					}
-					.padding(.top, 10)
 				}
-				.padding(.top, 20)
-				.cornerRadius(15)
 				.padding(.horizontal, 10)
+				.padding(.vertical, 10)
+				
+				VStack(spacing: 20) {
+					NavigationLink(
+						destination: BikeModificationsView(bikeVM: bikeVM) {
+							//closure de BikeModificationsView
+							maintenanceVM.deleteAllMaintenances()
+						}
+					) {
+						Text(NSLocalizedString("button_modify_bike_information", comment: ""))
+							.font(.system(size: 16, weight: .bold, design: .rounded))
+							.foregroundColor(Color("TextColor"))
+							.frame(maxWidth: .infinity)
+							.padding()
+							.background(Color("BackgroundColor"))
+							.background(Color.white)
+							.cornerRadius(10)
+					}
+					.padding(.horizontal, 10)
+					.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+					
+					NavigationLink(
+						destination: AddMaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, onAdd: {
+							VM.fetchLastMaintenance(for: bikeVM.bikeType) //closure appelée après dismiss
+							maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
+						}),
+						isActive: $goToAdd
+					) {
+						Text(NSLocalizedString("button_Add_Maintenance", comment: ""))
+							.font(.system(size: 16, weight: .bold, design: .rounded))
+							.foregroundColor(.white)
+							.frame(maxWidth: .infinity)
+							.padding()
+							.background(Color("AppPrimaryColor"))
+							.cornerRadius(10)
+					}
+					.padding(.bottom, 20)
+					.padding(.horizontal, 10)
+					.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+				}
+				.padding(.top, 10)
+			}
+			.padding(.top, 20)
+			.cornerRadius(15)
 			.navigationBarBackButtonHidden(true)
 			.onAppear {
 				guard !didLoadData else { return } //evite boucle lors du changement de light dark mode
 				didLoadData = true
 				bikeVM.fetchBikeData() { //bikeData mises dans publised
-				VM.fetchLastMaintenance(for: bikeVM.bikeType)
-				maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType) //utile pour statut général entretien
+					VM.fetchLastMaintenance(for: bikeVM.bikeType)
+					maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType) //utile pour statut général entretien
 				}
 			}
 			.onChange(of: bikeVM.bikeType) { _, newValue in

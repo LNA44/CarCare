@@ -28,15 +28,33 @@ struct DaysIndicatorView: View {
 			
 			// Rectangles
 			HStack(spacing: 2) {
-				Rectangle()
-					.fill(colorForRectangle(index: 0))
+				Capsule()
+					.fill(LinearGradient(
+							colors: [colorForRectangle(index: 0).opacity(0.8), colorForRectangle(index: 0)],
+							startPoint: .leading,
+							endPoint: .trailing
+						))
+					.cornerRadius(6)
 					.frame(width: rectangleWidth, height: rectangleHeight)
-				Rectangle()
-					.fill(colorForRectangle(index: 1))
+					.shadow(color: colorForRectangle(index: 0).opacity(0.5), radius: 4, x: 0, y: 2)
+				Capsule()
+					.fill(LinearGradient(
+							colors: [colorForRectangle(index: 1).opacity(0.8), colorForRectangle(index: 1)],
+							startPoint: .leading,
+							endPoint: .trailing
+						))
+					.cornerRadius(6)
 					.frame(width: rectangleWidth, height: rectangleHeight)
-				Rectangle()
-					.fill(colorForRectangle(index: 2))
+					.shadow(color: colorForRectangle(index: 1).opacity(0.5), radius: 4, x: 0, y: 2)
+				Capsule()
+					.fill(LinearGradient(
+							colors: [colorForRectangle(index: 2).opacity(0.8), colorForRectangle(index: 2)],
+							startPoint: .leading,
+							endPoint: .trailing
+						))
+					.cornerRadius(6)
 					.frame(width: rectangleWidth, height: rectangleHeight)
+					.shadow(color: colorForRectangle(index: 2).opacity(0.5), radius: 4, x: 0, y: 2)
 			}
 		}
 	}

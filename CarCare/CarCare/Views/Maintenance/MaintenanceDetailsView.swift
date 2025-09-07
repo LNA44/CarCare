@@ -17,6 +17,7 @@ struct MaintenanceDetailsView: View {
 	@State private var showAddMaintenance = false
 	@State private var maintenancesForOneType: [Maintenance] = []
 	@State private var daysRemaining: Int?
+	@State private var hasTriggeredHaptic = false
 	
 	//MARK: -Initialization
 	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM, maintenanceID: UUID) {
@@ -32,6 +33,14 @@ struct MaintenanceDetailsView: View {
 			ScrollView {
 				VStack(spacing: 20) {
 					VStack {
+						Image("brake-pad")
+							.resizable()
+							.scaledToFit()
+							.frame(width: 80, height: 80)
+							.padding(10)
+							.background(Color("BackgroundColor"))
+							.clipShape(Circle())
+						
 						VStack(spacing: 50) {
 							VStack {
 								VStack(spacing: 20) {
@@ -40,20 +49,15 @@ struct MaintenanceDetailsView: View {
 										Text(
 											NSLocalizedString(message(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays), comment: "")
 										)
+											.font(.system(size: 16, weight: .bold, design: .rounded))
 											.multilineTextAlignment(.center)
 											.foregroundColor(color(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays))
+											.onAppear {
+												triggerHaptic(maintenance: maintenance, for: daysRemaining)
+											}
 									}
 								}
-								.padding(15)
-								.frame(maxWidth: 350)
-								.background(
-									Color("BackgroundColor")
-										.cornerRadius(15)
-								)
-								.overlay(
-									RoundedRectangle(cornerRadius: 15)
-										.stroke(Color("InputSurfaceColor"), lineWidth: 2)
-								)
+								.padding(.top, 10)
 							}
 							.padding(.horizontal, 15)
 							
@@ -101,15 +105,18 @@ struct MaintenanceDetailsView: View {
 						
 					}
 					.padding(.vertical, 20)
-					.background(Color("StackBackgroundColor"))
+					.background(Color.white)
 					.cornerRadius(15)
-
+					.shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+					
 					VStack {
 						Text(NSLocalizedString("maintenance_history_key", comment: ""))
 							.font(.system(size: 25, weight: .bold, design: .rounded))
 							.foregroundColor(Color("TextColor"))
-							.padding(.bottom, 20)
 							.drawingGroup()
+						
+						Divider()
+							.frame(width: 200)
 						
 						VStack(alignment: .leading, spacing: 0) {
 							ForEach(Array(maintenancesForOneType.reversed().enumerated()), id: \.element.id) { index, item in
@@ -136,18 +143,20 @@ struct MaintenanceDetailsView: View {
 								}
 							}
 						}
-						.padding(.top, 15)
+						.padding(.top, 10)
 					}
 					.padding(.vertical, 20)
 					.padding(.bottom, 10)
-					.background(Color("StackBackgroundColor"))
+					.background(Color("MaintenanceHistoryColor"))
 					.cornerRadius(15)
 					
-					VStack(spacing: 20) {
+					VStack(spacing: 15) {
 						Text(NSLocalizedString("advice_and_information_key", comment: ""))
 							.font(.system(size: 25, weight: .bold, design: .rounded))
 							.foregroundColor(Color("TextColor"))
-							.padding(.bottom, 20)
+						
+						Divider()
+							.frame(width: 200)
 						
 						Text("\(maintenance.maintenanceType.localizedDescription)")
 							.font(.system(size: 16, weight: .regular, design: .rounded))
@@ -157,7 +166,7 @@ struct MaintenanceDetailsView: View {
 					}
 					.padding(.vertical, 20)
 					.padding(.bottom, 10)
-					.background(Color("StackBackgroundColor"))
+					.background(Color("AdviceColor"))
 					.cornerRadius(15)
 				}
 				.padding(.top, 15)
@@ -181,7 +190,7 @@ struct MaintenanceDetailsView: View {
 					Button(action: {
 						dismiss()
 					}) {
-						Text("Retour")
+						Text(NSLocalizedString("return_key", comment: ""))
 							.font(.system(size: 16, weight: .regular, design: .rounded))
 							.foregroundColor(Color("TextColor"))
 					}
@@ -251,6 +260,18 @@ extension MaintenanceDetailsView {
 		formatter.timeStyle = .none
 		formatter.locale = Locale.current  
 		return formatter.string(from: date)
+	}
+	
+	private func triggerHaptic(maintenance: Maintenance, for days: Int) { //vibrations en fonction de l'état de la maintenance
+		let proportion = Double(maintenance.maintenanceType.frequencyInDays - days) / Double(maintenance.maintenanceType.frequencyInDays)
+		
+		if proportion < 1/3 {
+			UISelectionFeedbackGenerator().selectionChanged()
+		} else if proportion < 2/3 {
+			UIImpactFeedbackGenerator(style: .light).impactOccurred()
+		} else {
+			UINotificationFeedbackGenerator().notificationOccurred(.warning)
+		}
 	}
 }
 
