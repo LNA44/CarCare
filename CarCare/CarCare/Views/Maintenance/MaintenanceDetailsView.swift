@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MaintenanceDetailsView: View {
+	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
 	@Environment(\.dismiss) private var dismiss
 	@ObservedObject var bikeVM: BikeVM // utile pour l'injecter dans AddMaintenanceView
 	@ObservedObject var maintenanceVM: MaintenanceVM
@@ -39,7 +40,7 @@ struct MaintenanceDetailsView: View {
 							.frame(width: 80, height: 80)
 							.scaleEffect(maintenance.maintenanceType == .Battery ? 0.8 : 1.0) // exemple
 							.padding(10)
-							.background(Color("BackgroundColor"))
+							.background(Color("IconColor"))
 							.clipShape(Circle())
 						
 						VStack(spacing: 50) {
@@ -106,7 +107,7 @@ struct MaintenanceDetailsView: View {
 						
 					}
 					.padding(.vertical, 20)
-					.background(Color.white)
+					.background(Color("FirstSectionMaintenanceColor"))
 					.cornerRadius(15)
 					.shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
 					
