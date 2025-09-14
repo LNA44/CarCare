@@ -30,6 +30,7 @@
 
 //DashboardView
 "navigation_title_modify_bike_key" = "Mon vélo";
+"bike_year_label" = "Date de fabrication : %d";
 "last_maintenance_key" = "Dernier entretien";
 "button_modify_bike_information" = "Modifer les infos du vélo";
 "button_Add_Maintenance" = "Ajouter un entretien";

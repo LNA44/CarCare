@@ -37,33 +37,44 @@ struct DashboardView: View {
 							.fill(.regularMaterial)  // blur moderne
 							.frame(height: 200)
 							.cornerRadius(20)
-							.shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
-
+							.shadow(
+									color: .black.opacity(isDarkMode ? 0.1 : 0.25),
+									radius: 8,
+									x: 0,
+									y: 4
+								)
 						
 					VStack {
 						VStack {
 							Text("\(bikeVM.brand) - \(bikeVM.model)")
 								.font(.system(size: 24, weight: .bold, design: .rounded))
-								.padding(.top)
+								.padding(.top, 40)
 								.padding(.horizontal, 15)
 								.multilineTextAlignment(.center)
 								.shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
+								.padding(.bottom, 15)
 							
-							HStack {
-								Image(systemName: "birthday.cake")
-									.resizable()
-									.frame(width: 15, height: 15)
-									.foregroundColor(.brown)
-								Text("\(bikeVM.year)")
+							VStack(alignment: .leading, spacing: 8) {
+								HStack(spacing: 6) {
+									Image(systemName: "calendar")
+									Text(String(format: NSLocalizedString("bike_year_label", comment: ""), bikeVM.year))
+										.font(.system(size: 16, weight: .medium, design: .rounded))
+								}
+								
+								if !bikeVM.identificationNumber.isEmpty {
+									HStack(spacing: 6) {
+										Image(systemName: "barcode")
+										Text(String(
+											format: NSLocalizedString("identification_number_key", comment: "Label pour le numéro d'identification du vélo"),
+											bikeVM.identificationNumber
+										))
+										.font(.system(size: 16, weight: .regular, design: .rounded))
+									}
+								}
 							}
-							
-							if !bikeVM.identificationNumber.isEmpty {
-								Text(String(
-									format: NSLocalizedString("identification_number_key", comment: "Label pour le numéro d'identification du vélo"),
-									bikeVM.identificationNumber
-								))
-								.font(.system(size: 16, weight: .regular, design: .rounded))
-							}
+							.foregroundColor(Color("BikeDescriptionColor"))
+							.frame(maxWidth: .infinity, alignment: .leading)
+							.padding(.horizontal, 30)
 						}
 						.padding(.top, 50)
 					}
@@ -164,8 +175,11 @@ struct DashboardView: View {
 							.frame(maxWidth: .infinity)
 							.padding()
 							.background(Color("BackgroundColor"))
-							.background(Color.white)
 							.cornerRadius(10)
+							.overlay(
+										RoundedRectangle(cornerRadius: 10)
+											.stroke(isDarkMode ? Color.white.opacity(0.4) : Color.clear, lineWidth: 1.5)
+									)
 					}
 					.padding(.horizontal, 10)
 					.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
