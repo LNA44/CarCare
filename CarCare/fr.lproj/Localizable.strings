@@ -37,6 +37,14 @@
 "no_date_key" = "Pas de date";
 "identification_number_key" = "Numéro d'identification : %@";
 
+//PDF
+"bike_label" = "Vélo";
+"type_label" = "Type";
+"year_label" = "Année";
+"identification_number_label" = "Numéro d'identification";
+"maintenance_type_label" = "Type de maintenance";
+"date_label" = "Date";
+
 //BikeInformationView
 "return_key" = "Retour";
 "button_delete_bike" = "Supprimer mon vélo";

@@ -234,6 +234,23 @@ struct DashboardView: View {
 					.font(.system(size: 22, weight: .bold, design: .rounded))
 					.foregroundColor(Color("TextColor"))
 			}
+			
+			ToolbarItem(placement: .navigationBarTrailing) {
+				Button(action: {
+					guard let bike = bikeVM.bike else {
+						print("Aucun vélo disponible")
+						return
+					}
+					ExportPDFHelper().sharePDF(
+						bike: bike,
+						from: maintenanceVM.maintenances
+					)
+				}) {
+					Image(systemName: "square.and.arrow.up")
+						.imageScale(.large)
+						.foregroundColor(Color("TextColor"))
+				}
+			}
 		}
 		.navigationBarTitleDisplayMode(.inline)
 		.alert(

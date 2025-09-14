@@ -38,6 +38,14 @@
 "no_date_key" = "No date";
 "identification_number_key" = "Identification number: %@";
 
+//PDF
+"bike_label" = "Bike";
+"type_label" = "Type";
+"year_label" = "Year";
+"identification_number_label" = "Identification Number";
+"maintenance_type_label" = "Maintenance Type";
+"date_label" = "Date";
+
 //BikeInformationView
 "return_key" = "Return";
 "button_delete_bike" = "Delete bike";
