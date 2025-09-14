@@ -127,3 +127,14 @@
 "maintenance_message_up_to_date" = "Estás al día";
 "maintenance_message_not_yet" = "Aún no tienes que preocuparte";
 "maintenance_message_due" = "¡Es hora! Agenda una cita con el mecánico más cercano";
+
+//Paywall
+"paywall_title" = "Hazte Premium 🚴‍♂️";
+"paywall_description" = "Desbloquea todas las funciones y añade tantos mantenimientos como quieras!";
+"paywall_weekly" = "Semanal";
+"paywall_yearly" = "Anual";
+"paywall_price_weekly" = "2€ / semana";
+"paywall_price_yearly" = "30€ / año";
+"paywall_button_upgrade" = "Hazte Premium";
+"paywall_button_restore" = "Restaurar compras";
+"paywall_button_cancel" = "Cancelar";

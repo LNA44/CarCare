@@ -128,3 +128,14 @@
 "maintenance_message_up_to_date" = "Tu es à jour";
 "maintenance_message_not_yet" = "Tu n'as pas encore à t'en préoccuper";
 "maintenance_message_due" = "C'est l'heure! Pense à prendre rendez-vous chez le réparateur le plus proche";
+
+//Paywall
+"paywall_title" = "Passez Premium 🚴‍♂️";
+"paywall_description" = "Débloquez toutes les fonctionnalités et ajoutez autant de maintenances que vous voulez !";
+"paywall_weekly" = "Hebdomadaire";
+"paywall_yearly" = "Annuel";
+"paywall_price_weekly" = "2€ / semaine";
+"paywall_price_yearly" = "30€ / an";
+"paywall_button_upgrade" = "Devenir Premium";
+"paywall_button_restore" = "Restaurer les achats";
+"paywall_button_cancel" = "Annuler";

@@ -128,3 +128,14 @@
 "maintenance_message_up_to_date" = "You're up to date";
 "maintenance_message_not_yet" = "No need to worry yet";
 "maintenance_message_due" = "It's time! Schedule an appointment with the nearest mechanic";
+
+//Paywall
+"paywall_title" = "Go Premium 🚴‍♂️";
+"paywall_description" = "Unlock all features and add as many maintenances as you want!";
+"paywall_weekly" = "Weekly";
+"paywall_yearly" = "Yearly";
+"paywall_price_weekly" = "€2 / week";
+"paywall_price_yearly" = "€30 / year";
+"paywall_button_upgrade" = "Go Premium";
+"paywall_button_restore" = "Restore Purchases";
+"paywall_button_cancel" = "Cancel";

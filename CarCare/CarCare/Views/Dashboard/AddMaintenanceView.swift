@@ -12,6 +12,8 @@ struct AddMaintenanceView: View {
 	@ObservedObject var bikeVM: BikeVM
 	@ObservedObject var maintenanceVM: MaintenanceVM
 	@StateObject private var VM: AddMaintenanceVM
+	@State private var showPaywall = false
+	@AppStorage("isPremiumUser") private var isPremiumUser = false
 	@State var showingDatePicker: Bool = false
 	var onAdd: () -> Void
 	
@@ -81,9 +83,13 @@ struct AddMaintenanceView: View {
 			Spacer()
 			
 			PrimaryButton(title: NSLocalizedString("button_Add_Maintenance", comment: ""), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
-				VM.addMaintenance()
-				onAdd() //pour recharger la dernière maintenance dans Dashboard
-				dismiss()
+				if isPremiumUser || maintenanceVM.maintenances.count < 3 {
+					VM.addMaintenance()
+					onAdd() //pour recharger la dernière maintenance dans Dashboard
+					dismiss()
+				} else {
+					showPaywall = true // Afficher un sheet ou alert
+				}
 			}
 		}
 		.toolbar {
@@ -109,6 +115,9 @@ struct AddMaintenanceView: View {
 				showingDatePicker = false   // ferme la sheet
 			}
 			.padding()
+		}
+		.sheet(isPresented: $showPaywall) {
+			PaywallView()
 		}
 		.padding(.horizontal, 10)
 		.padding(.top, 20)

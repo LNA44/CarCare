@@ -30,7 +30,14 @@ struct CarCareApp: App {
 		
 		let bikeVM = BikeVM(notificationVM: notificationVM) // injecte notificationVM
 			_bikeVM = StateObject(wrappedValue: bikeVM)
+		
+#if DEBUG
+let defaults = UserDefaults.standard
+defaults.set(false, forKey: "isPremiumUser")
+#endif
 	}
+	
+
 	
 	var body: some Scene {
 		WindowGroup {

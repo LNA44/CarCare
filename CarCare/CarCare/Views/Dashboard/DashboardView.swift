@@ -9,11 +9,13 @@ import SwiftUI
 
 struct DashboardView: View {
 	@AppStorage("isDarkMode") private var isDarkMode = false
+	@AppStorage("isPremiumUser") private var isPremiumUser = false
 	@ObservedObject var bikeVM: BikeVM
 	@ObservedObject var maintenanceVM: MaintenanceVM
 	@StateObject private var VM: DashboardVM
 	@State private var goToAdd = false
 	@State private var didLoadData = false
+	@State private var showPaywall = false
 	
 	let formatter: DateFormatter = {
 		let df = DateFormatter()
@@ -237,20 +239,27 @@ struct DashboardView: View {
 			
 			ToolbarItem(placement: .navigationBarTrailing) {
 				Button(action: {
-					guard let bike = bikeVM.bike else {
-						print("Aucun vélo disponible")
-						return
+					if isPremiumUser {
+						guard let bike = bikeVM.bike else {
+							print("Aucun vélo disponible")
+							return
+						}
+						ExportPDFHelper().sharePDF(
+							bike: bike,
+							from: maintenanceVM.maintenances
+						)
+					} else {
+						showPaywall = true
 					}
-					ExportPDFHelper().sharePDF(
-						bike: bike,
-						from: maintenanceVM.maintenances
-					)
 				}) {
 					Image(systemName: "square.and.arrow.up")
 						.imageScale(.large)
 						.foregroundColor(Color("TextColor"))
 				}
 			}
+		}
+		.sheet(isPresented: $showPaywall) {
+			PaywallView()
 		}
 		.navigationBarTitleDisplayMode(.inline)
 		.alert(
