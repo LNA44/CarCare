@@ -63,14 +63,14 @@ struct CarCareApp: App {
 			}
 			.animation(.easeInOut(duration: 0.3), value: appState.status)
 			.alert(isPresented: $appState.showAlert) {
-					Alert(
-						title: Text("Erreur"),
-						message: Text(appState.error?.errorDescription ?? "Erreur inconnue"),
-						dismissButton: .default(Text("OK")) {
-							appState.showAlert = false
-						}
-					)
-				}
+				Alert(
+					title: Text("Erreur"),
+					message: Text(appState.error?.errorDescription ?? "Erreur inconnue"),
+					dismissButton: .default(Text("OK")) {
+						appState.showAlert = false
+					}
+				)
+			}
 		}
 	}
 }

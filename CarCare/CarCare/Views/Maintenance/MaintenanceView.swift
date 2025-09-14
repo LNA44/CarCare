@@ -112,25 +112,36 @@ struct MaintenanceView: View {
 					}
 				}
 			}
-			.alert(isPresented: $maintenanceVM.showAlert) {
-				Alert(
-					title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
-					message: Text(maintenanceVM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
-					dismissButton: .default(Text("OK")) {
-						bikeVM.showAlert = false
-						bikeVM.error = nil
+			.alert(
+				isPresented: Binding(
+					get: { maintenanceVM.showAlert || VM.showAlert },
+					set: { newValue in
+						if !newValue {
+							maintenanceVM.showAlert = false
+							VM.showAlert = false
+						}
 					}
 				)
-			}
-			.alert(isPresented: $VM.showAlert) {
-				Alert(
-					title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
-					message: Text(VM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
-					dismissButton: .default(Text("OK")) {
-						bikeVM.showAlert = false
-						bikeVM.error = nil
-					}
-				)
+			) {
+				if maintenanceVM.showAlert {
+					return Alert(
+						title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
+						message: Text(maintenanceVM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
+						dismissButton: .default(Text("OK")) {
+							maintenanceVM.showAlert = false
+							maintenanceVM.error = nil
+						}
+					)
+				} else {
+					return Alert(
+						title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
+						message: Text(VM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
+						dismissButton: .default(Text("OK")) {
+							VM.showAlert = false
+							VM.error = nil
+						}
+					)
+				}
 			}
 		}
 	}

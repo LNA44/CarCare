@@ -16,6 +16,7 @@ struct BikeModificationsView: View {
 	@State private var yearText: String = ""
 	@State private var selectedType: BikeType = .Manual
 	@State private var identificationNumber: String = ""
+	@State private var showDeleteAlert = false
 	var onDelete: (() -> Void)? = nil
 
 	
@@ -118,11 +119,7 @@ struct BikeModificationsView: View {
 			
 			VStack(spacing: 20) {
 				PrimaryButton(title: NSLocalizedString("button_delete_bike", comment: "Titre du bouton pour supprimer le vélo"), foregroundColor: .white, backgroundColor: Color("ToDoColor")) {
-					bikeVM.deleteCurrentBike()
-					onDelete?()
-					withAnimation {
-						   appState.status = .needsVehicleRegistration
-					}
+					showDeleteAlert = true
 				}
 				
 				PrimaryButton(title: NSLocalizedString("button_Modify_information_key", comment: "Titre du bouton pour supprimer le vélo"), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
@@ -162,15 +159,39 @@ struct BikeModificationsView: View {
 			}
 		}
 		.padding(.horizontal, 10)
-		.alert(isPresented: $bikeVM.showAlert) {
-			Alert(
-				title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
-				message: Text(bikeVM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
-				dismissButton: .default(Text("OK")) {
-					bikeVM.showAlert = false
-					bikeVM.error = nil
+		.alert(
+			isPresented: Binding(
+				get: { showDeleteAlert || bikeVM.showAlert },
+				set: { newValue in
+					if !newValue {
+						showDeleteAlert = false
+						bikeVM.showAlert = false
+					}
 				}
 			)
+		) {
+			if showDeleteAlert {
+				return Alert(
+					title: Text(NSLocalizedString("delete_bike_confirmation_title", comment: "Confirmation message before deleting a bike")),
+					primaryButton: .destructive(Text(NSLocalizedString("delete_bike_confirm", comment: "Delete bike confirmation button"))) {
+						bikeVM.deleteCurrentBike()
+						onDelete?()
+						withAnimation {
+							appState.status = .needsVehicleRegistration
+						}
+					},
+					secondaryButton: .cancel(Text(NSLocalizedString("delete_bike_cancel", comment: "Cancel delete bike button")))
+				)
+			} else {
+				return Alert(
+					title: Text(NSLocalizedString("error_title", comment: "")),
+					message: Text(bikeVM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "")),
+					dismissButton: .default(Text("OK")) {
+						bikeVM.showAlert = false
+						bikeVM.error = nil
+					}
+				)
+			}
 		}
 	}
 }

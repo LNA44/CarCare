@@ -40,6 +40,9 @@
 "return_key" = "Volver";
 "button_delete_bike" = "Eliminar mi bicicleta";
 "button_Modify_information_key" = "Modificar la información";
+"delete_bike_confirmation_title" = "¿Está seguro de que desea eliminar la bicicleta?";
+"delete_bike_confirm" = "Eliminar";
+"delete_bike_cancel" = "Cancelar";
 
 //AddMaintenanceView
 "navigation_title_add_maintenance_key" = "Agregar mantenimiento";

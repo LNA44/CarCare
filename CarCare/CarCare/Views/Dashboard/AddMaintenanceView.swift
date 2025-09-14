@@ -112,16 +112,6 @@ struct AddMaintenanceView: View {
 		}
 		.padding(.horizontal, 10)
 		.padding(.top, 20)
-		.alert(isPresented: $maintenanceVM.showAlert) {
-			Alert(
-				title: Text("Erreur"),
-				message: Text(maintenanceVM.error?.errorDescription ?? "Erreur inconnue"),
-				dismissButton: .default(Text("OK")) {
-					maintenanceVM.showAlert = false
-					maintenanceVM.error = nil
-				}
-			)
-		}
 		.navigationBarBackButtonHidden(true)
 		.toolbar {
 			ToolbarItem(placement: .navigationBarLeading) {
@@ -134,15 +124,36 @@ struct AddMaintenanceView: View {
 				}
 			}
 		}
-		.alert(isPresented: $bikeVM.showAlert) {
-			Alert(
-				title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
-				message: Text(bikeVM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
-				dismissButton: .default(Text("OK")) {
-					bikeVM.showAlert = false
-					bikeVM.error = nil
+		.alert(
+			isPresented: Binding(
+				get: { maintenanceVM.showAlert || bikeVM.showAlert },
+				set: { newValue in
+					if !newValue {
+						maintenanceVM.showAlert = false
+						bikeVM.showAlert = false
+					}
 				}
 			)
+		) {
+			if maintenanceVM.showAlert {
+				return Alert(
+					title: Text("Erreur"),
+					message: Text(maintenanceVM.error?.errorDescription ?? "Erreur inconnue"),
+					dismissButton: .default(Text("OK")) {
+						maintenanceVM.showAlert = false
+						maintenanceVM.error = nil
+					}
+				)
+			} else {
+				return Alert(
+					title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
+					message: Text(bikeVM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
+					dismissButton: .default(Text("OK")) {
+						bikeVM.showAlert = false
+						bikeVM.error = nil
+					}
+				)
+			}
 		}
 	}
 }
