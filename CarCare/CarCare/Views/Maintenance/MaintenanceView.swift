@@ -11,7 +11,7 @@ struct MaintenanceView: View {
 	@ObservedObject var bikeVM: BikeVM
 	@ObservedObject var maintenanceVM: MaintenanceVM
 	@StateObject private var VM: MaintenanceViewVM
-
+	@State private var hasFetched = false
 	var lastMaintenanceByType: [MaintenanceType: Maintenance]? {
 		guard !maintenanceVM.maintenances.isEmpty else { return nil }
 		return Dictionary(
@@ -46,7 +46,11 @@ struct MaintenanceView: View {
 								.textCase(nil)) {
 									ForEach(sortedKeys, id: \.self) { type in
 										if let maintenance = lastMaintenanceByType[type] {
-											NavigationLink(destination: MaintenanceDetailsView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, maintenanceID: maintenance.id)) {
+											NavigationLink(destination: MaintenanceDetailsView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, maintenanceID: maintenance.id, onAdd: {
+												Task {
+													await maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
+												}
+											})) {
 												ToDoMaintenanceRow(VM: VM, maintenanceType: type)
 											}
 											.listRowBackground(Color("MaintenanceHistoryColor"))
@@ -112,6 +116,11 @@ struct MaintenanceView: View {
 					}
 				}
 			}
+			.onAppear {
+				guard !hasFetched else { return }
+					hasFetched = true
+					maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
+			}
 			.alert(
 				isPresented: Binding(
 					get: { maintenanceVM.showAlert || VM.showAlert },
@@ -152,7 +161,11 @@ extension MaintenanceView {
 		if let lastMaintenanceByType = lastMaintenanceByType,
 		   let maintenance = lastMaintenanceByType[type] {
 			return AnyView(
-				NavigationLink(destination: MaintenanceDetailsView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, maintenanceID: maintenance.id)) {
+				NavigationLink(destination: MaintenanceDetailsView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, maintenanceID: maintenance.id, onAdd: {
+					Task {
+						await maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
+					}
+				})) {
 					ToDoMaintenanceRow(VM: VM, maintenanceType: type)
 				}
 			)

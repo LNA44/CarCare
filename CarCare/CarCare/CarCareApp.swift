@@ -26,7 +26,7 @@ struct CarCareApp: App {
 		let maintenanceVM = MaintenanceVM()
 		let notificationVM = NotificationViewModel(maintenanceVM: maintenanceVM)
 		maintenanceVM.notificationVM = notificationVM
-		_maintenanceVM = StateObject(wrappedValue: maintenanceVM)
+		//_maintenanceVM = StateObject(wrappedValue: maintenanceVM)
 		_notificationVM = StateObject(wrappedValue: notificationVM)
 		
 		let bikeVM = BikeVM(notificationVM: notificationVM) // injecte notificationVM

@@ -16,9 +16,9 @@ enum MaintenanceType: String, CaseIterable, Identifiable {
 	
 	var frequencyInDays: Int {
 		switch self { // A ADAPTER
-		case .Tires: return 7       // 1 semaine
-		case .BrakePads: return 7      // 1 semaine
-		case .Battery: return 30     // 1 mois
+		case .Tires: return 90
+		case .BrakePads: return 60
+		case .Battery: return 30  
 		case .Unknown: return 0
 		}
 	}

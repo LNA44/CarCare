@@ -62,6 +62,7 @@ class NotificationManager: NotificationManagerProtocol {
 		while nextDate <= maintenance.date {
 			dates.append(nextDate)
 			nextDate = calendar.date(byAdding: .weekOfYear, value: 1, to: nextDate)!
+			//nextDate = calendar.date(byAdding: .second, value: 10, to: nextDate)!
 		}
 		
 		return dates

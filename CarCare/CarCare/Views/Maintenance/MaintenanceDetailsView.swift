@@ -14,18 +14,19 @@ struct MaintenanceDetailsView: View {
 	@ObservedObject var maintenanceVM: MaintenanceVM
 	@StateObject private var VM: MaintenanceDetailsVM
 	let maintenanceID: UUID // on reçoit juste l'ID
-	//@State var currentMaintenance: Maintenance?
 	@State private var showAddMaintenance = false
 	@State private var maintenancesForOneType: [Maintenance] = []
 	@State private var daysRemaining: Int?
 	@State private var hasTriggeredHaptic = false
+	var onAdd: () -> Void
 	
 	//MARK: -Initialization
-	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM, maintenanceID: UUID) {
+	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM, maintenanceID: UUID, onAdd: @escaping () -> Void) {
 		self.bikeVM = bikeVM
 		self.maintenanceVM = maintenanceVM
 		_VM = StateObject(wrappedValue: MaintenanceDetailsVM(maintenanceVM: maintenanceVM))
 		self.maintenanceID = maintenanceID
+		self.onAdd = onAdd
 	}
 	
 	//MARK: -Body
@@ -89,9 +90,7 @@ struct MaintenanceDetailsView: View {
 							.padding(.horizontal, 20)
 							
 							NavigationLink(
-								destination: AddMaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, onAdd: {
-									//maintenanceVM.fetchAllMaintenance() //closure appelée après dismiss
-								})
+								destination: AddMaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM,  onAdd: onAdd)
 							) {
 								Text(NSLocalizedString("button_update_key", comment: ""))
 									.font(.system(size: 16, weight: .bold, design: .rounded))
