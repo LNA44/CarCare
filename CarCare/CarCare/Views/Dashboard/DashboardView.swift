@@ -36,7 +36,23 @@ struct DashboardView: View {
 			VStack(spacing: 10) {
 				ZStack {
 					Rectangle()
-							.fill(.regularMaterial)  // blur moderne
+						.fill(
+							// Utilise le matériau système si iOS 17+, sinon couleur opaque
+							Color.clear // valeur temporaire
+						)
+						.background(
+							Group {
+								if #available(iOS 17, *) {
+									// Liquid Glass
+									Rectangle()
+										.fill(.regularMaterial)
+								} else {
+									// Fallback pour iOS 16 et antérieur
+									Rectangle()
+										.fill(Color("BackgroundColor")) // couleur opaque
+								}
+							}
+						)
 							.frame(height: 200)
 							.cornerRadius(20)
 							.shadow(
@@ -179,10 +195,15 @@ struct DashboardView: View {
 							.background(Color("BackgroundColor"))
 							.cornerRadius(10)
 							.overlay(
+								Group {
+									if isDarkMode {
 										RoundedRectangle(cornerRadius: 10)
-											.stroke(isDarkMode ? Color.white.opacity(0.4) : Color.clear, lineWidth: 1.5)
-									)
+											.stroke(Color.white.opacity(0.4), lineWidth: 1.5)
+									}
+								}
+							)
 					}
+					.buttonStyle(.plain)
 					.padding(.horizontal, 10)
 					.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
 					

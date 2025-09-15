@@ -116,7 +116,19 @@ struct PaywallView: View {
 					.padding(.bottom, 15)
 				}
 				.padding()
-				.background(.regularMaterial)
+				.background(
+					Group {
+						if #available(iOS 17, *) {
+							// Liquid Glass sur iOS 17+
+							Rectangle()
+								.fill(.regularMaterial)
+						} else {
+							// Fallback pour iOS 16 et antérieur
+							Rectangle()
+								.fill(Color("BackgroundColor")) // couleur opaque
+						}
+					}
+				)
 				.cornerRadius(20)
 				.shadow(color: .black.opacity(isDarkMode ? 0.2 : 0.3), radius: 10, x: 0, y: 5)
 				.padding(.horizontal, 20)
