@@ -53,15 +53,15 @@ struct DashboardView: View {
 								}
 							}
 						)
-							.frame(height: 200)
-							.cornerRadius(20)
-							.shadow(
-									color: .black.opacity(isDarkMode ? 0.1 : 0.25),
-									radius: 8,
-									x: 0,
-									y: 4
-								)
-						
+						.frame(height: 200)
+						.cornerRadius(20)
+						.shadow(
+							color: .black.opacity(isDarkMode ? 0.1 : 0.25),
+							radius: 8,
+							x: 0,
+							y: 4
+						)
+					
 					VStack {
 						VStack {
 							Text("\(bikeVM.brand) - \(bikeVM.model)")
@@ -279,7 +279,7 @@ struct DashboardView: View {
 				}
 			}
 		}
-		.sheet(isPresented: $showPaywall) {
+		.fullScreenCover(isPresented: $showPaywall) {
 			PaywallView()
 		}
 		.navigationBarTitleDisplayMode(.inline)

@@ -68,6 +68,7 @@
 		F3BFC9D32E33810900043AB8 /* CoreDataLocalStore+MaintenanceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9702E33810900043AB8 /* CoreDataLocalStore+MaintenanceStore.swift */; };
 		F3BFC9D42E33810900043AB8 /* CoreDataLocalStore+BikeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9722E33810900043AB8 /* CoreDataLocalStore+BikeStore.swift */; };
 		F3BFC9D52E33810900043AB8 /* CoreDataLocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC96F2E33810900043AB8 /* CoreDataLocalStore.swift */; };
+		F3CA523C2E785B1300819C37 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CA523B2E785B1300819C37 /* SubscriptionManager.swift */; };
 		F3D7FC962E6332FE0042A29A /* DoneMaintenanceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7FC952E6332FE0042A29A /* DoneMaintenanceRow.swift */; };
 		F3D7FC9C2E633FE30042A29A /* DashboardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7FC9B2E633FE30042A29A /* DashboardVM.swift */; };
 		F3D7FC9E2E6342E40042A29A /* AddMaintenanceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7FC9D2E6342E40042A29A /* AddMaintenanceVM.swift */; };
@@ -140,6 +141,7 @@
 		F3BFC9982E33810900043AB8 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		F3BFC99A2E33810900043AB8 /* NullStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullStore.swift; sourceTree = "<group>"; };
 		F3BFC99C2E33810900043AB8 /* CarCare.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CarCare.xcdatamodel; sourceTree = "<group>"; };
+		F3CA523B2E785B1300819C37 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		F3D7FC952E6332FE0042A29A /* DoneMaintenanceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneMaintenanceRow.swift; sourceTree = "<group>"; };
 		F3D7FC9B2E633FE30042A29A /* DashboardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVM.swift; sourceTree = "<group>"; };
 		F3D7FC9D2E6342E40042A29A /* AddMaintenanceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMaintenanceVM.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				F3823AED2E5C69BF00B9331B /* NotificationManager.swift */,
+				F3CA523B2E785B1300819C37 /* SubscriptionManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -535,6 +538,7 @@
 				F3BDB2F32E56035B0041F142 /* BikeType.swift in Sources */,
 				F3BFC9B02E33810900043AB8 /* LocalBike.swift in Sources */,
 				F3BFC9B12E33810900043AB8 /* LocalBikeLoader.swift in Sources */,
+				F3CA523C2E785B1300819C37 /* SubscriptionManager.swift in Sources */,
 				F339FB232E54D06C00F2CECC /* MaintenanceDetailsView.swift in Sources */,
 				F3823AEC2E5C680F00B9331B /* NotificationIntroView.swift in Sources */,
 				F3BFC9B22E33810900043AB8 /* MaintenanceStore.swift in Sources */,

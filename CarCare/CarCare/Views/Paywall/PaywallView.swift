@@ -6,18 +6,15 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct PaywallView: View {
 	@Environment(\.presentationMode) var presentationMode
+	@EnvironmentObject var subscriptionManager: SubscriptionManager
 	@AppStorage("isDarkMode") private var isDarkMode = false
 	@AppStorage("isPremiumUser") private var isPremiumUser = false
-	
-	enum SubscriptionOption {
-		case weekly, yearly
-	}
-	
-	@State private var selectedOption: SubscriptionOption? = nil
-	
+	@State private var selectedProduct: Product? = nil
+
 	var body: some View {
 		ZStack {
 			Color.black.opacity(isDarkMode ? 0.6 : 0.2)
@@ -48,29 +45,30 @@ struct PaywallView: View {
 					
 					// MARK: - Subscription Options
 					VStack(spacing: 12) {
-						SubscriptionButton(
-							title: NSLocalizedString("paywall_weekly", comment: ""),
-							price: NSLocalizedString("paywall_price_weekly", comment: ""),
-							isSelected: selectedOption == .weekly
-						) {
-							selectedOption = .weekly
-						}
-						
-						SubscriptionButton(
-							title: NSLocalizedString("paywall_yearly", comment: ""),
-							price: NSLocalizedString("paywall_price_yearly", comment: ""),
-							isSelected: selectedOption == .yearly
-						) {
-							selectedOption = .yearly
+						ForEach(subscriptionManager.products, id: \.id) { product in
+							let info = titleAndPrice(for: product)
+							
+							SubscriptionButton(
+								title: info.title,
+								price: info.price,
+								isSelected: selectedProduct?.id == product.id
+							) {
+								selectedProduct = product
+							}
 						}
 					}
 					.padding(.vertical, 5)
 					
 					// MARK: - Upgrade Button
 					Button(action: {
-						guard selectedOption != nil else { return }
-						isPremiumUser = true
-						presentationMode.wrappedValue.dismiss()
+						guard let product = selectedProduct else { return }
+						Task {
+							let success = await subscriptionManager.purchase(product)
+							if success {
+								isPremiumUser = true
+								presentationMode.wrappedValue.dismiss()
+							}
+						}
 					}) {
 						Text(NSLocalizedString("paywall_button_upgrade", comment: ""))
 							.font(.system(size: 18, weight: .bold, design: .rounded))
@@ -86,7 +84,9 @@ struct PaywallView: View {
 					
 					// MARK: - Restore Purchases
 					Button(action: {
-						print("Restore purchases tapped")
+						Task {
+							await subscriptionManager.restorePurchases()
+						}
 					}) {
 						Text(NSLocalizedString("paywall_button_restore", comment: ""))
 							.font(.system(size: 16, weight: .medium, design: .rounded))
@@ -133,6 +133,19 @@ struct PaywallView: View {
 				.shadow(color: .black.opacity(isDarkMode ? 0.2 : 0.3), radius: 10, x: 0, y: 5)
 				.padding(.horizontal, 20)
 			}
+		}
+	}
+}
+
+extension PaywallView {
+	func titleAndPrice(for product: Product) -> (title: String, price: String) {
+		switch product.id {
+		case "premium_weekly":
+			return (NSLocalizedString("paywall_weekly", comment: ""), NSLocalizedString("paywall_price_weekly", comment: ""))
+		case "Premium_annual":
+			return (NSLocalizedString("paywall_yearly", comment: ""), NSLocalizedString("paywall_price_yearly", comment: ""))
+		default:
+			return (product.displayName, product.displayPrice)
 		}
 	}
 }
