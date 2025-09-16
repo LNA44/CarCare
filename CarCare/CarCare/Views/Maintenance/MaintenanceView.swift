@@ -10,6 +10,7 @@ import SwiftUI
 struct MaintenanceView: View {
 	@ObservedObject var bikeVM: BikeVM
 	@ObservedObject var maintenanceVM: MaintenanceVM
+	@ObservedObject var notificationVM: NotificationViewModel
 	@StateObject private var VM: MaintenanceViewVM
 	@State private var hasFetched = false
 	var lastMaintenanceByType: [MaintenanceType: Maintenance]? {
@@ -24,9 +25,10 @@ struct MaintenanceView: View {
 	}
 
 	//MARK: -Initialization
-	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM) {
+	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM, notificationVM: NotificationViewModel) {
 		self.bikeVM = bikeVM
 		self.maintenanceVM = maintenanceVM
+		self.notificationVM = notificationVM
 		_VM = StateObject(wrappedValue: MaintenanceViewVM(maintenanceVM: maintenanceVM))
 	}
 	
@@ -47,10 +49,8 @@ struct MaintenanceView: View {
 									ForEach(sortedKeys, id: \.self) { type in
 										if let maintenance = lastMaintenanceByType[type] {
 											NavigationLink(destination: MaintenanceDetailsView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, maintenanceID: maintenance.id, onAdd: {
-												Task {
-													await maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
-												}
-											})) {
+												maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
+											}, notificationVM: notificationVM)) {
 												ToDoMaintenanceRow(VM: VM, maintenanceType: type)
 											}
 											.listRowBackground(Color("MaintenanceHistoryColor"))
@@ -162,10 +162,8 @@ extension MaintenanceView {
 		   let maintenance = lastMaintenanceByType[type] {
 			return AnyView(
 				NavigationLink(destination: MaintenanceDetailsView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, maintenanceID: maintenance.id, onAdd: {
-					Task {
-						await maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
-					}
-				})) {
+					maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
+				}, notificationVM: notificationVM)) {
 					ToDoMaintenanceRow(VM: VM, maintenanceType: type)
 				}
 			)

@@ -12,6 +12,7 @@ struct MaintenanceDetailsView: View {
 	@Environment(\.dismiss) private var dismiss
 	@ObservedObject var bikeVM: BikeVM // utile pour l'injecter dans AddMaintenanceView
 	@ObservedObject var maintenanceVM: MaintenanceVM
+	@ObservedObject var notificationVM: NotificationViewModel
 	@StateObject private var VM: MaintenanceDetailsVM
 	let maintenanceID: UUID // on reçoit juste l'ID
 	@State private var showAddMaintenance = false
@@ -21,9 +22,10 @@ struct MaintenanceDetailsView: View {
 	var onAdd: () -> Void
 	
 	//MARK: -Initialization
-	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM, maintenanceID: UUID, onAdd: @escaping () -> Void) {
+	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM, maintenanceID: UUID, onAdd: @escaping () -> Void, notificationVM: NotificationViewModel) {
 		self.bikeVM = bikeVM
 		self.maintenanceVM = maintenanceVM
+		self.notificationVM = notificationVM
 		_VM = StateObject(wrappedValue: MaintenanceDetailsVM(maintenanceVM: maintenanceVM))
 		self.maintenanceID = maintenanceID
 		self.onAdd = onAdd
@@ -82,6 +84,7 @@ struct MaintenanceDetailsView: View {
 									get: { maintenance.reminder }, //appelé lors du dessin de la vue (aussi après modif du toggle pour redessiner la vue)
 									set: { newValue in //modification du toggle
 										maintenanceVM.updateReminder(for: maintenance, value: newValue)
+										notificationVM.updateReminder(for: maintenance.id, value: newValue)
 									}
 								))
 								.tint(Color("DoneColor"))
@@ -90,7 +93,7 @@ struct MaintenanceDetailsView: View {
 							.padding(.horizontal, 20)
 							
 							NavigationLink(
-								destination: AddMaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM,  onAdd: onAdd)
+								destination: AddMaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM,  onAdd: onAdd, notificationVM: notificationVM)
 							) {
 								Text(NSLocalizedString("button_update_key", comment: ""))
 									.font(.system(size: 16, weight: .bold, design: .rounded))
@@ -182,6 +185,12 @@ struct MaintenanceDetailsView: View {
 			.onAppear {
 				maintenancesForOneType = VM.fetchAllMaintenanceForOneType(type: maintenance.maintenanceType)
 				daysRemaining = VM.daysUntilNextMaintenance(type: maintenance.maintenanceType)
+			}
+			.onChange(of: maintenanceVM.maintenances) {_, _ in
+				if let maintenance = maintenanceVM.maintenances.first(where: { $0.id == maintenanceID }) {
+					maintenancesForOneType = VM.fetchAllMaintenanceForOneType(type: maintenance.maintenanceType)
+					daysRemaining = VM.daysUntilNextMaintenance(type: maintenance.maintenanceType)
+				}
 			}
 			.background(Color("BackgroundColor"))
 			.navigationBarBackButtonHidden(true)

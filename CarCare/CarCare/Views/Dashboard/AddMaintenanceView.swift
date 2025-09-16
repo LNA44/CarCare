@@ -11,6 +11,7 @@ struct AddMaintenanceView: View {
 	@Environment(\.dismiss) private var dismiss
 	@ObservedObject var bikeVM: BikeVM
 	@ObservedObject var maintenanceVM: MaintenanceVM
+	@ObservedObject var notificationVM: NotificationViewModel
 	@StateObject private var VM: AddMaintenanceVM
 	@State private var showPaywall = false
 	@AppStorage("isPremiumUser") private var isPremiumUser = false
@@ -25,11 +26,12 @@ struct AddMaintenanceView: View {
 		return df
 	}()
 	
-	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM, onAdd: @escaping () -> Void) {
+	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM, onAdd: @escaping () -> Void, notificationVM: NotificationViewModel) {
 		self.bikeVM = bikeVM
 		self.maintenanceVM = maintenanceVM
 		self.onAdd = onAdd
-		_VM = StateObject(wrappedValue: AddMaintenanceVM(maintenanceVM: maintenanceVM))
+		self.notificationVM = notificationVM
+		_VM = StateObject(wrappedValue: AddMaintenanceVM(maintenanceVM: maintenanceVM, notificationVM: notificationVM))
 	}
 	
 	var body: some View {
@@ -84,7 +86,7 @@ struct AddMaintenanceView: View {
 			
 			PrimaryButton(title: NSLocalizedString("button_Add_Maintenance", comment: ""), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
 				if isPremiumUser || maintenanceVM.maintenances.count < 3 {
-					VM.addMaintenance()
+					VM.addMaintenance(bikeType: bikeVM.bikeType)
 					onAdd() //pour recharger la dernière maintenance dans Dashboard
 					dismiss()
 				} else {

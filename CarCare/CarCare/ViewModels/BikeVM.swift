@@ -13,13 +13,7 @@ final class BikeVM: ObservableObject {
 	@Published var brand: Brand = .Unknown
 	@Published var mileage: Int = 0
 	@Published var year: Int = 0
-	@Published var bike: Bike? = nil {
-		didSet {
-			if bike != nil {
-				notificationVM.checkAndScheduleNotifications()
-			}
-		}
-	}
+	@Published var bike: Bike? = nil 
 	@Published var models: [String] = ["Unknown"]
 	@Published var bikeType: BikeType = .Manual
 	@Published var identificationNumber: String = ""

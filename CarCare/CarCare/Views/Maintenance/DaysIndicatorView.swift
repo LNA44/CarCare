@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DaysIndicatorView: View {
 	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
-
 	let days: Int
 	let frequency: Int
 	let rectangleWidth: CGFloat

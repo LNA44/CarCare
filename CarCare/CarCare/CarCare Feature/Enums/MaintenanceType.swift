@@ -30,7 +30,7 @@ enum MaintenanceType: String, CaseIterable, Identifiable {
 			case .Battery: return "battery"
 			case .Unknown: return "questionmark.circle"   
 			}
-		}
+	}
 }
 
 extension MaintenanceType: Hashable {

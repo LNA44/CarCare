@@ -12,6 +12,7 @@ struct DashboardView: View {
 	@AppStorage("isPremiumUser") private var isPremiumUser = false
 	@ObservedObject var bikeVM: BikeVM
 	@ObservedObject var maintenanceVM: MaintenanceVM
+	@ObservedObject var notificationVM: NotificationViewModel
 	@StateObject private var VM: DashboardVM
 	@State private var goToAdd = false
 	@State private var didLoadData = false
@@ -25,9 +26,10 @@ struct DashboardView: View {
 		return df
 	}()
 	
-	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM) {
+	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM, notificationVM: NotificationViewModel) {
 		self.bikeVM = bikeVM
 		self.maintenanceVM = maintenanceVM
+		self.notificationVM = notificationVM
 		_VM = StateObject(wrappedValue: DashboardVM(maintenanceVM: maintenanceVM))
 	}
 	
@@ -182,7 +184,7 @@ struct DashboardView: View {
 				
 				VStack(spacing: 20) {
 					NavigationLink(
-						destination: BikeModificationsView(bikeVM: bikeVM) {
+						destination: BikeModificationsView(bikeVM: bikeVM, notificationVM: notificationVM) {
 							//closure de BikeModificationsView
 							maintenanceVM.deleteAllMaintenances()
 						}
@@ -211,7 +213,7 @@ struct DashboardView: View {
 						destination: AddMaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, onAdd: {
 							VM.fetchLastMaintenance(for: bikeVM.bikeType) //closure appelée après dismiss
 							maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
-						}),
+						}, notificationVM: notificationVM),
 						isActive: $goToAdd
 					) {
 						Text(NSLocalizedString("button_Add_Maintenance", comment: ""))

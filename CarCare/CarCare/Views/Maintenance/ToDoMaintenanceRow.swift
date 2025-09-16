@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ToDoMaintenanceRow: View {
-	@EnvironmentObject var maintenanceVM: MaintenanceVM
 	@ObservedObject var VM: MaintenanceViewVM
 	let maintenanceType: MaintenanceType?
 	let formatter: DateFormatter = {

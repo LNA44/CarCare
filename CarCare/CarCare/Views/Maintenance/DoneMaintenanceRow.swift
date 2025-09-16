@@ -11,9 +11,9 @@ struct DoneMaintenanceRow: View {
 	let maintenance: Maintenance
 	let formatter: DateFormatter = {
 		let df = DateFormatter()
-		df.dateStyle = .medium      // ou .short, .long selon ce que tu veux
+		df.dateStyle = .medium
 		df.timeStyle = .none
-		df.locale = Locale.current  // s’adapte automatiquement à la langue de l’utilisateur
+		df.locale = Locale.current  
 		return df
 	}()
 	

@@ -26,7 +26,6 @@ struct CarCareApp: App {
 		let maintenanceVM = MaintenanceVM()
 		let notificationVM = NotificationViewModel(maintenanceVM: maintenanceVM)
 		maintenanceVM.notificationVM = notificationVM
-		//_maintenanceVM = StateObject(wrappedValue: maintenanceVM)
 		_notificationVM = StateObject(wrappedValue: notificationVM)
 		
 		let bikeVM = BikeVM(notificationVM: notificationVM) // injecte notificationVM
@@ -37,8 +36,6 @@ let defaults = UserDefaults.standard
 defaults.set(false, forKey: "isPremiumUser")
 #endif
 	}
-	
-
 	
 	var body: some Scene {
 		WindowGroup {
@@ -51,8 +48,7 @@ defaults.set(false, forKey: "isPremiumUser")
 								.environmentObject(appState)
 								.environmentObject(subscriptionManager)
 						} else {
-							NotificationIntroView(maintenanceVM: maintenanceVM)
-								.environmentObject(notificationVM)
+							NotificationIntroView(maintenanceVM: maintenanceVM, notificationVM: notificationVM)
 								.environmentObject(subscriptionManager)
 						}
 					}
@@ -62,7 +58,7 @@ defaults.set(false, forKey: "isPremiumUser")
 						   ))
 						   .zIndex(1)
 				case .ready:
-					ContentView(bikeVM: bikeVM, maintenanceVM: maintenanceVM)
+					ContentView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, notificationVM: notificationVM)
 						.environmentObject(appState)
 						.environmentObject(subscriptionManager)
 						.transition(.asymmetric(

@@ -149,7 +149,24 @@ final class MaintenanceVM: ObservableObject {
 			if let index = maintenances.firstIndex(where: { $0.id == maintenance.id }) {
 				maintenances[index] = updated
 			}
-			notificationVM?.updateReminder(for: updated, value: value)
+			
+			// Calculer la prochaine date pour ce type
+			let type = updated.maintenanceType
+			if value {
+				if let nextDate = nextMaintenanceDate(for: type) {
+					let thirtyDaysFromNow = Date().addingTimeInterval(30*24*3600)
+					
+					// Planifie uniquement si la prochaine maintenance est dans moins de 30 jours et que l'utilisateur a autorisé les notifications
+					if nextDate <= thirtyDaysFromNow,
+					   notificationVM?.isAuthorized == true {
+						notificationVM?.updateReminder(for: maintenance.id, value: value)
+					}
+				}
+			} else {
+				// Annule toutes les notifications pour ce type
+				notificationVM?.cancelNotifications(for: type)
+			}
+			
 		} catch let error as LoadingCocoaError { //erreurs de load
 			self.error = AppError.loadingDataFailed(error)
 			showAlert = true
@@ -192,5 +209,21 @@ final class MaintenanceVM: ObservableObject {
 		} catch {
 			
 		}
+	}
+	
+	//pour notificationVM
+	func nextMaintenanceDate(for type: MaintenanceType) -> Date? {
+		// On récupère la dernière maintenance effectuée de ce type
+		guard let last = lastMaintenance(of: type) else { return nil }
+		// Vérifie que la fréquence est définie
+		guard type.frequencyInDays > 0 else { return nil }
+		// Calcule la prochaine date
+		return Calendar.current.date(byAdding: .day, value: type.frequencyInDays, to: last.date)
+	}
+	
+	// Renvoie la dernière maintenance effectuée pour un type donné
+	func lastMaintenance(of type: MaintenanceType) -> Maintenance? {
+		let filtered = maintenances.filter { $0.maintenanceType == type }
+		return filtered.max(by: { $0.date < $1.date })
 	}
 }

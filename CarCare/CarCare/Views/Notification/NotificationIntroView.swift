@@ -10,7 +10,7 @@ import UserNotifications
 //apparait à la première ouverture de l'app
 struct NotificationIntroView: View {
 	@ObservedObject var maintenanceVM: MaintenanceVM
-	@EnvironmentObject var notificationVM: NotificationViewModel
+	@ObservedObject var notificationVM: NotificationViewModel
 	@AppStorage("hasSeenNotificationIntro") private var hasSeenNotificationIntro: Bool = false
 	
     var body: some View {
@@ -23,8 +23,8 @@ struct NotificationIntroView: View {
 				.multilineTextAlignment(.center)
 				.padding()
 			
-			Button(NSLocalizedString("enable_notifications_button_key", comment: "Bouton pour activer les notifications")) {
-				notificationVM.requestAndScheduleNotifications()
+			Button(NSLocalizedString("enable_notifications_button_key", comment: "")) {
+				notificationVM.requestAndScheduleNotifications() // Demande l'autorisation et planifie si accepté
 				hasSeenNotificationIntro = true
 			}
 			.buttonStyle(.borderedProminent)

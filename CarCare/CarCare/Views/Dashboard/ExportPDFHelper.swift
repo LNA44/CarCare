@@ -11,10 +11,10 @@ import SwiftUI
 final class ExportPDFHelper {
 	
 	func sharePDF(bike: Bike, from maintenances: [Maintenance]) {
-		// 1️⃣ Générer le PDF
+		// Générer le PDF
 		let pdfData = createBikePDF(bike: bike, from: maintenances)
 		
-		// 2️⃣ Créer un fichier temporaire sûr
+		// Créer un fichier temporaire sûr
 		let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent("Maintenances.pdf")
 		
 		do {
@@ -24,7 +24,7 @@ final class ExportPDFHelper {
 			return
 		}
 		
-		// 3️⃣ Présenter UIActivityViewController sur le thread principal
+		// Présenter UIActivityViewController sur le thread principal
 		DispatchQueue.main.async {
 			let activityVC = UIActivityViewController(activityItems: [tempURL], applicationActivities: nil)
 			

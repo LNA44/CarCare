@@ -11,6 +11,7 @@ struct BikeModificationsView: View {
 	@EnvironmentObject var appState: AppState
 	@Environment(\.dismiss) private var dismiss
 	@ObservedObject var bikeVM: BikeVM
+	@ObservedObject var notificationVM: NotificationViewModel
 	@State private var selectedBrand: Brand = .Unknown
 	@State private var selectedModel: String = ""
 	@State private var yearText: String = ""
@@ -122,7 +123,7 @@ struct BikeModificationsView: View {
 					showDeleteAlert = true
 				}
 				
-				PrimaryButton(title: NSLocalizedString("button_Modify_information_key", comment: "Titre du bouton pour supprimer le vélo"), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
+				PrimaryButton(title: NSLocalizedString("button_Modify_information_key", comment: ""), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
 					bikeVM.modifyBikeInformations(brand: selectedBrand, model: selectedModel, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
 						dismiss()
 				}
@@ -175,6 +176,7 @@ struct BikeModificationsView: View {
 					title: Text(NSLocalizedString("delete_bike_confirmation_title", comment: "Confirmation message before deleting a bike")),
 					primaryButton: .destructive(Text(NSLocalizedString("delete_bike_confirm", comment: "Delete bike confirmation button"))) {
 						bikeVM.deleteCurrentBike()
+						notificationVM.cancelAllNotifications()
 						onDelete?()
 						withAnimation {
 							appState.status = .needsVehicleRegistration
