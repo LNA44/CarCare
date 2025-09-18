@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class LocalMaintenanceLoader {
+class LocalMaintenanceLoader {
 	
 	private let store: MaintenanceStore
 	
@@ -37,13 +37,13 @@ final class LocalMaintenanceLoader {
 	}
 }
 
-private extension Array where Element == LocalMaintenance {
+extension Array where Element == LocalMaintenance {
 	func toModels() -> [Maintenance] {
 		map { Maintenance(id: $0.id, maintenanceType: MaintenanceType(fromCoreDataString: $0.maintenanceType), date: $0.date, reminder: $0.reminder) }
 	}
 }
 
-private extension Maintenance {
+extension Maintenance {
 	func toLocal() -> LocalMaintenance {
 		LocalMaintenance(id: id, maintenanceType: maintenanceType.localizedName, date: date, reminder: reminder)
 	}

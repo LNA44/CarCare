@@ -9,7 +9,7 @@ import Foundation
 import UserNotifications
 import Combine
 
-final class NotificationViewModel: ObservableObject {
+class NotificationViewModel: ObservableObject {
 	@Published var error: AppError?
 	@Published var isAuthorized = false
 	var maintenanceVM: MaintenanceVM

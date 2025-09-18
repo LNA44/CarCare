@@ -8,7 +8,6 @@
 import Foundation
 
 struct LocalBikeLoader {
-	
 	private let store : BikeStore
 	
 	init(store: BikeStore) {
@@ -32,14 +31,14 @@ struct LocalBikeLoader {
 	}
 }
 
-private extension Bike {
+extension Bike {
 	func toLocal() -> LocalBike {
 		LocalBike(id: id, year: year,model: model, brand: brand, bikeType: bikeType, identificationNumber: identificationNumber)
 	}
 }
 
 
-private extension LocalBike {
+extension LocalBike {
 	func toModel() -> Bike {
 		Bike(id: id, brand: brand, model: model, year: year, bikeType: bikeType, identificationNumber: identificationNumber)
 	}

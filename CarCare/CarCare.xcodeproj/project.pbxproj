@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F30969AC2E7C067A00F4AD4C /* CarCareBikeVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30969AA2E7C067A00F4AD4C /* CarCareBikeVMTests.swift */; };
+		F30969AF2E7C645400F4AD4C /* CarCareMaintenanceVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30969AE2E7C645400F4AD4C /* CarCareMaintenanceVMTests.swift */; };
+		F30969B12E7C65BE00F4AD4C /* FakeMaintenanceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30969B02E7C65BE00F4AD4C /* FakeMaintenanceVM.swift */; };
+		F30969B32E7C66BB00F4AD4C /* FakeBikeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30969B22E7C66BB00F4AD4C /* FakeBikeStore.swift */; };
+		F30969B52E7C6F2300F4AD4C /* NotificationVMFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30969B42E7C6F2300F4AD4C /* NotificationVMFake.swift */; };
 		F339FAAA2E54842A00F2CECC /* ToDoMaintenanceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FAA92E54842A00F2CECC /* ToDoMaintenanceRow.swift */; };
 		F339FB232E54D06C00F2CECC /* MaintenanceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */; };
 		F339FB272E54D63B00F2CECC /* DaysIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */; };
-		F37D82572E5F552400F92A50 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F37D82562E5F552400F92A50 /* Info.plist */; };
 		F37D82832E5F601800F92A50 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37D82822E5F601800F92A50 /* CustomTextField.swift */; };
 		F37D82852E5F80ED00F92A50 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37D82842E5F80ED00F92A50 /* PrimaryButton.swift */; };
 		F3823AE92E5C635E00B9331B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3823AE82E5C635E00B9331B /* SettingsView.swift */; };
@@ -54,19 +58,7 @@
 		F3BFC9C02E33810900043AB8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9972E33810900043AB8 /* ContentView.swift */; };
 		F3BFC9C12E33810900043AB8 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9982E33810900043AB8 /* DependencyContainer.swift */; };
 		F3BFC9C32E33810900043AB8 /* NullStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC99A2E33810900043AB8 /* NullStore.swift */; };
-		F3BFC9C42E33810900043AB8 /* BikeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9802E33810900043AB8 /* BikeStore.swift */; };
-		F3BFC9C72E33810900043AB8 /* LocalMaintenance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9782E33810900043AB8 /* LocalMaintenance.swift */; };
-		F3BFC9C82E33810900043AB8 /* ManagedMaintenance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9732E33810900043AB8 /* ManagedMaintenance.swift */; };
-		F3BFC9CA2E33810900043AB8 /* ManagedBike.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9752E33810900043AB8 /* ManagedBike.swift */; };
-		F3BFC9CC2E33810900043AB8 /* MaintenanceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC97E2E33810900043AB8 /* MaintenanceStore.swift */; };
-		F3BFC9CD2E33810900043AB8 /* LocalMaintenanceLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9792E33810900043AB8 /* LocalMaintenanceLoader.swift */; };
-		F3BFC9CE2E33810900043AB8 /* LocalBike.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC97C2E33810900043AB8 /* LocalBike.swift */; };
-		F3BFC9CF2E33810900043AB8 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC96E2E33810900043AB8 /* CoreDataHelpers.swift */; };
-		F3BFC9D02E33810900043AB8 /* LocalBikeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC97D2E33810900043AB8 /* LocalBikeLoader.swift */; };
 		F3BFC9D22E33810900043AB8 /* CarCare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC96D2E33810900043AB8 /* CarCare.xcdatamodeld */; };
-		F3BFC9D32E33810900043AB8 /* CoreDataLocalStore+MaintenanceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9702E33810900043AB8 /* CoreDataLocalStore+MaintenanceStore.swift */; };
-		F3BFC9D42E33810900043AB8 /* CoreDataLocalStore+BikeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9722E33810900043AB8 /* CoreDataLocalStore+BikeStore.swift */; };
-		F3BFC9D52E33810900043AB8 /* CoreDataLocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC96F2E33810900043AB8 /* CoreDataLocalStore.swift */; };
 		F3CA523C2E785B1300819C37 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CA523B2E785B1300819C37 /* SubscriptionManager.swift */; };
 		F3D7FC962E6332FE0042A29A /* DoneMaintenanceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7FC952E6332FE0042A29A /* DoneMaintenanceRow.swift */; };
 		F3D7FC9C2E633FE30042A29A /* DashboardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7FC9B2E633FE30042A29A /* DashboardVM.swift */; };
@@ -90,6 +82,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F30969AA2E7C067A00F4AD4C /* CarCareBikeVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarCareBikeVMTests.swift; sourceTree = "<group>"; };
+		F30969AE2E7C645400F4AD4C /* CarCareMaintenanceVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarCareMaintenanceVMTests.swift; sourceTree = "<group>"; };
+		F30969B02E7C65BE00F4AD4C /* FakeMaintenanceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMaintenanceVM.swift; sourceTree = "<group>"; };
+		F30969B22E7C66BB00F4AD4C /* FakeBikeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeBikeStore.swift; sourceTree = "<group>"; };
+		F30969B42E7C6F2300F4AD4C /* NotificationVMFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVMFake.swift; sourceTree = "<group>"; };
 		F31F73DB2E26585A00334333 /* CarCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F31F73E82E26585B00334333 /* CarCareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarCareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F339FAA92E54842A00F2CECC /* ToDoMaintenanceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoMaintenanceRow.swift; sourceTree = "<group>"; };
@@ -149,14 +146,6 @@
 		F3E8DE002E6B36320056C714 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		F31F73EB2E26585B00334333 /* CarCareTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CarCareTests;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
 		F31F73D82E26585A00334333 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -175,6 +164,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F30969A72E7C05AB00F4AD4C /* MaintenanceList */ = {
+			isa = PBXGroup;
+			children = (
+				F3D7FC9F2E6344250042A29A /* MaintenanceViewVM.swift */,
+				F3BFC9892E33810900043AB8 /* MaintenanceView.swift */,
+				F339FAA92E54842A00F2CECC /* ToDoMaintenanceRow.swift */,
+				F3D7FC952E6332FE0042A29A /* DoneMaintenanceRow.swift */,
+			);
+			path = MaintenanceList;
+			sourceTree = "<group>";
+		};
+		F30969A82E7C05C500F4AD4C /* MaintenanceDetails */ = {
+			isa = PBXGroup;
+			children = (
+				F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */,
+				F3877CE72E672CF900CEECA9 /* MaintenanceDetailsVM.swift */,
+			);
+			path = MaintenanceDetails;
+			sourceTree = "<group>";
+		};
+		F30969A92E7C060300F4AD4C /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				F37D82842E5F80ED00F92A50 /* PrimaryButton.swift */,
+				F37D82822E5F601800F92A50 /* CustomTextField.swift */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		F30969AB2E7C067A00F4AD4C /* CarCareTests */ = {
+			isa = PBXGroup;
+			children = (
+				F30969AD2E7C068200F4AD4C /* CarCareSharedViewModelsTests */,
+			);
+			path = CarCareTests;
+			sourceTree = "<group>";
+		};
+		F30969AD2E7C068200F4AD4C /* CarCareSharedViewModelsTests */ = {
+			isa = PBXGroup;
+			children = (
+				F30969AA2E7C067A00F4AD4C /* CarCareBikeVMTests.swift */,
+				F30969AE2E7C645400F4AD4C /* CarCareMaintenanceVMTests.swift */,
+				F30969B02E7C65BE00F4AD4C /* FakeMaintenanceVM.swift */,
+				F30969B22E7C66BB00F4AD4C /* FakeBikeStore.swift */,
+				F30969B42E7C6F2300F4AD4C /* NotificationVMFake.swift */,
+			);
+			path = CarCareSharedViewModelsTests;
+			sourceTree = "<group>";
+		};
 		F31F73D22E26585A00334333 = {
 			isa = PBXGroup;
 			children = (
@@ -182,7 +220,7 @@
 				F3E8DDFA2E6B357E0056C714 /* fr.lproj */,
 				F3E8DDF62E6B35410056C714 /* es.lproj */,
 				F3BFC99B2E33810900043AB8 /* CarCare */,
-				F31F73EB2E26585B00334333 /* CarCareTests */,
+				F30969AB2E7C067A00F4AD4C /* CarCareTests */,
 				F31F73DC2E26585A00334333 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -248,8 +286,7 @@
 				F3BDB2E42E55EF320041F142 /* Registration */,
 				F3BDB2E32E55EF1A0041F142 /* Dashboard */,
 				F3BDB2E22E55EF040041F142 /* Maintenance */,
-				F37D82822E5F601800F92A50 /* CustomTextField.swift */,
-				F37D82842E5F80ED00F92A50 /* PrimaryButton.swift */,
+				F30969A92E7C060300F4AD4C /* UIComponents */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -257,12 +294,8 @@
 		F3BDB2E22E55EF040041F142 /* Maintenance */ = {
 			isa = PBXGroup;
 			children = (
-				F3BFC9892E33810900043AB8 /* MaintenanceView.swift */,
-				F3D7FC9F2E6344250042A29A /* MaintenanceViewVM.swift */,
-				F339FAA92E54842A00F2CECC /* ToDoMaintenanceRow.swift */,
-				F3D7FC952E6332FE0042A29A /* DoneMaintenanceRow.swift */,
-				F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */,
-				F3877CE72E672CF900CEECA9 /* MaintenanceDetailsVM.swift */,
+				F30969A82E7C05C500F4AD4C /* MaintenanceDetails */,
+				F30969A72E7C05AB00F4AD4C /* MaintenanceList */,
 				F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */,
 			);
 			path = Maintenance;
@@ -347,14 +380,14 @@
 			path = "Local Storage";
 			sourceTree = "<group>";
 		};
-		F3BFC9932E33810900043AB8 /* ViewModels */ = {
+		F3BFC9932E33810900043AB8 /* SharedViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				F3BDB2E72E55EFDE0041F142 /* BikeVM.swift */,
 				F3BDB2E92E55F0840041F142 /* MaintenanceVM.swift */,
 				F3823AF42E5C9AB700B9331B /* NotificationViewModel.swift */,
 			);
-			path = ViewModels;
+			path = SharedViewModels;
 			sourceTree = "<group>";
 		};
 		F3BFC99B2E33810900043AB8 /* CarCare */ = {
@@ -363,7 +396,7 @@
 				F37D827C2E5F559400F92A50 /* Resources */,
 				F3BFC96C2E33810900043AB8 /* CarCare Feature */,
 				F3BFC9812E33810900043AB8 /* Local Storage */,
-				F3BFC9932E33810900043AB8 /* ViewModels */,
+				F3BFC9932E33810900043AB8 /* SharedViewModels */,
 				F3B77CA02E50DF2C00548F2D /* Views */,
 				F3BFC9962E33810900043AB8 /* CarCareApp.swift */,
 				F3BFC9972E33810900043AB8 /* ContentView.swift */,
@@ -425,9 +458,6 @@
 			);
 			dependencies = (
 				F31F73EA2E26585B00334333 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				F31F73EB2E26585B00334333 /* CarCareTests */,
 			);
 			name = CarCareTests;
 			packageProductDependencies = (
@@ -493,7 +523,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F37D82572E5F552400F92A50 /* Info.plist in Resources */,
 				F3E8DE012E6B36320056C714 /* Localizable.strings in Resources */,
 				F3E8DDF72E6B35410056C714 /* Localizable.strings in Resources */,
 			);
@@ -563,19 +592,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3BFC9C42E33810900043AB8 /* BikeStore.swift in Sources */,
-				F3BFC9C72E33810900043AB8 /* LocalMaintenance.swift in Sources */,
-				F3BFC9C82E33810900043AB8 /* ManagedMaintenance.swift in Sources */,
-				F3BFC9CA2E33810900043AB8 /* ManagedBike.swift in Sources */,
-				F3BFC9CC2E33810900043AB8 /* MaintenanceStore.swift in Sources */,
-				F3BFC9CD2E33810900043AB8 /* LocalMaintenanceLoader.swift in Sources */,
-				F3BFC9CE2E33810900043AB8 /* LocalBike.swift in Sources */,
-				F3BFC9CF2E33810900043AB8 /* CoreDataHelpers.swift in Sources */,
-				F3BFC9D02E33810900043AB8 /* LocalBikeLoader.swift in Sources */,
+				F30969B52E7C6F2300F4AD4C /* NotificationVMFake.swift in Sources */,
+				F30969AC2E7C067A00F4AD4C /* CarCareBikeVMTests.swift in Sources */,
+				F30969AF2E7C645400F4AD4C /* CarCareMaintenanceVMTests.swift in Sources */,
 				F3BFC9D22E33810900043AB8 /* CarCare.xcdatamodeld in Sources */,
-				F3BFC9D32E33810900043AB8 /* CoreDataLocalStore+MaintenanceStore.swift in Sources */,
-				F3BFC9D42E33810900043AB8 /* CoreDataLocalStore+BikeStore.swift in Sources */,
-				F3BFC9D52E33810900043AB8 /* CoreDataLocalStore.swift in Sources */,
+				F30969B12E7C65BE00F4AD4C /* FakeMaintenanceVM.swift in Sources */,
+				F30969B32E7C66BB00F4AD4C /* FakeBikeStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

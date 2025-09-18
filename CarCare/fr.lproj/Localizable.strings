@@ -25,7 +25,7 @@
 "model_key" = "Modèle";
 "type_key" = "Type";
 "year_of_manufacture_key" = "Année de fabrication";
-"identification_number_key" = "Numéro d'identification (optionnel)";
+"identification_number_message_key" = "Numéro d'identification (optionnel)";
 "button_add_bike_key" = "Ajouter le vélo";
 
 //DashboardView
