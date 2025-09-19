@@ -9,24 +9,35 @@ import Foundation
 import UserNotifications
 import Combine
 
+protocol NotificationCenterProtocol {
+	func add(_ request: UNNotificationRequest, withCompletionHandler completionHandler: (@Sendable (Error?) -> Void)?)
+	func removePendingNotificationRequests(withIdentifiers identifiers: [String])
+	func removeAllPendingNotificationRequests()
+	func requestAuthorization(options: UNAuthorizationOptions) async throws -> Bool
+}
+
 class NotificationViewModel: ObservableObject {
 	@Published var error: AppError?
 	@Published var isAuthorized = false
 	var maintenanceVM: MaintenanceVM
+	var notificationCenter: NotificationCenterProtocol
 
 	// Initialisation avec injection de dépendances (pour les tests)
-	init(maintenanceVM: MaintenanceVM) {
+	init(maintenanceVM: MaintenanceVM, notificationCenter: NotificationCenterProtocol = UNUserNotificationCenter.current()) {
 		self.maintenanceVM = maintenanceVM
+		self.notificationCenter = notificationCenter
 	}
 	
 	// Demande d'autorisation et planification des notifications
-	func requestAndScheduleNotifications() {
-			UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, _ in
-				DispatchQueue.main.async {
-					self?.isAuthorized = granted
-				}
-			}
+	@MainActor
+	func requestAndScheduleNotifications() async {
+		do {
+			let granted = try await notificationCenter.requestAuthorization(options: [.alert, .sound, .badge])
+			self.isAuthorized = granted
+		} catch {
+			self.isAuthorized = false
 		}
+	}
 	
 	// Planifie les notifications pour un type de maintenance
 	func scheduleNotifications(for type: MaintenanceType, until endDate: Date) {
@@ -63,7 +74,7 @@ class NotificationViewModel: ObservableObject {
 				trigger: trigger
 			)
 			
-			UNUserNotificationCenter.current().add(request) { error in
+		notificationCenter.add(request) { error in
 				if let error = error {
 					print("Erreur planification notif: \(error)")
 				} else {
@@ -73,11 +84,11 @@ class NotificationViewModel: ObservableObject {
 		}
 	
 	func cancelNotifications(for type: MaintenanceType) {
-			UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [type.id])
+		notificationCenter.removePendingNotificationRequests(withIdentifiers: [type.id])
 	}
 		
 	func cancelAllNotifications() {
-			UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+		notificationCenter.removeAllPendingNotificationRequests()
 	}
 	
 	func updateReminder(for maintenanceID: UUID, value: Bool) {
@@ -99,3 +110,5 @@ class NotificationViewModel: ObservableObject {
 		}
 	}
 }
+
+extension UNUserNotificationCenter: NotificationCenterProtocol {}

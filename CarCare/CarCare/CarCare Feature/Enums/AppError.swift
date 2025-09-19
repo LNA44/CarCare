@@ -52,9 +52,20 @@ extension AppError {
 	}
 }
 
-enum StoreError: Error { //CoreData
+enum StoreError: Error, Equatable { //CoreData
 	case modelNotFound
 	case failedToLoadPersistentContainer(Error)
+	
+	static func == (lhs: StoreError, rhs: StoreError) -> Bool {
+		switch (lhs, rhs) {
+		case (.modelNotFound, .modelNotFound):
+			return true
+		case (.failedToLoadPersistentContainer, .failedToLoadPersistentContainer):
+			return true // on ignore l'Error associé
+		default:
+			return false
+		}
+	}
 }
 
 enum LoadingCocoaError: Error {

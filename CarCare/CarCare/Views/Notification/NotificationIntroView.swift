@@ -24,8 +24,10 @@ struct NotificationIntroView: View {
 				.padding()
 			
 			Button(NSLocalizedString("enable_notifications_button_key", comment: "")) {
-				notificationVM.requestAndScheduleNotifications() // Demande l'autorisation et planifie si accepté
-				hasSeenNotificationIntro = true
+				Task {
+					await notificationVM.requestAndScheduleNotifications() // Demande l'autorisation et planifie si accepté
+					hasSeenNotificationIntro = true
+				}
 			}
 			.buttonStyle(.borderedProminent)
 		}

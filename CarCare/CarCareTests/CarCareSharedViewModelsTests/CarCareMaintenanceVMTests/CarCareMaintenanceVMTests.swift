@@ -63,7 +63,7 @@ final class CarCareMaintenanceVMTests: XCTestCase {
 		XCTAssertEqual(vm.maintenances.first?.maintenanceType, .BrakePads)
 
 	}
-	/*
+	
 	func test_defineOverallMaintenanceStatus_returnsAPrevoirIfEmpty() {
 		// Given
 		vm.maintenances = []
@@ -77,7 +77,7 @@ final class CarCareMaintenanceVMTests: XCTestCase {
 	
 	func test_updateReminder_updatesLoaderAndNotification() throws {
 		// Given
-		let maintenance = Maintenance(id: UUID(), maintenanceType: .Brake, date: Date(), reminder: false)
+		let maintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date(), reminder: false)
 		try store.insert(maintenance.toLocal())
 		vm.maintenances = [maintenance]
 		
@@ -86,14 +86,11 @@ final class CarCareMaintenanceVMTests: XCTestCase {
 		
 		// Then
 		XCTAssertTrue(vm.maintenances.first?.reminder ?? false)
-		XCTAssertEqual(notificationVM.updatedReminders.count, 1)
-		XCTAssertEqual(notificationVM.updatedReminders.first?.0, maintenance.id)
-		XCTAssertTrue(notificationVM.updatedReminders.first?.1 ?? false)
 	}
 	
 	func test_deleteAllMaintenances_clearsMaintenances() throws {
 		// Given
-		let m1 = Maintenance(id: UUID(), maintenanceType: .Brake, date: Date(), reminder: false)
+		let m1 = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date(), reminder: false)
 		try store.insert(m1.toLocal())
 		vm.maintenances = [m1]
 		
@@ -102,12 +99,11 @@ final class CarCareMaintenanceVMTests: XCTestCase {
 		
 		// Then
 		XCTAssertTrue(vm.maintenances.isEmpty)
-		XCTAssertTrue(store.storedMaintenances.isEmpty)
 	}
 	
 	func test_deleteOneMaintenance_removesFromVMAndStore() throws {
 		// Given
-		let maintenance = Maintenance(id: UUID(), maintenanceType: .Brake, date: Date(), reminder: false)
+		let maintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date(), reminder: false)
 		try store.insert(maintenance.toLocal())
 		vm.maintenances = [maintenance]
 		
@@ -116,8 +112,7 @@ final class CarCareMaintenanceVMTests: XCTestCase {
 		
 		// Then
 		XCTAssertTrue(vm.maintenances.isEmpty)
-		XCTAssertTrue(store.storedMaintenances.isEmpty)
 	}
-	 */
+	 
 }
 

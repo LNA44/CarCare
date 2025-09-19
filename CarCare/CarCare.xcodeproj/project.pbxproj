@@ -15,6 +15,15 @@
 		F339FAAA2E54842A00F2CECC /* ToDoMaintenanceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FAA92E54842A00F2CECC /* ToDoMaintenanceRow.swift */; };
 		F339FB232E54D06C00F2CECC /* MaintenanceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */; };
 		F339FB272E54D63B00F2CECC /* DaysIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */; };
+		F36E4A532E7D6CD600EB2FF5 /* FakeNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A522E7D6CD600EB2FF5 /* FakeNotificationCenter.swift */; };
+		F36E4A552E7D6D6300EB2FF5 /* FakeMaintenanceVM2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A542E7D6D6300EB2FF5 /* FakeMaintenanceVM2.swift */; };
+		F36E4A572E7D6DA500EB2FF5 /* CarCareNotificationVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A562E7D6DA500EB2FF5 /* CarCareNotificationVMTests.swift */; };
+		F36E4A592E7D70B100EB2FF5 /* CarCareDashboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A582E7D70B100EB2FF5 /* CarCareDashboardViewModelTests.swift */; };
+		F36E4A5C2E7D70EC00EB2FF5 /* FakeMaintenanceVM3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A5B2E7D70EC00EB2FF5 /* FakeMaintenanceVM3.swift */; };
+		F36E4A5E2E7D86A700EB2FF5 /* CarCareAddMaintenanceVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A5D2E7D86A700EB2FF5 /* CarCareAddMaintenanceVMTests.swift */; };
+		F36E4A602E7D877800EB2FF5 /* FakeNotificationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A5F2E7D877800EB2FF5 /* FakeNotificationVM.swift */; };
+		F36E4A632E7D8B8000EB2FF5 /* CarCareAddMaintenanceDetailsVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A622E7D8B8000EB2FF5 /* CarCareAddMaintenanceDetailsVMTests.swift */; };
+		F36E4A652E7D8BDA00EB2FF5 /* FakeMaintenanceLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A642E7D8BDA00EB2FF5 /* FakeMaintenanceLoader.swift */; };
 		F37D82832E5F601800F92A50 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37D82822E5F601800F92A50 /* CustomTextField.swift */; };
 		F37D82852E5F80ED00F92A50 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37D82842E5F80ED00F92A50 /* PrimaryButton.swift */; };
 		F3823AE92E5C635E00B9331B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3823AE82E5C635E00B9331B /* SettingsView.swift */; };
@@ -92,6 +101,15 @@
 		F339FAA92E54842A00F2CECC /* ToDoMaintenanceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoMaintenanceRow.swift; sourceTree = "<group>"; };
 		F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceDetailsView.swift; sourceTree = "<group>"; };
 		F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysIndicatorView.swift; sourceTree = "<group>"; };
+		F36E4A522E7D6CD600EB2FF5 /* FakeNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeNotificationCenter.swift; sourceTree = "<group>"; };
+		F36E4A542E7D6D6300EB2FF5 /* FakeMaintenanceVM2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMaintenanceVM2.swift; sourceTree = "<group>"; };
+		F36E4A562E7D6DA500EB2FF5 /* CarCareNotificationVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarCareNotificationVMTests.swift; sourceTree = "<group>"; };
+		F36E4A582E7D70B100EB2FF5 /* CarCareDashboardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarCareDashboardViewModelTests.swift; sourceTree = "<group>"; };
+		F36E4A5B2E7D70EC00EB2FF5 /* FakeMaintenanceVM3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMaintenanceVM3.swift; sourceTree = "<group>"; };
+		F36E4A5D2E7D86A700EB2FF5 /* CarCareAddMaintenanceVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarCareAddMaintenanceVMTests.swift; sourceTree = "<group>"; };
+		F36E4A5F2E7D877800EB2FF5 /* FakeNotificationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeNotificationVM.swift; sourceTree = "<group>"; };
+		F36E4A622E7D8B8000EB2FF5 /* CarCareAddMaintenanceDetailsVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarCareAddMaintenanceDetailsVMTests.swift; sourceTree = "<group>"; };
+		F36E4A642E7D8BDA00EB2FF5 /* FakeMaintenanceLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMaintenanceLoader.swift; sourceTree = "<group>"; };
 		F37D82562E5F552400F92A50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F37D82822E5F601800F92A50 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		F37D82842E5F80ED00F92A50 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
@@ -196,6 +214,8 @@
 		F30969AB2E7C067A00F4AD4C /* CarCareTests */ = {
 			isa = PBXGroup;
 			children = (
+				F36E4A612E7D8B4800EB2FF5 /* CarCareMaintenanceDetailsVMTests */,
+				F36E4A5A2E7D70D200EB2FF5 /* CarCareDashboardViewModelTests */,
 				F30969AD2E7C068200F4AD4C /* CarCareSharedViewModelsTests */,
 			);
 			path = CarCareTests;
@@ -204,8 +224,9 @@
 		F30969AD2E7C068200F4AD4C /* CarCareSharedViewModelsTests */ = {
 			isa = PBXGroup;
 			children = (
-				F30969AA2E7C067A00F4AD4C /* CarCareBikeVMTests.swift */,
-				F30969AE2E7C645400F4AD4C /* CarCareMaintenanceVMTests.swift */,
+				F36E4A512E7D6CC700EB2FF5 /* CarCareNtoficationVMTests */,
+				F36E4A502E7D6CBA00EB2FF5 /* CarCareMaintenanceVMTests */,
+				F36E4A4F2E7D6CB000EB2FF5 /* CarCareBikeVMTests */,
 				F30969B02E7C65BE00F4AD4C /* FakeMaintenanceVM.swift */,
 				F30969B22E7C66BB00F4AD4C /* FakeBikeStore.swift */,
 				F30969B42E7C6F2300F4AD4C /* NotificationVMFake.swift */,
@@ -232,6 +253,52 @@
 				F31F73E82E26585B00334333 /* CarCareTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F36E4A4F2E7D6CB000EB2FF5 /* CarCareBikeVMTests */ = {
+			isa = PBXGroup;
+			children = (
+				F30969AA2E7C067A00F4AD4C /* CarCareBikeVMTests.swift */,
+			);
+			path = CarCareBikeVMTests;
+			sourceTree = "<group>";
+		};
+		F36E4A502E7D6CBA00EB2FF5 /* CarCareMaintenanceVMTests */ = {
+			isa = PBXGroup;
+			children = (
+				F30969AE2E7C645400F4AD4C /* CarCareMaintenanceVMTests.swift */,
+			);
+			path = CarCareMaintenanceVMTests;
+			sourceTree = "<group>";
+		};
+		F36E4A512E7D6CC700EB2FF5 /* CarCareNtoficationVMTests */ = {
+			isa = PBXGroup;
+			children = (
+				F36E4A522E7D6CD600EB2FF5 /* FakeNotificationCenter.swift */,
+				F36E4A542E7D6D6300EB2FF5 /* FakeMaintenanceVM2.swift */,
+				F36E4A562E7D6DA500EB2FF5 /* CarCareNotificationVMTests.swift */,
+			);
+			path = CarCareNtoficationVMTests;
+			sourceTree = "<group>";
+		};
+		F36E4A5A2E7D70D200EB2FF5 /* CarCareDashboardViewModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				F36E4A582E7D70B100EB2FF5 /* CarCareDashboardViewModelTests.swift */,
+				F36E4A5B2E7D70EC00EB2FF5 /* FakeMaintenanceVM3.swift */,
+				F36E4A5D2E7D86A700EB2FF5 /* CarCareAddMaintenanceVMTests.swift */,
+				F36E4A5F2E7D877800EB2FF5 /* FakeNotificationVM.swift */,
+			);
+			path = CarCareDashboardViewModelTests;
+			sourceTree = "<group>";
+		};
+		F36E4A612E7D8B4800EB2FF5 /* CarCareMaintenanceDetailsVMTests */ = {
+			isa = PBXGroup;
+			children = (
+				F36E4A622E7D8B8000EB2FF5 /* CarCareAddMaintenanceDetailsVMTests.swift */,
+				F36E4A642E7D8BDA00EB2FF5 /* FakeMaintenanceLoader.swift */,
+			);
+			path = CarCareMaintenanceDetailsVMTests;
 			sourceTree = "<group>";
 		};
 		F37D827C2E5F559400F92A50 /* Resources */ = {
@@ -592,12 +659,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F36E4A532E7D6CD600EB2FF5 /* FakeNotificationCenter.swift in Sources */,
+				F36E4A652E7D8BDA00EB2FF5 /* FakeMaintenanceLoader.swift in Sources */,
+				F36E4A592E7D70B100EB2FF5 /* CarCareDashboardViewModelTests.swift in Sources */,
 				F30969B52E7C6F2300F4AD4C /* NotificationVMFake.swift in Sources */,
+				F36E4A5C2E7D70EC00EB2FF5 /* FakeMaintenanceVM3.swift in Sources */,
 				F30969AC2E7C067A00F4AD4C /* CarCareBikeVMTests.swift in Sources */,
 				F30969AF2E7C645400F4AD4C /* CarCareMaintenanceVMTests.swift in Sources */,
 				F3BFC9D22E33810900043AB8 /* CarCare.xcdatamodeld in Sources */,
+				F36E4A602E7D877800EB2FF5 /* FakeNotificationVM.swift in Sources */,
+				F36E4A632E7D8B8000EB2FF5 /* CarCareAddMaintenanceDetailsVMTests.swift in Sources */,
 				F30969B12E7C65BE00F4AD4C /* FakeMaintenanceVM.swift in Sources */,
+				F36E4A5E2E7D86A700EB2FF5 /* CarCareAddMaintenanceVMTests.swift in Sources */,
 				F30969B32E7C66BB00F4AD4C /* FakeBikeStore.swift in Sources */,
+				F36E4A552E7D6D6300EB2FF5 /* FakeMaintenanceVM2.swift in Sources */,
+				F36E4A572E7D6DA500EB2FF5 /* CarCareNotificationVMTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
