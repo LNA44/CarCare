@@ -13,17 +13,24 @@ struct CarCareApp: App {
 	@Environment(\.scenePhase) private var scenePhase // quand utilisateur revient dans l'app
 	@StateObject private var notificationVM: NotificationViewModel
 	@StateObject private var bikeVM: BikeVM
-	@StateObject private var maintenanceVM = MaintenanceVM()
+	@StateObject private var maintenanceVM: MaintenanceVM
 	@StateObject private var appState: AppState
+	@StateObject private var onboardingVM: OnboardingVM
 	@StateObject private var subscriptionManager = SubscriptionManager.shared
 	@AppStorage("hasSeenNotificationIntro") private var hasSeenNotificationIntro: Bool = false
 	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
+	@AppStorage("hasSeenOnboarding") var hasSeenOnboarding: Bool = false
 	
 	init() {
 		let appState = AppState(vehicleLoader: dependencyContainer.BikeLoader)
 		_appState = StateObject(wrappedValue: appState)
 		
 		let maintenanceVM = MaintenanceVM()
+		_maintenanceVM = StateObject(wrappedValue: maintenanceVM)
+		
+		let onboardingVM = OnboardingVM()
+		_onboardingVM = StateObject(wrappedValue: onboardingVM)
+		
 		let notificationVM = NotificationViewModel(maintenanceVM: maintenanceVM)
 		maintenanceVM.notificationVM = notificationVM
 		_notificationVM = StateObject(wrappedValue: notificationVM)
@@ -43,13 +50,17 @@ defaults.set(false, forKey: "isPremiumUser")
 				switch appState.status {
 				case .needsVehicleRegistration:
 					Group {
-						if hasSeenNotificationIntro {
-							RegistrationView(bikeVM: bikeVM)
-								.environmentObject(appState)
-								.environmentObject(subscriptionManager)
+						if hasSeenOnboarding {
+							if hasSeenNotificationIntro {
+								RegistrationView(bikeVM: bikeVM)
+									.environmentObject(appState)
+									.environmentObject(subscriptionManager)
+							} else {
+								NotificationIntroView(maintenanceVM: maintenanceVM, notificationVM: notificationVM)
+									.environmentObject(subscriptionManager)
+							}
 						} else {
-							NotificationIntroView(maintenanceVM: maintenanceVM, notificationVM: notificationVM)
-								.environmentObject(subscriptionManager)
+							OnboardingView()
 						}
 					}
 					.transition(.asymmetric(

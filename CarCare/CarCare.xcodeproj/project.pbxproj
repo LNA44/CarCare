@@ -12,6 +12,10 @@
 		F30969B12E7C65BE00F4AD4C /* FakeMaintenanceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30969B02E7C65BE00F4AD4C /* FakeMaintenanceVM.swift */; };
 		F30969B32E7C66BB00F4AD4C /* FakeBikeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30969B22E7C66BB00F4AD4C /* FakeBikeStore.swift */; };
 		F30969B52E7C6F2300F4AD4C /* NotificationVMFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30969B42E7C6F2300F4AD4C /* NotificationVMFake.swift */; };
+		F31F12F42E7EC9D600BEBA15 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31F12F32E7EC9D600BEBA15 /* OnboardingView.swift */; };
+		F31F12F62E7EC9E600BEBA15 /* OnboardingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31F12F52E7EC9E600BEBA15 /* OnboardingVM.swift */; };
+		F31F12FF2E7ED17800BEBA15 /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31F12FE2E7ED17800BEBA15 /* AnimationView.swift */; };
+		F31F13072E7ED79200BEBA15 /* Cycling.gif in Resources */ = {isa = PBXBuildFile; fileRef = F31F13062E7ED79200BEBA15 /* Cycling.gif */; };
 		F339FAAA2E54842A00F2CECC /* ToDoMaintenanceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FAA92E54842A00F2CECC /* ToDoMaintenanceRow.swift */; };
 		F339FB232E54D06C00F2CECC /* MaintenanceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */; };
 		F339FB272E54D63B00F2CECC /* DaysIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */; };
@@ -96,6 +100,10 @@
 		F30969B02E7C65BE00F4AD4C /* FakeMaintenanceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMaintenanceVM.swift; sourceTree = "<group>"; };
 		F30969B22E7C66BB00F4AD4C /* FakeBikeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeBikeStore.swift; sourceTree = "<group>"; };
 		F30969B42E7C6F2300F4AD4C /* NotificationVMFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVMFake.swift; sourceTree = "<group>"; };
+		F31F12F32E7EC9D600BEBA15 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		F31F12F52E7EC9E600BEBA15 /* OnboardingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVM.swift; sourceTree = "<group>"; };
+		F31F12FE2E7ED17800BEBA15 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
+		F31F13062E7ED79200BEBA15 /* Cycling.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Cycling.gif; sourceTree = "<group>"; };
 		F31F73DB2E26585A00334333 /* CarCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F31F73E82E26585B00334333 /* CarCareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarCareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F339FAA92E54842A00F2CECC /* ToDoMaintenanceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoMaintenanceRow.swift; sourceTree = "<group>"; };
@@ -234,6 +242,16 @@
 			path = CarCareSharedViewModelsTests;
 			sourceTree = "<group>";
 		};
+		F31F12F22E7EC9C600BEBA15 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				F31F12F32E7EC9D600BEBA15 /* OnboardingView.swift */,
+				F31F12F52E7EC9E600BEBA15 /* OnboardingVM.swift */,
+				F31F12FE2E7ED17800BEBA15 /* AnimationView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		F31F73D22E26585A00334333 = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +324,7 @@
 			children = (
 				F37D82562E5F552400F92A50 /* Info.plist */,
 				F3BFC9952E33810900043AB8 /* Assets.xcassets */,
+				F31F13062E7ED79200BEBA15 /* Cycling.gif */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -347,6 +366,7 @@
 		F3B77CA02E50DF2C00548F2D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F31F12F22E7EC9C600BEBA15 /* Onboarding */,
 				F39891542E771D0300245639 /* Paywall */,
 				F3823AEA2E5C67FF00B9331B /* Notification */,
 				F3823AE72E5C635000B9331B /* Settings */,
@@ -563,6 +583,8 @@
 			);
 			mainGroup = F31F73D22E26585A00334333;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F31F73DC2E26585A00334333 /* Products */;
 			projectDirPath = "";
@@ -583,6 +605,7 @@
 				F3E8DE022E6B36320056C714 /* Localizable.strings in Resources */,
 				F3E8DDFE2E6B36280056C714 /* Localizable.strings in Resources */,
 				F3E8DDF82E6B35410056C714 /* Localizable.strings in Resources */,
+				F31F13072E7ED79200BEBA15 /* Cycling.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,11 +628,13 @@
 				F3BFC9A02E33810900043AB8 /* Maintenance.swift in Sources */,
 				F3BDB2E82E55EFDE0041F142 /* BikeVM.swift in Sources */,
 				F3823AF32E5C8DA600B9331B /* LegalView.swift in Sources */,
+				F31F12F62E7EC9E600BEBA15 /* OnboardingVM.swift in Sources */,
 				F39891582E77233200245639 /* PlanSelectorButton.swift in Sources */,
 				F3BFC9A22E33810900043AB8 /* Bike.swift in Sources */,
 				F3BFC9A32E33810900043AB8 /* CarCare.xcdatamodeld in Sources */,
 				F3D7FC9C2E633FE30042A29A /* DashboardVM.swift in Sources */,
 				F3B77CA62E50DF9300548F2D /* BikeModificationsView.swift in Sources */,
+				F31F12FF2E7ED17800BEBA15 /* AnimationView.swift in Sources */,
 				F3BFC9A42E33810900043AB8 /* CoreDataHelpers.swift in Sources */,
 				F3BFC9A52E33810900043AB8 /* CoreDataLocalStore.swift in Sources */,
 				F3823AF52E5C9AB700B9331B /* NotificationViewModel.swift in Sources */,
@@ -617,6 +642,7 @@
 				F3BFC9A82E33810900043AB8 /* CoreDataLocalStore+BikeStore.swift in Sources */,
 				F37D82832E5F601800F92A50 /* CustomTextField.swift in Sources */,
 				F3BDB2F12E56033C0041F142 /* MaintenanceType.swift in Sources */,
+				F31F12F42E7EC9D600BEBA15 /* OnboardingView.swift in Sources */,
 				F3BDB2EA2E55F0840041F142 /* MaintenanceVM.swift in Sources */,
 				F3BDB2EF2E5603120041F142 /* Brand.swift in Sources */,
 				F3BFC9A92E33810900043AB8 /* ManagedMaintenance.swift in Sources */,
