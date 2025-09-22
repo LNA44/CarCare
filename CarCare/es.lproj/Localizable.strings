@@ -10,6 +10,14 @@
 "maintenance_key" = "Mantenimientos";
 "Settings_key" = "Ajustes";
 
+//Onboarding
+"question_welcome" = "¡Bienvenido a MyBikeMate!";
+"question_daily_use" = "¿Usas tu bicicleta a diario y estás cansado de olvidar cuándo programar el próximo mantenimiento?";
+"question_sell_bike" = "¿Quieres vender tu bicicleta y demostrar el seguimiento del mantenimiento realizado?";
+"question_share_history" = "¿Quieres compartir el historial de mantenimiento con tu mecánico?";
+"button_next" = "Siguiente";
+"button_start" = "Comenzar";
+
 //NotificationIntroView
 "stay_informed_key" = "Mantente informado";
 "enable_notifications_text_key" = "¡Active las notificaciones para recibir recordatorios de mantenimiento y no perderse nada!";

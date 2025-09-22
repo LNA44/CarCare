@@ -13,9 +13,9 @@
 		F30969B32E7C66BB00F4AD4C /* FakeBikeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30969B22E7C66BB00F4AD4C /* FakeBikeStore.swift */; };
 		F30969B52E7C6F2300F4AD4C /* NotificationVMFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30969B42E7C6F2300F4AD4C /* NotificationVMFake.swift */; };
 		F31F12F42E7EC9D600BEBA15 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31F12F32E7EC9D600BEBA15 /* OnboardingView.swift */; };
-		F31F12F62E7EC9E600BEBA15 /* OnboardingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31F12F52E7EC9E600BEBA15 /* OnboardingVM.swift */; };
 		F31F12FF2E7ED17800BEBA15 /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31F12FE2E7ED17800BEBA15 /* AnimationView.swift */; };
 		F31F13072E7ED79200BEBA15 /* Cycling.gif in Resources */ = {isa = PBXBuildFile; fileRef = F31F13062E7ED79200BEBA15 /* Cycling.gif */; };
+		F3284A4C2E8169E7008E7920 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3284A4B2E8169E7008E7920 /* Constants.swift */; };
 		F339FAAA2E54842A00F2CECC /* ToDoMaintenanceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FAA92E54842A00F2CECC /* ToDoMaintenanceRow.swift */; };
 		F339FB232E54D06C00F2CECC /* MaintenanceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */; };
 		F339FB272E54D63B00F2CECC /* DaysIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */; };
@@ -101,11 +101,11 @@
 		F30969B22E7C66BB00F4AD4C /* FakeBikeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeBikeStore.swift; sourceTree = "<group>"; };
 		F30969B42E7C6F2300F4AD4C /* NotificationVMFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVMFake.swift; sourceTree = "<group>"; };
 		F31F12F32E7EC9D600BEBA15 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		F31F12F52E7EC9E600BEBA15 /* OnboardingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVM.swift; sourceTree = "<group>"; };
 		F31F12FE2E7ED17800BEBA15 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		F31F13062E7ED79200BEBA15 /* Cycling.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Cycling.gif; sourceTree = "<group>"; };
 		F31F73DB2E26585A00334333 /* CarCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F31F73E82E26585B00334333 /* CarCareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarCareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3284A4B2E8169E7008E7920 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F339FAA92E54842A00F2CECC /* ToDoMaintenanceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoMaintenanceRow.swift; sourceTree = "<group>"; };
 		F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceDetailsView.swift; sourceTree = "<group>"; };
 		F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysIndicatorView.swift; sourceTree = "<group>"; };
@@ -246,8 +246,8 @@
 			isa = PBXGroup;
 			children = (
 				F31F12F32E7EC9D600BEBA15 /* OnboardingView.swift */,
-				F31F12F52E7EC9E600BEBA15 /* OnboardingVM.swift */,
 				F31F12FE2E7ED17800BEBA15 /* AnimationView.swift */,
+				F3284A4B2E8169E7008E7920 /* Constants.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -628,7 +628,6 @@
 				F3BFC9A02E33810900043AB8 /* Maintenance.swift in Sources */,
 				F3BDB2E82E55EFDE0041F142 /* BikeVM.swift in Sources */,
 				F3823AF32E5C8DA600B9331B /* LegalView.swift in Sources */,
-				F31F12F62E7EC9E600BEBA15 /* OnboardingVM.swift in Sources */,
 				F39891582E77233200245639 /* PlanSelectorButton.swift in Sources */,
 				F3BFC9A22E33810900043AB8 /* Bike.swift in Sources */,
 				F3BFC9A32E33810900043AB8 /* CarCare.xcdatamodeld in Sources */,
@@ -650,6 +649,7 @@
 				F3BFC9AB2E33810900043AB8 /* ManagedBike.swift in Sources */,
 				F3D7FCA02E6344250042A29A /* MaintenanceViewVM.swift in Sources */,
 				F3823AE92E5C635E00B9331B /* SettingsView.swift in Sources */,
+				F3284A4C2E8169E7008E7920 /* Constants.swift in Sources */,
 				F3BFC9AC2E33810900043AB8 /* LocalMaintenance.swift in Sources */,
 				F3823AF72E5C9E4400B9331B /* AppError.swift in Sources */,
 				F3D7FC9E2E6342E40042A29A /* AddMaintenanceVM.swift in Sources */,

@@ -15,7 +15,6 @@ struct CarCareApp: App {
 	@StateObject private var bikeVM: BikeVM
 	@StateObject private var maintenanceVM: MaintenanceVM
 	@StateObject private var appState: AppState
-	@StateObject private var onboardingVM: OnboardingVM
 	@StateObject private var subscriptionManager = SubscriptionManager.shared
 	@AppStorage("hasSeenNotificationIntro") private var hasSeenNotificationIntro: Bool = false
 	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
@@ -27,9 +26,6 @@ struct CarCareApp: App {
 		
 		let maintenanceVM = MaintenanceVM()
 		_maintenanceVM = StateObject(wrappedValue: maintenanceVM)
-		
-		let onboardingVM = OnboardingVM()
-		_onboardingVM = StateObject(wrappedValue: onboardingVM)
 		
 		let notificationVM = NotificationViewModel(maintenanceVM: maintenanceVM)
 		maintenanceVM.notificationVM = notificationVM

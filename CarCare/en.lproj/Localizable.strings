@@ -11,6 +11,14 @@
 "maintenance_key" = "Maintenance";
 "Settings_key" = "Settings";
 
+//Onboarding
+"question_welcome" = "Welcome to MyBikeMate!";
+"question_daily_use" = "You use your bike daily and are tired of forgetting when to schedule the next maintenance?";
+"question_sell_bike" = "You want to sell your bike and show the completed maintenance?";
+"question_share_history" = "You want to share the maintenance history with your mechanic?";
+"button_next" = "Next";
+"button_start" = "Start";
+
 //NotificationIntroView
 "stay_informed_key" = "Stay informed";
 "enable_notifications_text_key" = "Enable notifications to be informed of maintenance reminders and never miss anything!";
