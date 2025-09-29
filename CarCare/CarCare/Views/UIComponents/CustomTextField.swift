@@ -35,6 +35,3 @@ struct CustomTextField: View {
 	}
 }
 
-/*#Preview {
-	CustomTextField()
-}*/

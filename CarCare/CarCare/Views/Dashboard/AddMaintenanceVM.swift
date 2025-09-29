@@ -26,6 +26,7 @@ final class AddMaintenanceVM: ObservableObject {
 		print("addMaintenance appelée")
 		if let selectedMaintenanceDate = selectedMaintenanceDate {
 			let maintenance = Maintenance(id: UUID(), maintenanceType: selectedMaintenanceType, date: selectedMaintenanceDate, reminder: true)
+			print("maintenance ajoutée: \(maintenance)")
 			do {
 				try maintenanceLoader.save(maintenance)
 				maintenanceVM.fetchAllMaintenance(for: bikeType)
@@ -51,7 +52,7 @@ final class AddMaintenanceVM: ObservableObject {
 	
 	func filteredMaintenanceTypes(for bikeType: BikeType) -> [MaintenanceType] {
 		if bikeType == .Manual {
-			return MaintenanceType.allCases.filter { $0 != .Battery }
+			return MaintenanceType.allCases.filter { $0 != .RunSoftwareAndBatteryDiagnostics }
 		} else {
 			return MaintenanceType.allCases
 		}

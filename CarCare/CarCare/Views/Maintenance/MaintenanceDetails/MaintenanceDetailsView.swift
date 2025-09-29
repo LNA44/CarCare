@@ -41,7 +41,7 @@ struct MaintenanceDetailsView: View {
 							.resizable()
 							.scaledToFit()
 							.frame(width: 80, height: 80)
-							.scaleEffect(maintenance.maintenanceType == .Battery ? 0.8 : 1.0) // exemple
+							.scaleEffect(iconScale(for: maintenance.maintenanceType))
 							.padding(10)
 							.background(Color("IconColor"))
 							.clipShape(Circle())
@@ -123,7 +123,7 @@ struct MaintenanceDetailsView: View {
 							.frame(width: 200)
 						
 						VStack(alignment: .leading, spacing: 0) {
-							ForEach(Array(maintenancesForOneType.reversed().enumerated()), id: \.element.id) { index, item in
+							ForEach(Array(maintenancesForOneType.enumerated()), id: \.element.id) { index, item in
 								
 								VStack {
 									HStack {
@@ -163,13 +163,15 @@ struct MaintenanceDetailsView: View {
 							.frame(width: 200)
 						
 						Text("\(maintenance.maintenanceType.localizedDescription)")
-							.font(.system(size: 16, weight: .regular, design: .rounded))
-							.foregroundColor(Color("TextColor"))
-							.padding(.leading, 20)
-							.frame(maxWidth: .infinity, alignment: .leading) // aligné à gauche
+						.font(.system(size: 16, weight: .regular, design: .rounded))
+						.foregroundColor(Color("TextColor"))
+						.padding(.leading, 10)
+						.multilineTextAlignment(.center)
+						.frame(maxWidth: .infinity)
 					}
 					.padding(.vertical, 20)
 					.padding(.bottom, 10)
+					.padding(.trailing, 10)
 					.background(Color("AdviceColor"))
 					.cornerRadius(15)
 				}
@@ -296,8 +298,16 @@ extension MaintenanceDetailsView {
 	}
 }
 
-/*#Preview {
- MaintenanceDetailsView()
- }*/
-
+extension MaintenanceDetailsView {
+	func iconScale(for type: MaintenanceType) -> CGFloat {
+		switch type {
+		case .CleanDrivetrain:
+			return 0.85
+		case .RunSoftwareAndBatteryDiagnostics:
+			return 0.8
+		default:
+			return 1.0
+		}
+	}
+}
 

@@ -45,7 +45,7 @@ struct PaywallView: View {
 					
 					// MARK: - Subscription Options
 					VStack(spacing: 12) {
-						ForEach(subscriptionManager.products, id: \.id) { product in
+						ForEach(subscriptionManager.products.sorted(by: { $0.id > $1.id }), id: \.id) { product in
 							let info = titleAndPrice(for: product)
 							
 							SubscriptionButton(
@@ -62,11 +62,31 @@ struct PaywallView: View {
 					// MARK: - Upgrade Button
 					Button(action: {
 						guard let product = selectedProduct else { return }
+						print("selected product: \(product)")
 						Task {
-							let success = await subscriptionManager.purchase(product)
-							if success {
-								isPremiumUser = true
-								presentationMode.wrappedValue.dismiss()
+							do {
+								let result = try await product.purchase()
+								switch result {
+								case .success(let verification):
+									switch verification {
+									case .verified(let transaction):
+										// Transaction valide -> finish
+										await transaction.finish()
+										isPremiumUser = true
+										presentationMode.wrappedValue.dismiss()
+										print("Achat réussi : \(transaction.productID)")
+									case .unverified(_, _):
+										print("Transaction non vérifiée")
+									}
+								case .userCancelled:
+									print("Utilisateur a annulé l'achat")
+								case .pending:
+									print("Transaction en attente")
+								@unknown default:
+									print("État inconnu")
+								}
+							} catch {
+								print("Erreur achat : \(error.localizedDescription)")
 							}
 						}
 					}) {

@@ -75,8 +75,8 @@ final class CarCareAddMaintenanceDetailsVMTests: XCTestCase {
 	func test_fetchAllMaintenanceForOneType_returnsOnlyOneType() throws {
 		// Given
 		let brake = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date(), reminder: true)
-		let battery = Maintenance(id: UUID(), maintenanceType: .Battery, date: Date(), reminder: true)
-		store.maintenances = [brake.toLocal(), battery.toLocal()]
+		let runSoftwareAndBatteryDiagnostics = Maintenance(id: UUID(), maintenanceType: .RunSoftwareAndBatteryDiagnostics, date: Date(), reminder: true)
+		store.maintenances = [brake.toLocal(), runSoftwareAndBatteryDiagnostics.toLocal()]
 		
 		// When
 		let result = vm.fetchAllMaintenanceForOneType(type: .BrakePads)

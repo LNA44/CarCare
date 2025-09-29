@@ -9,27 +9,54 @@ import Foundation
 enum MaintenanceType: String, CaseIterable, Identifiable {
 	var id: String { rawValue }
 	
-	case Tires = "tires"
-	case BrakePads = "brake_pads"
-	case Battery = "battery"
+	case CheckTirePressure = "check_tire_pressure"
+	case ReplaceTires = "replace_tires"
+	case CleanAndLubricateChain = "clean_and_lubricate_chain"
+	case TightenMainScrewsAndBolts = "tighten_main_screws_and_bolts"
+	case CleanDrivetrain = "clean_drivetrain"
+	case LubricateCablesAndHousings = "lubricate_cables_and_housings"
+	case GreaseBottomBracket = "grease_bottom_bracket"
+	case ReplaceCablesAndHousings = "replace_cables_and_housings"
+	case BleedHydraulicBrakes = "bleed_hydraulic_brakes"
+	case ServiceBearings = "service_bearings"
+	case ReplaceChain = "replace_chain"
+	case RunSoftwareAndBatteryDiagnostics = "run_software_and_battery_diagnostics"
 	case Unknown = "unknown"
 	
 	var frequencyInDays: Int {
-		switch self { // A ADAPTER
-		case .Tires: return 90
-		case .BrakePads: return 60
-		case .Battery: return 30  
+		switch self {
+		case .CheckTirePressure: return 7
+		case .ReplaceTires: return 180
+		case .CleanAndLubricateChain: return 30
+		case .TightenMainScrewsAndBolts: return 30
+		case .CleanDrivetrain: return 90
+		case .LubricateCablesAndHousings: return 180
+		case .GreaseBottomBracket: return 180
+		case .ReplaceCablesAndHousings: return 365
+		case .BleedHydraulicBrakes: return 365
+		case .ServiceBearings: return 365
+		case .ReplaceChain: return 365
+		case .RunSoftwareAndBatteryDiagnostics: return 365
 		case .Unknown: return 0
 		}
 	}
 	
 	var iconName: String {
-			switch self {
-			case .Tires: return "wheels"
-			case .BrakePads: return "brake-pad"
-			case .Battery: return "battery"
-			case .Unknown: return "questionmark.circle"   
-			}
+		switch self {
+		case .CheckTirePressure: return "wheels"
+		case .ReplaceTires: return "wheels"
+		case .CleanAndLubricateChain: return "chain"
+		case .TightenMainScrewsAndBolts: return "screw"
+		case .CleanDrivetrain: return "derailleur"
+		case .LubricateCablesAndHousings: return "cables"
+		case .GreaseBottomBracket: return "bracket"
+		case .ReplaceCablesAndHousings: return "cables"
+		case .BleedHydraulicBrakes: return "braking-system"
+		case .ServiceBearings: return "bearing"
+		case .ReplaceChain: return "chain"
+		case .RunSoftwareAndBatteryDiagnostics: return "battery" 
+		case .Unknown: return "questionmark.circle"
+		}
 	}
 }
 
@@ -37,6 +64,8 @@ extension MaintenanceType: Hashable {
 	var readableFrequency: String {
 		if frequencyInDays < 30 {
 			return String(format: NSLocalizedString("every_days_key", comment: ""), frequencyInDays)
+		} else if frequencyInDays > 364 {
+			return String(format: NSLocalizedString("every_year_key", comment: ""), frequencyInDays/365)
 		} else {
 			let months = frequencyInDays / 30
 			return String(format: NSLocalizedString("every_months_key", comment: ""), months)
@@ -48,35 +77,12 @@ extension MaintenanceType: Hashable {
 	}
 	
 	var localizedDescription: String {
-		switch self {
-		case .Tires:
-			return NSLocalizedString("tires_description", comment: "Description for tire maintenance")
-		case .BrakePads:
-			return NSLocalizedString("brake_pads_description", comment: "Description for brake pads maintenance")
-		case .Battery:
-			return NSLocalizedString("battery_description", comment: "Description for battery maintenance")
-		case .Unknown:
-			return NSLocalizedString("unknown_description", comment: "Description for unknown maintenance")
-		}
+		return MaintenanceDescription.mapping[self] ?? NSLocalizedString(LocalizationKeys.unknownDescription, comment: "")
 	}
 }
 
 extension MaintenanceType {
 	init(fromCoreDataString string: String) {
-		switch string {
-		// FR
-		case "Pneus": self = .Tires
-		case "Plaquettes de frein": self = .BrakePads
-		case "Batterie": self = .Battery
-		// ES
-		case "Neumáticos": self = .Tires
-		case "Pastillas de freno": self = .BrakePads
-		case "Batería": self = .Battery
-		// EN
-		case "Tires": self = .Tires
-		case "Brakepads": self = .BrakePads
-		case "Battery": self = .Battery
-		default: self = .Unknown
-		}
+		self = MaintenanceType(rawValue: string) ?? .Unknown
 	}
 }

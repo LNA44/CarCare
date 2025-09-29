@@ -51,5 +51,5 @@ enum Brand: String, CaseIterable, Identifiable {
 	
 	var localizedName: String {
 			NSLocalizedString(rawValue, comment: "Brand name")
-		}
+	}
 }

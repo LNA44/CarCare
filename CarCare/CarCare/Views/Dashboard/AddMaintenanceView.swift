@@ -169,7 +169,3 @@ struct AddMaintenanceView: View {
 	}
 }
 
-/*#Preview {
- AddMaintenanceView(viewModel: DashboardVM())
- }
- */

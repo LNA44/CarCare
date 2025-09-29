@@ -29,17 +29,18 @@ final class ExportPDFHelper {
 			let activityVC = UIActivityViewController(activityItems: [tempURL], applicationActivities: nil)
 			
 			// Pour iPad : définir sourceView pour éviter crash
-			if let popover = activityVC.popoverPresentationController,
-			   let rootVC = UIApplication.shared.windows.first?.rootViewController {
-				popover.sourceView = rootVC.view
-				popover.sourceRect = CGRect(x: rootVC.view.bounds.midX,
-											y: rootVC.view.bounds.midY,
-											width: 0,
-											height: 0)
-				popover.permittedArrowDirections = []
-				
-				rootVC.present(activityVC, animated: true)
-			} else if let rootVC = UIApplication.shared.windows.first?.rootViewController {
+			if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+			   let rootVC = scene.windows.first?.rootViewController {
+				if let popover = activityVC.popoverPresentationController {
+					popover.sourceView = rootVC.view
+					popover.sourceRect = CGRect(
+						x: rootVC.view.bounds.midX,
+						y: rootVC.view.bounds.midY,
+						width: 0,
+						height: 0
+					)
+					popover.permittedArrowDirections = []
+				}
 				rootVC.present(activityVC, animated: true)
 			}
 		}

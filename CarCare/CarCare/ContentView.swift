@@ -30,7 +30,3 @@ struct ContentView: View {
 		.tint(Color("TextColor"))
 	}
 }
-
-/*#Preview {
-	ContentView()
-}*/

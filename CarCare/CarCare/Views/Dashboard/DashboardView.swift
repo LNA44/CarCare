@@ -66,7 +66,7 @@ struct DashboardView: View {
 					
 					VStack {
 						VStack {
-							Text("\(bikeVM.brand) - \(bikeVM.model)")
+							Text("\(bikeVM.brand) - \(bikeVM.model)" as String)
 								.font(.system(size: 24, weight: .bold, design: .rounded))
 								.padding(.top, 40)
 								.padding(.horizontal, 15)
@@ -209,7 +209,7 @@ struct DashboardView: View {
 					.padding(.horizontal, 10)
 					.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
 					
-					NavigationLink(
+					/*NavigationLink(
 						destination: AddMaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, onAdd: {
 							VM.fetchLastMaintenance(for: bikeVM.bikeType) //closure appelée après dismiss
 							maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
@@ -226,8 +226,33 @@ struct DashboardView: View {
 					}
 					.padding(.bottom, 20)
 					.padding(.horizontal, 10)
-					.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+					.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)*/
+					Button {
+								goToAdd = true
+							} label: {
+								Text(NSLocalizedString("button_Add_Maintenance", comment: ""))
+									.font(.system(size: 16, weight: .bold, design: .rounded))
+									.foregroundColor(.white)
+									.frame(maxWidth: .infinity)
+									.padding()
+									.background(Color("AppPrimaryColor"))
+									.cornerRadius(10)
+							}
+							.padding(.bottom, 20)
+							.padding(.horizontal, 10)
+							.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
 				}
+				.navigationDestination(isPresented: $goToAdd) {
+						AddMaintenanceView(
+							bikeVM: bikeVM,
+							maintenanceVM: maintenanceVM,
+							onAdd: {
+								VM.fetchLastMaintenance(for: bikeVM.bikeType)
+								maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
+							},
+							notificationVM: notificationVM
+						)
+					}
 				.padding(.top, 10)
 			}
 			.padding(.top, 20)
@@ -244,6 +269,9 @@ struct DashboardView: View {
 			.onChange(of: bikeVM.bikeType) { _, newValue in
 				VM.fetchLastMaintenance(for: newValue)
 				maintenanceVM.fetchAllMaintenance(for: newValue)
+			}
+			.onChange(of: maintenanceVM.maintenances) {_, _ in
+				VM.fetchLastMaintenance(for: bikeVM.bikeType)
 			}
 		}
 		.background(
@@ -329,8 +357,3 @@ struct DashboardView: View {
 	}
 }
 
-
-/*#Preview {
-    DashboardView()
-}
-*/

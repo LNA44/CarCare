@@ -13,9 +13,9 @@
 
 //Onboarding
 "question_welcome" = "Welcome to MyBikeMate!";
-"question_daily_use" = "You use your bike daily and are tired of forgetting when to schedule the next maintenance?";
-"question_sell_bike" = "You want to sell your bike and show the completed maintenance?";
-"question_share_history" = "You want to share the maintenance history with your mechanic?";
+"question_daily_use" = "You use your bike daily and are tired of forgetting when to schedule the next maintenance ?";
+"question_sell_bike" = "You want to prove that your bike is up to date with its maintenance ?";
+"question_share_history" = "You want to share the maintenance history with your mechanic ?";
 "button_next" = "Next";
 "button_start" = "Start";
 
@@ -81,6 +81,7 @@
 "frequency_key" = "Frequency: %@";
 "every_days_key" = "every %d day(s)";
 "every_months_key" = "every %d month(s)";
+"every_year_key" = "every %d year(s)";
 "button_update_key" = "Update";
 "maintenance_history_key" = "Maintenance history";
 "advice_and_information_key" = "Advice and information";
@@ -99,10 +100,36 @@
 "brake_pads" = "Brakepads";
 "battery" = "Battery";
 "unknown" = "Unknown";
+"check_tire_pressure" = "Check tire pressure";
+"replace_tires" = "Replace tires";
+"clean_and_lubricate_chain" = "Clean and lubricate the chain";
+"tighten_main_screws_and_bolts" = "Tighten main screws and bolts";
+"clean_drivetrain" = "Clean drivetrain";
+"lubricate_cables_and_housings" = "Lubricate cables and housings";
+"grease_bottom_bracket" = "Grease bottom bracket";
+"replace_cables_and_housings" = "Replace cables and housings";
+"bleed_hydraulic_brakes" = "Bleed hydraulic brakes";
+"service_bearings" = "Service bearings";
+"replace_chain" = "Replace chain";
+"run_software_and_battery_diagnostics" = "Run software and battery diagnostics";
+
 "tires_description" = "Basic cleaning consists of:\n- Wiping the frame with a damp cloth\n- Checking the condition of the tires\n- Checking the pressure";
 "brake_pads_description" = "Brake adjustment requires tools";
 "battery_description" = "Chain maintenance includes:\n- Cleaning with a degreaser\n- Lubricating the links\n- Checking for wear";
 "unknown_description" = "Unknown";
+//new
+"check_tire_pressure_description" = "A properly inflated tire allows for a more comfortable ride, reduces the risk of punctures, and prevents premature wear. Check the pressure once a week, especially if you ride daily. Use a pressure gauge or a pump with an indicator, and inflate according to the range printed on the tire sidewall (e.g., 4–6 bars for a road bike, 2–3 bars for a mountain bike). Riding underinflated can pinch the tube in a pothole. Overinflated tires reduce comfort and grip.";
+"replace_tires_description" = "Tires should never be completely smooth, and the sidewalls should show no cracks. If they do, they must be replaced immediately, as worn or damaged tires significantly increase the risk of puncture or even blowout. Smooth tires reduce traction, which can cause falls, especially on wet or unstable surfaces. Tires are the only contact point between the bike and the ground: their condition directly impacts safety. Never underestimate the importance of good tires for a safe ride.";
+"clean_and_lubricate_chain_description" = "A clean and lubricated chain extends the life of the entire drivetrain. Clean it once a month with a cloth and a light degreaser. Avoid high-pressure jets that wash grease out of bearings. After cleaning, apply bike-specific oil (no engine oil or WD-40 alone) and wipe off excess: too much oil attracts dust. Proper lubrication ensures smooth pedaling and prevents premature wear of cogs and chainrings. Don’t wait until the chain looks dry or creaks to lubricate it!";
+"tighten_main_screws_and_bolts_description" = "Vibrations can loosen some screws. Check the main screws once a month: stem, handlebars, saddle, pedals, and rack. Use the correct Allen keys, and if possible a torque wrench to respect the recommended torque (usually indicated on the part). Too loose = risk of play or fall; too tight = risk of stripping threads or cracking carbon parts.";
+"clean_drivetrain_description" = "Over time, your bike's drivetrain gets dirty: grease, dust, and sometimes mud accumulate on the chainrings, cassette, and derailleur pulleys. Result: gears shift poorly, pedaling is less smooth, and parts wear faster. It’s recommended to clean the drivetrain roughly every three months, especially if you ride daily. You can do it yourself: remove the rear wheel to access the cassette better, brush the teeth with an old toothbrush or a special brush, then wipe with a cloth. The derailleur pulleys also need scraping as they collect dirt. Avoid high-pressure jets that remove bearing grease. Once cleaned, dry the parts and ensure the chain is lubricated. You will notice smoother shifting and longer drivetrain life.";
+"lubricate_cables_and_housings_description" = "Brake and gear cables and housings oxidize over time, especially if exposed to moisture. Every six months, add a few drops of light oil in the housings (or use a suitable spray). This makes braking more responsive and shifting smoother. Always wipe off excess to avoid attracting dust and sand. If shifting or braking feels sticky despite lubrication, the cable is starting to wear and should be replaced.";
+"grease_bottom_bracket_description" = "The bottom bracket contains bearings that allow your cranks to rotate smoothly. Over time and mileage, grease dries or becomes contaminated, causing creaks, lateral play, or less smooth pedaling. Regular maintenance about every six months prevents these problems. This is not easy to do yourself, as it requires crank removal and specific tools. Usually, it’s better to leave this to a professional who will clean the bearings, apply appropriate grease, and reassemble at the correct torque. If you hear creaking with each pedal stroke or your cranks move side to side, the bottom bracket needs attention. Neglected bearings can seize, requiring complete replacement.";
+"replace_cables_and_housings_description" = "Even when well-lubricated, cables fray, rust, and lose efficiency. Replace them once a year with a professional to ensure precise braking and shifting. Waiting too long may result in cable breakage during a ride, which is dangerous. New housings also reduce friction and make the bike feel more responsive.";
+"bleed_hydraulic_brakes_description" = "For bikes with hydraulic brakes, the fluid should be changed about once a year. Over time, it accumulates air bubbles and loses effectiveness, resulting in spongy, imprecise braking. Bleeding should be done by a professional, as it requires tools and specific fluid (DOT or mineral depending on the brand). If the brake lever sinks too easily or braking becomes inconsistent, don’t wait.";
+"service_bearings_description" = "Bearings are located in wheel hubs, the bottom bracket, and the headset. They ensure smooth operation. Once a year, have a full service: cleaning, greasing, and replacement if needed. Creaks or stiff pedaling indicate worn bearings. Well-maintained bearings prolong bike life and make pedaling more enjoyable.";
+"replace_chain_description" = "Even when well-lubricated, a chain stretches with wear. Once a year (for daily use), it should be replaced. Otherwise, it prematurely wears the cassette and chainrings, which is more costly. Wear can be checked with a chain checker tool. A professional can measure and replace the chain. The chain and cassette are linked: replace both together.";
+"run_software_and_battery_diagnostics_description" = "Modern e-bikes have electronic control (motor, battery, sensors). Once a year, have diagnostics done by an authorized repairer. This checks battery health (remaining capacity), updates firmware, and detects potential errors early. Monitor battery autonomy and check for overheating during use. After a crash or impact, replace the battery immediately, as internal cells can be damaged, posing fire risk or irreversible damage. Never use a damaged battery.";
 
 //Enum BikeType
 "manual" = "Manual";

@@ -49,7 +49,3 @@ struct NotificationIntroView: View {
 	}
 }
 
-/*#Preview {
-    NotificationIntroView()
-}
-*/

@@ -86,18 +86,18 @@ final class AddMaintenanceVMTests: XCTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 	
-	func test_filteredMaintenanceTypes_excludesBatteryForManual() {
+	func test_filteredMaintenanceTypes_excludesRunSoftwareAndBatteryDiagnosticsForManual() {
 		// When
 		let types = addVM.filteredMaintenanceTypes(for: .Manual)
 		// Then
-		XCTAssertFalse(types.contains(.Battery))
+		XCTAssertFalse(types.contains(.RunSoftwareAndBatteryDiagnostics))
 	}
 	
-	func test_filteredMaintenanceTypes_includesBatteryForElectric() {
+	func test_filteredMaintenanceTypes_includesRunSoftwareAndBatteryDiagnosticsForElectric() {
 		// When
 		let types = addVM.filteredMaintenanceTypes(for: .Electric)
 		// Then
-		XCTAssertTrue(types.contains(.Battery))
+		XCTAssertTrue(types.contains(.RunSoftwareAndBatteryDiagnostics))
 	}
 	
 	func test_nextMaintenanceDate_returnsCorrectDate() {

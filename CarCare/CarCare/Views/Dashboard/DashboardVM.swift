@@ -27,7 +27,7 @@ final class DashboardVM: ObservableObject {
 				// Filtrage : on ignore les batteries pour les vélos manuels
 				let filtered: [Maintenance]
 				if bikeType == .Manual {
-					filtered = allMaintenance.filter { $0.maintenanceType != .Battery }
+					filtered = allMaintenance.filter { $0.maintenanceType != .RunSoftwareAndBatteryDiagnostics }
 				} else {
 					filtered = allMaintenance
 				}

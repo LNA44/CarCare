@@ -35,9 +35,9 @@ final class CarCareMaintenanceVMTests: XCTestCase {
 	func test_fetchAllMaintenance_loadsAndFiltersCorrectly() throws {
 		// Given
 		let manualBikeType: BikeType = .Manual
-		let batteryMaintenance = Maintenance(id: UUID(), maintenanceType: .Battery, date: Date(), reminder: false)
+		let runSoftwareAndBatteryDiagnosticsMaintenance = Maintenance(id: UUID(), maintenanceType: .RunSoftwareAndBatteryDiagnostics, date: Date(), reminder: false)
 		let brakeMaintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date(), reminder: false)
-		try store.insert(batteryMaintenance.toLocal())
+		try store.insert(runSoftwareAndBatteryDiagnosticsMaintenance.toLocal())
 		try store.insert(brakeMaintenance.toLocal())
 		
 		// When
@@ -59,7 +59,7 @@ final class CarCareMaintenanceVMTests: XCTestCase {
 			wait(for: [exp], timeout: 1.0)
 		
 		// Then
-		XCTAssertEqual(vm.maintenances.count, 1) // Battery should be filtered out for Manual
+		XCTAssertEqual(vm.maintenances.count, 1) 
 		XCTAssertEqual(vm.maintenances.first?.maintenanceType, .BrakePads)
 
 	}

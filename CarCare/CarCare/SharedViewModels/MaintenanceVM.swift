@@ -37,9 +37,9 @@ class MaintenanceVM: ObservableObject {
 	}
 	
 	// Méthode pour injecter notificationVM après initialisation
-	   func setNotificationVM(_ notificationVM: NotificationViewModel) {
-		   self.notificationVM = notificationVM
-	   }
+	func setNotificationVM(_ notificationVM: NotificationViewModel) {
+		self.notificationVM = notificationVM
+	}
 	
 	func defineOverallMaintenanceStatus(for bikeType: BikeType) -> MaintenanceStatus {
 		print("defineOverallMaintenanceStatus appelée")
@@ -51,7 +51,7 @@ class MaintenanceVM: ObservableObject {
 		
 		let existingTypes = MaintenanceType.allCases
 			.filter { $0 != .Unknown }
-			.filter { !(bikeType == .Manual && $0 == .Battery) }
+			.filter { !(bikeType == .Manual && $0 == .RunSoftwareAndBatteryDiagnostics) }
 			// On ne garde que les types présents dans les maintenances
 			.filter { type in
 					maintenances.contains { (maintenance: Maintenance) in
@@ -78,7 +78,7 @@ class MaintenanceVM: ObservableObject {
 			// Filtrage : on exclut la maintenance batterie si le vélo est manuel
 			let filtered: [Maintenance]
 			if bikeType == .Manual {
-				filtered = loaded.filter { $0.maintenanceType != .Battery }
+				filtered = loaded.filter { $0.maintenanceType != .RunSoftwareAndBatteryDiagnostics }
 			} else {
 				filtered = loaded
 			}

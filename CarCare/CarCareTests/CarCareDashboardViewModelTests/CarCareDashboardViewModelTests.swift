@@ -30,11 +30,11 @@ final class CarCareDashboardViewModelTests: XCTestCase {
 		super.tearDown()
 	}
 		
-	func test_fetchLastMaintenance_filtersBatteryForManualBike() {
+	func test_fetchLastMaintenance_filtersRunSoftwareAndBatteryDiagnosticsForManualBike() {
 		// Given
-		let batteryMaintenance = Maintenance(id: UUID(), maintenanceType: .Battery, date: Date(), reminder: false)
+		let runSoftwareAndBatteryDiagnosticsMaintenance = Maintenance(id: UUID(), maintenanceType: .RunSoftwareAndBatteryDiagnostics, date: Date(), reminder: false)
 		let brakeMaintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date().addingTimeInterval(-1000), reminder: false)
-		store.maintenances = [batteryMaintenance.toLocal(), brakeMaintenance.toLocal()]
+		store.maintenances = [runSoftwareAndBatteryDiagnosticsMaintenance.toLocal(), brakeMaintenance.toLocal()]
 		let expectation = XCTestExpectation(description: "Wait for async fetch")
 		
 		// When
@@ -49,10 +49,10 @@ final class CarCareDashboardViewModelTests: XCTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 	
-	func test_fetchLastMaintenance_includesBatteryForElectricBike() {
+	func test_fetchLastMaintenance_includesRunSoftwareAndBatteryDiagnosticsForElectricBike() {
 		// Given
-		let batteryMaintenance = Maintenance(id: UUID(), maintenanceType: .Battery, date: Date(), reminder: false)
-		store.maintenances = [batteryMaintenance.toLocal()]
+		let runSoftwareAndBatteryDiagnosticsMaintenance = Maintenance(id: UUID(), maintenanceType: .RunSoftwareAndBatteryDiagnostics, date: Date(), reminder: false)
+		store.maintenances = [runSoftwareAndBatteryDiagnosticsMaintenance.toLocal()]
 		let expectation = XCTestExpectation(description: "Wait for async fetch")
 		
 		// When
@@ -60,7 +60,7 @@ final class CarCareDashboardViewModelTests: XCTestCase {
 		
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 			// Then
-			XCTAssertEqual(self.maintenanceVM.generalLastMaintenance?.id, batteryMaintenance.id)
+			XCTAssertEqual(self.maintenanceVM.generalLastMaintenance?.id, runSoftwareAndBatteryDiagnosticsMaintenance.id)
 			expectation.fulfill()
 		}
 		

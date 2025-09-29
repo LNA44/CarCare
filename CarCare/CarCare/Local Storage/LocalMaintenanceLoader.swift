@@ -22,6 +22,7 @@ class LocalMaintenanceLoader {
 	func save(_ maintenance: Maintenance) throws {
 		print("on est dans save")
 		try store.insert(maintenance.toLocal())
+		print("maintenance toLocal : \(maintenance.toLocal())")
 	}
 	
 	func update(_ maintenance: Maintenance) throws {
@@ -45,6 +46,6 @@ extension Array where Element == LocalMaintenance {
 
 extension Maintenance {
 	func toLocal() -> LocalMaintenance {
-		LocalMaintenance(id: id, maintenanceType: maintenanceType.localizedName, date: date, reminder: reminder)
+		LocalMaintenance(id: id, maintenanceType: maintenanceType.rawValue, date: date, reminder: reminder)
 	}
 }
