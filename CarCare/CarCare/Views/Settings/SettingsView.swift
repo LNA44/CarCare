@@ -8,46 +8,87 @@
 import SwiftUI
 
 struct SettingsView: View {
-	@EnvironmentObject var themeVM: ThemeViewModel
-	
+	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
+	@Environment(\.colorScheme) private var colorScheme
+
 	var body: some View {
-		NavigationView {
-			Form {
-				Section(header: Text("Apparence")) {
-					Toggle(isOn: $themeVM.isDarkMode) {
-						Text("Mode sombre")
-					}
-					.onChange(of: themeVM.isDarkMode) { value in
-						// Met à jour l'interface
-						themeVM.applyInterfaceStyle()
-					}
+		Form {
+			Section(header: Text(NSLocalizedString("appearence_key", comment: ""))
+				.foregroundColor(Color("TextColor"))
+				.font(.system(size: 16, weight: .bold, design: .rounded))
+			) {
+				Toggle(isOn: $isDarkMode) {
+					Text(NSLocalizedString("dark_mode_key", comment: ""))
+						.foregroundColor(Color("TextColor"))
+						.font(.system(size: 16, weight: .regular, design: .rounded))
 				}
-				
-				Section(header: Text("Notifications")) {
-					Button(action: {
-						// Ouvre les paramètres iOS
-						if let url = URL(string: UIApplication.openSettingsURLString) {
-							UIApplication.shared.open(url)
-						}
-					}) {
-						Text("Gérer les notifications")
-					}
+				.tint(Color("DoneColor"))
+				.onChange(of: isDarkMode) {_, value in
+						applyInterfaceStyle(value)
 				}
-				
-				Section(header: Text("Informations")) {
-					NavigationLink("Mentions légales") {
-						LegalView()
+				.listRowBackground(Color("MaintenanceHistoryColor"))
+			}
+			
+			Section(header: Text(NSLocalizedString("notifications_key", comment: ""))
+				.foregroundColor(Color("TextColor"))
+				.font(.system(size: 16, weight: .bold, design: .rounded))
+			) {
+				Button(action: {
+					// Ouvre les paramètres iOS
+					if let url = URL(string: UIApplication.openSettingsURLString) {
+						UIApplication.shared.open(url)
 					}
+				}) {
+					Text(NSLocalizedString("handle_notifications_key", comment: ""))
+						.foregroundColor(Color("TextColor"))
+						.font(.system(size: 16, weight: .regular, design: .rounded))
+				}
+				.listRowBackground(Color("MaintenanceHistoryColor"))
+			}
+			
+			Section(header: Text(NSLocalizedString("information_key", comment: ""))
+				.foregroundColor(Color("TextColor"))
+				.font(.system(size: 16, weight: .bold, design: .rounded))
+			) {
+				NavigationLink(destination: LegalView()) {
+					Text(NSLocalizedString("legal_notice_key", comment: ""))
+						.foregroundColor(Color("TextColor"))
+						.font(.system(size: 16, weight: .regular, design: .rounded))
 				}
 			}
-			.navigationTitle("Paramètres")
-			.onAppear {
-				themeVM.applyInterfaceStyle() // applique le style au chargement
+			.listRowBackground(Color("MaintenanceHistoryColor"))
+
+		}
+		.onAppear {
+			// Au démarrage, synchroniser le toggle avec le système
+			isDarkMode = colorScheme == .dark
+		}
+		.onChange(of: colorScheme) {_, newScheme in
+			// Quand le téléphone change de mode, mettre à jour le toggle
+			isDarkMode = newScheme == .dark
+		}
+		.scrollContentBackground(.hidden) 
+		.background(Color("BackgroundColor"))
+		.toolbar {
+			ToolbarItem(placement: .principal) {
+				Text(NSLocalizedString("navigation_title_settings_key", comment: ""))
+					.font(.system(size: 22, weight: .bold, design: .rounded))
+					.foregroundColor(Color("TextColor"))
 			}
 		}
 	}
 }
 
+extension SettingsView {
+	private func applyInterfaceStyle(_ darkMode: Bool) {
+		guard let window = UIApplication.shared.connectedScenes
+			.compactMap({ $0 as? UIWindowScene })
+			.first?.windows.first else { return }
+		
+		window.overrideUserInterfaceStyle = darkMode ? .dark : .light
+	}
+}
+
 #Preview {
-    SettingsView()
+	SettingsView()
 }

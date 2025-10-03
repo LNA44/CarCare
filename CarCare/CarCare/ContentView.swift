@@ -8,25 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
-	@EnvironmentObject var bikeVM: BikeVM
-	@EnvironmentObject var maintenanceVM: MaintenanceVM
-	@EnvironmentObject var themeVM: ThemeViewModel
+	@ObservedObject var bikeVM: BikeVM
+	@ObservedObject var maintenanceVM: MaintenanceVM
+	@ObservedObject var notificationVM: NotificationViewModel
 	
 	var body: some View {
 		TabView {
-			DashboardView()
-				.environmentObject(bikeVM)
-				.environmentObject(maintenanceVM)
-				.tabItem { Label("Accueil", systemImage: "house")}
-			MaintenanceView()
-				.environmentObject(maintenanceVM)
-				.tabItem { Label("Entretiens", systemImage: "wrench") }
-			SettingsView()
-				.environmentObject(themeVM)
-				.tabItem { Label("Paramètres", systemImage: "gear") }
+			NavigationStack {
+				DashboardView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, notificationVM: notificationVM)
+			}
+			.tabItem { Label("Accueil", systemImage: "house")}
+			NavigationStack {
+				MaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, notificationVM: notificationVM)
+			}
+			.tabItem { Label("Entretiens", systemImage: "wrench") }
+			NavigationStack {
+				SettingsView()
+			}
+			.tabItem { Label("Paramètres", systemImage: "gear") }
 		}
+		.tint(Color("TextColor"))
 	}
-}
-#Preview {
-	ContentView()
 }

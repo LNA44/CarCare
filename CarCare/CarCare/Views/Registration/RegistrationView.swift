@@ -8,108 +8,143 @@
 import SwiftUI
 
 struct RegistrationView: View {
-	@EnvironmentObject var bikeVM: BikeVM
+	@ObservedObject var bikeVM: BikeVM
 	@EnvironmentObject var appState: AppState
 	@State private var shouldNavigate = false
+	@State private var selectedBrand: Brand = .Unknown
+	@State private var selectedModel: String = ""
+	@State private var selectedType: BikeType = .Manual
+	@State private var yearText: String = ""
+	@State private var identificationNumber: String = ""
 	
-    var body: some View {
+	var body: some View {
 		NavigationStack {
-			ScrollView {
-				Image(systemName: "car.fill")
-					.resizable()
-					.scaledToFit()
-					.frame(width: 80, height: 80)
-					.foregroundColor(.blue)
+			VStack {
+				VStack {
+					VStack (spacing: 20) {
+						Text(NSLocalizedString("welcome_key", comment: ""))
+							.font(.system(size: 22, weight: .bold, design: .rounded))
+							.frame(maxWidth: .infinity, alignment: .leading)
+						
+						Text(NSLocalizedString("bike_info_key", comment: ""))
+							.frame(maxWidth: .infinity, alignment: .leading)
+					}
 					.padding(.top, 40)
-				
-				VStack (spacing: 40){
-					Text("Bienvenue")
-						.font(.largeTitle)
-						.bold()
 					
-					Text("Entrez les informations de votre vélo")
-						.font(.largeTitle)
-						.multilineTextAlignment(.center)
-				}
-				.padding(.horizontal, 20)
-				
-				
-				VStack (spacing: 40) {
-					
-					VStack {
-						Text("Marque")
-						Picker("Marque", selection: $bikeVM.brand) {
-							ForEach(Brand.allCases) { brand in
-								Text(brand.rawValue).tag(brand)
-							}
-						}
-						.pickerStyle(MenuPickerStyle()) // Menu déroulant
-					}
-					
-					VStack {
-						Text("Modèle")
-						Picker("Modèle", selection: $bikeVM.model) {
-							ForEach(bikeVM.models, id: \.self) { model in
-								Text(model).tag(model)
-							}
-						}
-						.pickerStyle(MenuPickerStyle())
-					}
-					
-					VStack (spacing: 50){
+					VStack (spacing: 20) {
 						VStack {
-							Text("Année")
-							TextField("Année", text: Binding(
-								get: { String(bikeVM.year) }, // get convertit l’Int en String pour l’affichage
-								set: { bikeVM.year = Int($0) ?? bikeVM.year } //set convertit le String saisi en Int, en laissant l’ancienne valeur si conversion impossible.
-							))
-							.keyboardType(.numberPad)
+							Text(NSLocalizedString("brand_key", comment: ""))
+								.frame(maxWidth: .infinity, alignment: .leading)
+							
+							Picker("Marque", selection: $selectedBrand) {
+								ForEach(Brand.allCases) { brand in
+									Text(brand.localizedName).tag(brand)
+										.font(.system(size: 16, weight: .regular, design: .rounded))
+								}
+							}
+							.tint(Color("TextColor"))
+							.onChange(of: selectedBrand) {_, newBrand in
+								if !newBrand.models.contains(selectedModel) {
+									selectedModel = newBrand.models.first ?? ""
+								}
+							}
+							.pickerStyle(MenuPickerStyle()) // Menu déroulant
+							.frame(maxWidth: .infinity, alignment: .leading)
 							.frame(height: 40)
-							.multilineTextAlignment(.center)
-							.background(Color .gray)
+							.background(Color("InputSurfaceColor"))
+							.cornerRadius(10)
+							
+						}
+						
+						VStack {
+							Text(NSLocalizedString("model_key", comment: ""))
+								.frame(maxWidth: .infinity, alignment: .leading)
+							
+							Picker("Modèle", selection: Binding(
+								get: {
+									selectedBrand.models.contains(selectedModel) ? selectedModel : selectedBrand.models.first ?? ""
+								},
+								set: { newValue in
+									selectedModel = newValue
+								}
+							)) {
+								ForEach(selectedBrand.models, id: \.self) { model in
+									Text(model).tag(model)
+										.font(.system(size: 16, weight: .regular, design: .rounded))
+								}
+							}
+							.tint(Color("TextColor"))
+							.pickerStyle(MenuPickerStyle())
+							.frame(maxWidth: .infinity, alignment: .leading)
+							.frame(height: 40)
+							.background(Color("InputSurfaceColor"))
 							.cornerRadius(10)
 						}
 						
 						VStack {
-							Text("Numéro d'identification (optionnel)")
-							TextField("identificationNumber", text: Binding(
-								get: { bikeVM.identificationNumber ?? "" },
-								set: { bikeVM.identificationNumber = $0 }
-							))
-							.keyboardType(.numberPad)
+							Text(NSLocalizedString("type_key", comment: ""))
+								.foregroundColor(Color("TextColor"))
+								.frame(maxWidth: .infinity, alignment: .leading)
+							Picker("Type", selection: $selectedType) {
+								ForEach(BikeType.allCases, id: \.self) { type in
+									Text(type.localizedName).tag(type)
+										.font(.system(size: 16, weight: .regular, design: .rounded))
+								}
+							}
+							.tint(Color("TextColor"))
+							.pickerStyle(MenuPickerStyle())
+							.frame(maxWidth: .infinity, alignment: .leading)
 							.frame(height: 40)
-							.multilineTextAlignment(.center)
-							.background(Color .gray)
+							.background(Color("InputSurfaceColor"))
 							.cornerRadius(10)
 						}
+						.frame(maxWidth: .infinity)
+						
+						VStack {
+							Text(NSLocalizedString("year_of_manufacture_key", comment: ""))
+								.frame(maxWidth: .infinity, alignment: .leading)
+							
+							CustomTextField(placeholder: "", text: $yearText)
+							.keyboardType(.numberPad)
+						}
+						
+						VStack {
+							Text(NSLocalizedString("identification_number_message_key", comment: ""))
+								.frame(maxWidth: .infinity, alignment: .leading)
+							
+							CustomTextField(placeholder: "", text: $identificationNumber)
+						}
+						
 					}
-					.padding(.horizontal, 70)
+					.padding(.top, 40)
 				}
-				.padding(.vertical, 50)
-				.bold()
+				.font(.system(size: 16, weight: .bold, design: .rounded))
+				.foregroundColor(Color("TextColor"))
 				
-				Button(action: {
-					let success = bikeVM.addBike()
+				Spacer()
+				
+				PrimaryButton(title: NSLocalizedString("button_add_bike_key", comment: ""), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
+					let success = bikeVM.addBike(brand: selectedBrand, model: selectedModel, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
+					print("Type de vélo: \(selectedType)")
 					if success {
 						shouldNavigate = true
+						appState.status = .ready
 					}
-					appState.status = .ready
-				}) {
-					Text("Ajouter le vélo")
-						.foregroundColor(.white)
 				}
-				.frame(width: 180)
-				.padding()
-				.background(Color .red)
-				.cornerRadius(10)
 			}
+			.padding(.horizontal, 10)
 			.navigationDestination(isPresented: $shouldNavigate) {
+			}
+			.frame(maxWidth: .infinity)
+			.contentShape(Rectangle()) // rend la zone tappable même vide
+			.onTapGesture {
+				UIApplication.shared.endEditing()
 			}
 		}
 		.alert(isPresented: $bikeVM.showAlert) {
 			Alert(
-				title: Text("Erreur"),
-				message: Text(bikeVM.error?.errorDescription ?? "Erreur inconnue"),
+				title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
+				message: Text(bikeVM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
 				dismissButton: .default(Text("OK")) {
 					bikeVM.showAlert = false
 					bikeVM.error = nil
@@ -119,6 +154,8 @@ struct RegistrationView: View {
 	}
 }
 
-#Preview {
-    RegistrationView()
+extension UIApplication {
+	func endEditing() {
+		sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+	}
 }

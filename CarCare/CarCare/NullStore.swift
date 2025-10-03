@@ -13,10 +13,13 @@ extension NullStore: MaintenanceStore {
 	func insert(_ maintenance: LocalMaintenance) throws {}
 	func retrieve () throws -> [LocalMaintenance] { [] }
 	func update(_ maintenance: LocalMaintenance) throws {}
+	func deleteAll() throws {}
+	func deleteOne(_ maintenance: LocalMaintenance) throws {}
 }
 
 extension NullStore: BikeStore {
 	func insert(_ bike: LocalBike) throws {}
 	func retrieve () throws -> LocalBike? {nil}
 	func update(_ bike: LocalBike) throws {}
+	func delete(_ bike: LocalBike) throws {}
 }

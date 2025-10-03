@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class LocalMaintenanceLoader {
+class LocalMaintenanceLoader {
 	
 	private let store: MaintenanceStore
 	
@@ -20,21 +20,31 @@ final class LocalMaintenanceLoader {
 	}
 	
 	func save(_ maintenance: Maintenance) throws {
+		print("on est dans save")
 		try store.insert(maintenance.toLocal())
+		print("maintenance toLocal : \(maintenance.toLocal())")
 	}
 	
 	func update(_ maintenance: Maintenance) throws {
 		try store.update(maintenance.toLocal())
 	}
-}
-
-private extension Array where Element == LocalMaintenance {
-	func toModels() -> [Maintenance] {
-		map { Maintenance(id: $0.id, maintenanceType: MaintenanceType(rawValue: $0.maintenanceType) ?? .Unknown, date: $0.date, reminder: $0.reminder) }
+	
+	func deleteAll() throws {
+		try store.deleteAll()
+	}
+	
+	func deleteOne(_ maintenance: Maintenance) throws {
+		try store.deleteOne(maintenance.toLocal())
 	}
 }
 
-private extension Maintenance {
+extension Array where Element == LocalMaintenance {
+	func toModels() -> [Maintenance] {
+		map { Maintenance(id: $0.id, maintenanceType: MaintenanceType(fromCoreDataString: $0.maintenanceType), date: $0.date, reminder: $0.reminder) }
+	}
+}
+
+extension Maintenance {
 	func toLocal() -> LocalMaintenance {
 		LocalMaintenance(id: id, maintenanceType: maintenanceType.rawValue, date: date, reminder: reminder)
 	}

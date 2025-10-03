@@ -40,6 +40,11 @@ extension ManagedBike {
 		return managed
 	}
 	
+	static func delete(_ bike: ManagedBike, in context: NSManagedObjectContext) throws {
+		context.delete(bike)
+		try context.save()
+	}
+	
 	var local: LocalBike {
 		LocalBike(id: id, year: Int(year), model: model, brand: Brand(rawValue: brand) ?? .Unknown, bikeType: BikeType(rawValue: bikeType) ?? .Manual, identificationNumber: identificationNumber)
 	}

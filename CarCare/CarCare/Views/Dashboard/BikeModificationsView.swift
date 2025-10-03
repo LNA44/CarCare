@@ -8,137 +8,197 @@
 import SwiftUI
 
 struct BikeModificationsView: View {
-	@EnvironmentObject var bikeVM: BikeVM
-	@Binding var showingSheet: Bool
+	@EnvironmentObject var appState: AppState
+	@Environment(\.dismiss) private var dismiss
+	@ObservedObject var bikeVM: BikeVM
+	@ObservedObject var notificationVM: NotificationViewModel
 	@State private var selectedBrand: Brand = .Unknown
-	@State private var selectedModel: String? = nil //optionnel pour la modif de selectedBrand et selectedModel pas encore redéfini
+	@State private var selectedModel: String = ""
 	@State private var yearText: String = ""
 	@State private var selectedType: BikeType = .Manual
 	@State private var identificationNumber: String = ""
+	@State private var showDeleteAlert = false
+	var onDelete: (() -> Void)? = nil
 
-
-    var body: some View {
-		ScrollView {
-			VStack {
-				Text("Modifie les informations de ton vélo")
-					.font(.largeTitle)
-					.multilineTextAlignment(.center)
-			}
-			.padding(.top, 20)
-			.padding(.horizontal, 20)
+	
+	var body: some View {
+		VStack {
+			Image(systemName: "bicycle")
+				.resizable()
+				.frame(width: 70, height: 40)
+				.foregroundColor(Color("TextColor"))
+				.padding(.top, 10)
 			
-			
-			VStack (spacing: 40) {
+			VStack(spacing: 20) {
 				VStack {
-					Text("Marque")
+					Text(NSLocalizedString("brand_key", comment: ""))
+						.frame(maxWidth: .infinity, alignment: .leading)
+						.foregroundColor(Color("TextColor"))
 					Picker("Marque", selection: $selectedBrand) {
 						ForEach(Brand.allCases) { brand in
-							Text(brand.rawValue).tag(brand)
+							Text(brand.localizedName).tag(brand)
+								.font(.system(size: 16, weight: .regular, design: .rounded))
 						}
 					}
-					.onChange(of: selectedBrand) { newBrand in
-						if !newBrand.models.contains(selectedModel ?? "") {
+					.onChange(of: selectedBrand) {_, newBrand in
+						if !newBrand.models.contains(selectedModel) {
 							selectedModel = newBrand.models.first ?? ""
 						}
 					}
+					.tint(Color("TextColor"))
 					.pickerStyle(MenuPickerStyle()) // Menu déroulant
+					.frame(maxWidth: .infinity, alignment: .leading)
+					.frame(height: 40)
+					.background(Color("InputSurfaceColor"))
+					.cornerRadius(10)
 				}
 				
 				VStack {
-					Text("Modèle")
+					Text(NSLocalizedString("model_key", comment: ""))
+						.frame(maxWidth: .infinity, alignment: .leading)
+						.foregroundColor(Color("TextColor"))
 					Picker("Modèle", selection: Binding(
-						get: { //quand picker affiché
-							// Si selectedModel n'est pas dans la liste, on prend le premier modèle
-							if let selectedModel = selectedModel, selectedBrand.models.contains(selectedModel) {
-								return selectedModel
-							} else {
-								return selectedBrand.models.first ?? ""
-							}
+						get: {
+							selectedBrand.models.contains(selectedModel) ? selectedModel : selectedBrand.models.first ?? ""
 						},
-						set: { selectedModel = $0 //quand utilisateur change sélection dans picker : assigne cette valeur à selectedModel
+						set: { newValue in
+							selectedModel = newValue
 						}
 					)) {
 						ForEach(selectedBrand.models, id: \.self) { model in
 							Text(model).tag(model)
+								.font(.system(size: 16, weight: .regular, design: .rounded))
 						}
 					}
+					.tint(Color("TextColor"))
 					.pickerStyle(MenuPickerStyle())
+					.frame(maxWidth: .infinity, alignment: .leading)
+					.frame(height: 40)
+					.background(Color("InputSurfaceColor"))
+					.cornerRadius(10)
 				}
 				
 				VStack {
-					Text("Type")
+					Text(NSLocalizedString("type_key", comment: ""))
+						.frame(maxWidth: .infinity, alignment: .leading)
+						.foregroundColor(Color("TextColor"))
+					
 					Picker("Type", selection: $selectedType) {
 						ForEach(BikeType.allCases, id: \.self) { type in
-							Text(type.rawValue).tag(type)
+							Text(type.localizedName).tag(type)
+								.font(.system(size: 16, weight: .regular, design: .rounded))
 						}
 					}
+					.tint(Color("TextColor"))
+					.pickerStyle(MenuPickerStyle())
+					.frame(maxWidth: .infinity, alignment: .leading)
+					.frame(height: 40)
+					.background(Color("InputSurfaceColor"))
+					.cornerRadius(10)
+				}
+				.frame(maxWidth: .infinity)
+				
+				VStack {
+					Text(NSLocalizedString("year_of_manufacture_key", comment: ""))
+						.frame(maxWidth: .infinity, alignment: .leading)
+						.foregroundColor(Color("TextColor"))
+					
+					CustomTextField(placeholder: "", text: $yearText)
 				}
 				
-				VStack (spacing: 50){
-					VStack {
-						Text("Année")
-						TextField("Année", text: $yearText)
-							.frame(height: 40)
-							.multilineTextAlignment(.center)
-							.background(Color .gray.opacity(0.2))
-							.cornerRadius(10)
-					}
+				VStack {
+					Text(NSLocalizedString("identification_number_message_key", comment: ""))
+						.frame(maxWidth: .infinity, alignment: .leading)
+						.foregroundColor(Color("TextColor"))
 					
-					VStack {
-						Text("Numéro d'identification")
-						TextField("NuméroIdentification", text: $identificationNumber)
-							.frame(height: 40)
-							.multilineTextAlignment(.center)
-							.background(Color .gray.opacity(0.2))
-							.cornerRadius(10)
-					}
+					CustomTextField(placeholder: "", text: $identificationNumber)
 				}
-				.padding(.horizontal, 70)
 			}
-			.padding(.vertical, 50)
-			.bold()
+			.font(.system(size: 16, weight: .bold, design: .rounded))
 			
-			Button(action: {
-				bikeVM.modifyBikeInformations(brand: selectedBrand, model: selectedModel ?? "", year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
-				showingSheet = false
-				bikeVM.fetchBikeData()
-			}) {
-				Text("Modifier les informations")
-					.foregroundColor(.white)
-			}
-			.frame(width: 240)
-			.padding()
-			.background(Color .red)
-			.cornerRadius(10)
-			.onAppear {
-				if let bike = bikeVM.bike {
-					selectedBrand = bike.brand
-					selectedType = bike.bikeType
-					yearText = String(bike.year)
-					// Vérifie que le modèle enregistré existe bien dans la liste des modèles de la marque
-					if bike.brand.models.contains(bike.model) {
-						selectedModel = bike.model
-					} else {
-						// Sinon on prend le premier modèle disponible
-						selectedModel = bike.brand.models.first ?? ""
-					}
+			Spacer()
+			
+			VStack(spacing: 20) {
+				PrimaryButton(title: NSLocalizedString("button_delete_bike", comment: "Titre du bouton pour supprimer le vélo"), foregroundColor: .white, backgroundColor: Color("ToDoColor")) {
+					showDeleteAlert = true
+				}
+				
+				PrimaryButton(title: NSLocalizedString("button_Modify_information_key", comment: ""), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
+					bikeVM.modifyBikeInformations(brand: selectedBrand, model: selectedModel, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
+						dismiss()
 				}
 			}
 		}
-		.alert(isPresented: $bikeVM.showAlert) {
-			Alert(
-				title: Text("Erreur"),
-				message: Text(bikeVM.error?.errorDescription ?? "Erreur inconnue"),
-				dismissButton: .default(Text("OK")) {
-					bikeVM.showAlert = false
-					bikeVM.error = nil
+		.onAppear {
+			self.selectedBrand = bikeVM.brand
+			self.selectedModel = bikeVM.model
+			self.selectedType = bikeVM.bikeType
+			self.yearText = String(bikeVM.year)
+			self.identificationNumber = bikeVM.identificationNumber
+		}
+		.frame(maxWidth: .infinity)
+		.contentShape(Rectangle()) // rend la zone tappable même vide
+		.onTapGesture {
+			UIApplication.shared.endEditing()
+		}
+		.navigationBarBackButtonHidden(true)
+		.toolbar {
+			ToolbarItem(placement: .principal) {
+				Text(NSLocalizedString("navigation_title_modify_bike_key", comment: ""))
+					.font(.system(size: 22, weight: .bold, design: .rounded))
+					.foregroundColor(Color("TextColor"))
+			}
+			
+			ToolbarItem(placement: .navigationBarLeading) {
+				Button(action: {
+					dismiss()
+				}) {
+					Text(NSLocalizedString("return_key", comment: ""))
+						.font(.system(size: 16, weight: .regular, design: .rounded))
+						.foregroundColor(Color("TextColor"))
+				}
+			}
+		}
+		.padding(.horizontal, 10)
+		.alert(
+			isPresented: Binding(
+				get: { showDeleteAlert || bikeVM.showAlert },
+				set: { newValue in
+					if !newValue {
+						showDeleteAlert = false
+						bikeVM.showAlert = false
+					}
 				}
 			)
+		) {
+			if showDeleteAlert {
+				return Alert(
+					title: Text(NSLocalizedString("delete_bike_confirmation_title", comment: "Confirmation message before deleting a bike")),
+					primaryButton: .destructive(Text(NSLocalizedString("delete_bike_confirm", comment: "Delete bike confirmation button"))) {
+						bikeVM.deleteCurrentBike()
+						notificationVM.cancelAllNotifications()
+						onDelete?()
+						withAnimation {
+							appState.status = .needsVehicleRegistration
+						}
+					},
+					secondaryButton: .cancel(Text(NSLocalizedString("delete_bike_cancel", comment: "Cancel delete bike button")))
+				)
+			} else {
+				return Alert(
+					title: Text(NSLocalizedString("error_title", comment: "")),
+					message: Text(bikeVM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "")),
+					dismissButton: .default(Text("OK")) {
+						bikeVM.showAlert = false
+						bikeVM.error = nil
+					}
+				)
+			}
 		}
 	}
 }
 
 /*#Preview {
-	BikeModificationsView(viewModel: viewModel, showingSheet: <#T##Binding<Bool>#>)
-}
+ BikeModificationsView(viewModel: viewModel, showingSheet: <#T##Binding<Bool>#>)
+ }
 */

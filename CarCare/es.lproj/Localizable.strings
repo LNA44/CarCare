@@ -1,0 +1,170 @@
+/* 
+  Localizable.strings
+  CarCare
+
+  Created by Ordinateur elena on 05/09/2025.
+  
+*/
+//TabView
+"dashboard_key" = "Inicio";
+"maintenance_key" = "Mantenimientos";
+"Settings_key" = "Ajustes";
+
+//Onboarding
+"question_welcome" = "¡Bienvenido a MyBikeMate!";
+"question_daily_use" = "¿Usas tu bicicleta a diario y estás cansado de olvidar cuándo programar el próximo mantenimiento?";
+"question_sell_bike" = "¿Quieres demostrar que tu bicicleta está al día con su mantenimiento? ";
+"question_share_history" = "¿Quieres compartir el historial de mantenimiento con tu mecánico?";
+"button_next" = "Siguiente";
+"button_start" = "Comenzar";
+
+//NotificationIntroView
+"stay_informed_key" = "Mantente informado";
+"enable_notifications_text_key" = "¡Active las notificaciones para recibir recordatorios de mantenimiento y no perderse nada!";
+"enable_notifications_button_key" = "Activar notificaciones";
+"error_title_key" = "Error";
+"success_title_key" = "Éxito";
+"notifications_enabled_message_key" = "¡Notificaciones activadas con éxito!";
+
+//RegistrationView
+"welcome_key" = "¡Bienvenido a la aplicación!";
+"bike_info_key" = "Introduce la información de tu bicicleta";
+"brand_key" = "Marca";
+"model_key" = "Modelo";
+"type_key" = "Tipo";
+"year_of_manufacture_key" = "Año de fabricación";
+"identification_number_message_key" = "Número de identificación (opcional)";
+"button_add_bike_key" = "Agregar bicicleta";
+
+//DashboardView
+"navigation_title_modify_bike_key" = "Mi bicicleta";
+"bike_year_label" = "Fecha de fabricación: %d";
+"last_maintenance_key" = "Último mantenimiento";
+"button_modify_bike_information" = "Modificar la información de la bicicleta";
+"button_Add_Maintenance" = "Agregar mantenimiento";
+"no_date_key" = "Sin fecha";
+"identification_number_key" = "Número de identificación: %@";
+
+//PDF
+"bike_label" = "Bicicleta";
+"type_label" = "Tipo";
+"year_label" = "Año";
+"identification_number_label" = "Número de identificación";
+"maintenance_type_label" = "Tipo de mantenimiento";
+"date_label" = "Fecha";
+
+//BikeInformationView
+"return_key" = "Volver";
+"button_delete_bike" = "Eliminar mi bicicleta";
+"button_Modify_information_key" = "Modificar la información";
+"delete_bike_confirmation_title" = "¿Está seguro de que desea eliminar la bicicleta?";
+"delete_bike_confirm" = "Eliminar";
+"delete_bike_cancel" = "Cancelar";
+
+//AddMaintenanceView
+"navigation_title_add_maintenance_key" = "Agregar mantenimiento";
+"maintenance_Type_key" = "Tipo de mantenimiento";
+"maintenance_date_key" = "Fecha del mantenimiento";
+"done_key" = "Terminado";
+
+//MaintenanceView
+"maintenances_to_come" = "Mantenimientos próximos";
+"completed_maintenances" = "Mantenimientos completados";
+"record_maintenance_instructions_key" = "Registre un mantenimiento realizado de cada categoría para ver los próximos mantenimientos y el historial.";
+
+//ToDoRowMaintenances
+"days_remaining_key" = "%d día(s) restante(s)";
+"unknown_days_remaining_key" = "Número de días restantes desconocido";
+
+//MaintenanceDetailsView
+"frequency_key" = "Frecuencia: %@";
+"every_days_key" = "cada %d día(s)";
+"every_months_key" = "cada %d mes(es)";
+"every_year_key" = "cada %d año(s)";
+"button_update_key" = "Actualizar";
+"maintenance_history_key" = "Historial de mantenimiento";
+"advice_and_information_key" = "Consejos e información";
+
+//SettingsView
+"navigation_title_settings_key" = "Ajustes";
+"appearence_key" = "Apariencia";
+"dark_mode_key" = "Modo oscuro";
+"notifications_key" = "Notificaciones";
+"handle_notifications_key" = "Gestionar notificaciones";
+"information_key" = "Información";
+"legal_notice_key" = "Aviso legal";
+
+//Enum MaintenanceType
+"tires" = "Neumáticos";
+"brake_pads" = "Pastillas de freno";
+"battery" = "Batería";
+"unknown" = "Desconocido";
+"check_tire_pressure" = "Revisar la presión de los neumáticos";
+"replace_tires" = "Cambiar neumáticos";
+"clean_and_lubricate_chain" = "Limpiar y lubricar la cadena";
+"tighten_main_screws_and_bolts" = "Apretar tornillos y pernos principales";
+"clean_drivetrain" = "Limpiar la transmisión";
+"lubricate_cables_and_housings" = "Lubricar cables y fundas";
+"grease_bottom_bracket" = "Engrasar el eje del pedalier";
+"replace_cables_and_housings" = "Reemplazar cables y fundas";
+"bleed_hydraulic_brakes" = "Sangrar frenos hidráulicos";
+"service_bearings" = "Revisar rodamientos";
+"replace_chain" = "Reemplazar la cadena";
+"run_software_and_battery_diagnostics" = "Diagnóstico de software y batería";
+
+"tires_description" = "La limpieza básica consiste en:\n- Limpiar el cuadro con un paño húmedo\n- Verificar el estado de los neumáticos\n- Comprobar la presión";
+"brake_pads_description" = "El ajuste de los frenos requiere herramientas";
+"battery_description" = "El mantenimiento de la cadena incluye:\n- Limpieza con desengrasante\n- Lubricación de los eslabones\n- Comprobación del desgaste";
+"unknown_description" = "Desconocido";
+//new
+"check_tire_pressure_description" = "Un neumático correctamente inflado permite un viaje más cómodo, reduce el riesgo de pinchazos y evita el desgaste prematuro. Comprueba la presión una vez por semana, especialmente si usas la bicicleta a diario. Usa un manómetro o una bomba con indicador y ajusta según el rango indicado en el flanco del neumático (ej.: 4–6 bares para bici de carretera, 2–3 bares para MTB). Con neumáticos poco inflados, corres el riesgo de pellizcar la cámara en un bache. Con neumáticos sobreinflados, disminuye la comodidad y se pierde adherencia.";
+"replace_tires_description" = "Los neumáticos nunca deben estar completamente lisos, y los flancos no deben presentar grietas. Si lo están, deben reemplazarse inmediatamente, ya que un neumático desgastado o dañado aumenta significativamente el riesgo de pinchazo o explosión. Los neumáticos lisos reducen la tracción, lo que puede provocar caídas, especialmente en superficies mojadas o inestables. Los neumáticos son el único punto de contacto con el suelo: su estado impacta directamente en la seguridad. Nunca subestimes la importancia de buenos neumáticos para un viaje seguro.";
+"clean_and_lubricate_chain_description" = "Una cadena limpia y lubricada prolonga la vida útil de toda la transmisión. Límpiala una vez al mes con un paño y un desengrasante ligero. Evita el chorro de alta presión que elimina la grasa de los rodamientos. Después de limpiar, aplica aceite específico para bicicleta (no aceite de motor ni WD-40 solo) y quita el exceso: demasiado aceite atrae polvo. Una buena lubricación permite un pedaleo suave y previene el desgaste prematuro de piñones y platos. ¡No esperes a que la cadena parezca seca o haga ruidos para lubricarla!";
+"tighten_main_screws_and_bolts_description" = "Las vibraciones pueden aflojar algunos tornillos. Revisa una vez al mes los principales: potencia, manillar, sillín, pedales y portaequipajes. Usa llaves Allen adecuadas y, si es posible, una llave dinamométrica para respetar el par de apriete indicado (generalmente en la pieza). Demasiado flojo = riesgo de juego o caída; demasiado apretado = riesgo de dañar la rosca o romper piezas de carbono.";
+"clean_drivetrain_description" = "Con el tiempo, la transmisión de la bicicleta se ensucia: grasa, polvo y a veces barro se acumulan en los platos, cassette y poleas del cambio. Resultado: los cambios funcionan peor, el pedaleo es menos suave y las piezas se desgastan más rápido. Se recomienda limpiar la transmisión cada tres meses, especialmente si se usa a diario. Puedes hacerlo tú mismo: quita la rueda trasera para acceder mejor al cassette, cepilla los dientes con un cepillo viejo o especial, y seca con un paño. Las poleas del cambio también necesitan limpieza. Evita el chorro de alta presión que elimina la grasa de los rodamientos. Una vez limpio, seca y lubrica la cadena. Notarás cambios: los cambios serán más suaves y la transmisión durará más.";
+"lubricate_cables_and_housings_description" = "Los cables y fundas de freno y cambio se oxidan con el tiempo, especialmente si se mojan. Cada seis meses, aplica unas gotas de aceite ligero en las fundas (o spray adecuado). Esto hace el frenado más reactivo y los cambios más suaves. Siempre quita el exceso para no atraer polvo o arena. Si notas fricción, el cable se está desgastando y debe reemplazarse.";
+"grease_bottom_bracket_description" = "El eje del pedalier contiene rodamientos que permiten que las bielas giren sin resistencia. Con el tiempo y los kilómetros, la grasa se seca o contamina, causando crujidos, juego";
+
+//Enum BikeType
+"manual" = "Manual";
+"electric" = "Eléctrico";
+
+//Error
+"error_title" = "Error";
+"unknown_error" = "Error desconocido";
+"bike_error" = "Error relacionado con la bicicleta";
+"maintenance_error" = "Error relacionado con los mantenimientos";
+
+"bike_load_failed" = "Ocurrió un error al cargar la bicicleta.";
+"data_unavailable" = "Sus datos no están disponibles.";
+"loading_data_failed" = "Error al cargar los datos: %@.";
+"fetch_data_failed" = "Error al cargar los datos: %@.";
+"save_data_failed" = "Error al guardar los datos: %@.";
+"notification_error" = "Ocurrió un error al enviar la notificación.";
+"notification_not_authorized" = "Las notificaciones no están autorizadas.";
+"bike_not_found" = "La bicicleta no se encontró.";
+"unknown_error" = "Ocurrió un error inesperado.";
+
+//Enum MaintenanceStatus
+"maintenance_up_to_date" = "Al día";
+"maintenance_soon_due" = "Próximamente a planificar";
+"maintenance_due" = "A planificar";
+
+//Enum Brand
+"Unknown" = "Desconocido";
+
+//MaintenanceStatus message in MaintenanceDetailsView
+"maintenance_message_up_to_date" = "Estás al día";
+"maintenance_message_not_yet" = "Aún no tienes que preocuparte";
+"maintenance_message_due" = "¡Es hora! Agenda una cita con el mecánico más cercano";
+
+//Paywall
+"paywall_title" = "Hazte Premium 🚴‍♂️";
+"paywall_description" = "Desbloquea todas las funciones y añade tantos mantenimientos como quieras!";
+"paywall_weekly" = "Semanal";
+"paywall_yearly" = "Anual";
+"paywall_price_weekly" = "2€ / semana";
+"paywall_price_yearly" = "30€ / año";
+"paywall_button_upgrade" = "Hazte Premium";
+"paywall_button_restore" = "Restaurar compras";
+"paywall_button_cancel" = "Cancelar";

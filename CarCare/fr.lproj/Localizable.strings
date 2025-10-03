@@ -1,0 +1,173 @@
+/* 
+  Localizable.strings
+  CarCare
+
+  Created by Ordinateur elena on 05/09/2025.
+  
+*/
+//TabView
+"dashboard_key" = "Accueil";
+"maintenance_key" = "Entretiens";
+"Settings_key" = "Paramètres";
+
+//Onboarding
+"question_welcome" = "Bienvenue dans MyBikeMate !";
+"question_daily_use" = "Tu utilises ton vélo au quotidien et tu en as marre de ne plus te rappeler quand programmer ton prochain entretien ?";
+"question_sell_bike" = "Tu veux prouver que ton vélo est à jour dans son entretien?";
+"question_share_history" = "Tu veux partager l’historique d’entretien avec ton réparateur ?";
+"button_next" = "Suivant";
+"button_start" = "Commencer";
+
+//NotificationIntroView
+"stay_informed_key" = "Restez informé";
+"enable_notifications_text_key" = "Activez les notifications pour être informé des rappels des entretiens à réaliser et ne rien manquer !";
+"enable_notifications_button_key" = "Activer les notifications";
+"error_title_key" = "Erreur";
+"success_title_key" = "Succès";
+"notifications_enabled_message_key" = "Notifications activées avec succès !";
+
+//RegistrationView
+"welcome_key" = "Bienvenue dans l'application!";
+"bike_info_key" = "Entre les informations de ton vélo";
+"brand_key" = "Marque";
+"model_key" = "Modèle";
+"type_key" = "Type";
+"year_of_manufacture_key" = "Année de fabrication";
+"identification_number_message_key" = "Numéro d'identification (optionnel)";
+"button_add_bike_key" = "Ajouter le vélo";
+
+//DashboardView
+"navigation_title_modify_bike_key" = "Mon vélo";
+"bike_year_label" = "Date de fabrication : %d";
+"last_maintenance_key" = "Dernier entretien";
+"button_modify_bike_information" = "Modifer les infos du vélo";
+"button_Add_Maintenance" = "Ajouter un entretien";
+"no_date_key" = "Pas de date";
+"identification_number_key" = "Numéro d'identification : %@";
+
+//PDF
+"bike_label" = "Vélo";
+"type_label" = "Type";
+"year_label" = "Année";
+"identification_number_label" = "Numéro d'identification";
+"maintenance_type_label" = "Type de maintenance";
+"date_label" = "Date";
+
+//BikeInformationView
+"return_key" = "Retour";
+"button_delete_bike" = "Supprimer mon vélo";
+"button_Modify_information_key" = "Modifiers les informations";
+"delete_bike_confirmation_title" = "Êtes-vous sûr de vouloir supprimer le vélo ?";
+"delete_bike_confirm" = "Supprimer";
+"delete_bike_cancel" = "Annuler";
+
+//AddMaintenanceView
+"navigation_title_add_maintenance_key" = "Ajouter un entretien";
+"maintenance_Type_key" = "Type d'entretien";
+"maintenance_date_key" = "Date de l'entretien";
+"done_key" = "Terminé";
+
+//MaintenanceView
+"maintenances_to_come" = "Maintenances à venir";
+"completed_maintenances" = "Maintenances terminées";
+"record_maintenance_instructions_key" = "Enregistrez un entretien réalisé de chaque catégorie pour voir les prochains entretiens à venir et l'historique.";
+
+//ToDoRowMaintenances
+"days_remaining_key" = "%d jour(s) restant(s)";
+"unknown_days_remaining_key" = "Nombre de jours restants inconnu";
+
+//MaintenanceDetailsView
+"frequency_key" = "Fréquence: %@";
+"every_days_key" = "tous les %d jour(s)";
+"every_months_key" = "tous les %d mois";
+"every_year_key" = "tous les %d ans";
+"button_update_key" = "Mettre à jour";
+"maintenance_history_key" = "Historique d'entretien";
+"advice_and_information_key" = "Conseils & infos";
+
+//SettingsView
+"navigation_title_settings_key" = "Paramètres";
+"appearence_key" = "Apparence";
+"dark_mode_key" = "Mode sombre";
+"notifications_key" = "Notifications";
+"handle_notifications_key" = "Gérer les notifications";
+"information_key" = "Informations";
+"legal_notice_key" = "Mentions légales";
+
+//Enum MaintenanceType
+"unknown" = "Inconnu";
+//new
+"check_tire_pressure" = "Vérifier la pression des pneus";
+"replace_tires" = "Changer les pneus";
+"clean_and_lubricate_chain" = "Nettoyer et lubrifier la chaîne";
+"tighten_main_screws_and_bolts" = "Resserrer les vis et boulons principaux";
+"clean_drivetrain" = "Nettoyer la transmission";
+"lubricate_cables_and_housings" = "Lubrifier les câbles et gaines";
+"grease_bottom_bracket" = "Graisser le boîtier de pédalier";
+"replace_cables_and_housings" = "Remplacer les câbles et gaines";
+"bleed_hydraulic_brakes" = "Purger les freins hydrauliques";
+"service_bearings" = "Réviser les roulements";
+"replace_chain" = "Changer la chaîne";
+"run_software_and_battery_diagnostics" = "Diagnostiquer logiciel et batterie";
+
+"tires_description" = "Le nettoyage de base consiste à :\n- Nettoyer le cadre avec un chiffon humide\n- Vérifier l'état des pneus\n- Contrôler la pression";
+"brake_pads_description" = "Le réglage des freins nécessite des outils";
+"battery_description" = "L'entretien de la chaîne comprend :\n- Nettoyage avec un dégraissant\n- Lubrification des maillons\n- Vérification de l'usure";
+"unknown_description" = "Inconnu";
+//new
+"check_tire_pressure_description" = "Un pneu bien gonflé permet de rouler plus confortablement, de réduire les risques de crevaison et d’éviter une usure prématurée. Vérifie la pression une fois par semaine, surtout si tu utilises ton vélo tous les jours. Utilise un manomètre ou une pompe avec indicateur, et gonfle selon la plage inscrite sur le flanc du pneu (exemple : 4 à 6 bars pour un vélo de route, 2 à 3 bars pour un VTT). Si tu roules sous-gonflé, tu risques de pincer la chambre à air dans un nid-de-poule. Si tu roules surgonflé, le confort diminue et tu perds en adhérence.";
+"replace_tires_description" = "Les pneus ne doivent jamais être complètement lisses et les flancs ne doivent présenter aucune craquelure. Si c’est le cas, ils doivent être remplacés immédiatement, car un pneu usé ou abîmé augmente fortement le risque de crevaison, voire d’explosion. Des pneus lisses réduisent considérablement l’adhérence, ce qui peut provoquer des chutes, surtout sur sol mouillé ou instable. Les pneus constituent le seul point de contact entre le vélo et le sol : leur état a un impact direct sur la sécurité. Ne jamais sous-estimer l’importance de pneus en bon état pour rouler sereinement.";
+"clean_and_lubricate_chain_description" = "Une chaîne propre et lubrifiée prolonge la durée de vie de toute la transmission. Nettoie-la une fois par mois avec un chiffon et un dégraissant léger. Évite le jet haute pression qui chasse la graisse des roulements. Après nettoyage, applique une huile spéciale vélo (pas d’huile moteur ni de WD-40 seul) et essuie l’excédent : une chaîne trop huilée attire la poussière. Une bonne lubrification rend le pédalage fluide et évite l’usure prématurée des pignons et plateaux. N’attends pas que la chaine soit visuellement sèche ou craque à l’utilisation pour la lubrifier !";
+"tighten_main_screws_and_bolts_description" = "Avec les vibrations, certaines vis peuvent se desserrer. Vérifie une fois par mois les vis principales : potence, cintre, selle, pédales et porte-bagage. Utilise des clés Allen adaptées, et si possible une clé dynamométrique pour respecter le couple de serrage (souvent indiqué sur la pièce). Un serrage trop faible = risque de jeu ou de chute, un serrage trop fort = risque de casser le filetage ou fissurer une pièce en carbone.";
+"clean_drivetrain_description" = "Avec le temps, la transmission de ton vélo s’encrasse : la graisse, la poussière et parfois la boue s’accumulent sur les plateaux, la cassette et les galets du dérailleur. Résultat : les vitesses passent moins bien, le pédalage devient moins fluide et l’usure des pièces s’accélère. C’est pourquoi il est conseillé de nettoyer la transmission environ tous les trois mois, surtout si tu utilises ton vélo tous les jours. Tu peux le faire toi-même facilement : retire la roue arrière pour mieux accéder à la cassette, brosse les dents avec une vieille brosse à dents ou une brosse spéciale, puis essuie avec un chiffon. Les galets du dérailleur méritent aussi un petit grattage car ils accumulent beaucoup de saleté. Évite absolument le jet haute pression qui chasse la graisse des roulements. Une fois le nettoyage terminé, sèche bien les pièces et assure-toi que la chaîne est lubrifiée. Tu verras tout de suite la différence : les vitesses passeront plus nettement et ta transmission durera beaucoup plus longtemps.";
+"lubricate_cables_and_housings_description" = "Les câbles et gaines de frein et de vitesse s’oxydent avec le temps, surtout s’ils prennent l’humidité. Tous les six mois, mets quelques gouttes d’huile fluide dans les gaines (ou un spray adapté). Cela rend le freinage plus réactif et les vitesses plus souples. Essuie toujours l’excédent pour éviter d’attirer poussière et sable. Si tu sens que ça accroche malgré la lubrification, cela veut dire que le câble commence à s’user et devra être changé.";
+"grease_bottom_bracket_description" = "Le boîtier de pédalier contient les roulements qui permettent à tes manivelles de tourner sans résistance. Avec le temps et les kilomètres, la graisse sèche ou se contamine, ce qui peut provoquer des grincements, du jeu latéral ou un pédalage moins fluide. Un entretien régulier, environ tous les six mois, permet d’éviter ces problèmes. Mais attention : ce n’est pas une opération facile à faire soi-même car il faut démonter les manivelles et avoir des outils spécifiques. Dans la majorité des cas, il vaut mieux confier ce graissage à un réparateur. Il se chargera de démonter le boîtier, nettoyer les roulements et remettre une graisse adaptée avant de tout resserrer au bon couple. Si tu sens un craquement à chaque coup de pédale ou si tes manivelles bougent de gauche à droite, c’est un signe clair que le boîtier a besoin d’attention. Ne tarde pas, car des roulements négligés peuvent finir par se gripper et nécessiter un remplacement complet.";
+"replace_cables_and_housings_description" = "Même bien lubrifiés, les câbles s’effilochent, rouillent et perdent de leur efficacité. Une fois par an, fais-les remplacer par un réparateur. Cela garantit un freinage net et une transmission précise. Si tu attends trop, le câble peut casser en pleine sortie, ce qui est dangereux. Les gaines neuves réduisent aussi les frottements et donnent l’impression d’avoir un vélo plus “réactif”.";
+"bleed_hydraulic_brakes_description" = "Si ton vélo a des freins hydrauliques, il faut changer le liquide environ une fois par an. Avec le temps, il se charge en bulles d’air et perd en efficacité. Résultat : un freinage mou et imprécis. La purge doit être faite par un pro, car elle nécessite des outils et du liquide spécifique (DOT ou minéral selon la marque). Si tu sens ton levier s’enfoncer trop facilement ou si ton freinage devient aléatoire, n’attends pas.";
+"service_bearings_description" = "Les roulements se trouvent dans les moyeux de roues, le boîtier de pédalier et la direction. Ils assurent la fluidité du vélo. Une fois par an, demande une révision complète : nettoyage, graissage et remplacement si nécessaire. Si tu entends des craquements ou si le pédalage devient dur, c’est signe que les roulements souffrent. Des roulements bien entretenus prolongent la vie du vélo et rendent le pédalage plus agréable.";
+"replace_chain_description" = "Même bien lubrifiée, une chaîne finit par s’allonger avec l’usure. Une fois par an (pour un usage quotidien), elle doit être remplacée. Sinon, elle use prématurément la cassette et les plateaux, ce qui coûte beaucoup plus cher. On peut vérifier l’usure avec un outil spécifique appelé “testeur de chaîne”. Un réparateur saura mesurer et changer rapidement la chaîne. Attention : la chaine et cassettes sont deux éléments intimement liés, il faut systématiquement remplacer les deux en même temps !";
+"run_software_and_battery_diagnostics_description" = "Les vélos électriques modernes possèdent une électronique de contrôle (moteur, batterie, capteurs). Une fois par an, fais un diagnostic chez un réparateur agréé. Cela permet de vérifier l’état de la batterie (capacité restante), de mettre à jour le firmware et de détecter d’éventuelles erreurs avant qu’elles ne posent problème. Il faut surveiller régulièrement l’autonomie de la batterie et vérifier qu’elle ne chauffe pas pendant l’utilisation du vélo. En cas de chute ou de choc, la batterie doit être remplacée immédiatement. En effet, un impact peut déséquilibrer les cellules internes, ce qui présente un risque sérieux d’inflammation ou d’endommagement irréversible. \n Ne tente jamais de continuer à utiliser une batterie endommagée.";
+
+//Enum BikeType
+"manual" = "Manuel";
+"electric" = "Électrique";
+
+//Error
+"error_title" = "Erreur";
+"unknown_error" = "Erreur inconnue";
+"bike_error" = "Erreur liée au vélo";
+"maintenance_error" = "Erreur liée aux entretiens";
+
+"bike_load_failed" = "Une erreur est survenue lors du chargement du vélo.";
+"data_unavailable" = "Vos données ne sont pas disponibles.";
+"loading_data_failed" = "Erreur lors du chargement des données : %@.";
+"fetch_data_failed" = "Erreur lors du chargement des données : %@.";
+"save_data_failed" = "Erreur lors de la sauvegarde des données : %@.";
+"notification_error" = "Une erreur est survenue lors de l'envoi de la notification.";
+"notification_not_authorized" = "Les notifications ne sont pas autorisées.";
+"bike_not_found" = "Le vélo n'a pas été trouvé.";
+"unknown_error_message" = "Une erreur inattendue est survenue.";
+
+//Enum MaintenanceStatus
+"maintenance_up_to_date" = "À jour";
+"maintenance_soon_due" = "Bientôt à prévoir";
+"maintenance_due" = "À prévoir";
+
+//Enum Brand
+"Unknown" = "Inconnu";
+
+//MaintenanceStatus message in MaintenanceDetailsView
+"maintenance_message_up_to_date" = "Tu es à jour";
+"maintenance_message_not_yet" = "Tu n'as pas encore à t'en préoccuper";
+"maintenance_message_due" = "C'est l'heure! Pense à prendre rendez-vous chez le réparateur le plus proche";
+
+//Paywall
+"paywall_title" = "Passez Premium 🚴‍♂️";
+"paywall_description" = "Débloquez toutes les fonctionnalités et ajoutez autant de maintenances que vous voulez !";
+"paywall_weekly" = "Hebdomadaire";
+"paywall_yearly" = "Annuel";
+"paywall_price_weekly" = "2€ / semaine";
+"paywall_price_yearly" = "30€ / an";
+"paywall_button_upgrade" = "Devenir Premium";
+"paywall_button_restore" = "Restaurer les achats";
+"paywall_button_cancel" = "Annuler";

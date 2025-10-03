@@ -8,55 +8,164 @@
 import SwiftUI
 
 struct AddMaintenanceView: View {
-	@EnvironmentObject var maintenanceVM: MaintenanceVM
-	@Binding var showingSheet: Bool
+	@Environment(\.dismiss) private var dismiss
+	@ObservedObject var bikeVM: BikeVM
+	@ObservedObject var maintenanceVM: MaintenanceVM
+	@ObservedObject var notificationVM: NotificationViewModel
+	@StateObject private var VM: AddMaintenanceVM
+	@State private var showPaywall = false
+	@AppStorage("isPremiumUser") private var isPremiumUser = false
+	@State var showingDatePicker: Bool = false
+	var onAdd: () -> Void
+	
+	let formatter: DateFormatter = {
+		let df = DateFormatter()
+		df.dateStyle = .medium   // format type "27 août 2025"
+		df.timeStyle = .none     // on n'affiche pas l'heure
+		df.locale = Locale.current
+		return df
+	}()
+	
+	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM, onAdd: @escaping () -> Void, notificationVM: NotificationViewModel) {
+		self.bikeVM = bikeVM
+		self.maintenanceVM = maintenanceVM
+		self.onAdd = onAdd
+		self.notificationVM = notificationVM
+		_VM = StateObject(wrappedValue: AddMaintenanceVM(maintenanceVM: maintenanceVM, notificationVM: notificationVM))
+	}
 	
 	var body: some View {
-		VStack(spacing: 20) {
-			Text("Maintenance effectuée")
-			VStack {
-				Text("Type")
-				Picker("Type", selection: $maintenanceVM.selectedMaintenanceType) {
-					ForEach(MaintenanceType.allCases) { maintenanceType in
-						Text(maintenanceType.rawValue).tag(maintenanceType)
+		VStack {
+			VStack(spacing: 20) {
+				VStack {
+					Text(NSLocalizedString("maintenance_Type_key", comment: ""))
+						.font(.system(size: 16, weight: .bold, design: .rounded))
+						.foregroundColor(Color("TextColor"))
+						.frame(maxWidth: .infinity, alignment: .leading)
+					
+					Picker("Type", selection: $VM.selectedMaintenanceType) {
+						ForEach(VM.filteredMaintenanceTypes(for: bikeVM.bikeType), id: \.self) { maintenanceType in
+							Text(maintenanceType.localizedName).tag(maintenanceType)
+								.font(.system(size: 16, weight: .regular, design: .rounded))
+						}
+					}
+					.tint(Color("TextColor"))
+					.pickerStyle(MenuPickerStyle())
+					.frame(maxWidth: .infinity, alignment: .leading)
+					.frame(height: 40)
+					.background(Color("InputSurfaceColor"))
+					.cornerRadius(10)
+				}
+				
+				VStack {
+					Text(NSLocalizedString("maintenance_date_key", comment: ""))
+						.font(.system(size: 16, weight: .bold, design: .rounded))
+						.foregroundColor(Color("TextColor"))
+						.frame(maxWidth: .infinity, alignment: .leading)
+					
+					Button(action: { showingDatePicker = true }) {
+						HStack {
+							Text(formatter.string(from: VM.selectedMaintenanceDate ?? Date()))
+								.foregroundColor(Color("TextColor"))
+								.font(.system(size: 16, weight: .regular, design: .rounded))
+
+							Spacer()
+							
+							Image(systemName: "calendar")
+								.foregroundColor(.gray)
+						}
+						.padding(.horizontal, 10)
+						.frame(height: 40)
+						.background(Color("InputSurfaceColor"))
+						.cornerRadius(10)
 					}
 				}
-				.pickerStyle(MenuPickerStyle())
-				
-				DatePicker(
-					"Date de maintenance",
-					selection: $maintenanceVM.selectedMaintenanceDate,  // binding vers une Date
-					displayedComponents: [.date]         // on peut choisir date, heure ou les deux
-				)
-				.datePickerStyle(.compact)
 			}
 			
-			Button(action: {
-				maintenanceVM.addMaintenance()
-				showingSheet = false // ferme la sheet
-			}) {
-				Text("Ajouter l'entretien")
-					.frame(maxWidth: .infinity)
-					.padding()
-					.background(Color.blue.cornerRadius(10))
-					.foregroundColor(.white)
-					.padding(.horizontal)
+			Spacer()
+			
+			PrimaryButton(title: NSLocalizedString("button_Add_Maintenance", comment: ""), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
+				if isPremiumUser || maintenanceVM.maintenances.count < 3 {
+					VM.addMaintenance(bikeType: bikeVM.bikeType)
+					onAdd() //pour recharger la dernière maintenance dans Dashboard
+					dismiss()
+				} else {
+					showPaywall = true // Afficher un sheet ou alert
+				}
 			}
 		}
-		.alert(isPresented: $maintenanceVM.showAlert) {
-			Alert(
-				title: Text("Erreur"),
-				message: Text(maintenanceVM.error?.errorDescription ?? "Erreur inconnue"),
-				dismissButton: .default(Text("OK")) {
-					maintenanceVM.showAlert = false
-					maintenanceVM.error = nil
+		.toolbar {
+			ToolbarItem(placement: .principal) {
+				Text(NSLocalizedString("navigation_title_add_maintenance_key", comment: ""))
+					.font(.system(size: 22, weight: .bold, design: .rounded))
+					.foregroundColor(Color("TextColor"))
+			}
+		}
+		.sheet(isPresented: $showingDatePicker) {
+			DatePicker(
+				"Sélectionnez la date",
+				selection: Binding(
+					get: { VM.selectedMaintenanceDate ?? Date() },   // valeur par défaut si nil
+					set: { VM.selectedMaintenanceDate = $0 }
+				),
+				displayedComponents: [.date]
+			)
+			.datePickerStyle(.wheel)
+			.labelsHidden()
+			.padding()
+			Button(NSLocalizedString("done_key", comment: "")) {
+				showingDatePicker = false   // ferme la sheet
+			}
+			.padding()
+		}
+		.sheet(isPresented: $showPaywall) {
+			PaywallView()
+		}
+		.padding(.horizontal, 10)
+		.padding(.top, 20)
+		.navigationBarBackButtonHidden(true)
+		.toolbar {
+			ToolbarItem(placement: .navigationBarLeading) {
+				Button(action: {
+					dismiss()
+				}) {
+					Text(NSLocalizedString("return_key", comment: ""))
+						.font(.system(size: 16, weight: .regular, design: .rounded))
+						.foregroundColor(Color("TextColor"))
+				}
+			}
+		}
+		.alert(
+			isPresented: Binding(
+				get: { maintenanceVM.showAlert || bikeVM.showAlert },
+				set: { newValue in
+					if !newValue {
+						maintenanceVM.showAlert = false
+						bikeVM.showAlert = false
+					}
 				}
 			)
+		) {
+			if maintenanceVM.showAlert {
+				return Alert(
+					title: Text("Erreur"),
+					message: Text(maintenanceVM.error?.errorDescription ?? "Erreur inconnue"),
+					dismissButton: .default(Text("OK")) {
+						maintenanceVM.showAlert = false
+						maintenanceVM.error = nil
+					}
+				)
+			} else {
+				return Alert(
+					title: Text(NSLocalizedString("error_title", comment: "Title for error alert")),
+					message: Text(bikeVM.error?.localizedDescription ?? NSLocalizedString("unknown_error", comment: "Fallback unknown error")),
+					dismissButton: .default(Text("OK")) {
+						bikeVM.showAlert = false
+						bikeVM.error = nil
+					}
+				)
+			}
 		}
 	}
 }
 
-/*#Preview {
-	AddMaintenanceView(viewModel: DashboardVM())
-}
-*/

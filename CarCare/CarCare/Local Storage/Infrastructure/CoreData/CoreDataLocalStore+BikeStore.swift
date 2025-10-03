@@ -9,7 +9,7 @@ import CoreData
 
 extension CoreDataLocalStore: BikeStore {
 	func insert(_ bike: LocalBike) throws {
-		try performSync { context in
+		_ = try performSync { context in
 			Result {
 				try ManagedBike.new(from: bike, in: context)
 			}
@@ -35,6 +35,17 @@ extension CoreDataLocalStore: BikeStore {
 					managedBike.year = Int32(bike.year)
 					managedBike.bikeType = bike.bikeType.rawValue
 					managedBike.identificationNumber = bike.identificationNumber
+					try context.save()
+				}
+			}
+		}
+	}
+	
+	func delete(_ bike: LocalBike) throws {
+		try performSync { context in
+			Result {
+				if let managedBike = try ManagedBike.find(in: context).first(where: { $0.id == bike.id }) {
+					try ManagedBike.delete(managedBike, in: context)
 					try context.save()
 				}
 			}
