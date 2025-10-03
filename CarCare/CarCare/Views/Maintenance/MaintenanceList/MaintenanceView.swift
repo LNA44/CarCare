@@ -63,7 +63,7 @@ struct MaintenanceView: View {
 								.textCase(nil)) {
 									ForEach(maintenanceVM.maintenances.reversed(), id: \.self) { maintenance in
 										DoneMaintenanceRow(maintenance: maintenance)
-											.listRowBackground(Color("MaintenanceHistoryColor"))
+											.listRowBackground(Color("InputSurfaceColor"))
 									}
 					
 									.onDelete { offsets in
