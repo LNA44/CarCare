@@ -31,7 +31,7 @@ extension ManagedBike {
 		managed.id = local.id
 		managed.year = Int32(local.year)
 		managed.model = local.model
-		managed.brand = local.brand.rawValue
+		managed.brand = local.brand
 		managed.bikeType = local.bikeType.rawValue
 		managed.identificationNumber = local.identificationNumber
 		
@@ -46,7 +46,7 @@ extension ManagedBike {
 	}
 	
 	var local: LocalBike {
-		LocalBike(id: id, year: Int(year), model: model, brand: Brand(rawValue: brand) ?? .Unknown, bikeType: BikeType(rawValue: bikeType) ?? .Manual, identificationNumber: identificationNumber)
+		LocalBike(id: id, year: Int(year), model: model, brand: brand, bikeType: BikeType(rawValue: bikeType) ?? .Manual, identificationNumber: identificationNumber)
 	}
 }
 

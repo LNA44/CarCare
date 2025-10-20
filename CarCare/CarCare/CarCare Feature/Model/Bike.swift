@@ -9,7 +9,7 @@ import Foundation
 
 struct Bike {
 	let id: UUID
-	var brand : Brand
+	var brand : String
 	var model : String
 	var year : Int
 	var bikeType: BikeType

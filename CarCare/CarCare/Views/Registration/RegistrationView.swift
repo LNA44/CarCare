@@ -11,8 +11,8 @@ struct RegistrationView: View {
 	@ObservedObject var bikeVM: BikeVM
 	@EnvironmentObject var appState: AppState
 	@State private var shouldNavigate = false
-	@State private var selectedBrand: Brand = .Unknown
-	@State private var selectedModel: String = ""
+    @State private var brandText: String = ""
+    @State private var modelText: String = ""
 	@State private var selectedType: BikeType = .Manual
 	@State private var yearText: String = ""
 	@State private var identificationNumber: String = ""
@@ -35,50 +35,15 @@ struct RegistrationView: View {
 						VStack {
 							Text(NSLocalizedString("brand_key", comment: ""))
 								.frame(maxWidth: .infinity, alignment: .leading)
-							
-							Picker("Marque", selection: $selectedBrand) {
-								ForEach(Brand.allCases) { brand in
-									Text(brand.localizedName).tag(brand)
-										.font(.system(size: 16, weight: .regular, design: .rounded))
-								}
-							}
-							.tint(Color("TextColor"))
-							.onChange(of: selectedBrand) {_, newBrand in
-								if !newBrand.models.contains(selectedModel) {
-									selectedModel = newBrand.models.first ?? ""
-								}
-							}
-							.pickerStyle(MenuPickerStyle()) // Menu déroulant
-							.frame(maxWidth: .infinity, alignment: .leading)
-							.frame(height: 40)
-							.background(Color("InputSurfaceColor"))
-							.cornerRadius(10)
-							
+                                
+                                CustomTextField(placeholder: "", text: $brandText)
 						}
 						
 						VStack {
 							Text(NSLocalizedString("model_key", comment: ""))
 								.frame(maxWidth: .infinity, alignment: .leading)
 							
-							Picker("Modèle", selection: Binding(
-								get: {
-									selectedBrand.models.contains(selectedModel) ? selectedModel : selectedBrand.models.first ?? ""
-								},
-								set: { newValue in
-									selectedModel = newValue
-								}
-							)) {
-								ForEach(selectedBrand.models, id: \.self) { model in
-									Text(model).tag(model)
-										.font(.system(size: 16, weight: .regular, design: .rounded))
-								}
-							}
-							.tint(Color("TextColor"))
-							.pickerStyle(MenuPickerStyle())
-							.frame(maxWidth: .infinity, alignment: .leading)
-							.frame(height: 40)
-							.background(Color("InputSurfaceColor"))
-							.cornerRadius(10)
+                            CustomTextField(placeholder: "", text: $modelText)
 						}
 						
 						VStack {
@@ -124,9 +89,9 @@ struct RegistrationView: View {
 				Spacer()
 				
 				PrimaryButton(title: NSLocalizedString("button_add_bike_key", comment: ""), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
-					let success = bikeVM.addBike(brand: selectedBrand, model: selectedModel, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
-					print("Type de vélo: \(selectedType)")
-					if success {
+					let success = bikeVM.addBike(brand: brandText, model: modelText, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber)
+                    print("Type de vélo: \(selectedType)")
+                    if success && brandText != "" && modelText != "" && yearText != "" {
 						shouldNavigate = true
 						appState.status = .ready
 					}

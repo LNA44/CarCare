@@ -58,7 +58,7 @@ final class ExportPDFHelper {
 			
 			// Infos vélo
 			let bikeInfo = """
-			\(NSLocalizedString("bike_label", comment: "Label for Bike")) : \(bike.brand.localizedName) \(bike.model)
+			\(NSLocalizedString("bike_label", comment: "Label for Bike")) : \(bike.brand) \(bike.model)
 			\(NSLocalizedString("type_label", comment: "Label for Bike type")) : \(bike.bikeType.localizedName.capitalized)
 			\(NSLocalizedString("year_label", comment: "Label for Bike year")) : \(bike.year)
 			\(NSLocalizedString("identification_number_label", comment: "Label for identification number")) : \(bike.identificationNumber)

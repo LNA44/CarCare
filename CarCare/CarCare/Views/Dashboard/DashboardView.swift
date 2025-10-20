@@ -66,7 +66,7 @@ struct DashboardView: View {
 					
 					VStack {
 						VStack {
-							Text("\(bikeVM.brand) - \(bikeVM.model)" as String)
+							Text("\(bikeVM.brand) - \(bikeVM.model)")
 								.font(.system(size: 24, weight: .bold, design: .rounded))
 								.padding(.top, 40)
 								.padding(.horizontal, 15)
@@ -208,121 +208,103 @@ struct DashboardView: View {
 					.buttonStyle(.plain)
 					.padding(.horizontal, 10)
 					.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
-					
-					/*NavigationLink(
-						destination: AddMaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, onAdd: {
-							VM.fetchLastMaintenance(for: bikeVM.bikeType) //closure appelée après dismiss
-							maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
-						}, notificationVM: notificationVM),
-						isActive: $goToAdd
-					) {
-						Text(NSLocalizedString("button_Add_Maintenance", comment: ""))
-							.font(.system(size: 16, weight: .bold, design: .rounded))
-							.foregroundColor(.white)
-							.frame(maxWidth: .infinity)
-							.padding()
-							.background(Color("AppPrimaryColor"))
-							.cornerRadius(10)
-					}
-					.padding(.bottom, 20)
-					.padding(.horizontal, 10)
-					.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)*/
-					Button {
-								goToAdd = true
-							} label: {
-								Text(NSLocalizedString("button_Add_Maintenance", comment: ""))
-									.font(.system(size: 16, weight: .bold, design: .rounded))
-									.foregroundColor(.white)
-									.frame(maxWidth: .infinity)
-									.padding()
-									.background(Color("AppPrimaryColor"))
-									.cornerRadius(10)
-							}
-							.padding(.bottom, 20)
-							.padding(.horizontal, 10)
-							.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
-				}
-				.navigationDestination(isPresented: $goToAdd) {
-						AddMaintenanceView(
-							bikeVM: bikeVM,
-							maintenanceVM: maintenanceVM,
-							onAdd: {
-								VM.fetchLastMaintenance(for: bikeVM.bikeType)
-								maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
-							},
-							notificationVM: notificationVM
-						)
-					}
-				.padding(.top, 10)
-			}
-			.padding(.top, 20)
-			.cornerRadius(15)
-			.navigationBarBackButtonHidden(true)
-			.onAppear {
-				guard !didLoadData else { return } //evite boucle lors du changement de light dark mode
-				didLoadData = true
-				bikeVM.fetchBikeData() { //bikeData mises dans publised
-					VM.fetchLastMaintenance(for: bikeVM.bikeType)
-					maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType) //utile pour statut général entretien
-				}
-			}
-			.onChange(of: bikeVM.bikeType) { _, newValue in
-				VM.fetchLastMaintenance(for: newValue)
-				maintenanceVM.fetchAllMaintenance(for: newValue)
-			}
-			.onChange(of: maintenanceVM.maintenances) {_, _ in
-				VM.fetchLastMaintenance(for: bikeVM.bikeType)
-			}
-		}
-		.background(
-			LinearGradient(
-				gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor2")]),
-				startPoint: .top,
-				endPoint: .bottom
-			)
-		)
-		.toolbar {
-			ToolbarItem(placement: .principal) {
-				Text(NSLocalizedString("navigation_title_modify_bike_key", comment: ""))
-					.font(.system(size: 22, weight: .bold, design: .rounded))
-					.foregroundColor(Color("TextColor"))
-			}
-			
-			ToolbarItem(placement: .navigationBarTrailing) {
-				Button(action: {
-					if isPremiumUser {
-						guard let bike = bikeVM.bike else {
-							print("Aucun vélo disponible")
-							return
-						}
-						ExportPDFHelper().sharePDF(
-							bike: bike,
-							from: maintenanceVM.maintenances
-						)
-					} else {
-						showPaywall = true
-					}
-				}) {
-					Image(systemName: "square.and.arrow.up")
-						.imageScale(.large)
-						.foregroundColor(Color("TextColor"))
-				}
-			}
-		}
-		.fullScreenCover(isPresented: $showPaywall) {
-			PaywallView()
-		}
-		.navigationBarTitleDisplayMode(.inline)
-		.alert(
-			isPresented: Binding(
-				get: { bikeVM.showAlert || maintenanceVM.showAlert || VM.showAlert },
-				set: { newValue in
-					if !newValue {
-						bikeVM.showAlert = false
-						maintenanceVM.showAlert = false
-						VM.showAlert = false
-					}
-				}
+                    
+                    Button {
+                        goToAdd = true
+                    } label: {
+                        Text(NSLocalizedString("button_Add_Maintenance", comment: ""))
+                            .font(.system(size: 16, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color("AppPrimaryColor"))
+                            .cornerRadius(10)
+                    }
+                    .padding(.bottom, 20)
+                    .padding(.horizontal, 10)
+                    .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+                }
+                .navigationDestination(isPresented: $goToAdd) {
+                    AddMaintenanceView(
+                        bikeVM: bikeVM,
+                        maintenanceVM: maintenanceVM,
+                        onAdd: {
+                            VM.fetchLastMaintenance(for: bikeVM.bikeType)
+                            maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
+                        },
+                        notificationVM: notificationVM
+                    )
+                }
+                .padding(.top, 10)
+            }
+            .padding(.top, 20)
+            .cornerRadius(15)
+            .navigationBarBackButtonHidden(true)
+            .onAppear {
+                guard !didLoadData else { return } //evite boucle lors du changement de light dark mode
+                didLoadData = true
+                bikeVM.fetchBikeData() { //bikeData mises dans publised
+                    VM.fetchLastMaintenance(for: bikeVM.bikeType)
+                    maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType) //utile pour statut général entretien
+                }
+            }
+            .onChange(of: bikeVM.bikeType) { _, newValue in
+                VM.fetchLastMaintenance(for: newValue)
+                maintenanceVM.fetchAllMaintenance(for: newValue)
+            }
+            .onChange(of: maintenanceVM.maintenances) {_, _ in
+                VM.fetchLastMaintenance(for: bikeVM.bikeType)
+            }
+        }
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor2")]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(NSLocalizedString("navigation_title_modify_bike_key", comment: ""))
+                    .font(.system(size: 22, weight: .bold, design: .rounded))
+                    .foregroundColor(Color("TextColor"))
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    if isPremiumUser {
+                        guard let bike = bikeVM.bike else {
+                            print("Aucun vélo disponible")
+                            return
+                        }
+                        ExportPDFHelper().sharePDF(
+                            bike: bike,
+                            from: maintenanceVM.maintenances
+                        )
+                    } else {
+                        showPaywall = true
+                    }
+                }) {
+                    Image(systemName: "square.and.arrow.up")
+                        .imageScale(.large)
+                        .foregroundColor(Color("TextColor"))
+                }
+            }
+        }
+        .fullScreenCover(isPresented: $showPaywall) {
+            PaywallView()
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .alert(
+            isPresented: Binding(
+                get: { bikeVM.showAlert || maintenanceVM.showAlert || VM.showAlert },
+                set: { newValue in
+                    if !newValue {
+                        bikeVM.showAlert = false
+                        maintenanceVM.showAlert = false
+                        VM.showAlert = false
+                    }
+                }
 			)
 		) {
 			if bikeVM.showAlert {

@@ -10,11 +10,11 @@ import Foundation
 final class BikeVM: ObservableObject {
 	//MARK: -Public properties
 	@Published var model: String = ""
-	@Published var brand: Brand = .Unknown
+	@Published var brand: String = ""
 	@Published var mileage: Int = 0
 	@Published var year: Int = 0
 	@Published var bike: Bike? = nil 
-	@Published var models: [String] = ["Unknown"]
+	//@Published var models: [String] = ["Unknown"]
 	@Published var bikeType: BikeType = .Manual
 	@Published var identificationNumber: String = ""
 	@Published var error: AppError?
@@ -72,7 +72,7 @@ final class BikeVM: ObservableObject {
 		}
 	}
 	
-	func modifyBikeInformations(brand: Brand, model: String, year: Int, type: BikeType, identificationNumber: String) {
+	func modifyBikeInformations(brand: String, model: String, year: Int, type: BikeType, identificationNumber: String) {
 		print("modifyBikeInformations appelée")
 		guard bike != nil else { return }
 			bike!.brand = brand
@@ -104,7 +104,7 @@ final class BikeVM: ObservableObject {
 		}
 	}
 	
-	func addBike(brand: Brand, model: String, year: Int, type: BikeType, identificationNumber: String) -> Bool {
+	func addBike(brand: String, model: String, year: Int, type: BikeType, identificationNumber: String) -> Bool {
 		print("addBike appelée")
 		let bike = Bike(id: UUID(), brand: brand, model: model, year: year, bikeType: type, identificationNumber: identificationNumber)
 		print("Bike avant enregistrement: \(bike)")

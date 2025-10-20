@@ -11,7 +11,7 @@ struct LocalBike {
 	let id: UUID
 	let year: Int
 	let model: String
-	let brand: Brand
+	let brand: String
 	let bikeType: BikeType
 	let identificationNumber: String
 }
