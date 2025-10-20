@@ -14,4 +14,5 @@ struct Bike {
 	var year : Int
 	var bikeType: BikeType
 	var identificationNumber: String
+    var imageData: Data?
 }

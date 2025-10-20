@@ -14,4 +14,5 @@ struct LocalBike {
 	let brand: String
 	let bikeType: BikeType
 	let identificationNumber: String
+    let imageData: Data?
 }

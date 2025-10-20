@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class BikeVM: ObservableObject {
 	//MARK: -Public properties
@@ -46,6 +47,13 @@ final class BikeVM: ObservableObject {
 					self.bikeType = unwrappedBike.bikeType
 					self.identificationNumber = unwrappedBike.identificationNumber
 					self.bike = unwrappedBike
+                    
+                    if let imageData = unwrappedBike.imageData {
+                        print("ImageData size: \(imageData.count) bytes")
+                    } else {
+                        print("Pas d'image enregistrée")
+                    }
+                    
 					completion?()
 				}
 			} catch let error as LoadingCocoaError { //erreurs de load
@@ -72,7 +80,7 @@ final class BikeVM: ObservableObject {
 		}
 	}
 	
-	func modifyBikeInformations(brand: String, model: String, year: Int, type: BikeType, identificationNumber: String) {
+    func modifyBikeInformations(brand: String, model: String, year: Int, type: BikeType, identificationNumber: String, image: UIImage?) {
 		print("modifyBikeInformations appelée")
 		guard bike != nil else { return }
 			bike!.brand = brand
@@ -80,6 +88,12 @@ final class BikeVM: ObservableObject {
 			bike!.year = year
 			bike!.bikeType = type
 			bike!.identificationNumber = identificationNumber
+        // Convertir UIImage en Data
+           if let image = image {
+               bike!.imageData = image.jpegData(compressionQuality: 0.8)
+           } else {
+               bike!.imageData = nil
+           }
 		//met à jour les published après modif
 		self.brand = brand
 		self.model = model
@@ -104,11 +118,15 @@ final class BikeVM: ObservableObject {
 		}
 	}
 	
-	func addBike(brand: String, model: String, year: Int, type: BikeType, identificationNumber: String) -> Bool {
+    func addBike(brand: String, model: String, year: Int, type: BikeType, identificationNumber: String, image: UIImage?) -> Bool {
 		print("addBike appelée")
-		let bike = Bike(id: UUID(), brand: brand, model: model, year: year, bikeType: type, identificationNumber: identificationNumber)
+		var bike = Bike(id: UUID(), brand: brand, model: model, year: year, bikeType: type, identificationNumber: identificationNumber)
 		print("Bike avant enregistrement: \(bike)")
 
+        if let img = image {
+               bike.imageData = img.jpegData(compressionQuality: 0.8)
+           }
+        
 		do {
 			try bikeLoader.save(bike)
 			return true

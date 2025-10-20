@@ -28,7 +28,8 @@
 		F36E4A602E7D877800EB2FF5 /* FakeNotificationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A5F2E7D877800EB2FF5 /* FakeNotificationVM.swift */; };
 		F36E4A632E7D8B8000EB2FF5 /* CarCareAddMaintenanceDetailsVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A622E7D8B8000EB2FF5 /* CarCareAddMaintenanceDetailsVMTests.swift */; };
 		F36E4A652E7D8BDA00EB2FF5 /* FakeMaintenanceLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A642E7D8BDA00EB2FF5 /* FakeMaintenanceLoader.swift */; };
-		F3775CEE2EA6744B00F890E6 /* BrandModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3775CED2EA6744B00F890E6 /* BrandModel.swift */; };
+		F3775CF52EA6966300F890E6 /* BikePhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3775CF42EA6966300F890E6 /* BikePhotoPickerView.swift */; };
+		F3775CF72EA6978000F890E6 /* ImagePickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3775CF62EA6978000F890E6 /* ImagePickerHelper.swift */; };
 		F37D82832E5F601800F92A50 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37D82822E5F601800F92A50 /* CustomTextField.swift */; };
 		F37D82852E5F80ED00F92A50 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37D82842E5F80ED00F92A50 /* PrimaryButton.swift */; };
 		F3823AE92E5C635E00B9331B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3823AE82E5C635E00B9331B /* SettingsView.swift */; };
@@ -122,7 +123,8 @@
 		F36E4A5F2E7D877800EB2FF5 /* FakeNotificationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeNotificationVM.swift; sourceTree = "<group>"; };
 		F36E4A622E7D8B8000EB2FF5 /* CarCareAddMaintenanceDetailsVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarCareAddMaintenanceDetailsVMTests.swift; sourceTree = "<group>"; };
 		F36E4A642E7D8BDA00EB2FF5 /* FakeMaintenanceLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMaintenanceLoader.swift; sourceTree = "<group>"; };
-		F3775CED2EA6744B00F890E6 /* BrandModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandModel.swift; sourceTree = "<group>"; };
+		F3775CF42EA6966300F890E6 /* BikePhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikePhotoPickerView.swift; sourceTree = "<group>"; };
+		F3775CF62EA6978000F890E6 /* ImagePickerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerHelper.swift; sourceTree = "<group>"; };
 		F37D82562E5F552400F92A50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F37D82822E5F601800F92A50 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		F37D82842E5F80ED00F92A50 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
@@ -340,9 +342,17 @@
 			children = (
 				F3BFC9692E33810900043AB8 /* Maintenance.swift */,
 				F3BFC96B2E33810900043AB8 /* Bike.swift */,
-				F3775CED2EA6744B00F890E6 /* BrandModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		F3775CF32EA6965400F890E6 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				F3775CF42EA6966300F890E6 /* BikePhotoPickerView.swift */,
+				F3775CF62EA6978000F890E6 /* ImagePickerHelper.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		F37D827C2E5F559400F92A50 /* Resources */ = {
@@ -392,6 +402,7 @@
 		F3B77CA02E50DF2C00548F2D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F3775CF32EA6965400F890E6 /* Shared */,
 				F31F12F22E7EC9C600BEBA15 /* Onboarding */,
 				F39891542E771D0300245639 /* Paywall */,
 				F3823AEA2E5C67FF00B9331B /* Notification */,
@@ -660,11 +671,11 @@
 				F39891582E77233200245639 /* PlanSelectorButton.swift in Sources */,
 				F3BFC9A22E33810900043AB8 /* Bike.swift in Sources */,
 				F3BFC9A32E33810900043AB8 /* CarCare.xcdatamodeld in Sources */,
+				F3775CF52EA6966300F890E6 /* BikePhotoPickerView.swift in Sources */,
 				F3D7FC9C2E633FE30042A29A /* DashboardVM.swift in Sources */,
 				F3B77CA62E50DF9300548F2D /* BikeModificationsView.swift in Sources */,
 				F31F12FF2E7ED17800BEBA15 /* AnimationView.swift in Sources */,
 				F3BFC9A42E33810900043AB8 /* CoreDataHelpers.swift in Sources */,
-				F3775CEE2EA6744B00F890E6 /* BrandModel.swift in Sources */,
 				F3BFC9A52E33810900043AB8 /* CoreDataLocalStore.swift in Sources */,
 				F3823AF52E5C9AB700B9331B /* NotificationViewModel.swift in Sources */,
 				F3BFC9A62E33810900043AB8 /* CoreDataLocalStore+MaintenanceStore.swift in Sources */,
@@ -672,6 +683,7 @@
 				F37D82832E5F601800F92A50 /* CustomTextField.swift in Sources */,
 				F3BDB2F12E56033C0041F142 /* MaintenanceType.swift in Sources */,
 				F31F12F42E7EC9D600BEBA15 /* OnboardingView.swift in Sources */,
+				F3775CF72EA6978000F890E6 /* ImagePickerHelper.swift in Sources */,
 				F3BDB2EA2E55F0840041F142 /* MaintenanceVM.swift in Sources */,
 				F3BDB2EF2E5603120041F142 /* Brand.swift in Sources */,
 				F3BFC9A92E33810900043AB8 /* ManagedMaintenance.swift in Sources */,
@@ -905,6 +917,8 @@
 				INFOPLIST_FILE = "$(SRCROOT)/CarCare/Resources/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MyBikeMate;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to take a photo of your bike";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to choose a photo of your bike";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -937,6 +951,8 @@
 				INFOPLIST_FILE = "$(SRCROOT)/CarCare/Resources/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MyBikeMate;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to take a photo of your bike";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to choose a photo of your bike";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

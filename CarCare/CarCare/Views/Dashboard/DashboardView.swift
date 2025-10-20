@@ -106,14 +106,26 @@ struct DashboardView: View {
 							.fill(Color.white.opacity(0.2)) // overlay léger derrière
 							.frame(width: 110, height: 110)
 							.offset(y: -80)
-						Image("Riding")
-							.resizable()
-							.frame(width: 100, height: 100)
-							.clipShape(Circle())
-							.offset(y: -80)
-							.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
-					}
-				}
+                        if let imageData = bikeVM.bike?.imageData,
+                           let uiImage = UIImage(data: imageData) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .frame(width: 100, height: 100)
+                                .clipShape(Circle())
+                                .offset(y: -80)
+                                .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+                        } else if bikeVM.bike == nil {
+                                EmptyView()
+                        } else {
+                            Image("Riding") 
+                                .resizable()
+                                .frame(width: 100, height: 100)
+                                .clipShape(Circle())
+                                .offset(y: -80)
+                                .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+                        }
+                    }
+                }
 				.padding(.top, 20)
 				.padding(.horizontal, 15)
 				

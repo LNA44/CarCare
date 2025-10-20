@@ -33,13 +33,13 @@ struct LocalBikeLoader {
 
 extension Bike {
 	func toLocal() -> LocalBike {
-		LocalBike(id: id, year: year,model: model, brand: brand, bikeType: bikeType, identificationNumber: identificationNumber)
+        LocalBike(id: id, year: year,model: model, brand: brand, bikeType: bikeType, identificationNumber: identificationNumber, imageData: imageData)
 	}
 }
 
 
 extension LocalBike {
 	func toModel() -> Bike {
-		Bike(id: id, brand: brand, model: model, year: year, bikeType: bikeType, identificationNumber: identificationNumber)
+		Bike(id: id, brand: brand, model: model, year: year, bikeType: bikeType, identificationNumber: identificationNumber, imageData: imageData)
 	}
 }

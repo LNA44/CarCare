@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Brand: String, CaseIterable, Identifiable {
+/*enum Brand: String, CaseIterable, Identifiable {
         case ants11 = "11ANTS"
         case brand13 = "13"
         case bikes18 = "18 Bikes"
@@ -147,4 +147,4 @@ enum Brand: String, CaseIterable, Identifiable {
     var localizedName: String {
         NSLocalizedString(rawValue, comment: "Brand name")
     }
-}
+}*/

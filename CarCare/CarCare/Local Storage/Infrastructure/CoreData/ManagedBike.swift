@@ -16,6 +16,7 @@ class ManagedBike: NSManagedObject {
 	@NSManaged var bikeType: String
 	@NSManaged var maintenance : Set<ManagedMaintenance>?
 	@NSManaged var identificationNumber: String
+    @NSManaged var imageData: Data?
 }
 
 extension ManagedBike {
@@ -34,6 +35,7 @@ extension ManagedBike {
 		managed.brand = local.brand
 		managed.bikeType = local.bikeType.rawValue
 		managed.identificationNumber = local.identificationNumber
+        managed.imageData = local.imageData
 		
 		try context.save()
 		
@@ -46,7 +48,7 @@ extension ManagedBike {
 	}
 	
 	var local: LocalBike {
-		LocalBike(id: id, year: Int(year), model: model, brand: brand, bikeType: BikeType(rawValue: bikeType) ?? .Manual, identificationNumber: identificationNumber)
+        LocalBike(id: id, year: Int(year), model: model, brand: brand, bikeType: BikeType(rawValue: bikeType) ?? .Manual, identificationNumber: identificationNumber, imageData: imageData)
 	}
 }
 

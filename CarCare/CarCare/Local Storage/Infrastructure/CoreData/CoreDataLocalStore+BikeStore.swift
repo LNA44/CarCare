@@ -20,7 +20,7 @@ extension CoreDataLocalStore: BikeStore {
 		try performSync { context in
 			Result {
 				try ManagedBike.find(in: context).first.map {
-                    LocalBike(id: $0.id, year: Int($0.year), model: $0.model, brand: $0.brand, bikeType: BikeType(rawValue: $0.bikeType) ?? .Manual, identificationNumber: $0.identificationNumber)
+                    LocalBike(id: $0.id, year: Int($0.year), model: $0.model, brand: $0.brand, bikeType: BikeType(rawValue: $0.bikeType) ?? .Manual, identificationNumber: $0.identificationNumber, imageData: $0.imageData)
 				}
 			}
 		}
@@ -35,6 +35,7 @@ extension CoreDataLocalStore: BikeStore {
 					managedBike.year = Int32(bike.year)
 					managedBike.bikeType = bike.bikeType.rawValue
 					managedBike.identificationNumber = bike.identificationNumber
+                    managedBike.imageData = bike.imageData
 					try context.save()
 				}
 			}
