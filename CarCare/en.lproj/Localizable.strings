@@ -39,12 +39,12 @@
 
 //DashboardView
 "navigation_title_modify_bike_key" = "My bike";
-"bike_year_label" = "Manufacture date: %d";
+"bike_year_label" = "Manufacture :";
 "last_maintenance_key" = "Last maintenance";
 "button_modify_bike_information" = "Modify bike information";
 "button_Add_Maintenance" = "Add maintenance";
 "no_date_key" = "No date";
-"identification_number_key" = "Identification number: %@";
+"identification_number_key" = "Identification : ";
 
 //PDF
 "bike_label" = "Bike";

@@ -66,7 +66,7 @@ struct DashboardView: View {
 					
 					VStack {
 						VStack {
-							Text("\(bikeVM.brand) - \(bikeVM.model)")
+							Text("\(bikeVM.brand.uppercased()) - \(bikeVM.model)")
 								.font(.system(size: 24, weight: .bold, design: .rounded))
 								.padding(.top, 40)
 								.padding(.horizontal, 15)
@@ -74,27 +74,36 @@ struct DashboardView: View {
 								.shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
 								.padding(.bottom, 15)
 							
-							VStack(alignment: .leading, spacing: 8) {
-								HStack(spacing: 6) {
-									Image(systemName: "calendar")
-									Text(String(format: NSLocalizedString("bike_year_label", comment: ""), bikeVM.year))
-										.font(.system(size: 16, weight: .medium, design: .rounded))
-								}
-								
-								if !bikeVM.identificationNumber.isEmpty {
-									HStack(spacing: 6) {
-										Image(systemName: "barcode")
-										Text(String(
-											format: NSLocalizedString("identification_number_key", comment: "Label pour le numéro d'identification du vélo"),
-											bikeVM.identificationNumber
-										))
-										.font(.system(size: 16, weight: .regular, design: .rounded))
-									}
-								}
-							}
-							.foregroundColor(Color("BikeDescriptionColor"))
-							.frame(maxWidth: .infinity, alignment: .leading)
-							.padding(.horizontal, 30)
+                            HStack(spacing: 30) {
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text(String(format: NSLocalizedString("bike_year_label", comment: "")))
+                                        .foregroundColor(Color("TextColor"))
+                                        .font(.system(size: 16, weight: .medium, design: .rounded))
+                                    HStack {
+                                        Image(systemName: "calendar")
+                                        Text("\(bikeVM.year)")
+                                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                                    }
+                                }
+                                
+                                Rectangle()
+                                    .fill(Color("TextColor"))
+                                    .frame(width: 1)
+                                    .padding(.vertical, 0)
+                                
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text(String(
+                                        format: NSLocalizedString("identification_number_key", comment: "Label pour le numéro d'identification du vélo")
+                                    ))
+                                    .foregroundColor(Color("TextColor"))
+                                    .font(.system(size: 16, weight: .medium, design: .rounded))
+                                    HStack {
+                                        Image(systemName:"barcode")
+                                        Text("\(bikeVM.identificationNumber)")
+                                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                                    }
+                                }
+                            }
 						}
 						.padding(.top, 50)
 					}
@@ -103,7 +112,7 @@ struct DashboardView: View {
 					
 					ZStack {
 						Circle()
-							.fill(Color.white.opacity(0.2)) // overlay léger derrière
+							.fill(Color.white.opacity(0.2))
 							.frame(width: 110, height: 110)
 							.offset(y: -80)
                         if let imageData = bikeVM.bike?.imageData,
@@ -112,7 +121,7 @@ struct DashboardView: View {
                                 .resizable()
                                 .frame(width: 100, height: 100)
                                 .clipShape(Circle())
-                                .offset(y: -80)
+                                .offset(x: -5, y: -80)
                                 .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
                         } else if bikeVM.bike == nil {
                                 EmptyView()
