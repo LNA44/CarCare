@@ -35,7 +35,7 @@ final class AddMaintenanceVMTests: XCTestCase {
 
 	func test_addMaintenance_savesMaintenanceAndFetchesAll() {
 		// Given
-		addVM.selectedMaintenanceType = .BrakePads
+		addVM.selectedMaintenanceType = .BleedHydraulicBrakes
 		let bikeType: BikeType = .Manual
 		let selectedDate = Date()
 		addVM.selectedMaintenanceDate = selectedDate
@@ -52,13 +52,13 @@ final class AddMaintenanceVMTests: XCTestCase {
 		wait(for: [expectation], timeout: 1.0)
 		XCTAssertEqual(store.maintenances.count, 1)
 		XCTAssertEqual(notificationVM.scheduledNotifications.count, 1)
-		XCTAssertEqual(notificationVM.scheduledNotifications.first?.0, .BrakePads)
+		XCTAssertEqual(notificationVM.scheduledNotifications.first?.0, .BleedHydraulicBrakes)
 	}
 	
 	func test_addMaintenance_handlesStoreError() {
 		// Given
 		store.shouldThrowStoreError = true
-		addVM.selectedMaintenanceType = .BrakePads
+		addVM.selectedMaintenanceType = .BleedHydraulicBrakes
 		addVM.selectedMaintenanceDate = Date()
 
 		let expectation = XCTestExpectation(description: "Wait for addMaintenance error handling")
@@ -103,28 +103,28 @@ final class AddMaintenanceVMTests: XCTestCase {
 	func test_nextMaintenanceDate_returnsCorrectDate() {
 		// Given
 		let lastDate = Date()
-		let maintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: lastDate, reminder: true)
+		let maintenance = Maintenance(id: UUID(), maintenanceType: .BleedHydraulicBrakes, date: lastDate, reminder: true)
 		maintenanceVM.maintenances = [maintenance]
 		
 		// When
-		let nextDate = addVM.nextMaintenanceDate(for: .BrakePads)
+		let nextDate = addVM.nextMaintenanceDate(for: .BleedHydraulicBrakes)
 		
 		// Then
-		let expected = Calendar.current.date(byAdding: .day, value: MaintenanceType.BrakePads.frequencyInDays, to: lastDate)
+		let expected = Calendar.current.date(byAdding: .day, value: MaintenanceType.BleedHydraulicBrakes.frequencyInDays, to: lastDate)
 		XCTAssertEqual(nextDate, expected)
 	}
 	
 	func test_daysUntilNextMaintenance_returnsCorrectDays() {
 		// Given
 		let lastDate = Date()
-		let maintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: lastDate, reminder: true)
+		let maintenance = Maintenance(id: UUID(), maintenanceType: .BleedHydraulicBrakes, date: lastDate, reminder: true)
 		maintenanceVM.maintenances = [maintenance]
 		
 		// When
-		let days = addVM.daysUntilNextMaintenance(type: .BrakePads)
+		let days = addVM.daysUntilNextMaintenance(type: .BleedHydraulicBrakes)
 		
 		// Then
-		let expectedDate = Calendar.current.date(byAdding: .day, value: MaintenanceType.BrakePads.frequencyInDays, to: lastDate)!
+		let expectedDate = Calendar.current.date(byAdding: .day, value: MaintenanceType.BleedHydraulicBrakes.frequencyInDays, to: lastDate)!
 		let expectedDays = Calendar.current.dateComponents([.day], from: Date(), to: expectedDate).day
 		XCTAssertEqual(days, expectedDays)
 	}

@@ -36,7 +36,7 @@ final class CarCareMaintenanceVMTests: XCTestCase {
 		// Given
 		let manualBikeType: BikeType = .Manual
 		let runSoftwareAndBatteryDiagnosticsMaintenance = Maintenance(id: UUID(), maintenanceType: .RunSoftwareAndBatteryDiagnostics, date: Date(), reminder: false)
-		let brakeMaintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date(), reminder: false)
+		let brakeMaintenance = Maintenance(id: UUID(), maintenanceType: .BleedHydraulicBrakes, date: Date(), reminder: false)
 		try store.insert(runSoftwareAndBatteryDiagnosticsMaintenance.toLocal())
 		try store.insert(brakeMaintenance.toLocal())
 		
@@ -60,7 +60,7 @@ final class CarCareMaintenanceVMTests: XCTestCase {
 		
 		// Then
 		XCTAssertEqual(vm.maintenances.count, 1) 
-		XCTAssertEqual(vm.maintenances.first?.maintenanceType, .BrakePads)
+		XCTAssertEqual(vm.maintenances.first?.maintenanceType, .BleedHydraulicBrakes)
 
 	}
 	
@@ -77,7 +77,7 @@ final class CarCareMaintenanceVMTests: XCTestCase {
 	
 	func test_updateReminder_updatesLoaderAndNotification() throws {
 		// Given
-		let maintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date(), reminder: false)
+		let maintenance = Maintenance(id: UUID(), maintenanceType: .BleedHydraulicBrakes, date: Date(), reminder: false)
 		try store.insert(maintenance.toLocal())
 		vm.maintenances = [maintenance]
 		
@@ -90,7 +90,7 @@ final class CarCareMaintenanceVMTests: XCTestCase {
 	
 	func test_deleteAllMaintenances_clearsMaintenances() throws {
 		// Given
-		let m1 = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date(), reminder: false)
+		let m1 = Maintenance(id: UUID(), maintenanceType: .BleedHydraulicBrakes, date: Date(), reminder: false)
 		try store.insert(m1.toLocal())
 		vm.maintenances = [m1]
 		
@@ -103,7 +103,7 @@ final class CarCareMaintenanceVMTests: XCTestCase {
 	
 	func test_deleteOneMaintenance_removesFromVMAndStore() throws {
 		// Given
-		let maintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date(), reminder: false)
+		let maintenance = Maintenance(id: UUID(), maintenanceType: .BleedHydraulicBrakes, date: Date(), reminder: false)
 		try store.insert(maintenance.toLocal())
 		vm.maintenances = [maintenance]
 		

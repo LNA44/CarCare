@@ -33,7 +33,7 @@ final class CarCareDashboardViewModelTests: XCTestCase {
 	func test_fetchLastMaintenance_filtersRunSoftwareAndBatteryDiagnosticsForManualBike() {
 		// Given
 		let runSoftwareAndBatteryDiagnosticsMaintenance = Maintenance(id: UUID(), maintenanceType: .RunSoftwareAndBatteryDiagnostics, date: Date(), reminder: false)
-		let brakeMaintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date().addingTimeInterval(-1000), reminder: false)
+		let brakeMaintenance = Maintenance(id: UUID(), maintenanceType: .BleedHydraulicBrakes, date: Date().addingTimeInterval(-1000), reminder: false)
 		store.maintenances = [runSoftwareAndBatteryDiagnosticsMaintenance.toLocal(), brakeMaintenance.toLocal()]
 		let expectation = XCTestExpectation(description: "Wait for async fetch")
 		

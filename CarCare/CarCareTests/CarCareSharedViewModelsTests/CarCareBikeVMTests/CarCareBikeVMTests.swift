@@ -35,8 +35,8 @@ final class CarCareBikeVMTests: XCTestCase {
 	
 	func test_fetchBikeData_setsPublishedProperties_whenBikeExists() {
 		// Given
-		let bike = Bike(id: UUID(), brand: .Decathlon, model: "Riverside 500", year: 2022, bikeType: .Manual, identificationNumber: "VIN123")
-		try? store.insert(LocalBike(id: bike.id, year: bike.year, model: bike.model, brand: bike.brand, bikeType: bike.bikeType, identificationNumber: bike.identificationNumber))
+		let bike = Bike(id: UUID(), brand: "Decathlon", model: "Riverside 500", year: 2022, bikeType: .Manual, identificationNumber: "VIN123")
+        try? store.insert(LocalBike(id: bike.id, year: bike.year, model: bike.model, brand: bike.brand, bikeType: bike.bikeType, identificationNumber: bike.identificationNumber, imageData: nil))
 		
 		let exp = expectation(description: "completion called")
 		
@@ -50,7 +50,7 @@ final class CarCareBikeVMTests: XCTestCase {
 		// Then
 		XCTAssertNotNil(vm.bike)
 		XCTAssertEqual(vm.model, "Riverside 500")
-		XCTAssertEqual(vm.brand, .Decathlon)
+		XCTAssertEqual(vm.brand, "Decathlon")
 		XCTAssertEqual(vm.year, 2022)
 		XCTAssertEqual(vm.bikeType, .Manual)
 		XCTAssertEqual(vm.identificationNumber, "VIN123")
@@ -78,7 +78,7 @@ final class CarCareBikeVMTests: XCTestCase {
 	func test_addBike_savesAndReturnsTrue() throws {
 		// Given
 		// When
-		let result = vm.addBike(brand: .Decathlon, model: "Riverside 500", year: 2020, type: .Manual, identificationNumber: "VINH1")
+        let result = vm.addBike(brand: "Decathlon", model: "Riverside 500", year: 2020, type: .Manual, identificationNumber: "VINH1", image: nil)
 		
 		// Then
 		XCTAssertTrue(result)
@@ -88,7 +88,7 @@ final class CarCareBikeVMTests: XCTestCase {
 	
 	func test_modifyBikeInformations_updatesAndPersists() throws {
 		// Given
-		let bike = Bike(id: UUID(), brand: .Decathlon, model: "Riverside 500", year: 2018, bikeType: .Manual, identificationNumber: "VIN0")
+		let bike = Bike(id: UUID(), brand: "Decathlon", model: "Riverside 500", year: 2018, bikeType: .Manual, identificationNumber: "VIN0")
 		try store.insert(bike.toLocal())
 		
 		let exp = expectation(description: "fetchBikeData completion")
@@ -99,16 +99,16 @@ final class CarCareBikeVMTests: XCTestCase {
 		wait(for: [exp], timeout: 2.0)
 		
 		// When
-		vm.modifyBikeInformations(brand: .Decathlon, model: "Elops 520", year: 2023, type: .Manual, identificationNumber: "VINNEW")
+        vm.modifyBikeInformations(brand: "Decathlon", model: "Elops 520", year: 2023, type: .Manual, identificationNumber: "VINNEW", image: nil)
 		
 		// Then
-		XCTAssertEqual(vm.brand, .Decathlon)
+		XCTAssertEqual(vm.brand, "Decathlon")
 		XCTAssertEqual(vm.model, "Elops 520")
 		XCTAssertEqual(vm.year, 2023)
 		XCTAssertEqual(vm.identificationNumber, "VINNEW")
 		
 		let reloaded = try loader.load()
-		XCTAssertEqual(reloaded?.brand, .Decathlon)
+		XCTAssertEqual(reloaded?.brand, "Decathlon")
 		XCTAssertEqual(reloaded?.model, "Elops 520")
 		XCTAssertEqual(reloaded?.year, 2023)
 		XCTAssertEqual(reloaded?.identificationNumber, "VINNEW")
@@ -116,7 +116,7 @@ final class CarCareBikeVMTests: XCTestCase {
 	
 	func test_deleteCurrentBike_removesStoredBike_andClearsVM() throws {
 		// Given
-		let initial = Bike(id: UUID(), brand: .Decathlon, model: "Riverside 500", year: 2021, bikeType: .Manual, identificationNumber: "VINY9")
+		let initial = Bike(id: UUID(), brand: "Decathlon", model: "Riverside 500", year: 2021, bikeType: .Manual, identificationNumber: "VINY9")
 		try store.insert(initial.toLocal())
 		
 		let exp = expectation(description: "completion called")

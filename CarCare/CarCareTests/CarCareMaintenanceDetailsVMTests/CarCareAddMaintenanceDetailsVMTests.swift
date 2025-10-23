@@ -32,12 +32,12 @@ final class CarCareAddMaintenanceDetailsVMTests: XCTestCase {
 	
 	func test_lastMaintenance_returnsCorrectMaintenance() {
 		// Given
-		let oldMaintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date().addingTimeInterval(-3600), reminder: true)
-		let recentMaintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date(), reminder: true)
+		let oldMaintenance = Maintenance(id: UUID(), maintenanceType: .BleedHydraulicBrakes, date: Date().addingTimeInterval(-3600), reminder: true)
+		let recentMaintenance = Maintenance(id: UUID(), maintenanceType: .BleedHydraulicBrakes, date: Date(), reminder: true)
 		maintenanceVM.maintenances = [oldMaintenance, recentMaintenance]
 		
 		// When
-		let last = vm.lastMaintenance(of: .BrakePads)
+		let last = vm.lastMaintenance(of: .BleedHydraulicBrakes)
 		
 		// Then
 		XCTAssertEqual(last?.id, recentMaintenance.id)
@@ -46,40 +46,40 @@ final class CarCareAddMaintenanceDetailsVMTests: XCTestCase {
 	func test_nextMaintenanceDate_returnsCorrectDate() {
 		// Given
 		let lastDate = Date()
-		let maintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: lastDate, reminder: true)
+		let maintenance = Maintenance(id: UUID(), maintenanceType: .BleedHydraulicBrakes, date: lastDate, reminder: true)
 		maintenanceVM.maintenances = [maintenance]
 		
 		// When
-		let nextDate = vm.nextMaintenanceDate(for: .BrakePads)
+		let nextDate = vm.nextMaintenanceDate(for: .BleedHydraulicBrakes)
 		
 		// Then
-		let expected = Calendar.current.date(byAdding: .day, value: MaintenanceType.BrakePads.frequencyInDays, to: lastDate)
+		let expected = Calendar.current.date(byAdding: .day, value: MaintenanceType.BleedHydraulicBrakes.frequencyInDays, to: lastDate)
 		XCTAssertEqual(nextDate, expected)
 	}
 	
 	func test_daysUntilNextMaintenance_returnsCorrectDays() {
 		// Given
 		let lastDate = Date().addingTimeInterval(-5*24*3600) // 5 jours avant
-		let maintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: lastDate, reminder: true)
+		let maintenance = Maintenance(id: UUID(), maintenanceType: .BleedHydraulicBrakes, date: lastDate, reminder: true)
 		maintenanceVM.maintenances = [maintenance]
 		
 		// When
-		let days = vm.daysUntilNextMaintenance(type: .BrakePads)
+		let days = vm.daysUntilNextMaintenance(type: .BleedHydraulicBrakes)
 		
 		// Then
-		let expectedDate = Calendar.current.date(byAdding: .day, value: MaintenanceType.BrakePads.frequencyInDays, to: lastDate)!
+		let expectedDate = Calendar.current.date(byAdding: .day, value: MaintenanceType.BleedHydraulicBrakes.frequencyInDays, to: lastDate)!
 		let expectedDays = Calendar.current.dateComponents([.day], from: Date(), to: expectedDate).day
 		XCTAssertEqual(days, expectedDays)
 	}
 	
 	func test_fetchAllMaintenanceForOneType_returnsOnlyOneType() throws {
 		// Given
-		let brake = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date(), reminder: true)
+		let brake = Maintenance(id: UUID(), maintenanceType: .BleedHydraulicBrakes, date: Date(), reminder: true)
 		let runSoftwareAndBatteryDiagnostics = Maintenance(id: UUID(), maintenanceType: .RunSoftwareAndBatteryDiagnostics, date: Date(), reminder: true)
 		store.maintenances = [brake.toLocal(), runSoftwareAndBatteryDiagnostics.toLocal()]
 		
 		// When
-		let result = vm.fetchAllMaintenanceForOneType(type: .BrakePads)
+		let result = vm.fetchAllMaintenanceForOneType(type: .BleedHydraulicBrakes)
 		
 		// Then
 		XCTAssertEqual(result.count, 1)
@@ -91,7 +91,7 @@ final class CarCareAddMaintenanceDetailsVMTests: XCTestCase {
 		store.shouldThrowStoreError = true
 		
 		// When
-		let result = vm.fetchAllMaintenanceForOneType(type: .BrakePads)
+		let result = vm.fetchAllMaintenanceForOneType(type: .BleedHydraulicBrakes)
 		
 		// Then
 		XCTAssertTrue(result.isEmpty)
@@ -113,7 +113,7 @@ final class CarCareAddMaintenanceDetailsVMTests: XCTestCase {
 		store.shouldThrowLoadingError = true
 		
 		// When
-		let result = vm.fetchAllMaintenanceForOneType(type: .BrakePads)
+		let result = vm.fetchAllMaintenanceForOneType(type: .BleedHydraulicBrakes)
 		
 		// Then
 		XCTAssertTrue(result.isEmpty)

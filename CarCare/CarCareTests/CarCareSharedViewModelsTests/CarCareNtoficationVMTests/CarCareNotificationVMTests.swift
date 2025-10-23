@@ -26,7 +26,7 @@ final class CarCareNotificationVMTests: XCTestCase {
 	
 	func test_updateReminder_schedulesNotification_ifAuthorizedAndNextDateWithin30Days() {
 		// Given
-		let maintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date(), reminder: false)
+        let maintenance = Maintenance(id: UUID(), maintenanceType: .BleedHydraulicBrakes, date: Date(), reminder: false)
 		maintenanceVM.maintenances = [maintenance]
 		maintenanceVM.nextMaintenanceDateReturn = Date().addingTimeInterval(5*24*3600) // 5 jours
 		
@@ -43,7 +43,7 @@ final class CarCareNotificationVMTests: XCTestCase {
 	
 	func test_updateReminder_cancelsNotification_ifValueIsFalse() {
 		// Given
-		let maintenance = Maintenance(id: UUID(), maintenanceType: .BrakePads, date: Date(), reminder: false)
+		let maintenance = Maintenance(id: UUID(), maintenanceType: .BleedHydraulicBrakes, date: Date(), reminder: false)
 		maintenanceVM.maintenances = [maintenance]
 		
 		let vm = NotificationViewModel(maintenanceVM: maintenanceVM, notificationCenter: notificationCenter)
