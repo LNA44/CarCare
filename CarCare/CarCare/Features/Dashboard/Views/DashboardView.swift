@@ -36,33 +36,23 @@ struct DashboardView: View {
 	var body: some View {
 		ScrollView {
 			VStack(spacing: 10) {
-				ZStack {
-					Rectangle()
-						.fill(
-							// Utilise le matériau système si iOS 17+, sinon couleur opaque
-							Color.clear // valeur temporaire
-						)
-						.background(
-							Group {
-								if #available(iOS 17, *) {
-									// Liquid Glass
-									Rectangle()
-										.fill(.regularMaterial)
-								} else {
-									// Fallback pour iOS 16 et antérieur
-									Rectangle()
-										.fill(Color("BackgroundColor")) // couleur opaque
-								}
-							}
-						)
-						.frame(height: 200)
-						.cornerRadius(20)
-						.shadow(
-							color: .black.opacity(isDarkMode ? 0.1 : 0.25),
-							radius: 8,
-							x: 0,
-							y: 4
-						)
+                ZStack {
+                    // Fond flou
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(.ultraThinMaterial) // ← effet verre
+                        .frame(height: 200)
+                        .shadow(color: .black.opacity(isDarkMode ? 0.1 : 0.25), radius: 8, x: 0, y: 4)
+
+                    // Optionnel : un gradient ou couleur semi-transparente par-dessus
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(
+                            LinearGradient(
+                                colors: [Color("MainComponentColor").opacity(0.3), Color("MainComponentColor2").opacity(0.3)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(height: 200)
 					
 					VStack {
 						VStack {
@@ -114,7 +104,7 @@ struct DashboardView: View {
 						Circle()
 							.fill(Color.white.opacity(0.2))
 							.frame(width: 110, height: 110)
-							.offset(y: -80)
+                            .offset(x: -5, y: -80)
                         if let imageData = bikeVM.bike?.imageData,
                            let uiImage = UIImage(data: imageData) {
                             Image(uiImage: uiImage)
@@ -148,23 +138,30 @@ struct DashboardView: View {
 					VStack(alignment: .center, spacing: 20) {
 						Text(NSLocalizedString("maintenance_key", comment: ""))
 							.font(.system(size: 27, weight: .bold, design: .rounded))
-							.foregroundColor(Color("TextColor"))
-						
-						Text("\(maintenanceVM.overallStatus.label)")
-							.font(.system(size: 22, weight: .bold, design: .rounded))
-							.foregroundColor(Color(.white))
-							.padding(10)
-							.background(
-								maintenanceVM.overallStatus == .aJour ? Color("DoneColor") :
-									maintenanceVM.overallStatus == .bientotAPrevoir ? Color("InProgressColor") :
-									Color("ToDoColor")
-							)
-							.clipShape(Capsule())
-							.shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
-					}
-					.padding(.horizontal, 20)
-				}
-				.frame(maxWidth: .infinity, alignment: .center)
+                            .foregroundColor(Color("TextColor"))
+                        
+                        Text("\(maintenanceVM.overallStatus.label)")
+                            .font(.system(size: 22, weight: .bold, design: .rounded))
+                            .foregroundColor(maintenanceVM.overallStatus == .aJour ? Color("DoneColor") :
+                                                maintenanceVM.overallStatus == .bientotAPrevoir ? Color("InProgressColor") :
+                                                Color("ToDoColor"))
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 20)
+                            .background(
+                                Capsule()
+                                    .strokeBorder(
+                                        maintenanceVM.overallStatus == .aJour ? Color("DoneColor") :
+                                            maintenanceVM.overallStatus == .bientotAPrevoir ? Color("InProgressColor") :
+                                            Color("ToDoColor"),
+                                        lineWidth: 2
+                                    )
+                                    .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
+                            )
+                        
+                    }
+                    .padding(.horizontal, 20)
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
 				.frame(height: 100)
 				.cornerRadius(10)
 				.padding(.horizontal, 10)
@@ -176,7 +173,21 @@ struct DashboardView: View {
 						.frame(width: 360, height: 250)
 						.cornerRadius(10)
 						.scaledToFit()
-					
+                        .shadow(color: .black.opacity(isDarkMode ? 0.1 : 0.25), radius: 8, x: 0, y: 4)
+                    
+                    // Gradient overlay
+                    LinearGradient(
+                        colors: [
+                            Color.black.opacity(0),
+                            Color.black.opacity(0.8)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    .frame(width: 360, height: 250)
+                    .cornerRadius(10)
+                    
+                    
 					VStack(alignment: .leading) {
 						Text(NSLocalizedString("last_maintenance_key", comment: ""))
 							.font(.system(size: 22, weight: .bold, design: .rounded))

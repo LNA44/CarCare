@@ -107,15 +107,22 @@ struct MaintenanceView: View {
 								
 							}
 							.padding(.horizontal, 10)
-							.background(Color("ToDoColor"))
+                            .background(Color("ToDoColor").opacity(0.8))
 							.cornerRadius(10)
 							.overlay (
 								RoundedRectangle(cornerRadius: 10)
-									.stroke(Color.red, lineWidth: 2))
+									.stroke(Color("ToDoColor"), lineWidth: 2))
 						}
 					}
 				}
 			}
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor2")]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
 			.onAppear {
 				guard !hasFetched else { return }
 					hasFetched = true

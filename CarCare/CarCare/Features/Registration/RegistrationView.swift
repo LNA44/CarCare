@@ -17,6 +17,7 @@ struct RegistrationView: View {
 	@State private var yearText: String = ""
 	@State private var identificationNumber: String = ""
     @State private var selectedImage: UIImage? = nil
+    @State private var appear = false
 	
 	var body: some View {
 		NavigationStack {
@@ -110,6 +111,13 @@ struct RegistrationView: View {
                 .contentShape(Rectangle()) // rend la zone tappable même vide
                 .onTapGesture {
                     UIApplication.shared.endEditing()
+                }
+            }
+            .opacity(appear ? 1 : 0)
+            .scaleEffect(appear ? 1 : 0.95)
+            .onAppear {
+                withAnimation(.easeOut(duration: 0.5)) {
+                    appear = true
                 }
             }
 		}

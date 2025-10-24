@@ -36,126 +36,201 @@ struct MaintenanceDetailsView: View {
 		if let maintenance = maintenanceVM.maintenances.first(where: { $0.id == maintenanceID }) {
 			ScrollView {
 				VStack(spacing: 20) {
-					VStack {
-						Image(maintenance.maintenanceType.iconName)
-							.resizable()
-							.scaledToFit()
-							.frame(width: 80, height: 80)
-							.scaleEffect(iconScale(for: maintenance.maintenanceType))
-							.padding(10)
-							.background(Color("IconColor"))
-							.clipShape(Circle())
-						
-						VStack(spacing: 50) {
-							VStack {
-								VStack(spacing: 20) {
-									if let daysRemaining = daysRemaining {
-										DaysIndicatorView(days: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays, rectangleWidth: 40, rectangleHeight: 20, triangleWidth: 10, triangleHeight: 10, spacing: 4)
-										Text(
-											NSLocalizedString(message(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays), comment: "")
-										)
-											.font(.system(size: 16, weight: .bold, design: .rounded))
-											.multilineTextAlignment(.center)
-											.foregroundColor(color(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays))
-											.onAppear {
-												triggerHaptic(maintenance: maintenance, for: daysRemaining)
-											}
-									}
-								}
-								.padding(.top, 20)
-							}
-							.padding(.horizontal, 15)
-							
-							
-							HStack {
-								Image(systemName: "alarm") // icône réveil
-									.foregroundColor(Color("TextColor"))  // couleur de l'icône
-								
-								Text(String(
-									format: NSLocalizedString("frequency_key", comment: "Label pour la fréquence de maintenance"),
-									maintenance.maintenanceType.readableFrequency
-								))
-									.font(.system(size: 16, weight: .bold, design: .rounded))
-									.foregroundColor(Color("TextColor"))
-								
-								Spacer()
-								
-								Toggle("", isOn: Binding(
-									get: { maintenance.reminder }, //appelé lors du dessin de la vue (aussi après modif du toggle pour redessiner la vue)
-									set: { newValue in //modification du toggle
-										maintenanceVM.updateReminder(for: maintenance, value: newValue)
-										notificationVM.updateReminder(for: maintenance.id, value: newValue)
-									}
-								))
-								.tint(Color("DoneColor"))
-								.labelsHidden()
-							}
-							.padding(.horizontal, 20)
-							
-							NavigationLink(
-								destination: AddMaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM,  onAdd: onAdd, notificationVM: notificationVM)
-							) {
-								Text(NSLocalizedString("button_update_key", comment: ""))
-									.font(.system(size: 16, weight: .bold, design: .rounded))
-									.foregroundColor(Color(.white))
-									.frame(maxWidth: .infinity)
-									.padding()
-									.background(Color("AppPrimaryColor"))
-									.cornerRadius(10)
-							}
-							.padding(.horizontal, 15)
-							.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
-						}
-						
-					}
-					.padding(.vertical, 20)
-					.background(Color("FirstSectionMaintenanceColor"))
-					.cornerRadius(15)
-					.shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
-					
-					VStack {
-						Text(NSLocalizedString("maintenance_history_key", comment: ""))
-							.font(.system(size: 25, weight: .bold, design: .rounded))
-							.foregroundColor(Color("TextColor"))
-							.drawingGroup()
-						
-						Divider()
-							.frame(width: 200)
-						
-						VStack(alignment: .leading, spacing: 0) {
-							ForEach(Array(maintenancesForOneType.enumerated()), id: \.element.id) { index, item in
-								
-								VStack {
-									HStack {
-										Image(systemName: "wrench")
-										Text("\(formattedDate(item.date))")
-											.padding(.leading, 8)
-											.font(.system(size: 16, weight: .bold, design: .rounded))
-											.foregroundColor(Color("TextColor"))
-									}
-									HStack {
-										if index != maintenancesForOneType.count - 1 {
-											Rectangle()
-												.fill(Color("AppPrimaryColor"))
-												.frame(width: 2)
-												.frame(height: 10)
-												.padding(.bottom, 5)
-										}
-										Spacer()
-									}
-									.padding(.leading, 130)
-								}
-							}
-						}
-						.padding(.top, 10)
-					}
-					.padding(.vertical, 20)
-					.padding(.bottom, 10)
-					.background(Color("MaintenanceHistoryColor"))
-					.cornerRadius(15)
-					
-					VStack(spacing: 15) {
-						Text(NSLocalizedString("advice_and_information_key", comment: ""))
+                    VStack {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(
+                                    LinearGradient(
+                                        colors: [
+                                            Color("AdviceColor").opacity(0.9),
+                                            Color("AdviceColor").opacity(0.15)
+                                        ],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                )
+                                .background(
+                                    .ultraThinMaterial,
+                                    in: RoundedRectangle(cornerRadius: 15)
+                                )
+                            
+                            VStack {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 18, style: .continuous)
+                                        .fill(Color("IconColor"))
+                                        .background(
+                                            .ultraThinMaterial,
+                                            in: RoundedRectangle(cornerRadius: 18, style: .continuous)
+                                        )
+                                    
+                                    Image(maintenance.maintenanceType.iconName)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 32, height: 32)
+                                        .scaleEffect(iconScale(for: maintenance.maintenanceType))
+                                }
+                                .frame(width: 60, height: 60)
+                                
+                                if let daysRemaining = daysRemaining {
+                                    Text(
+                                        NSLocalizedString(message(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays), comment: "")
+                                    )
+                                    .padding(.horizontal, 10)
+                                    .padding(.top, 5)
+                                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(color(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays))
+                                    .onAppear {
+                                        triggerHaptic(maintenance: maintenance, for: daysRemaining)
+                                    }
+                                }
+                            }
+                            .padding(.vertical, 15)
+                        }
+                        
+                        HStack(spacing: 20) {
+                            VStack {
+                                VStack(spacing: 15) {
+                                    if let daysSince = maintenanceVM.calculateDaysSinceLastMaintenance(
+                                        for: maintenance.maintenanceType
+                                    ) {
+                                        let frequency = Double(maintenance.maintenanceType.frequencyInDays)
+                                        let progress = min(Double(daysSince) / frequency, 1.0)
+                                        
+                                        CircularProgressView(targetProgress: progress, value: daysSince)
+                                        
+                                        Text("\(daysSince)/ \(Int(frequency))j")
+                                            .font(.system(size: 16, weight: .bold, design: .rounded))
+                                            .foregroundStyle(Color("TextColor"))
+                                        
+                                    } else {
+                                        CircularProgressView(
+                                            targetProgress: 0.0,
+                                            value: 0
+                                        )
+                                    }
+                                }
+                                .padding(.top, 5)
+                            }
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .padding(15)
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(
+                                        LinearGradient(
+                                            colors: [
+                                                Color("AdviceColor").opacity(0.9),
+                                                Color("AdviceColor").opacity(0.15)
+                                            ],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
+                                    )
+                                    .background(
+                                        .ultraThinMaterial,
+                                        in: RoundedRectangle(cornerRadius: 15)
+                                    )
+                            )
+                            .cornerRadius(15)
+                            
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text(NSLocalizedString("frequency_key", comment: ""))
+                                    .bold()
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .font(.system(size: 14, weight: .bold, design: .rounded))
+                                
+                                Text("\(maintenance.maintenanceType.readableFrequency)")
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .font(.system(size: 18, weight: .regular, design: .rounded))
+                                
+                                Toggle("", isOn: Binding(
+                                    get: { maintenance.reminder }, //appelé lors du dessin de la vue (aussi après modif du toggle pour redessiner la vue)
+                                    set: { newValue in //modification du toggle
+                                        maintenanceVM.updateReminder(for: maintenance, value: newValue)
+                                        notificationVM.updateReminder(for: maintenance.id, value: newValue)
+                                    }
+                                ))
+                                .frame(maxWidth: .infinity)
+                                .padding(.top, 10)
+                                .tint(Color("DoneColor"))
+                                .labelsHidden()
+                            }
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                            .foregroundColor(Color("TextColor"))
+                            .padding(15)
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(
+                                        LinearGradient(
+                                            colors: [
+                                                Color("AdviceColor").opacity(0.9),
+                                                Color("AdviceColor").opacity(0.15)
+                                            ],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
+                                    )
+                                    .background(
+                                        .ultraThinMaterial,
+                                        in: RoundedRectangle(cornerRadius: 15)
+                                    )
+                            )
+                            .cornerRadius(15)
+                        }
+                        .padding(.top, 15)
+                        
+                    }
+                    .padding(.vertical, 20)
+                    .padding(.horizontal, 20)
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        Color("FirstSectionMaintenanceColor")
+                    )
+                    .cornerRadius(15)
+                    .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+                    
+                    VStack {
+                        Text(NSLocalizedString("maintenance_history_key", comment: ""))
+                            .font(.system(size: 25, weight: .bold, design: .rounded))
+                            .foregroundColor(Color("TextColor"))
+                            .drawingGroup()
+                        
+                        Divider()
+                            .frame(width: 200)
+                        
+                        VStack(alignment: .center, spacing: 0) {
+                            ForEach(Array(maintenancesForOneType.enumerated()), id: \.element.id) { index, item in
+                                MaintenanceDetailsBackgroundView(
+                                    formattedDate: formattedDate(item.date),
+                                    isLast: index == maintenancesForOneType.count - 1
+                                )
+                            }
+                            
+                            NavigationLink(
+                                destination: AddMaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM,  onAdd: onAdd, notificationVM: notificationVM)
+                            ) {
+                                Text(NSLocalizedString("button_update_key", comment: ""))
+                                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                                    .foregroundColor(Color(.white))
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color("AppPrimaryColor"))
+                                    .cornerRadius(10)
+                            }
+                            .padding(.horizontal, 15)
+                            .padding(.top, 15)
+                            .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+                        }
+                        .padding(.top, 10)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.vertical, 20)
+                    .padding(.bottom, 10)
+                    .background(Color("MaintenanceHistoryColor"))
+                    .cornerRadius(15)
+                    
+                    VStack(spacing: 15) {
+                        Text(NSLocalizedString("advice_and_information_key", comment: ""))
 							.font(.system(size: 25, weight: .bold, design: .rounded))
 							.foregroundColor(Color("TextColor"))
 						

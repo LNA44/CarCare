@@ -138,7 +138,7 @@ class MaintenanceVM: ObservableObject {
 		print("calculateNumberOfMaintenance appelée")
 		return maintenances.count
 	}
-	//A mettre dans detailsViewVersion2
+    
 	func updateReminder(for maintenance: Maintenance, value: Bool) {
 		print("updateReminder appelée")
 		do {
@@ -226,4 +226,12 @@ class MaintenanceVM: ObservableObject {
 		let filtered = maintenances.filter { $0.maintenanceType == type }
 		return filtered.max(by: { $0.date < $1.date })
 	}
+    
+    func calculateDaysSinceLastMaintenance(for type: MaintenanceType) -> Int? {
+        guard let last = lastMaintenance(of: type) else { return nil }
+        let calendar = Calendar.current
+        let now = Date()
+        let components = calendar.dateComponents([.day], from: last.date, to: now)
+        return components.day ?? 0
+    }
 }

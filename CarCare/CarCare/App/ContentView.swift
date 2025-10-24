@@ -11,14 +11,14 @@ struct ContentView: View {
 	@ObservedObject var bikeVM: BikeVM
 	@ObservedObject var maintenanceVM: MaintenanceVM
 	@ObservedObject var notificationVM: NotificationViewModel
-	
+    	
 	var body: some View {
 		TabView {
-			NavigationStack {
-				DashboardView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, notificationVM: notificationVM)
-			}
-			.tabItem { Label("Accueil", systemImage: "house")}
-			NavigationStack {
+            NavigationStack {
+                DashboardView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, notificationVM: notificationVM)
+            }
+            .tabItem { Label("Accueil", systemImage: "house")}
+            NavigationStack {
 				MaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, notificationVM: notificationVM)
 			}
 			.tabItem { Label("Entretiens", systemImage: "wrench") }

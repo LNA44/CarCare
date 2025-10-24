@@ -77,7 +77,7 @@
 "unknown_days_remaining_key" = "Nombre de jours restants inconnu";
 
 //MaintenanceDetailsView
-"frequency_key" = "Fréquence: %@";
+"frequency_key" = "Fréquence: ";
 "every_days_key" = "tous les %d jour(s)";
 "every_months_key" = "tous les %d mois";
 "every_year_key" = "tous les %d ans";

@@ -135,6 +135,13 @@ struct AddMaintenanceView: View {
 				}
 			}
 		}
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor2")]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
 		.alert(
 			isPresented: Binding(
 				get: { maintenanceVM.showAlert || bikeVM.showAlert },

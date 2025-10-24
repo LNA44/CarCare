@@ -100,6 +100,7 @@ struct BikeModificationsView: View {
                         dismiss()
                     }
                 }
+                .padding(.top, 10)
             }
             .onAppear {
                 self.brandText = bikeVM.brand
@@ -172,6 +173,13 @@ struct BikeModificationsView: View {
                 }
             }
         }
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor2")]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
 	}
 }
 

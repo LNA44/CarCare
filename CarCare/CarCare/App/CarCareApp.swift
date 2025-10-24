@@ -16,6 +16,7 @@ struct CarCareApp: App {
 	@StateObject private var maintenanceVM: MaintenanceVM
 	@StateObject private var appState: AppState
 	@StateObject private var subscriptionManager = SubscriptionManager.shared
+    
 	@AppStorage("hasSeenNotificationIntro") private var hasSeenNotificationIntro: Bool = false
 	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
 	@AppStorage("hasSeenOnboarding") var hasSeenOnboarding: Bool = false

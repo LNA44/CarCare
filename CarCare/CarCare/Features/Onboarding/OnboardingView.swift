@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import ConfettiSwiftUI
 
 struct OnboardingView: View {
 	@AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
+    @State private var confettiTrigger = 0
 	@State private var currentIndex = 0
 	@State private var showButton = false
 	@State private var cyclingView = AnimationView(name: "Cycling")
@@ -17,8 +19,8 @@ struct OnboardingView: View {
 	var body: some View {
 		ZStack {
 			// Préchargement invisible pour éviter le lag
-			AnimationView(name: "Cycling")
-				.frame(width: 0, height: 0)
+			cyclingView
+				.frame(width: 20, height: 20)
 				.opacity(0)
 			
 			VStack(spacing: 40) {
@@ -49,7 +51,7 @@ struct OnboardingView: View {
 				}
 				.frame(height:700)
 				
-				
+                
 				if currentIndex < questions.count {
 					Button(action: {
 						if currentIndex < questions.count - 1 {
@@ -77,7 +79,12 @@ struct OnboardingView: View {
 			}
 			.padding()
 			.background(Color("BackgroundColor"))
-		}
+            ConfettiCannon(trigger: $confettiTrigger, num: 50, radius: 300)
+        }
+        .onAppear {
+            // Déclenche les confettis pour la première phrase
+            confettiTrigger += 1
+        }
 	}
 	
 	// Décale la phrase au départ pour qu'elle arrive soit de la gauche soit de la droite
