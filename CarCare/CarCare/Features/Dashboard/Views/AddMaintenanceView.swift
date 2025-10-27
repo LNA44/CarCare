@@ -155,8 +155,8 @@ struct AddMaintenanceView: View {
 		) {
 			if maintenanceVM.showAlert {
 				return Alert(
-					title: Text("Erreur"),
-					message: Text(maintenanceVM.error?.errorDescription ?? "Erreur inconnue"),
+					title: Text(NSLocalizedString("alert_error_title", comment: "Title of the error alert")),
+					message: Text(maintenanceVM.error?.errorDescription ?? NSLocalizedString("alert_unknown_error", comment: "Unknown error")),
 					dismissButton: .default(Text("OK")) {
 						maintenanceVM.showAlert = false
 						maintenanceVM.error = nil

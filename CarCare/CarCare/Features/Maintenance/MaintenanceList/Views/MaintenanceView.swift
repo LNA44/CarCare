@@ -21,7 +21,7 @@ struct MaintenanceView: View {
 		).compactMapValues { maintenances in
 			maintenances.max(by: { $0.date < $1.date }) // garde la dernière
 		}
-		.filter { $0.key != .Unknown } // on enlève Unknown
+		.filter { $0.key != .Unknown }
 	}
 
 	//MARK: -Initialization

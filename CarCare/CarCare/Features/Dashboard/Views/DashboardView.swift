@@ -17,6 +17,7 @@ struct DashboardView: View {
 	@State private var goToAdd = false
 	@State private var didLoadData = false
 	@State private var showPaywall = false
+    @State private var showPopover = false
 	
 	let formatter: DateFormatter = {
 		let df = DateFormatter()
@@ -175,7 +176,6 @@ struct DashboardView: View {
 						.scaledToFit()
                         .shadow(color: .black.opacity(isDarkMode ? 0.1 : 0.25), radius: 8, x: 0, y: 4)
                     
-                    // Gradient overlay
                     LinearGradient(
                         colors: [
                             Color.black.opacity(0),
@@ -314,12 +314,41 @@ struct DashboardView: View {
                             from: maintenanceVM.maintenances
                         )
                     } else {
-                        showPaywall = true
+                        //showPaywall = true
+                        showPopover = true
                     }
                 }) {
                     Image(systemName: "square.and.arrow.up")
                         .imageScale(.large)
                         .foregroundColor(Color("TextColor"))
+                        .offset(y: -2)
+                }
+                .popover(isPresented: $showPopover, arrowEdge: .top) {
+                    VStack(spacing: 20) {
+                        Text(NSLocalizedString("premium_feature", comment: ""))
+                            .font(.system(size: 22, weight: .bold, design: .rounded))
+                        
+                        Text(NSLocalizedString("share_summary_description", comment: ""))
+                            .multilineTextAlignment(.center)
+                            .font(.system(size: 18, weight: .regular, design: .rounded))
+                            .frame(maxWidth: 250)
+                        
+                        Button(action: {
+                            showPopover = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                showPaywall = true
+                            }
+                        }) {
+                            Text(NSLocalizedString("unlock_now", comment: ""))
+                                .font(.system(size: 18, weight: .bold, design: .rounded))
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color("MainComponentColor"))
+                                .cornerRadius(10)
+                        }
+                        .padding(.top, 20)
+                    }
+                    .padding()
                 }
             }
         }

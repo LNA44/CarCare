@@ -13,37 +13,6 @@ struct MaintenanceDetailsBackgroundView: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 15) {
-            /*VStack(spacing: 0) {
-                Circle()
-                    .fill(
-                        LinearGradient(
-                            colors: [Color.cyan, Color.blue],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 12, height: 12)
-                    .shadow(color: .cyan.opacity(0.5), radius: 4)
-                    .overlay(
-                        Circle()
-                            .stroke(Color.brown, lineWidth: 3)
-                    )
-                
-                // Ligne verticale
-                Rectangle()
-                    .fill(
-                        LinearGradient(
-                            colors: [Color.cyan.opacity(0.3), Color.gray.opacity(0.2)],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
-                    .frame(width: 2, height: 50)
-                    .opacity(isLast ? 0 : 1)
-            }
-            .padding(.top, 15)
-            .padding(.leading, 15)*/
-            
             VStack {
                 ZStack {
                     Rectangle()

@@ -44,6 +44,9 @@
 "button_Add_Maintenance" = "Ajouter un entretien";
 "no_date_key" = "Pas de date";
 "identification_number_key" = "Identification : ";
+"premium_feature" = "Fonctionnalité Premium";
+"share_summary_description" = "Share the full maintenance summary with your mechanic or when selling your bike.";
+"unlock_now" = "Débloquer maintenant";
 
 //PDF
 "bike_label" = "Vélo";
@@ -66,6 +69,8 @@
 "maintenance_Type_key" = "Type d'entretien";
 "maintenance_date_key" = "Date de l'entretien";
 "done_key" = "Terminé";
+"alert_error_title" = "Erreur";
+"alert_unknown_error" = "Erreur inconnue";
 
 //MaintenanceView
 "maintenances_to_come" = "Maintenances à venir";
@@ -96,7 +101,6 @@
 
 //Enum MaintenanceType
 "unknown" = "Inconnu";
-//new
 "check_tire_pressure" = "Vérifier la pression des pneus";
 "replace_tires" = "Changer les pneus";
 "clean_and_lubricate_chain" = "Nettoyer et lubrifier la chaîne";
@@ -159,14 +163,14 @@
 //MaintenanceStatus message in MaintenanceDetailsView
 "maintenance_message_up_to_date" = "Tu es à jour";
 "maintenance_message_not_yet" = "Tu n'as pas encore à t'en préoccuper";
-"maintenance_message_due" = "C'est l'heure! Pense à prendre rendez-vous chez le réparateur le plus proche";
+"maintenance_message_due" = "C'est l'heure! Pense à prendre rendez-vous chez le réparateur le plus proche ou fais le toi-même";
 
 //Paywall
 "paywall_title" = "Passez Premium 🚴‍♂️";
 "paywall_description" = "Débloquez toutes les fonctionnalités et ajoutez autant de maintenances que vous voulez !";
 "paywall_weekly" = "Hebdomadaire";
 "paywall_yearly" = "Annuel";
-"paywall_price_weekly" = "2€ / semaine";
+"paywall_price_weekly" = "0.95€ / semaine";
 "paywall_price_yearly" = "30€ / an";
 "paywall_button_upgrade" = "Devenir Premium";
 "paywall_button_restore" = "Restaurer les achats";

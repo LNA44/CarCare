@@ -45,6 +45,9 @@
 "button_Add_Maintenance" = "Add maintenance";
 "no_date_key" = "No date";
 "identification_number_key" = "Identification : ";
+"premium_feature" = "Premium Feature";
+"share_summary_description" = "Partagez le résumé complet de vos entretiens avec votre réparateur ou lors de la vente de votre vélo.";
+"unlock_now" = "Unlock Now";
 
 //PDF
 "bike_label" = "Bike";
@@ -67,6 +70,8 @@
 "maintenance_Type_key" = "Maintenance type";
 "maintenance_date_key" = "Maintenance date";
 "done_key" = "Done";
+"alert_error_title" = "Error";
+"alert_unknown_error" = "Unknown error";
 
 //MaintenanceView
 "maintenances_to_come" = "Upcoming maintenance";
@@ -117,7 +122,6 @@
 "brake_pads_description" = "Brake adjustment requires tools";
 "battery_description" = "Chain maintenance includes:\n- Cleaning with a degreaser\n- Lubricating the links\n- Checking for wear";
 "unknown_description" = "Unknown";
-//new
 "check_tire_pressure_description" = "A properly inflated tire allows for a more comfortable ride, reduces the risk of punctures, and prevents premature wear. Check the pressure once a week, especially if you ride daily. Use a pressure gauge or a pump with an indicator, and inflate according to the range printed on the tire sidewall (e.g., 4–6 bars for a road bike, 2–3 bars for a mountain bike). Riding underinflated can pinch the tube in a pothole. Overinflated tires reduce comfort and grip.";
 "replace_tires_description" = "Tires should never be completely smooth, and the sidewalls should show no cracks. If they do, they must be replaced immediately, as worn or damaged tires significantly increase the risk of puncture or even blowout. Smooth tires reduce traction, which can cause falls, especially on wet or unstable surfaces. Tires are the only contact point between the bike and the ground: their condition directly impacts safety. Never underestimate the importance of good tires for a safe ride.";
 "clean_and_lubricate_chain_description" = "A clean and lubricated chain extends the life of the entire drivetrain. Clean it once a month with a cloth and a light degreaser. Avoid high-pressure jets that wash grease out of bearings. After cleaning, apply bike-specific oil (no engine oil or WD-40 alone) and wipe off excess: too much oil attracts dust. Proper lubrication ensures smooth pedaling and prevents premature wear of cogs and chainrings. Don’t wait until the chain looks dry or creaks to lubricate it!";
@@ -162,15 +166,15 @@
 //MaintenanceStatus message in MaintenanceDetailsView
 "maintenance_message_up_to_date" = "You're up to date";
 "maintenance_message_not_yet" = "No need to worry yet";
-"maintenance_message_due" = "It's time! Schedule an appointment with the nearest mechanic";
+"maintenance_message_due" = "It's time! Schedule an appointment with the nearest mechanic or do it by yourself";
 
 //Paywall
 "paywall_title" = "Go Premium 🚴‍♂️";
 "paywall_description" = "Unlock all features and add as many maintenances as you want!";
 "paywall_weekly" = "Weekly";
 "paywall_yearly" = "Yearly";
-"paywall_price_weekly" = "€2 / week";
-"paywall_price_yearly" = "€30 / year";
+"paywall_price_weekly" = "0.95$ / week";
+"paywall_price_yearly" = "25$ / year";
 "paywall_button_upgrade" = "Go Premium";
 "paywall_button_restore" = "Restore Purchases";
 "paywall_button_cancel" = "Cancel";

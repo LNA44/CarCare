@@ -44,6 +44,9 @@
 "button_Add_Maintenance" = "Agregar mantenimiento";
 "no_date_key" = "Sin fecha";
 "identification_number_key" = "Identificación: ";
+"premium_feature" = "Funcionalidad Premium";
+"share_summary_description" = "Comparte el resumen completo del mantenimiento con tu mecánico o al vender tu bicicleta.";
+"unlock_now" = "Desbloquear ahora";
 
 //PDF
 "bike_label" = "Bicicleta";
@@ -66,6 +69,8 @@
 "maintenance_Type_key" = "Tipo de mantenimiento";
 "maintenance_date_key" = "Fecha del mantenimiento";
 "done_key" = "Terminado";
+"alert_error_title" = "Error";
+"alert_unknown_error" = "Error desconocido";
 
 //MaintenanceView
 "maintenances_to_come" = "Mantenimientos próximos";
@@ -156,14 +161,14 @@
 //MaintenanceStatus message in MaintenanceDetailsView
 "maintenance_message_up_to_date" = "Estás al día";
 "maintenance_message_not_yet" = "Aún no tienes que preocuparte";
-"maintenance_message_due" = "¡Es hora! Agenda una cita con el mecánico más cercano";
+"maintenance_message_due" = "¡Es hora! Agenda una cita con el mecánico más cercano o hazlo tú mismo";
 
 //Paywall
 "paywall_title" = "Hazte Premium 🚴‍♂️";
 "paywall_description" = "Desbloquea todas las funciones y añade tantos mantenimientos como quieras!";
 "paywall_weekly" = "Semanal";
 "paywall_yearly" = "Anual";
-"paywall_price_weekly" = "2€ / semana";
+"paywall_price_weekly" = "0.95€ / semana";
 "paywall_price_yearly" = "30€ / año";
 "paywall_button_upgrade" = "Hazte Premium";
 "paywall_button_restore" = "Restaurar compras";

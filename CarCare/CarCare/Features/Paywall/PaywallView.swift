@@ -160,9 +160,9 @@ struct PaywallView: View {
 extension PaywallView {
 	func titleAndPrice(for product: Product) -> (title: String, price: String) {
 		switch product.id {
-		case "premium_weekly":
+		case "Premium_weekly":
 			return (NSLocalizedString("paywall_weekly", comment: ""), NSLocalizedString("paywall_price_weekly", comment: ""))
-		case "Premium_annual":
+		case "Premium_annual2":
 			return (NSLocalizedString("paywall_yearly", comment: ""), NSLocalizedString("paywall_price_yearly", comment: ""))
 		default:
 			return (product.displayName, product.displayPrice)

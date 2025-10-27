@@ -38,26 +38,29 @@ struct MaintenanceDetailsView: View {
 				VStack(spacing: 20) {
                     VStack {
                         ZStack {
-                            RoundedRectangle(cornerRadius: 15)
-                                .fill(
-                                    LinearGradient(
-                                        colors: [
-                                            Color("AdviceColor").opacity(0.9),
-                                            Color("AdviceColor").opacity(0.15)
-                                        ],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
+                            if let daysRemaining = daysRemaining {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(
+                                        
+                                        LinearGradient(
+                                            colors: [
+                                                color(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays).opacity(0.9),
+                                                color(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays).opacity(0.25)
+                                            ],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
                                     )
-                                )
-                                .background(
-                                    .ultraThinMaterial,
-                                    in: RoundedRectangle(cornerRadius: 15)
-                                )
-                            
+                                
+                                    .background(
+                                        .ultraThinMaterial,
+                                        in: RoundedRectangle(cornerRadius: 15)
+                                    )
+                            }
                             VStack {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 18, style: .continuous)
-                                        .fill(Color("IconColor"))
+                                        .fill(Color.white)
                                         .background(
                                             .ultraThinMaterial,
                                             in: RoundedRectangle(cornerRadius: 18, style: .continuous)
@@ -79,7 +82,7 @@ struct MaintenanceDetailsView: View {
                                     .padding(.top, 5)
                                     .font(.system(size: 16, weight: .bold, design: .rounded))
                                     .multilineTextAlignment(.center)
-                                    .foregroundColor(color(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays))
+                                    .foregroundColor(.white)
                                     .onAppear {
                                         triggerHaptic(maintenance: maintenance, for: daysRemaining)
                                     }
@@ -189,6 +192,40 @@ struct MaintenanceDetailsView: View {
                     .cornerRadius(15)
                     .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
                     
+                    VStack(spacing: 15) {
+                        NavigationLink(
+                            destination: AdviceView(maintenance: maintenance)
+                        ) {
+                            HStack {
+                                VStack {
+                                    Text(NSLocalizedString("advice_and_information_key", comment: ""))
+                                        .font(.system(size: 25, weight: .bold, design: .rounded))
+                                        .foregroundColor(Color("TextColor"))
+                                    
+                                    Divider()
+                                        .frame(width: 200)
+                                        .padding(.bottom, 10)
+                                    
+                                    Text("\(maintenance.maintenanceType.localizedDescription)")
+                                        .font(.system(size: 16, weight: .regular, design: .rounded))
+                                        .foregroundColor(Color("TextColor"))
+                                        .padding(.leading, 15)
+                                        .multilineTextAlignment(.center)
+                                        .frame(maxWidth: .infinity)
+                                        .lineLimit(3)
+                                }
+                                Image(systemName: "chevron.right")
+                                    .padding(.top, 65)
+                            }
+                        }
+                    }
+                    .padding(.vertical, 20)
+                    .padding(.bottom, 10)
+                    .padding(.trailing, 10)
+                    .background(Color("AdviceColor"))
+                    .cornerRadius(15)
+                    
+                    
                     VStack {
                         Text(NSLocalizedString("maintenance_history_key", comment: ""))
                             .font(.system(size: 25, weight: .bold, design: .rounded))
@@ -228,27 +265,6 @@ struct MaintenanceDetailsView: View {
                     .padding(.bottom, 10)
                     .background(Color("MaintenanceHistoryColor"))
                     .cornerRadius(15)
-                    
-                    VStack(spacing: 15) {
-                        Text(NSLocalizedString("advice_and_information_key", comment: ""))
-							.font(.system(size: 25, weight: .bold, design: .rounded))
-							.foregroundColor(Color("TextColor"))
-						
-						Divider()
-							.frame(width: 200)
-						
-						Text("\(maintenance.maintenanceType.localizedDescription)")
-						.font(.system(size: 16, weight: .regular, design: .rounded))
-						.foregroundColor(Color("TextColor"))
-						.padding(.leading, 10)
-						.multilineTextAlignment(.center)
-						.frame(maxWidth: .infinity)
-					}
-					.padding(.vertical, 20)
-					.padding(.bottom, 10)
-					.padding(.trailing, 10)
-					.background(Color("AdviceColor"))
-					.cornerRadius(15)
 				}
 				.padding(.top, 15)
 				.background(Color("BackgroundColor"))

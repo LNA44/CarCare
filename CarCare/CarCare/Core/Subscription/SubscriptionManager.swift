@@ -29,7 +29,7 @@ final class SubscriptionManager: ObservableObject {
 	}
 
 	// MARK: - Load products
-	private let productIDs = ["premium_weekly", "Premium_annual"]
+	private let productIDs = ["Premium_weekly", "Premium_annual2"]
 
 	func loadProducts() async {
 		isLoadingProducts = true
@@ -37,6 +37,7 @@ final class SubscriptionManager: ObservableObject {
 		do {
 			let storeProducts = try await Product.products(for: productIDs)
 			products = storeProducts
+            print("Products: \(products)")
 		} catch {
 			lastError = error
 		}
