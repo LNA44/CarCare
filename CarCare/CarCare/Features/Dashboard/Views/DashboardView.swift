@@ -105,7 +105,7 @@ struct DashboardView: View {
 						Circle()
 							.fill(Color.white.opacity(0.2))
 							.frame(width: 110, height: 110)
-                            .offset(x: -5, y: -80)
+                            .offset(y: -80)
                         if let imageData = bikeVM.bike?.imageData,
                            let uiImage = UIImage(data: imageData) {
                             Image(uiImage: uiImage)
