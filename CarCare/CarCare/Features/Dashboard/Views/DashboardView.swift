@@ -112,7 +112,7 @@ struct DashboardView: View {
                                 .resizable()
                                 .frame(width: 100, height: 100)
                                 .clipShape(Circle())
-                                .offset(x: -5, y: -80)
+                                .offset(y: -80)
                                 .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
                         } else if bikeVM.bike == nil {
                                 EmptyView()

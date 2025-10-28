@@ -38,7 +38,8 @@ struct ImagePicker: UIViewControllerRepresentable {
             didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
         ) {
             if let image = info[.originalImage] as? UIImage {
-                parent.selectedImage = image
+                let corrected = image.fixedOrientation.resized(maxWidth: 1024, maxHeight: 1024)
+                   parent.selectedImage = corrected
             }
             parent.dismiss()
         }
@@ -46,5 +47,31 @@ struct ImagePicker: UIViewControllerRepresentable {
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             parent.dismiss()
         }
+    }
+}
+
+extension UIImage {
+    var fixedOrientation: UIImage {
+        if imageOrientation == .up { return self }
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(in: CGRect(origin: .zero, size: size))
+        let normalizedImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return normalizedImage
+    }
+    
+    func resized(maxWidth: CGFloat, maxHeight: CGFloat) -> UIImage {
+        let aspectRatio = size.width / size.height
+        var newSize: CGSize
+        if size.width > size.height {
+            newSize = CGSize(width: maxWidth, height: maxWidth / aspectRatio)
+        } else {
+            newSize = CGSize(width: maxHeight * aspectRatio, height: maxHeight)
+        }
+        UIGraphicsBeginImageContextWithOptions(newSize, false, scale)
+        draw(in: CGRect(origin: .zero, size: newSize))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return resizedImage
     }
 }
