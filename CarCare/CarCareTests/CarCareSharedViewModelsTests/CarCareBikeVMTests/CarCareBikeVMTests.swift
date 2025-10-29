@@ -36,7 +36,7 @@ final class CarCareBikeVMTests: XCTestCase {
 	func test_fetchBikeData_setsPublishedProperties_whenBikeExists() {
 		// Given
 		let bike = Bike(id: UUID(), brand: "Decathlon", model: "Riverside 500", year: 2022, bikeType: .Manual, identificationNumber: "VIN123")
-        try? store.insert(LocalBike(id: bike.id, year: bike.year, model: bike.model, brand: bike.brand, bikeType: bike.bikeType, identificationNumber: bike.identificationNumber, imageData: nil))
+        try? store.insert(LocalBike(id: bike.id, year: bike.year, model: bike.model, brand: bike.brand, bikeType: bike.bikeType, identificationNumber: bike.identificationNumber, imageData: "fakeImageData".data(using: .utf8)))
 		
 		let exp = expectation(description: "completion called")
 		

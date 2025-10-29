@@ -23,14 +23,13 @@ final class AddMaintenanceVM: ObservableObject {
 	}
 	
 	func addMaintenance(bikeType: BikeType) {
-		print("addMaintenance appelée")
+        print("addMaintenance appelé")
 		if let selectedMaintenanceDate = selectedMaintenanceDate {
 			let maintenance = Maintenance(id: UUID(), maintenanceType: selectedMaintenanceType, date: selectedMaintenanceDate, reminder: true)
-			print("maintenance ajoutée: \(maintenance)")
 			do {
 				try maintenanceLoader.save(maintenance)
 				maintenanceVM.fetchAllMaintenance(for: bikeType)
-				if let nextDate = nextMaintenanceDate(for: selectedMaintenanceType, baseMaintenance: maintenance) {
+				if let nextDate = calculateNextMaintenanceDate(for: selectedMaintenanceType, baseMaintenance: maintenance) {
 					notificationVM.scheduleNotifications(for: selectedMaintenanceType, until: nextDate)
 				}
 				
@@ -58,22 +57,22 @@ final class AddMaintenanceVM: ObservableObject {
 		}
 	}
 	
-	func daysUntilNextMaintenance(type: MaintenanceType) -> Int? {
-		print("daysUntilNextMaintenance appelée")
+	/*func calculateDaysUntilNextMaintenance(type: MaintenanceType) -> Int? {
 		guard let nextDate = nextMaintenanceDate(for: type) else { return nil}
 		return Calendar.current.dateComponents([.day], from: Date(), to: nextDate).day
-	}
+	}*/
 	
-	func nextMaintenanceDate(for type: MaintenanceType, baseMaintenance: Maintenance? = nil) -> Date? {
+	func calculateNextMaintenanceDate(for type: MaintenanceType, baseMaintenance: Maintenance? = nil) -> Date? {
+        print("on ets dans calculateNextMaintenanceDate")
 		// Priorité à la dernière maintenance existante
-		let lastMaintenanceToUse = lastMaintenance(of: type) ?? baseMaintenance
+		let lastMaintenanceToUse = getLastMaintenance(of: type) ?? baseMaintenance
 		guard let lastMaintenance = lastMaintenanceToUse else { return nil }
 		guard type.frequencyInDays > 0 else { return nil }
+        print("resultat calculateNextMaintenanceDate: \(Calendar.current.date(byAdding: .day, value: type.frequencyInDays, to: lastMaintenance.date))")
 		return Calendar.current.date(byAdding: .day, value: type.frequencyInDays, to: lastMaintenance.date)
 	}
 	
-	func lastMaintenance(of type: MaintenanceType) -> Maintenance? {
-		print("lastMaintenance appelée")
+	func getLastMaintenance(of type: MaintenanceType) -> Maintenance? {
 		let filtered = maintenanceVM.maintenances.filter { $0.maintenanceType == type }
 		return filtered.max(by: { $0.date < $1.date })
 	}

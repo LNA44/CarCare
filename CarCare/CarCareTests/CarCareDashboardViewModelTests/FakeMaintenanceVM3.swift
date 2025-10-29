@@ -10,11 +10,24 @@ import XCTest
 
 class FakeMaintenanceVM3: MaintenanceVM {
 	var generalLastMaintenanceSet: Maintenance?
+    var store: FakeMaintenanceStore!
 	
 	override var generalLastMaintenance: Maintenance? {
 		get { generalLastMaintenanceSet }
 		set { generalLastMaintenanceSet = newValue }
 	}
+    
+    override func fetchAllMaintenance(for bikeType: BikeType) {
+        // Simule un fetch synchrone
+        self.maintenances = store.maintenances.map { local in
+            Maintenance(
+                id: local.id,
+                maintenanceType: MaintenanceType(rawValue: local.maintenanceType) ?? .CheckTirePressure,
+                date: local.date,
+                reminder: local.reminder
+            )
+        }
+    }
 }
 
 class FakeMaintenanceLoader: LocalMaintenanceLoader {

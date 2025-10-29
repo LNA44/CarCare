@@ -20,8 +20,8 @@ struct ToDoMaintenanceRow: View {
 	
 	var body: some View {
 		if let maintenanceType = maintenanceType {
-			let daysRemaining = VM.daysUntilNextMaintenance(type: maintenanceType)
-			let nextDate = VM.nextMaintenanceDate(for: maintenanceType)
+			let daysRemaining = VM.calculateDaysUntilNextMaintenance(type: maintenanceType)
+			let nextDate = VM.calculateNextMaintenanceDate(for: maintenanceType)
 			
 			HStack {
 				VStack(alignment: .leading, spacing: 3) {

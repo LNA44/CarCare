@@ -42,8 +42,6 @@ class MaintenanceVM: ObservableObject {
 	}
 	
 	func defineOverallMaintenanceStatus(for bikeType: BikeType) -> MaintenanceStatus {
-		print("defineOverallMaintenanceStatus appelée")
-		
 		// Cas spécial : pas de maintenances → statut à prévoir
 		guard !maintenances.isEmpty else {
 			return .aPrevoir
@@ -71,8 +69,8 @@ class MaintenanceVM: ObservableObject {
 	}
 	
 	func fetchAllMaintenance(for bikeType: BikeType) {
-		print("fetchAllMaintenance appelée")
 		do {
+            print("on est dans fecthAllMaintenance")
 			let loaded = try loader.load()
 			
 			// Filtrage : on exclut la maintenance batterie si le vélo est manuel
@@ -85,9 +83,7 @@ class MaintenanceVM: ObservableObject {
 			
 			DispatchQueue.main.async {
 				self.maintenances = filtered
-				print("Maintenances: \(self.maintenances)")
 				self.overallStatus = self.defineOverallMaintenanceStatus(for: bikeType)
-				print("overallStatus après fetch: \(self.overallStatus)")
 				
 			}
 		} catch let error as LoadingCocoaError { //erreurs de load
@@ -106,7 +102,6 @@ class MaintenanceVM: ObservableObject {
 	}
 	
 	func determineMaintenanceStatus(for maintenanceType: MaintenanceType, maintenances: [Maintenance]) -> MaintenanceStatus {
-		print("determineMaintenanceStatus appelée")
 		// Filtrer les maintenances de ce type
 		let filtered = maintenances.filter { $0.maintenanceType == maintenanceType }
 		
@@ -135,12 +130,10 @@ class MaintenanceVM: ObservableObject {
 	}
 
 	func calculateNumberOfMaintenance() -> Int {
-		print("calculateNumberOfMaintenance appelée")
 		return maintenances.count
 	}
     
 	func updateReminder(for maintenance: Maintenance, value: Bool) {
-		print("updateReminder appelée")
 		do {
 			var updated = maintenance
 			updated.reminder = value
@@ -214,7 +207,7 @@ class MaintenanceVM: ObservableObject {
 	//pour notificationVM
 	func nextMaintenanceDate(for type: MaintenanceType) -> Date? {
 		// On récupère la dernière maintenance effectuée de ce type
-		guard let last = lastMaintenance(of: type) else { return nil }
+		guard let last = getLastMaintenance(of: type) else { return nil }
 		// Vérifie que la fréquence est définie
 		guard type.frequencyInDays > 0 else { return nil }
 		// Calcule la prochaine date
@@ -222,13 +215,13 @@ class MaintenanceVM: ObservableObject {
 	}
 	
 	// Renvoie la dernière maintenance effectuée pour un type donné
-	func lastMaintenance(of type: MaintenanceType) -> Maintenance? {
+	func getLastMaintenance(of type: MaintenanceType) -> Maintenance? {
 		let filtered = maintenances.filter { $0.maintenanceType == type }
 		return filtered.max(by: { $0.date < $1.date })
 	}
     
     func calculateDaysSinceLastMaintenance(for type: MaintenanceType) -> Int? {
-        guard let last = lastMaintenance(of: type) else { return nil }
+        guard let last = getLastMaintenance(of: type) else { return nil }
         let calendar = Calendar.current
         let now = Date()
         let components = calendar.dateComponents([.day], from: last.date, to: now)

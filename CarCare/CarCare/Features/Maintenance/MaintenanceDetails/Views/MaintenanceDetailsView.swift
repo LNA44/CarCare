@@ -277,12 +277,12 @@ struct MaintenanceDetailsView: View {
 			}
 			.onAppear {
 				maintenancesForOneType = VM.fetchAllMaintenanceForOneType(type: maintenance.maintenanceType)
-				daysRemaining = VM.daysUntilNextMaintenance(type: maintenance.maintenanceType)
+				daysRemaining = VM.calculateDaysUntilNextMaintenance(type: maintenance.maintenanceType)
 			}
 			.onChange(of: maintenanceVM.maintenances) {_, _ in
 				if let maintenance = maintenanceVM.maintenances.first(where: { $0.id == maintenanceID }) {
 					maintenancesForOneType = VM.fetchAllMaintenanceForOneType(type: maintenance.maintenanceType)
-					daysRemaining = VM.daysUntilNextMaintenance(type: maintenance.maintenanceType)
+					daysRemaining = VM.calculateDaysUntilNextMaintenance(type: maintenance.maintenanceType)
 				}
 			}
 			.background(Color("BackgroundColor"))

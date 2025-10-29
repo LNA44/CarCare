@@ -148,6 +148,7 @@
 "bike_load_failed" = "An error occurred while loading the bike.";
 "data_unavailable" = "Your data is not available.";
 "loading_data_failed" = "Error loading data: %@.";
+"no_image_data" = "No image found";
 "fetch_data_failed" = "Error fetching data: %@.";
 "save_data_failed" = "Error saving data: %@.";
 "notification_error" = "An error occurred while sending the notification.";

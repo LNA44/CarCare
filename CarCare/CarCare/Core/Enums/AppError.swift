@@ -12,6 +12,7 @@ enum AppError: Error, LocalizedError {
 	case bikeLoadFailed(Error) // erreur du AppState
 	case dataUnavailable(StoreError) //mapping des erreurs StoreError pour que les erreurs soient compréhensibles par l'utilisateur
 	case loadingDataFailed(LoadingCocoaError) //mapping des erreurs CocoaError pour que les erreurs soient compréhensibles par l'utilisateur
+    case noImageData
 	case fetchDataFailed(FetchCocoaError)
 	case saveDataFailed(SaveCocoaError)
 	
@@ -34,6 +35,8 @@ extension AppError {
 		case .loadingDataFailed(let cocoaError):
 			let format = NSLocalizedString("loading_data_failed", comment: "Error occurred while loading data")
 			return String(format: format, cocoaError.localizedDescription)
+        case .noImageData:
+            return NSLocalizedString("no_image_data", comment: "No image data")
 		case .fetchDataFailed(let fetchCocoaError):
 			let format = NSLocalizedString("fetch_data_failed", comment: "Error occurred while fetching data")
 			return String(format: format, fetchCocoaError.localizedDescription)

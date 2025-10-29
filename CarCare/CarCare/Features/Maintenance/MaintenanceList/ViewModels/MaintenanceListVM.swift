@@ -18,7 +18,7 @@ final class MaintenanceListVM: ObservableObject {
 		self.maintenanceVM = maintenanceVM
 	}
 	
-	func sortedMaintenanceKeys(from maintenances: [Maintenance]) -> [MaintenanceType] {
+	func sortMaintenanceKeys(from maintenances: [Maintenance]) -> [MaintenanceType] {
 		let lastByType = Dictionary(grouping: maintenances, by: { $0.maintenanceType })
 			.compactMapValues { $0.max(by: { $0.date < $1.date }) }
 			.filter { $0.key != .Unknown }
@@ -30,22 +30,21 @@ final class MaintenanceListVM: ObservableObject {
 		print("calculateNumberOfMaintenance appelée")
 		return maintenanceVM.maintenances.count
 	}
-	//Utile dans row
 	
-	func daysUntilNextMaintenance(type: MaintenanceType) -> Int? {
+	func calculateDaysUntilNextMaintenance(type: MaintenanceType) -> Int? {
 		print("daysUntilNextMaintenance appelée")
-		guard let nextDate = nextMaintenanceDate(for: type) else { return nil}
+		guard let nextDate = calculateNextMaintenanceDate(for: type) else { return nil}
 		return Calendar.current.dateComponents([.day], from: Date(), to: nextDate).day
 	}
 	
-	func nextMaintenanceDate(for type: MaintenanceType) -> Date? {
+	func calculateNextMaintenanceDate(for type: MaintenanceType) -> Date? {
 		print("nextMaintenanceDate appelée")
-		guard let lastMaintenance = lastMaintenance(of: type) else { return nil }
+		guard let lastMaintenance = getLastMaintenance(of: type) else { return nil }
 		guard type.frequencyInDays > 0 else { return nil} // Pas de prochaine date pour Unknown
 		return Calendar.current.date(byAdding: .day, value: type.frequencyInDays, to: lastMaintenance.date)
 	}
 	
-	func lastMaintenance(of type: MaintenanceType) -> Maintenance? {
+	func getLastMaintenance(of type: MaintenanceType) -> Maintenance? {
 		print("lastMaintenance appelée")
 		let filtered = maintenanceVM.maintenances.filter { $0.maintenanceType == type }
 		return filtered.max(by: { $0.date < $1.date })

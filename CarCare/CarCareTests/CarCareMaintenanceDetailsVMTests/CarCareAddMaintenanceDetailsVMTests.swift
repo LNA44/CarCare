@@ -37,7 +37,7 @@ final class CarCareAddMaintenanceDetailsVMTests: XCTestCase {
 		maintenanceVM.maintenances = [oldMaintenance, recentMaintenance]
 		
 		// When
-		let last = vm.lastMaintenance(of: .BleedHydraulicBrakes)
+		let last = vm.getLastMaintenance(of: .BleedHydraulicBrakes)
 		
 		// Then
 		XCTAssertEqual(last?.id, recentMaintenance.id)
@@ -50,7 +50,7 @@ final class CarCareAddMaintenanceDetailsVMTests: XCTestCase {
 		maintenanceVM.maintenances = [maintenance]
 		
 		// When
-		let nextDate = vm.nextMaintenanceDate(for: .BleedHydraulicBrakes)
+		let nextDate = vm.calculateNextMaintenanceDate(for: .BleedHydraulicBrakes)
 		
 		// Then
 		let expected = Calendar.current.date(byAdding: .day, value: MaintenanceType.BleedHydraulicBrakes.frequencyInDays, to: lastDate)
@@ -64,7 +64,7 @@ final class CarCareAddMaintenanceDetailsVMTests: XCTestCase {
 		maintenanceVM.maintenances = [maintenance]
 		
 		// When
-		let days = vm.daysUntilNextMaintenance(type: .BleedHydraulicBrakes)
+		let days = vm.calculateDaysUntilNextMaintenance(type: .BleedHydraulicBrakes)
 		
 		// Then
 		let expectedDate = Calendar.current.date(byAdding: .day, value: MaintenanceType.BleedHydraulicBrakes.frequencyInDays, to: lastDate)!

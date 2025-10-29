@@ -34,7 +34,6 @@ final class BikeVM: ObservableObject {
 	//MARK: -Methods
 	//synchronise bike et les published
 	func fetchBikeData(completion: (() -> Void)? = nil) {
-		print("fetchBikeData appelée")
 		DispatchQueue.global(qos: .userInitiated).async { //charge en arrière plan donc ne bloque pas l'UI
 			do {
 				guard let unwrappedBike = try self.bikeLoader.load() else {
@@ -49,11 +48,10 @@ final class BikeVM: ObservableObject {
 					self.bike = unwrappedBike
                     
                     if let imageData = unwrappedBike.imageData {
-                        print("ImageData size: \(imageData.count) bytes")
                     } else {
-                        print("Pas d'image enregistrée")
+                        self.error = AppError.noImageData
+                        self.showAlert = true
                     }
-                    
 					completion?()
 				}
 			} catch let error as LoadingCocoaError { //erreurs de load
@@ -81,7 +79,6 @@ final class BikeVM: ObservableObject {
 	}
 	
     func modifyBikeInformations(brand: String, model: String, year: Int, type: BikeType, identificationNumber: String, image: UIImage?) {
-		print("modifyBikeInformations appelée")
 		guard bike != nil else { return }
 			bike!.brand = brand
 			bike!.model = model
@@ -119,9 +116,7 @@ final class BikeVM: ObservableObject {
 	}
 	
     func addBike(brand: String, model: String, year: Int, type: BikeType, identificationNumber: String, image: UIImage?) -> Bool {
-		print("addBike appelée")
 		var bike = Bike(id: UUID(), brand: brand, model: model, year: year, bikeType: type, identificationNumber: identificationNumber)
-		print("Bike avant enregistrement: \(bike)")
 
         if let img = image {
                bike.imageData = img.jpegData(compressionQuality: 0.8)
@@ -150,7 +145,6 @@ final class BikeVM: ObservableObject {
 	}
 	
 	func deleteCurrentBike() {
-		print("on est dans deleteCurrentBike du VM")
 		do {
 			guard let bike = bike else { return }
 			try bikeLoader.delete(bike)

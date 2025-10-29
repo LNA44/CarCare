@@ -143,6 +143,7 @@
 "bike_load_failed" = "Ocurrió un error al cargar la bicicleta.";
 "data_unavailable" = "Sus datos no están disponibles.";
 "loading_data_failed" = "Error al cargar los datos: %@.";
+"no_image_data" = "Ningúna imagen encontrada";
 "fetch_data_failed" = "Error al cargar los datos: %@.";
 "save_data_failed" = "Error al guardar los datos: %@.";
 "notification_error" = "Ocurrió un error al enviar la notificación.";

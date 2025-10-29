@@ -19,7 +19,6 @@ final class DashboardVM: ObservableObject {
 		}
 	
 	func fetchLastMaintenance(for bikeType: BikeType) {
-		print("fetchLastMaintenance appelée")
 		DispatchQueue.global(qos: .userInitiated).async { //chargement hors du thread principal
 			do {
 				let allMaintenance = try self.maintenanceLoader.load()

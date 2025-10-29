@@ -41,6 +41,7 @@ class NotificationViewModel: ObservableObject {
 	
 	// Planifie les notifications pour un type de maintenance
 	func scheduleNotifications(for type: MaintenanceType, until endDate: Date) {
+        print("on est dans scheduleNotification")
 		guard isAuthorized else { return }
 
 		   // Calcul du nombre de jours restants
