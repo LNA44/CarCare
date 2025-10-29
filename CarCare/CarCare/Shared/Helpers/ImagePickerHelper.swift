@@ -61,13 +61,11 @@ extension UIImage {
     }
     
     func resized(maxWidth: CGFloat, maxHeight: CGFloat) -> UIImage {
-        let aspectRatio = size.width / size.height
-        var newSize: CGSize
-        if size.width > size.height {
-            newSize = CGSize(width: maxWidth, height: maxWidth / aspectRatio)
-        } else {
-            newSize = CGSize(width: maxHeight * aspectRatio, height: maxHeight)
-        }
+        let widthRatio = maxWidth / size.width
+        let heightRatio = maxHeight / size.height
+        let scaleFactor = min(widthRatio, heightRatio) // garde le ratio correct
+        
+        let newSize = CGSize(width: size.width * scaleFactor, height: size.height * scaleFactor)
         UIGraphicsBeginImageContextWithOptions(newSize, false, scale)
         draw(in: CGRect(origin: .zero, size: newSize))
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()!

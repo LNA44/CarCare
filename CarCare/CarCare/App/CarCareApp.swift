@@ -11,6 +11,7 @@ import SwiftUI
 struct CarCareApp: App {
 	let dependencyContainer = DependencyContainer.shared
 	@Environment(\.scenePhase) private var scenePhase // quand utilisateur revient dans l'app
+   @Environment(\.colorScheme) private var systemColorScheme
 	@StateObject private var notificationVM: NotificationViewModel
 	@StateObject private var bikeVM: BikeVM
 	@StateObject private var maintenanceVM: MaintenanceVM
@@ -18,8 +19,16 @@ struct CarCareApp: App {
 	@StateObject private var subscriptionManager = SubscriptionManager.shared
     
 	@AppStorage("hasSeenNotificationIntro") private var hasSeenNotificationIntro: Bool = false
-	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
+	@AppStorage("isDarkMode") private var isDarkMode: Bool?
 	@AppStorage("hasSeenOnboarding") var hasSeenOnboarding: Bool = false
+   
+   var currentMode: ColorScheme {
+       if let isDark = isDarkMode {
+           return isDark ? .dark : .light
+       } else {
+           return systemColorScheme
+       }
+   }
 	
 	init() {
 		let appState = AppState(vehicleLoader: dependencyContainer.BikeLoader)
@@ -76,6 +85,7 @@ defaults.set(false, forKey: "isPremiumUser")
 							   .zIndex(0)
 				}
 			}
+            .preferredColorScheme(currentMode)
 			.onChange(of: scenePhase) {_, newPhase in
 				if newPhase == .active {
 					Task {
