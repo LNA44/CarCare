@@ -45,11 +45,11 @@ struct SubscriptionButton: View {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .font(.system(size: 18, weight: .bold, design: .default))
                         .lineLimit(1)
                         .minimumScaleFactor(0.8)
                     Text(price)
-                        .font(.system(size: 14, weight: .medium, design: .rounded))
+                        .font(.system(size: 14, weight: .medium, design: .default))
                         .lineLimit(1)
                         .minimumScaleFactor(0.8)
                         .foregroundColor(.secondary)

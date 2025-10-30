@@ -16,12 +16,12 @@ struct SettingsView: View {
 		Form {
 			Section(header: Text(NSLocalizedString("appearence_key", comment: ""))
 				.foregroundColor(Color("TextColor"))
-				.font(.system(size: 16, weight: .bold, design: .rounded))
+				.font(.system(size: 16, weight: .bold, design: .default))
 			) {
 				Toggle(isOn: $isDarkMode) {
 					Text(NSLocalizedString("dark_mode_key", comment: ""))
 						.foregroundColor(Color("TextColor"))
-						.font(.system(size: 16, weight: .regular, design: .rounded))
+						.font(.system(size: 16, weight: .regular, design: .default))
 				}
 				.tint(Color("DoneColor"))
 				.onChange(of: isDarkMode) {_, value in
@@ -32,7 +32,7 @@ struct SettingsView: View {
 			
 			Section(header: Text(NSLocalizedString("notifications_key", comment: ""))
 				.foregroundColor(Color("TextColor"))
-				.font(.system(size: 16, weight: .bold, design: .rounded))
+				.font(.system(size: 16, weight: .bold, design: .default))
 			) {
 				Button(action: {
 					// Ouvre les paramètres iOS
@@ -42,19 +42,19 @@ struct SettingsView: View {
 				}) {
 					Text(NSLocalizedString("handle_notifications_key", comment: ""))
 						.foregroundColor(Color("TextColor"))
-						.font(.system(size: 16, weight: .regular, design: .rounded))
+						.font(.system(size: 16, weight: .regular, design: .default))
 				}
 				.listRowBackground(Color("MaintenanceHistoryColor"))
 			}
 			
 			Section(header: Text(NSLocalizedString("information_key", comment: ""))
 				.foregroundColor(Color("TextColor"))
-				.font(.system(size: 16, weight: .bold, design: .rounded))
+				.font(.system(size: 16, weight: .bold, design: .default))
 			) {
 				NavigationLink(destination: LegalView()) {
 					Text(NSLocalizedString("legal_notice_key", comment: ""))
 						.foregroundColor(Color("TextColor"))
-						.font(.system(size: 16, weight: .regular, design: .rounded))
+						.font(.system(size: 16, weight: .regular, design: .default))
 				}
                 .simultaneousGesture(
                     TapGesture().onEnded {
@@ -78,7 +78,7 @@ struct SettingsView: View {
 		.toolbar {
 			ToolbarItem(placement: .principal) {
 				Text(NSLocalizedString("navigation_title_settings_key", comment: ""))
-					.font(.system(size: 22, weight: .bold, design: .rounded))
+					.font(.system(size: 22, weight: .bold, design: .default))
 					.foregroundColor(Color("TextColor"))
 			}
 		}

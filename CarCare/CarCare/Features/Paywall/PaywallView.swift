@@ -25,13 +25,13 @@ struct PaywallView: View {
 				VStack(spacing: 15) {
 					// MARK: - Title
 					Text(NSLocalizedString("paywall_title", comment: ""))
-						.font(.system(size: 28, weight: .bold, design: .rounded))
+						.font(.system(size: 28, weight: .bold, design: .default))
 						.foregroundColor(isDarkMode ? .white : .black)
 						.multilineTextAlignment(.center)
 					
 					// MARK: - Description
 					Text(NSLocalizedString("paywall_description", comment: ""))
-						.font(.system(size: 16, weight: .medium, design: .rounded))
+						.font(.system(size: 16, weight: .medium, design: .default))
 						.foregroundColor(isDarkMode ? Color.white.opacity(0.85) : Color.black.opacity(0.7))
 						.multilineTextAlignment(.center)
 						.padding(.horizontal, 20)
@@ -94,7 +94,7 @@ struct PaywallView: View {
 						}
 					}) {
 						Text(NSLocalizedString("paywall_button_upgrade", comment: ""))
-							.font(.system(size: 18, weight: .bold, design: .rounded))
+							.font(.system(size: 18, weight: .bold, design: .default))
 							.lineLimit(1)
 							.minimumScaleFactor(0.8)
 							.frame(maxWidth: .infinity, minHeight: 50)
@@ -113,7 +113,7 @@ struct PaywallView: View {
 						}
 					}) {
 						Text(NSLocalizedString("paywall_button_restore", comment: ""))
-							.font(.system(size: 16, weight: .medium, design: .rounded))
+							.font(.system(size: 16, weight: .medium, design: .default))
 							.lineLimit(1)
 							.minimumScaleFactor(0.8)
 							.frame(maxWidth: .infinity, minHeight: 44)
@@ -129,7 +129,7 @@ struct PaywallView: View {
 						presentationMode.wrappedValue.dismiss()
 					}) {
 						Text(NSLocalizedString("paywall_button_cancel", comment: ""))
-							.font(.system(size: 16, weight: .medium, design: .rounded))
+							.font(.system(size: 16, weight: .medium, design: .default))
 							.lineLimit(1)
 							.minimumScaleFactor(0.8)
 							.frame(maxWidth: .infinity, minHeight: 44)

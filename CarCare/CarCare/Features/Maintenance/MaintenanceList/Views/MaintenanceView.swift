@@ -44,7 +44,7 @@ struct MaintenanceView: View {
 					if let lastMaintenanceByType = lastMaintenanceByType {
 						List {
 							Section(header: Text(NSLocalizedString("maintenances_to_come", comment: "Title for upcoming maintenance section"))
-								.font(.system(size: 27, weight: .bold, design: .rounded))
+								.font(.system(size: 27, weight: .bold, design: .default))
 								.foregroundColor(Color("TextColor"))
 								.textCase(nil)) {
 									ForEach(sortedKeys, id: \.self) { type in
@@ -64,7 +64,7 @@ struct MaintenanceView: View {
 									}
 								}
 							Section(header: Text(NSLocalizedString("completed_maintenances", comment: "Title for completed maintenance section"))
-								.font(.system(size: 27, weight: .bold, design: .rounded))
+								.font(.system(size: 27, weight: .bold, design: .default))
 								.foregroundColor(Color("TextColor"))
 								.textCase(nil)) {
 									ForEach(maintenanceVM.maintenances.reversed(), id: \.self) { maintenance in
@@ -89,11 +89,11 @@ struct MaintenanceView: View {
 							VStack(alignment: .leading, spacing: 40) {
 								
 								Text(NSLocalizedString("maintenances_to_come", comment: "Title for upcoming maintenance section"))
-									.font(.system(size: 27, weight: .bold, design: .rounded))
+									.font(.system(size: 27, weight: .bold, design: .default))
 									.foregroundColor(Color("TextColor"))
 								
 								Text(NSLocalizedString("completed_maintenances", comment: "Title for completed maintenance section"))
-									.font(.system(size: 27, weight: .bold, design: .rounded))
+									.font(.system(size: 27, weight: .bold, design: .default))
 									.foregroundColor(Color("TextColor"))
 								Spacer()
 							}

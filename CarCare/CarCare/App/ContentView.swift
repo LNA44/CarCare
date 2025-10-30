@@ -112,7 +112,9 @@ struct TabButton: View {
         Button(action: action) {
             VStack(spacing: 4) {
                 Image(systemName: isSelected ? "\(icon).fill" : icon)
-                    .font(.system(size: 24))
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 24, height: 24) // même taille pour toutes les icônes
                     .foregroundColor(isSelected ? Color("TextColor") : Color.gray)
                 
                 Text(title)

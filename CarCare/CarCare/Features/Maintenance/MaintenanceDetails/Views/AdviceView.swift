@@ -13,7 +13,7 @@ struct AdviceView: View {
     var body: some View {
         VStack {
             Text(NSLocalizedString("advice_and_information_key", comment: ""))
-                .font(.system(size: 25, weight: .bold, design: .rounded))
+                .font(.system(size: 25, weight: .bold, design: .default))
                 .foregroundColor(Color("TextColor"))
             
             Divider()
@@ -21,7 +21,7 @@ struct AdviceView: View {
                 .padding(.bottom, 10)
             
             Text("\(maintenance.maintenanceType.localizedDescription)")
-                .font(.system(size: 16, weight: .regular, design: .rounded))
+                .font(.system(size: 16, weight: .regular, design: .default))
                 .foregroundColor(Color("TextColor"))
                 .padding(.horizontal, 15)
                 .multilineTextAlignment(.center)

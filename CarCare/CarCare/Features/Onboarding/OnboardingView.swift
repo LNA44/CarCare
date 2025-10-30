@@ -29,7 +29,7 @@ struct OnboardingView: View {
 					ForEach(questions.indices, id: \.self) { index in
 						VStack {
 							Text(LocalizedStringKey(questions[index]))
-								.font(currentIndex == index ? .system(size: 28, weight: .bold, design: .rounded) : .system(size: 18, weight: .bold, design: .rounded))
+								.font(currentIndex == index ? .system(size: 28, weight: .bold, design: .default) : .system(size: 18, weight: .bold, design: .default))
 								.multilineTextAlignment(.center)
 								.lineLimit(nil)               // ✅ permet plusieurs lignes
 								.fixedSize(horizontal: false, vertical: true)
@@ -69,7 +69,7 @@ struct OnboardingView: View {
 						Text(LocalizedStringKey(
 							currentIndex < questions.count - 1 ? ButtonConstants.next : ButtonConstants.start
 						))
-							.font(.system(size: 16, weight: .bold, design: .rounded))
+							.font(.system(size: 16, weight: .bold, design: .default))
 							.frame(maxWidth: .infinity)
 							.padding()
 							.background(Color("AppPrimaryColor"))

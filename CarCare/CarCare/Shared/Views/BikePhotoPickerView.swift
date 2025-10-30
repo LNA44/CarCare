@@ -58,7 +58,7 @@ struct BikePhotoPickerView: View {
                     .background(Color("AppPrimaryColor"))
                     .foregroundColor(.white)
                     .cornerRadius(10)
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .font(.system(size: 16, weight: .bold, design: .default))
             }
             
             // Bouton pour choisir dans la bibliothèque
@@ -72,7 +72,7 @@ struct BikePhotoPickerView: View {
                     .background(Color("ButtonColor").opacity(0.8))
                     .foregroundColor(.white)
                     .cornerRadius(10)
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .font(.system(size: 16, weight: .bold, design: .default))
             }
         }
         .padding()

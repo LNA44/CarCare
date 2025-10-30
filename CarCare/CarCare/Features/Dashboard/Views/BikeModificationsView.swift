@@ -56,7 +56,7 @@ struct BikeModificationsView: View {
                         Picker("Type", selection: $selectedType) {
                             ForEach(BikeType.allCases, id: \.self) { type in
                                 Text(type.localizedName).tag(type)
-                                    .font(.system(size: 16, weight: .regular, design: .rounded))
+                                    .font(.system(size: 16, weight: .regular, design: .default))
                             }
                         }
                         .tint(Color("TextColor"))
@@ -86,7 +86,7 @@ struct BikeModificationsView: View {
                     
                     BikePhotoPickerView(selectedImage: $selectedImage)
                 }
-                .font(.system(size: 16, weight: .bold, design: .rounded))
+                .font(.system(size: 16, weight: .bold, design: .default))
                 
                 Spacer()
                 
@@ -125,7 +125,7 @@ struct BikeModificationsView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text(NSLocalizedString("navigation_title_modify_bike_key", comment: ""))
-                        .font(.system(size: 22, weight: .bold, design: .rounded))
+                        .font(.system(size: 22, weight: .bold, design: .default))
                         .foregroundColor(Color("TextColor"))
                 }
                 
@@ -134,7 +134,7 @@ struct BikeModificationsView: View {
                         dismiss()
                     }) {
                         Text(NSLocalizedString("return_key", comment: ""))
-                            .font(.system(size: 16, weight: .regular, design: .rounded))
+                            .font(.system(size: 16, weight: .regular, design: .default))
                             .foregroundColor(Color("TextColor"))
                     }
                 }

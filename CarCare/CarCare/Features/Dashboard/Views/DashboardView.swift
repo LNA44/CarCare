@@ -59,7 +59,7 @@ struct DashboardView: View {
 					VStack {
 						VStack {
 							Text("\(bikeVM.brand.uppercased()) - \(bikeVM.model)")
-								.font(.system(size: 24, weight: .bold, design: .rounded))
+								.font(.system(size: 24, weight: .bold, design: .default))
 								.padding(.top, 40)
 								.padding(.horizontal, 15)
 								.multilineTextAlignment(.center)
@@ -70,11 +70,11 @@ struct DashboardView: View {
                                 VStack(alignment: .leading, spacing: 5) {
                                     Text(String(format: NSLocalizedString("bike_year_label", comment: "")))
                                         .foregroundColor(Color("TextColor"))
-                                        .font(.system(size: 16, weight: .medium, design: .rounded))
+                                        .font(.system(size: 16, weight: .medium, design: .default))
                                     HStack {
                                         Image(systemName: "calendar")
                                         Text("\(bikeVM.year)")
-                                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                                            .font(.system(size: 14, weight: .medium, design: .default))
                                     }
                                 }
                                 
@@ -88,11 +88,11 @@ struct DashboardView: View {
                                         format: NSLocalizedString("identification_number_key", comment: "Label pour le numéro d'identification du vélo")
                                     ))
                                     .foregroundColor(Color("TextColor"))
-                                    .font(.system(size: 16, weight: .medium, design: .rounded))
+                                    .font(.system(size: 16, weight: .medium, design: .default))
                                     HStack {
                                         Image(systemName:"barcode")
                                         Text("\(bikeVM.identificationNumber)")
-                                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                                            .font(.system(size: 14, weight: .medium, design: .default))
                                     }
                                 }
                             }
@@ -140,11 +140,11 @@ struct DashboardView: View {
 				VStack {
 					VStack(alignment: .center, spacing: 20) {
 						Text(NSLocalizedString("maintenance_key", comment: ""))
-							.font(.system(size: 27, weight: .bold, design: .rounded))
+							.font(.system(size: 27, weight: .bold, design: .default))
                             .foregroundColor(Color("TextColor"))
                         
                         Text("\(maintenanceVM.overallStatus.label)")
-                            .font(.system(size: 22, weight: .bold, design: .rounded))
+                            .font(.system(size: 22, weight: .bold, design: .default))
                             .foregroundColor(maintenanceVM.overallStatus == .aJour ? Color("DoneColor") :
                                                 maintenanceVM.overallStatus == .bientotAPrevoir ? Color("InProgressColor") :
                                                 Color("ToDoColor"))
@@ -192,18 +192,18 @@ struct DashboardView: View {
                     
 					VStack(alignment: .leading) {
 						Text(NSLocalizedString("last_maintenance_key", comment: ""))
-							.font(.system(size: 22, weight: .bold, design: .rounded))
+							.font(.system(size: 22, weight: .bold, design: .default))
 							.padding(.bottom, 5)
 						
 						Text("\(maintenanceVM.generalLastMaintenance?.maintenanceType.localizedName ?? "")")
-							.font(.system(size: 16, weight: .bold, design: .rounded))
+							.font(.system(size: 16, weight: .bold, design: .default))
 						
 						if let date = maintenanceVM.generalLastMaintenance?.date {
 							Text(formatter.string(from: date))
-								.font(.system(size: 16, weight: .bold, design: .rounded))
+								.font(.system(size: 16, weight: .bold, design: .default))
 						} else {
 							Text(NSLocalizedString("no_date_key", comment: ""))
-								.font(.system(size: 16, weight: .bold, design: .rounded))
+								.font(.system(size: 16, weight: .bold, design: .default))
 						}
 					}
 					.foregroundColor(.white)
@@ -224,7 +224,7 @@ struct DashboardView: View {
 						}
 					) {
 						Text(NSLocalizedString("button_modify_bike_information", comment: ""))
-							.font(.system(size: 16, weight: .bold, design: .rounded))
+							.font(.system(size: 16, weight: .bold, design: .default))
 							.foregroundColor(Color("TextColor"))
 							.frame(maxWidth: .infinity)
 							.padding()
@@ -253,7 +253,7 @@ struct DashboardView: View {
                         goToAdd = true
                     } label: {
                         Text(NSLocalizedString("button_Add_Maintenance", comment: ""))
-                            .font(.system(size: 16, weight: .bold, design: .rounded))
+                            .font(.system(size: 16, weight: .bold, design: .default))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -306,7 +306,7 @@ struct DashboardView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(NSLocalizedString("navigation_title_modify_bike_key", comment: ""))
-                    .font(.system(size: 22, weight: .bold, design: .rounded))
+                    .font(.system(size: 22, weight: .bold, design: .default))
                     .foregroundColor(Color("TextColor"))
             }
             
@@ -335,11 +335,11 @@ struct DashboardView: View {
                 .popover(isPresented: $showPopover, arrowEdge: .top) {
                     VStack(spacing: 20) {
                         Text(NSLocalizedString("premium_feature", comment: ""))
-                            .font(.system(size: 22, weight: .bold, design: .rounded))
+                            .font(.system(size: 22, weight: .bold, design: .default))
                         
                         Text(NSLocalizedString("share_summary_description", comment: ""))
                             .multilineTextAlignment(.center)
-                            .font(.system(size: 18, weight: .regular, design: .rounded))
+                            .font(.system(size: 18, weight: .regular, design: .default))
                             .frame(maxWidth: 250)
                         
                         Button(action: {
@@ -350,7 +350,7 @@ struct DashboardView: View {
                             }
                         }) {
                             Text(NSLocalizedString("unlock_now", comment: ""))
-                                .font(.system(size: 18, weight: .bold, design: .rounded))
+                                .font(.system(size: 18, weight: .bold, design: .default))
                                 .foregroundColor(.white)
                                 .padding()
                                 .background(Color("MainComponentColor"))

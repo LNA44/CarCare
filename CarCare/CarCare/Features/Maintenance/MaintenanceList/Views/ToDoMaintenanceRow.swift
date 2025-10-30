@@ -27,7 +27,7 @@ struct ToDoMaintenanceRow: View {
 				VStack(alignment: .leading, spacing: 3) {
 					Text("\(maintenanceType.localizedName)")
 						.foregroundColor(Color("TextColor"))
-						.font(.system(size: 18, weight: .bold, design: .rounded))
+						.font(.system(size: 18, weight: .bold, design: .default))
 					
 					VStack {
 						if let daysRemaining = daysRemaining, daysRemaining >= 0 {
@@ -39,7 +39,7 @@ struct ToDoMaintenanceRow: View {
 						   }
 					}
 					.foregroundColor(Color("TextColor"))
-					.font(.system(size: 18, weight: .regular, design: .rounded))
+					.font(.system(size: 18, weight: .regular, design: .default))
 				}
 				
 				Spacer()
@@ -54,7 +54,7 @@ struct ToDoMaintenanceRow: View {
 					}
 				}
 				.foregroundColor(Color("TextColor"))
-				.font(.system(size: 18, weight: .regular, design: .rounded))
+				.font(.system(size: 18, weight: .regular, design: .default))
 			}
 		}
 	}

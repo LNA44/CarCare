@@ -40,14 +40,14 @@ struct AddMaintenanceView: View {
 			VStack(spacing: 20) {
 				VStack {
 					Text(NSLocalizedString("maintenance_Type_key", comment: ""))
-						.font(.system(size: 16, weight: .bold, design: .rounded))
+						.font(.system(size: 16, weight: .bold, design: .default))
 						.foregroundColor(Color("TextColor"))
 						.frame(maxWidth: .infinity, alignment: .leading)
 					
 					Picker("Type", selection: $VM.selectedMaintenanceType) {
 						ForEach(VM.filteredMaintenanceTypes(for: bikeVM.bikeType), id: \.self) { maintenanceType in
 							Text(maintenanceType.localizedName).tag(maintenanceType)
-								.font(.system(size: 16, weight: .regular, design: .rounded))
+								.font(.system(size: 16, weight: .regular, design: .default))
 						}
 					}
 					.tint(Color("TextColor"))
@@ -60,7 +60,7 @@ struct AddMaintenanceView: View {
 				
 				VStack {
 					Text(NSLocalizedString("maintenance_date_key", comment: ""))
-						.font(.system(size: 16, weight: .bold, design: .rounded))
+						.font(.system(size: 16, weight: .bold, design: .default))
 						.foregroundColor(Color("TextColor"))
 						.frame(maxWidth: .infinity, alignment: .leading)
 					
@@ -68,7 +68,7 @@ struct AddMaintenanceView: View {
 						HStack {
 							Text(formatter.string(from: VM.selectedMaintenanceDate ?? Date()))
 								.foregroundColor(Color("TextColor"))
-								.font(.system(size: 16, weight: .regular, design: .rounded))
+								.font(.system(size: 16, weight: .regular, design: .default))
 
 							Spacer()
 							
@@ -100,7 +100,7 @@ struct AddMaintenanceView: View {
 		.toolbar {
 			ToolbarItem(placement: .principal) {
 				Text(NSLocalizedString("navigation_title_add_maintenance_key", comment: ""))
-					.font(.system(size: 22, weight: .bold, design: .rounded))
+					.font(.system(size: 22, weight: .bold, design: .default))
 					.foregroundColor(Color("TextColor"))
 			}
 		}
@@ -133,7 +133,7 @@ struct AddMaintenanceView: View {
 					dismiss()
 				}) {
 					Text(NSLocalizedString("return_key", comment: ""))
-						.font(.system(size: 16, weight: .regular, design: .rounded))
+						.font(.system(size: 16, weight: .regular, design: .default))
 						.foregroundColor(Color("TextColor"))
 				}
 			}

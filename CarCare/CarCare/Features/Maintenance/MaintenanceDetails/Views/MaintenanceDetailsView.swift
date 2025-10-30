@@ -79,7 +79,7 @@ struct MaintenanceDetailsView: View {
                                     )
                                     .padding(.horizontal, 10)
                                     .padding(.top, 5)
-                                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                                    .font(.system(size: 16, weight: .bold, design: .default))
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(.white)
                                     .onAppear {
@@ -102,7 +102,7 @@ struct MaintenanceDetailsView: View {
                                         CircularProgressView(targetProgress: progress, value: daysSince)
                                         
                                         Text("\(daysSince)/ \(Int(frequency))j")
-                                            .font(.system(size: 16, weight: .bold, design: .rounded))
+                                            .font(.system(size: 16, weight: .bold, design: .default))
                                             .foregroundStyle(Color("TextColor"))
                                         
                                     } else {
@@ -139,11 +139,11 @@ struct MaintenanceDetailsView: View {
                                 Text(NSLocalizedString("frequency_key", comment: ""))
                                     .bold()
                                     .frame(maxWidth: .infinity, alignment: .center)
-                                    .font(.system(size: 14, weight: .bold, design: .rounded))
+                                    .font(.system(size: 14, weight: .bold, design: .default))
                                 
                                 Text("\(maintenance.maintenanceType.readableFrequency)")
                                     .frame(maxWidth: .infinity, alignment: .center)
-                                    .font(.system(size: 18, weight: .regular, design: .rounded))
+                                    .font(.system(size: 18, weight: .regular, design: .default))
                                 
                                 Toggle("", isOn: Binding(
                                     get: { maintenance.reminder }, //appelé lors du dessin de la vue (aussi après modif du toggle pour redessiner la vue)
@@ -193,7 +193,7 @@ struct MaintenanceDetailsView: View {
                             HStack {
                                 VStack {
                                     Text(NSLocalizedString("advice_and_information_key", comment: ""))
-                                        .font(.system(size: 25, weight: .bold, design: .rounded))
+                                        .font(.system(size: 25, weight: .bold, design: .default))
                                         .foregroundColor(Color("TextColor"))
                                         .offset(x: 15)
                                     
@@ -203,7 +203,7 @@ struct MaintenanceDetailsView: View {
                                         .padding(.bottom, 10)
                                     
                                     Text("\(maintenance.maintenanceType.localizedDescription)")
-                                        .font(.system(size: 16, weight: .regular, design: .rounded))
+                                        .font(.system(size: 16, weight: .regular, design: .default))
                                         .foregroundColor(Color("TextColor"))
                                         .padding(.leading, 15)
                                         .multilineTextAlignment(.center)
@@ -228,7 +228,7 @@ struct MaintenanceDetailsView: View {
                     
                     VStack {
                         Text(NSLocalizedString("maintenance_history_key", comment: ""))
-                            .font(.system(size: 25, weight: .bold, design: .rounded))
+                            .font(.system(size: 25, weight: .bold, design: .default))
                             .foregroundColor(Color("TextColor"))
                             .drawingGroup()
                         
@@ -247,7 +247,7 @@ struct MaintenanceDetailsView: View {
                                 destination: AddMaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM,  onAdd: onAdd, notificationVM: notificationVM)
                             ) {
                                 Text(NSLocalizedString("button_update_key", comment: ""))
-                                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                                    .font(.system(size: 16, weight: .bold, design: .default))
                                     .foregroundColor(Color(.white))
                                     .frame(maxWidth: .infinity)
                                     .padding()
@@ -302,13 +302,13 @@ struct MaintenanceDetailsView: View {
 						dismiss()
 					}) {
 						Text(NSLocalizedString("return_key", comment: ""))
-							.font(.system(size: 16, weight: .regular, design: .rounded))
+							.font(.system(size: 16, weight: .regular, design: .default))
 							.foregroundColor(Color("TextColor"))
 					}
 				}
 				ToolbarItem(placement: .principal) {
 					Text("\(maintenance.maintenanceType.localizedName)")
-						.font(.system(size: 22, weight: .bold, design: .rounded))
+						.font(.system(size: 22, weight: .bold, design: .default))
 						.foregroundColor(Color("TextColor"))
 				}
 			}

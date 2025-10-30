@@ -10,7 +10,7 @@ import SwiftUI
 struct CustomTextField: View {
 	var placeholder: String
 	@Binding var text: String
-	var font: Font = .system(size: 16, weight: .regular, design: .rounded)
+	var font: Font = .system(size: 16, weight: .regular, design: .default)
 	var foregroundColor: Color = Color("TextColor")
 	var backgroundColor: Color = Color("InputSurfaceColor")
 	var cornerRadius: CGFloat = 10

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PrimaryButton: View {
 	let title: String
-	let font: Font = .system(size: 16, weight: .bold, design: .rounded)
+	let font: Font = .system(size: 16, weight: .bold, design: .default)
 	let foregroundColor: Color
 	let backgroundColor: Color
 	let action: () -> Void

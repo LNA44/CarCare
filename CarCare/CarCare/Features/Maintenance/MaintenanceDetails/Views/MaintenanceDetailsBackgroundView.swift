@@ -45,7 +45,7 @@ struct MaintenanceDetailsBackgroundView: View {
             
             HStack {
                 Text(formattedDate)
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .font(.system(size: 16, weight: .bold, design: .default))
                     .foregroundColor(Color("TextColor"))
             }
             .padding(.horizontal, 16)
