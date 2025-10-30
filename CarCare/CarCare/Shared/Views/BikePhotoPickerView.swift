@@ -19,6 +19,7 @@ struct BikePhotoPickerView: View {
             if let image = selectedImage {
                 Image(uiImage: image)
                     .resizable()
+                    .scaledToFill()
                     .frame(width: 100, height: 100)
                     .clipShape(Circle())
                     .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)

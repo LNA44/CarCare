@@ -110,6 +110,7 @@ struct DashboardView: View {
                            let uiImage = UIImage(data: imageData) {
                             Image(uiImage: uiImage)
                                 .resizable()
+                                .scaledToFill()
                                 .frame(width: 100, height: 100)
                                 .clipShape(Circle())
                                 .offset(y: -80)

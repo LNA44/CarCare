@@ -181,14 +181,9 @@ struct MaintenanceDetailsView: View {
                             .cornerRadius(15)
                         }
                         .padding(.top, 15)
-                        
                     }
-                    .padding(.vertical, 20)
-                    .padding(.horizontal, 20)
+                    .padding(.vertical, 15)
                     .frame(maxWidth: .infinity)
-                    .background(
-                        Color("FirstSectionMaintenanceColor")
-                    )
                     .cornerRadius(15)
                     .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
                     
@@ -201,9 +196,11 @@ struct MaintenanceDetailsView: View {
                                     Text(NSLocalizedString("advice_and_information_key", comment: ""))
                                         .font(.system(size: 25, weight: .bold, design: .rounded))
                                         .foregroundColor(Color("TextColor"))
+                                        .offset(x: 15)
                                     
                                     Divider()
                                         .frame(width: 200)
+                                        .offset(x: 15)
                                         .padding(.bottom, 10)
                                     
                                     Text("\(maintenance.maintenanceType.localizedDescription)")
@@ -224,7 +221,6 @@ struct MaintenanceDetailsView: View {
                     .padding(.trailing, 10)
                     .background(Color("AdviceColor"))
                     .cornerRadius(15)
-                    
                     
                     VStack {
                         Text(NSLocalizedString("maintenance_history_key", comment: ""))
@@ -267,9 +263,10 @@ struct MaintenanceDetailsView: View {
                     .cornerRadius(15)
 				}
 				.padding(.top, 15)
+                .padding(.horizontal, 15)
 				.background(Color("BackgroundColor"))
 				.cornerRadius(15)
-				.padding(.horizontal, 10)
+                .frame(maxWidth: .infinity)
 				.onAppear {
 					_ = VM.fetchAllMaintenanceForOneType(type: maintenance.maintenanceType)
 				}
