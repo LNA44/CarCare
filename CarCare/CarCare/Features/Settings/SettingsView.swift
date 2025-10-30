@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsView: View {
 	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
 	@Environment(\.colorScheme) private var colorScheme
+    let haptic = UIImpactFeedbackGenerator(style: .medium)
 
 	var body: some View {
 		Form {
@@ -55,6 +56,11 @@ struct SettingsView: View {
 						.foregroundColor(Color("TextColor"))
 						.font(.system(size: 16, weight: .regular, design: .rounded))
 				}
+                .simultaneousGesture(
+                    TapGesture().onEnded {
+                        haptic.impactOccurred()
+                    }
+                )
 			}
 			.listRowBackground(Color("MaintenanceHistoryColor"))
 

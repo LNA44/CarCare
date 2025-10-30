@@ -17,6 +17,7 @@ struct AddMaintenanceView: View {
 	@AppStorage("isPremiumUser") private var isPremiumUser = false
 	@State var showingDatePicker: Bool = false
 	var onAdd: () -> Void
+    let haptic = UIImpactFeedbackGenerator(style: .medium)
 	
 	let formatter: DateFormatter = {
 		let df = DateFormatter()
@@ -85,6 +86,7 @@ struct AddMaintenanceView: View {
 			Spacer()
 			
 			PrimaryButton(title: NSLocalizedString("button_Add_Maintenance", comment: ""), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
+                haptic.impactOccurred()
 				if isPremiumUser || maintenanceVM.maintenances.count < 3 {
 					VM.addMaintenance(bikeType: bikeVM.bikeType)
 					onAdd() //pour recharger la dernière maintenance dans Dashboard
@@ -94,6 +96,7 @@ struct AddMaintenanceView: View {
 				}
 			}
 		}
+        .padding(.bottom, 60)
 		.toolbar {
 			ToolbarItem(placement: .principal) {
 				Text(NSLocalizedString("navigation_title_add_maintenance_key", comment: ""))

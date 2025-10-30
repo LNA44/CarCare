@@ -12,6 +12,7 @@ struct BikePhotoPickerView: View {
     @Binding var selectedImage: UIImage?
     @State private var showCamera = false
     @State private var showPhotoPicker = false
+    let haptic = UIImpactFeedbackGenerator(style: .medium)
 
     var body: some View {
         VStack(spacing: 20) {
@@ -26,7 +27,7 @@ struct BikePhotoPickerView: View {
             }
 
             // Bouton pour prendre une photo
-            Button(action: { showCamera = true }) {
+            /*Button(action: { showCamera = true }) {
                 Label("Prendre une photo", systemImage: "camera")
                     .padding()
                     .frame(maxWidth: .infinity)
@@ -38,6 +39,33 @@ struct BikePhotoPickerView: View {
 
             // Bouton pour choisir dans la bibliothèque
             Button(action: { showPhotoPicker = true }) {
+                Label("Choisir dans la bibliothèque", systemImage: "photo.on.rectangle")
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color("ButtonColor").opacity(0.8))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+            }*/
+            
+            Button(action: {
+                haptic.impactOccurred()
+                showCamera = true
+            }) {
+                Label("Prendre une photo", systemImage: "camera")
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color("AppPrimaryColor"))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+            }
+            
+            // Bouton pour choisir dans la bibliothèque
+            Button(action: {
+                haptic.impactOccurred()
+                showPhotoPicker = true
+            }) {
                 Label("Choisir dans la bibliothèque", systemImage: "photo.on.rectangle")
                     .padding()
                     .frame(maxWidth: .infinity)

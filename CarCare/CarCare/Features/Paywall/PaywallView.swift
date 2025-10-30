@@ -14,6 +14,7 @@ struct PaywallView: View {
 	@AppStorage("isDarkMode") private var isDarkMode = false
 	@AppStorage("isPremiumUser") private var isPremiumUser = false
 	@State private var selectedProduct: Product? = nil
+    let haptic = UIImpactFeedbackGenerator(style: .medium)
 
 	var body: some View {
 		ZStack {
@@ -61,6 +62,8 @@ struct PaywallView: View {
 					
 					// MARK: - Upgrade Button
 					Button(action: {
+                        UINotificationFeedbackGenerator().notificationOccurred(.success)
+                        
 						guard let product = selectedProduct else { return }
 						print("selected product: \(product)")
 						Task {
@@ -105,6 +108,7 @@ struct PaywallView: View {
 					// MARK: - Restore Purchases
 					Button(action: {
 						Task {
+                            haptic.impactOccurred()
 							await subscriptionManager.restorePurchases()
 						}
 					}) {
@@ -121,6 +125,7 @@ struct PaywallView: View {
 					
 					// MARK: - Cancel Button
 					Button(action: {
+                        haptic.impactOccurred()
 						presentationMode.wrappedValue.dismiss()
 					}) {
 						Text(NSLocalizedString("paywall_button_cancel", comment: ""))

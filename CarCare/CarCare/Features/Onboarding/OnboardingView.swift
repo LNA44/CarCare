@@ -15,6 +15,7 @@ struct OnboardingView: View {
 	@State private var showButton = false
 	@State private var cyclingView = AnimationView(name: "Cycling")
 	let questions = Constants.allQuestions
+    let haptic = UIImpactFeedbackGenerator(style: .medium)
 	
 	var body: some View {
 		ZStack {
@@ -54,13 +55,16 @@ struct OnboardingView: View {
                 
 				if currentIndex < questions.count {
 					Button(action: {
+                        haptic.impactOccurred()
 						if currentIndex < questions.count - 1 {
 							withAnimation {
 								currentIndex += 1
 							}
 						} else {
-							hasSeenOnboarding = true
-						}
+                            let successGenerator = UINotificationFeedbackGenerator()
+                            successGenerator.notificationOccurred(.success)
+                            hasSeenOnboarding = true
+                        }
 					}) {
 						Text(LocalizedStringKey(
 							currentIndex < questions.count - 1 ? ButtonConstants.next : ButtonConstants.start

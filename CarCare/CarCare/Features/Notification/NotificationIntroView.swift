@@ -12,6 +12,7 @@ struct NotificationIntroView: View {
 	@ObservedObject var maintenanceVM: MaintenanceVM
 	@ObservedObject var notificationVM: NotificationViewModel
 	@AppStorage("hasSeenNotificationIntro") private var hasSeenNotificationIntro: Bool = false
+    let haptic = UIImpactFeedbackGenerator(style: .medium)
 	
     var body: some View {
 		VStack(spacing: 20) {
@@ -25,6 +26,7 @@ struct NotificationIntroView: View {
 			
 			Button(NSLocalizedString("enable_notifications_button_key", comment: "")) {
 				Task {
+                    haptic.impactOccurred()
 					await notificationVM.requestAndScheduleNotifications() // Demande l'autorisation et planifie si accepté
 					hasSeenNotificationIntro = true
 				}

@@ -18,6 +18,7 @@ struct RegistrationView: View {
 	@State private var identificationNumber: String = ""
     @State private var selectedImage: UIImage? = nil
     @State private var appear = false
+    let haptic = UIImpactFeedbackGenerator(style: .medium)
 	
 	var body: some View {
 		NavigationStack {
@@ -95,8 +96,8 @@ struct RegistrationView: View {
                     Spacer()
                     
                     PrimaryButton(title: NSLocalizedString("button_add_bike_key", comment: ""), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
+                        haptic.impactOccurred()
                         let success = bikeVM.addBike(brand: brandText, model: modelText, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber, image: selectedImage)
-                        print("Type de vélo: \(selectedType)")
                         if success && brandText != "" && modelText != "" && yearText != "" {
                             shouldNavigate = true
                             appState.status = .ready

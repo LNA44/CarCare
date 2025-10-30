@@ -20,7 +20,7 @@ struct BikeModificationsView: View {
 	@State private var showDeleteAlert = false
 	var onDelete: (() -> Void)? = nil
     @State private var selectedImage: UIImage? = nil
-
+    let haptic = UIImpactFeedbackGenerator(style: .medium)
 	
 	var body: some View {
         ScrollView {
@@ -92,16 +92,19 @@ struct BikeModificationsView: View {
                 
                 VStack(spacing: 20) {
                     PrimaryButton(title: NSLocalizedString("button_delete_bike", comment: "Titre du bouton pour supprimer le vélo"), foregroundColor: .white, backgroundColor: Color("ToDoColor")) {
+                        haptic.impactOccurred()
                         showDeleteAlert = true
                     }
                     
                     PrimaryButton(title: NSLocalizedString("button_Modify_information_key", comment: ""), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
+                        haptic.impactOccurred()
                         bikeVM.modifyBikeInformations(brand: brandText, model: modelText, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber, image: selectedImage)
                         dismiss()
                     }
                 }
                 .padding(.top, 10)
             }
+            .padding(.bottom, 60)
             .onAppear {
                 self.brandText = bikeVM.brand
                 self.modelText = bikeVM.model

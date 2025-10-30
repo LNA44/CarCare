@@ -20,6 +20,7 @@ struct MaintenanceDetailsView: View {
 	@State private var daysRemaining: Int?
 	@State private var hasTriggeredHaptic = false
 	var onAdd: () -> Void
+    let haptic = UIImpactFeedbackGenerator(style: .medium)
 	
 	//MARK: -Initialization
 	init(bikeVM: BikeVM, maintenanceVM: MaintenanceVM, maintenanceID: UUID, onAdd: @escaping () -> Void, notificationVM: NotificationViewModel) {
@@ -41,7 +42,6 @@ struct MaintenanceDetailsView: View {
                             if let daysRemaining = daysRemaining {
                                 RoundedRectangle(cornerRadius: 15)
                                     .fill(
-                                        
                                         LinearGradient(
                                             colors: [
                                                 color(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays).opacity(0.9),
@@ -51,7 +51,6 @@ struct MaintenanceDetailsView: View {
                                             endPoint: .bottomTrailing
                                         )
                                     )
-                                
                                     .background(
                                         .ultraThinMaterial,
                                         in: RoundedRectangle(cornerRadius: 15)
@@ -215,6 +214,11 @@ struct MaintenanceDetailsView: View {
                                     .padding(.top, 65)
                             }
                         }
+                        .simultaneousGesture(
+                            TapGesture().onEnded {
+                                haptic.impactOccurred()
+                            }
+                        )
                     }
                     .padding(.vertical, 20)
                     .padding(.bottom, 10)
@@ -250,6 +254,11 @@ struct MaintenanceDetailsView: View {
                                     .background(Color("AppPrimaryColor"))
                                     .cornerRadius(10)
                             }
+                            .simultaneousGesture(
+                                TapGesture().onEnded {
+                                    haptic.impactOccurred()
+                                }
+                            )
                             .padding(.horizontal, 15)
                             .padding(.top, 15)
                             .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
@@ -272,7 +281,9 @@ struct MaintenanceDetailsView: View {
 				}
 				Spacer()
 			}
+            .padding(.bottom, 60)
 			.onAppear {
+                haptic.impactOccurred()
 				maintenancesForOneType = VM.fetchAllMaintenanceForOneType(type: maintenance.maintenanceType)
 				daysRemaining = VM.calculateDaysUntilNextMaintenance(type: maintenance.maintenanceType)
 			}

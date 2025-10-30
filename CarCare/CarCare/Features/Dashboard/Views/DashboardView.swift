@@ -18,6 +18,7 @@ struct DashboardView: View {
 	@State private var didLoadData = false
 	@State private var showPaywall = false
     @State private var showPopover = false
+    let haptic = UIImpactFeedbackGenerator(style: .medium)
 	
 	let formatter: DateFormatter = {
 		let df = DateFormatter()
@@ -238,11 +239,17 @@ struct DashboardView: View {
 								}
 							)
 					}
+                    .simultaneousGesture(
+                        TapGesture().onEnded {
+                            haptic.impactOccurred()
+                        }
+                    )
 					.buttonStyle(.plain)
 					.padding(.horizontal, 10)
 					.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
                     
                     Button {
+                        haptic.impactOccurred()
                         goToAdd = true
                     } label: {
                         Text(NSLocalizedString("button_Add_Maintenance", comment: ""))
@@ -305,6 +312,7 @@ struct DashboardView: View {
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
+                    haptic.impactOccurred()
                     if isPremiumUser {
                         guard let bike = bikeVM.bike else {
                             print("Aucun vélo disponible")
@@ -335,6 +343,7 @@ struct DashboardView: View {
                             .frame(maxWidth: 250)
                         
                         Button(action: {
+                            haptic.impactOccurred()
                             showPopover = false
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                 showPaywall = true
@@ -353,6 +362,10 @@ struct DashboardView: View {
                 }
             }
         }
+        .onAppear {
+            haptic.prepare()
+        }
+        .padding(.bottom, 40)
         .fullScreenCover(isPresented: $showPaywall) {
             PaywallView()
         }

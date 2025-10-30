@@ -13,6 +13,7 @@ struct MaintenanceView: View {
 	@ObservedObject var notificationVM: NotificationViewModel
 	@StateObject private var VM: MaintenanceListVM
 	@State private var hasFetched = false
+    let haptic = UIImpactFeedbackGenerator(style: .medium)
 	var lastMaintenanceByType: [MaintenanceType: Maintenance]? {
 		guard !maintenanceVM.maintenances.isEmpty else { return nil }
 		return Dictionary(
@@ -53,6 +54,11 @@ struct MaintenanceView: View {
 											}, notificationVM: notificationVM)) {
 												ToDoMaintenanceRow(VM: VM, maintenanceType: type)
 											}
+                                            /*.simultaneousGesture(
+                                                TapGesture().onEnded {
+                                                    haptic.impactOccurred()
+                                                }
+                                            )*/
 											.listRowBackground(Color("MaintenanceHistoryColor"))
 										}
 									}
@@ -116,6 +122,7 @@ struct MaintenanceView: View {
 					}
 				}
 			}
+            .padding(.bottom, 60)
             .background(
                 LinearGradient(
                     gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor2")]),
