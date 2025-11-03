@@ -20,6 +20,9 @@
 		F339FB232E54D06C00F2CECC /* MaintenanceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */; };
 		F339FB272E54D63B00F2CECC /* DaysIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */; };
 		F354D6DC2EAF7D660029A359 /* AdviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F354D6DB2EAF7D660029A359 /* AdviceView.swift */; };
+		F361F6122EB8B2FD00100008 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F361F6112EB8B2FD00100008 /* DashboardView.swift */; };
+		F361F6142EB8BD5100100008 /* BikeDetailsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F361F6132EB8BD5100100008 /* BikeDetailsSheet.swift */; };
+		F361F6162EB8C1DC00100008 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F361F6152EB8C1DC00100008 /* RoundedCorner.swift */; };
 		F36E4A532E7D6CD600EB2FF5 /* FakeNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A522E7D6CD600EB2FF5 /* FakeNotificationCenter.swift */; };
 		F36E4A552E7D6D6300EB2FF5 /* FakeMaintenanceVM2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A542E7D6D6300EB2FF5 /* FakeMaintenanceVM2.swift */; };
 		F36E4A572E7D6DA500EB2FF5 /* CarCareNotificationVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A562E7D6DA500EB2FF5 /* CarCareNotificationVMTests.swift */; };
@@ -68,7 +71,7 @@
 		F3BFC9B12E33810900043AB8 /* LocalBikeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC97D2E33810900043AB8 /* LocalBikeLoader.swift */; };
 		F3BFC9B22E33810900043AB8 /* MaintenanceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC97E2E33810900043AB8 /* MaintenanceStore.swift */; };
 		F3BFC9B42E33810900043AB8 /* BikeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9802E33810900043AB8 /* BikeStore.swift */; };
-		F3BFC9B52E33810900043AB8 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9842E33810900043AB8 /* DashboardView.swift */; };
+		F3BFC9B52E33810900043AB8 /* DashboardOldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9842E33810900043AB8 /* DashboardOldView.swift */; };
 		F3BFC9B82E33810900043AB8 /* MaintenanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9892E33810900043AB8 /* MaintenanceView.swift */; };
 		F3BFC9BA2E33810900043AB8 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC98D2E33810900043AB8 /* RegistrationView.swift */; };
 		F3BFC9BE2E33810900043AB8 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BFC9942E33810900043AB8 /* AppState.swift */; };
@@ -118,6 +121,9 @@
 		F339FB222E54D06C00F2CECC /* MaintenanceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceDetailsView.swift; sourceTree = "<group>"; };
 		F339FB262E54D63B00F2CECC /* DaysIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysIndicatorView.swift; sourceTree = "<group>"; };
 		F354D6DB2EAF7D660029A359 /* AdviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceView.swift; sourceTree = "<group>"; };
+		F361F6112EB8B2FD00100008 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		F361F6132EB8BD5100100008 /* BikeDetailsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeDetailsSheet.swift; sourceTree = "<group>"; };
+		F361F6152EB8C1DC00100008 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		F36E4A522E7D6CD600EB2FF5 /* FakeNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeNotificationCenter.swift; sourceTree = "<group>"; };
 		F36E4A542E7D6D6300EB2FF5 /* FakeMaintenanceVM2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMaintenanceVM2.swift; sourceTree = "<group>"; };
 		F36E4A562E7D6DA500EB2FF5 /* CarCareNotificationVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarCareNotificationVMTests.swift; sourceTree = "<group>"; };
@@ -164,7 +170,7 @@
 		F3BFC97D2E33810900043AB8 /* LocalBikeLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalBikeLoader.swift; sourceTree = "<group>"; };
 		F3BFC97E2E33810900043AB8 /* MaintenanceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceStore.swift; sourceTree = "<group>"; };
 		F3BFC9802E33810900043AB8 /* BikeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStore.swift; sourceTree = "<group>"; };
-		F3BFC9842E33810900043AB8 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		F3BFC9842E33810900043AB8 /* DashboardOldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardOldView.swift; sourceTree = "<group>"; };
 		F3BFC9892E33810900043AB8 /* MaintenanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceView.swift; sourceTree = "<group>"; };
 		F3BFC98D2E33810900043AB8 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		F3BFC9942E33810900043AB8 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
@@ -533,9 +539,12 @@
 		F38F914D2EAA381000B4459A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F3BFC9842E33810900043AB8 /* DashboardView.swift */,
+				F3BFC9842E33810900043AB8 /* DashboardOldView.swift */,
 				F3B77C952E5080D000548F2D /* AddMaintenanceView.swift */,
 				F3B77CA52E50DF9300548F2D /* BikeModificationsView.swift */,
+				F361F6112EB8B2FD00100008 /* DashboardView.swift */,
+				F361F6132EB8BD5100100008 /* BikeDetailsSheet.swift */,
+				F361F6152EB8C1DC00100008 /* RoundedCorner.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -853,6 +862,7 @@
 				F39381FF2EAB66EC009D27F1 /* CircularProgressView.swift in Sources */,
 				F3D7FCA02E6344250042A29A /* MaintenanceListVM.swift in Sources */,
 				F3823AE92E5C635E00B9331B /* SettingsView.swift in Sources */,
+				F361F6142EB8BD5100100008 /* BikeDetailsSheet.swift in Sources */,
 				F3D7756C2E8A857D00BC2452 /* MaintenanceDescription.swift in Sources */,
 				F3284A4C2E8169E7008E7920 /* Constants.swift in Sources */,
 				F3BFC9AC2E33810900043AB8 /* LocalMaintenance.swift in Sources */,
@@ -870,8 +880,10 @@
 				F39382012EABB2A7009D27F1 /* MaintenanceDetailsBackgroundView.swift in Sources */,
 				F3BFC9B42E33810900043AB8 /* BikeStore.swift in Sources */,
 				F3D7FC962E6332FE0042A29A /* DoneMaintenanceRow.swift in Sources */,
-				F3BFC9B52E33810900043AB8 /* DashboardView.swift in Sources */,
+				F3BFC9B52E33810900043AB8 /* DashboardOldView.swift in Sources */,
 				F3BFC9B82E33810900043AB8 /* MaintenanceView.swift in Sources */,
+				F361F6122EB8B2FD00100008 /* DashboardView.swift in Sources */,
+				F361F6162EB8C1DC00100008 /* RoundedCorner.swift in Sources */,
 				F39891562E771D0E00245639 /* PaywallView.swift in Sources */,
 				F3877CE82E672CF900CEECA9 /* MaintenanceDetailsVM.swift in Sources */,
 				F39891512E77101400245639 /* ExportPDFHelper.swift in Sources */,
@@ -1074,7 +1086,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 64KCF3XZ6R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1108,7 +1120,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 64KCF3XZ6R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
