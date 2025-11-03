@@ -23,6 +23,7 @@
 		F361F6122EB8B2FD00100008 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F361F6112EB8B2FD00100008 /* DashboardView.swift */; };
 		F361F6142EB8BD5100100008 /* BikeDetailsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F361F6132EB8BD5100100008 /* BikeDetailsSheet.swift */; };
 		F361F6162EB8C1DC00100008 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F361F6152EB8C1DC00100008 /* RoundedCorner.swift */; };
+		F361F6192EB8E95E00100008 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F361F6182EB8E95E00100008 /* LaunchView.swift */; };
 		F36E4A532E7D6CD600EB2FF5 /* FakeNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A522E7D6CD600EB2FF5 /* FakeNotificationCenter.swift */; };
 		F36E4A552E7D6D6300EB2FF5 /* FakeMaintenanceVM2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A542E7D6D6300EB2FF5 /* FakeMaintenanceVM2.swift */; };
 		F36E4A572E7D6DA500EB2FF5 /* CarCareNotificationVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36E4A562E7D6DA500EB2FF5 /* CarCareNotificationVMTests.swift */; };
@@ -124,6 +125,7 @@
 		F361F6112EB8B2FD00100008 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		F361F6132EB8BD5100100008 /* BikeDetailsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeDetailsSheet.swift; sourceTree = "<group>"; };
 		F361F6152EB8C1DC00100008 /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
+		F361F6182EB8E95E00100008 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		F36E4A522E7D6CD600EB2FF5 /* FakeNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeNotificationCenter.swift; sourceTree = "<group>"; };
 		F36E4A542E7D6D6300EB2FF5 /* FakeMaintenanceVM2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMaintenanceVM2.swift; sourceTree = "<group>"; };
 		F36E4A562E7D6DA500EB2FF5 /* CarCareNotificationVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarCareNotificationVMTests.swift; sourceTree = "<group>"; };
@@ -284,6 +286,14 @@
 				F31F73E82E26585B00334333 /* CarCareTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F361F6172EB8E94E00100008 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				F361F6182EB8E95E00100008 /* LaunchView.swift */,
+			);
+			path = Launch;
 			sourceTree = "<group>";
 		};
 		F36E4A4F2E7D6CB000EB2FF5 /* CarCareBikeVMTests */ = {
@@ -615,6 +625,7 @@
 		F3B77CA02E50DF2C00548F2D /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				F361F6172EB8E94E00100008 /* Launch */,
 				F39891542E771D0300245639 /* Paywall */,
 				F3823AEA2E5C67FF00B9331B /* Notification */,
 				F3823AE72E5C635000B9331B /* Settings */,
@@ -868,6 +879,7 @@
 				F3BFC9AC2E33810900043AB8 /* LocalMaintenance.swift in Sources */,
 				F3823AF72E5C9E4400B9331B /* AppError.swift in Sources */,
 				F3D7FC9E2E6342E40042A29A /* AddMaintenanceVM.swift in Sources */,
+				F361F6192EB8E95E00100008 /* LaunchView.swift in Sources */,
 				F3BFC9AD2E33810900043AB8 /* LocalMaintenanceLoader.swift in Sources */,
 				F3BDB2F32E56035B0041F142 /* BikeType.swift in Sources */,
 				F3BFC9B02E33810900043AB8 /* LocalBike.swift in Sources */,

@@ -11,12 +11,13 @@ import SwiftUI
 struct CarCareApp: App {
 	let dependencyContainer = DependencyContainer.shared
 	@Environment(\.scenePhase) private var scenePhase // quand utilisateur revient dans l'app
-   @Environment(\.colorScheme) private var systemColorScheme
+    @Environment(\.colorScheme) private var systemColorScheme
 	@StateObject private var notificationVM: NotificationViewModel
 	@StateObject private var bikeVM: BikeVM
 	@StateObject private var maintenanceVM: MaintenanceVM
 	@StateObject private var appState: AppState
 	@StateObject private var subscriptionManager = SubscriptionManager.shared
+    @State private var showLaunchView = true
     
 	@AppStorage("hasSeenNotificationIntro") private var hasSeenNotificationIntro: Bool = false
 	@AppStorage("isDarkMode") private var isDarkMode: Bool?
@@ -84,7 +85,13 @@ defaults.set(false, forKey: "isPremiumUser")
 							   ))
 							   .zIndex(0)
 				}
-			}
+               
+               if showLaunchView {
+                  LaunchView()
+                     .transition(.opacity)
+                     .zIndex(2)
+               }
+            }
             .preferredColorScheme(currentMode)
 			.onChange(of: scenePhase) {_, newPhase in
 				if newPhase == .active {
@@ -94,6 +101,7 @@ defaults.set(false, forKey: "isPremiumUser")
 				}
 			}
 			.animation(.easeInOut(duration: 0.3), value: appState.status)
+            .animation(.easeOut(duration: 0.5), value: showLaunchView)
 			.alert(isPresented: $appState.showAlert) {
 				Alert(
 					title: Text("Erreur"),
@@ -103,7 +111,12 @@ defaults.set(false, forKey: "isPremiumUser")
 					}
 				)
 			}
-		}
-	}
+            .onAppear {
+               DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                  showLaunchView = false
+               }
+            }
+        }
+    }
 }
 
