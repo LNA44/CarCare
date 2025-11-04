@@ -39,8 +39,10 @@ struct ToDoMaintenanceRow: View {
 						   }
 					}
 					.foregroundColor(Color("TextColor"))
-					.font(.system(size: 18, weight: .regular, design: .default))
-				}
+                    .font(.system(size: 18, weight: .regular, design: .default))
+                }
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(maintenanceType.localizedName)
 				
 				Spacer()
 				
@@ -58,6 +60,27 @@ struct ToDoMaintenanceRow: View {
 			}
 		}
 	}
+}
+
+extension ToDoMaintenanceRow {
+    private func accessibilityValue(daysRemaining: Int?, nextDate: Date?) -> String {
+        var value = ""
+        
+        if let days = daysRemaining {
+            value += String(format: NSLocalizedString("days_remaining_key", comment: "days remaining"), max(days, 0))
+        } else {
+            value += NSLocalizedString("unknown_days_remaining_key", comment: "days remaining unknown")
+        }
+        
+        if let next = nextDate {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .none
+            value += ", " + formatter.string(from: next)
+        }
+        
+        return value
+    }
 }
 	
 	

@@ -36,7 +36,10 @@ struct OnboardingView: View {
 								.opacity(currentIndex >= index ? 1 : 0)
 								.offset(x: offsetFor(index))
 								.padding(.vertical, currentIndex == index ? 10 : 25)
-								.animation(.easeInOut(duration: 0.8), value: currentIndex)
+                                .animation(.easeInOut(duration: 0.8), value: currentIndex)
+                                .accessibilityElement()
+                                .accessibilityLabel(Text(questions[index]))
+                                .accessibilityAddTraits(currentIndex == index ? .isSelected : [])
 							
 							
 							if index == 0 && currentIndex > 0 {
@@ -46,6 +49,7 @@ struct OnboardingView: View {
 									.opacity(currentIndex >= index ? 1 : 0)
 									.offset(x: offsetFor(index))
 									.animation(.easeInOut(duration: 0.8), value: currentIndex)
+                                    .accessibilityHidden(true)
 							}
 						}
 					}
@@ -78,8 +82,10 @@ struct OnboardingView: View {
 					}
 					.padding(.horizontal)
 					.transition(.opacity)
-					.animation(.easeInOut, value: currentIndex)
-				}
+                    .animation(.easeInOut, value: currentIndex)
+                    .accessibilityLabel(currentIndex < questions.count - 1 ? "Next question" : "Start using the app")
+                    .accessibilityHint(currentIndex < questions.count - 1 ? "Double tap to go to the next question" : "Double tap to start the app")
+                }
 			}
 			.padding()
 			.background(Color("BackgroundColor"))

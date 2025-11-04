@@ -30,28 +30,38 @@ struct BikeModificationsView: View {
                     .frame(width: 70, height: 40)
                     .foregroundColor(Color("TextColor"))
                     .padding(.top, 10)
+                    .accessibilityHidden(true)
                 
                 VStack(spacing: 20) {
                     VStack {
                         Text(NSLocalizedString("brand_key", comment: ""))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(Color("TextColor"))
+                            .accessibilityAddTraits(.isHeader)
                         
                         CustomTextField(placeholder: "", text: $brandText)
+                            .accessibilityLabel("Brand")
+                            .accessibilityValue(brandText)
+                            .accessibilityHint("Enter the brand of your bike")
                     }
                     
                     VStack {
                         Text(NSLocalizedString("model_key", comment: ""))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(Color("TextColor"))
+                            .accessibilityAddTraits(.isHeader)
                         
                         CustomTextField(placeholder: "", text: $modelText)
+                            .accessibilityLabel("Model")
+                            .accessibilityValue(modelText)
+                            .accessibilityHint("Enter the model of your bike")
                     }
                     
                     VStack {
                         Text(NSLocalizedString("type_key", comment: ""))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(Color("TextColor"))
+                            .accessibilityAddTraits(.isHeader)
                         
                         Picker("Type", selection: $selectedType) {
                             ForEach(BikeType.allCases, id: \.self) { type in
@@ -65,6 +75,9 @@ struct BikeModificationsView: View {
                         .frame(height: 40)
                         .background(Color("InputSurfaceColor"))
                         .cornerRadius(10)
+                        .accessibilityLabel("Bike Type")
+                        .accessibilityValue(selectedType.localizedName)
+                        .accessibilityHint("Double tap to select your bike type")
                     }
                     .frame(maxWidth: .infinity)
                     
@@ -72,19 +85,29 @@ struct BikeModificationsView: View {
                         Text(NSLocalizedString("year_of_manufacture_key", comment: ""))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(Color("TextColor"))
+                            .accessibilityAddTraits(.isHeader)
                         
                         CustomTextField(placeholder: "", text: $yearText)
+                            .accessibilityLabel("Year of manufacture")
+                            .accessibilityValue(yearText)
+                            .accessibilityHint("Enter the year your bike was manufactured")
                     }
                     
                     VStack {
                         Text(NSLocalizedString("identification_number_message_key", comment: ""))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(Color("TextColor"))
+                            .accessibilityAddTraits(.isHeader)
                         
                         CustomTextField(placeholder: "", text: $identificationNumber)
+                            .accessibilityLabel("Identification Number")
+                            .accessibilityValue(identificationNumber)
+                            .accessibilityHint("Enter the bike’s identification number")
                     }
                     
                     BikePhotoPickerView(selectedImage: $selectedImage)
+                        .accessibilityLabel("Bike Photo")
+                        .accessibilityHint("Double tap to select a photo for your bike")
                 }
                 .font(.system(size: 16, weight: .bold, design: .default))
                 
@@ -95,17 +118,22 @@ struct BikeModificationsView: View {
                         haptic.impactOccurred()
                         showDeleteAlert = true
                     }
+                    .accessibilityLabel("Delete Bike")
+                    .accessibilityHint("Double tap to delete this bike")
                     
                     PrimaryButton(title: NSLocalizedString("button_Modify_information_key", comment: ""), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
                         haptic.impactOccurred()
                         bikeVM.modifyBikeInformations(brand: brandText, model: modelText, year: Int(yearText) ?? 0, type: selectedType, identificationNumber: identificationNumber, image: selectedImage)
                         dismiss()
                     }
+                    .accessibilityLabel("Modify Information")
+                    .accessibilityHint("Double tap to save changes to this bike")
                 }
                 .padding(.top, 10)
             }
             .padding(.bottom, 60)
             .onAppear {
+                haptic.impactOccurred()
                 self.brandText = bikeVM.brand
                 self.modelText = bikeVM.model
                 self.selectedType = bikeVM.bikeType
@@ -127,6 +155,8 @@ struct BikeModificationsView: View {
                     Text(NSLocalizedString("navigation_title_modify_bike_key", comment: ""))
                         .font(.system(size: 22, weight: .bold, design: .default))
                         .foregroundColor(Color("TextColor"))
+                        .accessibilityAddTraits(.isHeader)
+                        .accessibilityLabel("Modify Bike")
                 }
                 
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -136,6 +166,8 @@ struct BikeModificationsView: View {
                         Text(NSLocalizedString("return_key", comment: ""))
                             .font(.system(size: 16, weight: .regular, design: .default))
                             .foregroundColor(Color("TextColor"))
+                            .accessibilityLabel("Return")
+                            .accessibilityHint("Double tap to go back")
                     }
                 }
             }

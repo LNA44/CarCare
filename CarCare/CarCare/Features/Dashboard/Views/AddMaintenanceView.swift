@@ -43,6 +43,7 @@ struct AddMaintenanceView: View {
 						.font(.system(size: 16, weight: .bold, design: .default))
 						.foregroundColor(Color("TextColor"))
 						.frame(maxWidth: .infinity, alignment: .leading)
+                        .accessibilityAddTraits(.isHeader)
 					
 					Picker("Type", selection: $VM.selectedMaintenanceType) {
 						ForEach(VM.filteredMaintenanceTypes(for: bikeVM.bikeType), id: \.self) { maintenanceType in
@@ -56,6 +57,9 @@ struct AddMaintenanceView: View {
 					.frame(height: 40)
 					.background(Color("InputSurfaceColor"))
 					.cornerRadius(10)
+                    .accessibilityLabel("Maintenance Type")
+                    .accessibilityValue(VM.selectedMaintenanceType.localizedName)
+                    .accessibilityHint("Double tap to select the type of maintenance")
 				}
 				
 				VStack {
@@ -63,6 +67,7 @@ struct AddMaintenanceView: View {
 						.font(.system(size: 16, weight: .bold, design: .default))
 						.foregroundColor(Color("TextColor"))
 						.frame(maxWidth: .infinity, alignment: .leading)
+                        .accessibilityAddTraits(.isHeader)
 					
 					Button(action: { showingDatePicker = true }) {
 						HStack {
@@ -80,6 +85,9 @@ struct AddMaintenanceView: View {
 						.background(Color("InputSurfaceColor"))
 						.cornerRadius(10)
 					}
+                    .accessibilityLabel("Maintenance Date")
+                    .accessibilityValue(formatter.string(from: VM.selectedMaintenanceDate ?? Date()))
+                    .accessibilityHint("Double tap to choose a date for the maintenance")
 				}
 			}
 			
@@ -95,14 +103,18 @@ struct AddMaintenanceView: View {
 					showPaywall = true // Afficher un sheet ou alert
 				}
 			}
-		}
+            .accessibilityLabel(NSLocalizedString("button_Add_Maintenance", comment: "Add Maintenance button"))
+            .accessibilityHint("Double tap to save this maintenance record")
+        }
         .padding(.bottom, 60)
 		.toolbar {
 			ToolbarItem(placement: .principal) {
 				Text(NSLocalizedString("navigation_title_add_maintenance_key", comment: ""))
 					.font(.system(size: 22, weight: .bold, design: .default))
 					.foregroundColor(Color("TextColor"))
-			}
+                    .accessibilityAddTraits(.isHeader)
+                    .accessibilityLabel(NSLocalizedString("navigation_title_add_maintenance_key", comment: "Add Maintenance screen"))
+            }
 		}
 		.sheet(isPresented: $showingDatePicker) {
 			DatePicker(
@@ -116,6 +128,9 @@ struct AddMaintenanceView: View {
 			.datePickerStyle(.wheel)
 			.labelsHidden()
 			.padding()
+            .accessibilityLabel("Done")
+            .accessibilityHint("Double tap to confirm the selected date")
+            
 			Button(NSLocalizedString("done_key", comment: "")) {
 				showingDatePicker = false   // ferme la sheet
 			}
@@ -123,6 +138,8 @@ struct AddMaintenanceView: View {
 		}
 		.sheet(isPresented: $showPaywall) {
 			PaywallView()
+                .accessibilityLabel("Paywall")
+                .accessibilityHint("Upgrade to premium to add more maintenance records")
 		}
 		.padding(.horizontal, 10)
 		.padding(.top, 20)
@@ -136,6 +153,8 @@ struct AddMaintenanceView: View {
 						.font(.system(size: 16, weight: .regular, design: .default))
 						.foregroundColor(Color("TextColor"))
 				}
+                .accessibilityLabel("Return")
+                .accessibilityHint("Double tap to go back")
 			}
 		}
         .background(

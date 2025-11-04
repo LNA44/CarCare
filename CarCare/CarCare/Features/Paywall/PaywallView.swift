@@ -20,6 +20,7 @@ struct PaywallView: View {
 		ZStack {
 			Color.black.opacity(isDarkMode ? 0.6 : 0.2)
 				.edgesIgnoringSafeArea(.all)
+                .accessibilityHidden(true)
 			
 			VStack(spacing: 20) {
 				VStack(spacing: 15) {
@@ -28,6 +29,7 @@ struct PaywallView: View {
 						.font(.system(size: 28, weight: .bold, design: .default))
 						.foregroundColor(isDarkMode ? .white : .black)
 						.multilineTextAlignment(.center)
+                        .accessibilityAddTraits(.isHeader)
 					
 					// MARK: - Description
 					Text(NSLocalizedString("paywall_description", comment: ""))
@@ -35,6 +37,7 @@ struct PaywallView: View {
 						.foregroundColor(isDarkMode ? Color.white.opacity(0.85) : Color.black.opacity(0.7))
 						.multilineTextAlignment(.center)
 						.padding(.horizontal, 20)
+                        .accessibilityLabel(NSLocalizedString("paywall_description", comment: ""))
 					
 					// MARK: - Icon
 					Image(systemName: "lock.shield")
@@ -43,6 +46,8 @@ struct PaywallView: View {
 						.frame(width: 100, height: 100)
 						.foregroundColor(Color("AppPrimaryColor"))
 						.padding(.vertical, 10)
+                        .accessibilityLabel(NSLocalizedString("paywall_icon_label", comment: "Security icon"))
+                        .accessibilityHidden(false)
 					
 					// MARK: - Subscription Options
 					VStack(spacing: 12) {
@@ -56,8 +61,11 @@ struct PaywallView: View {
 							) {
 								selectedProduct = product
 							}
-						}
-					}
+                            .accessibilityLabel("\(info.title), \(info.price)")
+                            .accessibilityHint("Double tap to select this offer")
+                            .accessibilityAddTraits(.isButton)
+                        }
+                    }
 					.padding(.vertical, 5)
 					
 					// MARK: - Upgrade Button
@@ -65,7 +73,6 @@ struct PaywallView: View {
                         UINotificationFeedbackGenerator().notificationOccurred(.success)
                         
 						guard let product = selectedProduct else { return }
-						print("selected product: \(product)")
 						Task {
 							do {
 								let result = try await product.purchase()
@@ -77,7 +84,6 @@ struct PaywallView: View {
 										await transaction.finish()
 										isPremiumUser = true
 										presentationMode.wrappedValue.dismiss()
-										print("Achat réussi : \(transaction.productID)")
 									case .unverified(_, _):
 										print("Transaction non vérifiée")
 									}
@@ -104,7 +110,10 @@ struct PaywallView: View {
 							.shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 3)
 					}
 					.padding(.horizontal, 20)
-					
+                    .accessibilityLabel(NSLocalizedString("paywall_button_upgrade", comment: ""))
+                    .accessibilityHint("Activate your premium subscription")
+                    .accessibilityAddTraits(.isButton)
+                    
 					// MARK: - Restore Purchases
 					Button(action: {
 						Task {
@@ -121,9 +130,12 @@ struct PaywallView: View {
 							.background(isDarkMode ? Color.white.opacity(0.1) : Color.black.opacity(0.05))
 							.cornerRadius(12)
 					}
-					.padding(.horizontal, 20)
-					
-					// MARK: - Cancel Button
+                    .padding(.horizontal, 20)
+                    .accessibilityLabel(NSLocalizedString("paywall_button_restore", comment: ""))
+                    .accessibilityHint("Restore a previously purchased subscription")
+                    .accessibilityAddTraits(.isButton)
+                    
+                    // MARK: - Cancel Button
 					Button(action: {
                         haptic.impactOccurred()
 						presentationMode.wrappedValue.dismiss()
@@ -139,11 +151,14 @@ struct PaywallView: View {
 					}
 					.padding(.horizontal, 20)
 					.padding(.bottom, 15)
-				}
-				.padding()
-				.background(
-					Group {
-						if #available(iOS 17, *) {
+                    .accessibilityLabel(NSLocalizedString("paywall_button_cancel", comment: ""))
+                    .accessibilityHint("Close the window without purchasing")
+                    .accessibilityAddTraits(.isButton)
+                }
+                .padding()
+                .background(
+                    Group {
+                        if #available(iOS 17, *) {
 							// Liquid Glass sur iOS 17+
 							Rectangle()
 								.fill(.regularMaterial)

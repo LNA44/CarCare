@@ -55,6 +55,7 @@ struct MaintenanceDetailsView: View {
                                         .ultraThinMaterial,
                                         in: RoundedRectangle(cornerRadius: 15)
                                     )
+                                    .accessibilityHidden(true)
                             }
                             VStack {
                                 ZStack {
@@ -70,6 +71,7 @@ struct MaintenanceDetailsView: View {
                                         .scaledToFit()
                                         .frame(width: 32, height: 32)
                                         .scaleEffect(iconScale(for: maintenance.maintenanceType))
+                                        .accessibilityHidden(true)
                                 }
                                 .frame(width: 60, height: 60)
                                 
@@ -82,6 +84,8 @@ struct MaintenanceDetailsView: View {
                                     .font(.system(size: 16, weight: .bold, design: .default))
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(.white)
+                                    .accessibilityLabel("Maintenance status")
+                                    .accessibilityValue(message(for: daysRemaining, frequency: maintenance.maintenanceType.frequencyInDays))
                                     .onAppear {
                                         triggerHaptic(maintenance: maintenance, for: daysRemaining)
                                     }
@@ -100,6 +104,9 @@ struct MaintenanceDetailsView: View {
                                         let progress = min(Double(daysSince) / frequency, 1.0)
                                         
                                         CircularProgressView(targetProgress: progress, value: daysSince)
+                                            .accessibilityElement(children: .combine)
+                                            .accessibilityLabel("Progress since last maintenance")
+                                            .accessibilityValue("\(daysSince) out of \(Int(frequency)) days")
                                         
                                         Text("\(daysSince)/ \(Int(frequency))j")
                                             .font(.system(size: 16, weight: .bold, design: .default))
@@ -110,6 +117,7 @@ struct MaintenanceDetailsView: View {
                                             targetProgress: 0.0,
                                             value: 0
                                         )
+                                        .accessibilityHidden(true)
                                     }
                                 }
                                 .padding(.top, 5)
@@ -156,6 +164,8 @@ struct MaintenanceDetailsView: View {
                                 .padding(.top, 10)
                                 .tint(Color("DoneColor"))
                                 .labelsHidden()
+                                .accessibilityLabel("Reminder")
+                                .accessibilityHint("Enable or disable notification for this maintenance")
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                             .foregroundColor(Color("TextColor"))
@@ -219,6 +229,8 @@ struct MaintenanceDetailsView: View {
                                 haptic.impactOccurred()
                             }
                         )
+                        .accessibilityLabel("Advice and information")
+                        .accessibilityHint("Shows detailed advice for this maintenance type")
                     }
                     .padding(.vertical, 20)
                     .padding(.bottom, 10)
@@ -241,7 +253,10 @@ struct MaintenanceDetailsView: View {
                                     formattedDate: formattedDate(item.date),
                                     isLast: index == maintenancesForOneType.count - 1
                                 )
+                                .accessibilityLabel("Maintenance on \(formattedDate(item.date))")
+                                .accessibilityHint(index == maintenancesForOneType.count - 1 ? "Most recent maintenance" : "")
                             }
+                           
                             
                             NavigationLink(
                                 destination: AddMaintenanceView(bikeVM: bikeVM, maintenanceVM: maintenanceVM,  onAdd: onAdd, notificationVM: notificationVM)
@@ -262,6 +277,8 @@ struct MaintenanceDetailsView: View {
                             .padding(.horizontal, 15)
                             .padding(.top, 15)
                             .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+                            .accessibilityLabel("Update maintenance")
+                            .accessibilityHint("Add or update a maintenance entry")
                         }
                         .padding(.top, 10)
                     }
@@ -305,11 +322,13 @@ struct MaintenanceDetailsView: View {
 							.font(.system(size: 16, weight: .regular, design: .default))
 							.foregroundColor(Color("TextColor"))
 					}
+                    .accessibilityLabel("Back")
 				}
 				ToolbarItem(placement: .principal) {
 					Text("\(maintenance.maintenanceType.localizedName)")
 						.font(.system(size: 22, weight: .bold, design: .default))
 						.foregroundColor(Color("TextColor"))
+                        .accessibilityAddTraits(.isHeader)
 				}
 			}
 			.alert(
@@ -344,7 +363,8 @@ struct MaintenanceDetailsView: View {
 				}
 			}
 		} else {
-			Text("Maintenance introuvable")
+			Text("Maintenance not found")
+                .accessibilityLabel("Maintenance not found")
 		}
 	}
 }
@@ -355,11 +375,11 @@ extension MaintenanceDetailsView {
 
 		switch proportion {
 		case 0..<1/3:
-			return "maintenance_message_up_to_date"
+			return "up to date"
 		case 1/3..<2/3:
-			return "maintenance_message_not_yet"
+			return "no yet"
 		default:
-			return "maintenance_message_due"
+			return "due"
 		}
 	}
 	

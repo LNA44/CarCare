@@ -46,19 +46,16 @@ struct MaintenanceView: View {
 							Section(header: Text(NSLocalizedString("maintenances_to_come", comment: "Title for upcoming maintenance section"))
 								.font(.system(size: 27, weight: .bold, design: .default))
 								.foregroundColor(Color("TextColor"))
-								.textCase(nil)) {
+								.textCase(nil)
+                                .accessibilityAddTraits(.isHeader)
+                            ) {
 									ForEach(sortedKeys, id: \.self) { type in
 										if let maintenance = lastMaintenanceByType[type] {
 											NavigationLink(destination: MaintenanceDetailsView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, maintenanceID: maintenance.id, onAdd: {
 												maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType)
 											}, notificationVM: notificationVM)) {
 												ToDoMaintenanceRow(VM: VM, maintenanceType: type)
-											}
-                                            /*.simultaneousGesture(
-                                                TapGesture().onEnded {
-                                                    haptic.impactOccurred()
-                                                }
-                                            )*/
+                                            }
 											.listRowBackground(Color("MaintenanceHistoryColor"))
 										}
 									}
@@ -66,7 +63,9 @@ struct MaintenanceView: View {
 							Section(header: Text(NSLocalizedString("completed_maintenances", comment: "Title for completed maintenance section"))
 								.font(.system(size: 27, weight: .bold, design: .default))
 								.foregroundColor(Color("TextColor"))
-								.textCase(nil)) {
+								.textCase(nil)
+                                .accessibilityAddTraits(.isHeader)
+                            ) {
 									ForEach(maintenanceVM.maintenances.reversed(), id: \.self) { maintenance in
 										DoneMaintenanceRow(maintenance: maintenance)
 											.listRowBackground(Color("InputSurfaceColor"))
@@ -91,10 +90,12 @@ struct MaintenanceView: View {
 								Text(NSLocalizedString("maintenances_to_come", comment: "Title for upcoming maintenance section"))
 									.font(.system(size: 27, weight: .bold, design: .default))
 									.foregroundColor(Color("TextColor"))
+                                    .accessibilityAddTraits(.isHeader)
 								
 								Text(NSLocalizedString("completed_maintenances", comment: "Title for completed maintenance section"))
 									.font(.system(size: 27, weight: .bold, design: .default))
 									.foregroundColor(Color("TextColor"))
+                                    .accessibilityAddTraits(.isHeader)
 								Spacer()
 							}
 							.frame(maxWidth: .infinity, alignment: .leading)
@@ -118,8 +119,11 @@ struct MaintenanceView: View {
 							.overlay (
 								RoundedRectangle(cornerRadius: 10)
 									.stroke(Color("ToDoColor"), lineWidth: 2))
-						}
-					}
+                            .accessibilityElement(children: .combine)
+                            .accessibilityLabel(NSLocalizedString("record_maintenance_instructions_key", comment: ""))
+                            .accessibilityHint("Follow these instructions to add a maintenance record")
+                        }
+                    }
 				}
 			}
             .padding(.bottom, 60)

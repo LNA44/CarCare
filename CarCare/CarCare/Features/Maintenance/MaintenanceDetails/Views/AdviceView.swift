@@ -15,10 +15,12 @@ struct AdviceView: View {
             Text(NSLocalizedString("advice_and_information_key", comment: ""))
                 .font(.system(size: 25, weight: .bold, design: .default))
                 .foregroundColor(Color("TextColor"))
+                .accessibilityAddTraits(.isHeader)
             
             Divider()
                 .frame(width: 200)
                 .padding(.bottom, 10)
+                .accessibilityHidden(true)
             
             Text("\(maintenance.maintenanceType.localizedDescription)")
                 .font(.system(size: 16, weight: .regular, design: .default))
@@ -26,9 +28,12 @@ struct AdviceView: View {
                 .padding(.horizontal, 15)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity)
+                .accessibilityLabel("Advice")
+                .accessibilityValue(maintenance.maintenanceType.localizedDescription)
             Spacer()
         }
         .background(Color("BackgroundColor"))
+        .accessibilityElement(children: .contain) 
     }
 }
 

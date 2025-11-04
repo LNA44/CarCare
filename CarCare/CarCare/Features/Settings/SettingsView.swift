@@ -27,8 +27,11 @@ struct SettingsView: View {
 				.onChange(of: isDarkMode) {_, value in
 						applyInterfaceStyle(value)
 				}
-				.listRowBackground(Color("MaintenanceHistoryColor"))
-			}
+                .listRowBackground(Color("MaintenanceHistoryColor"))
+                .accessibilityLabel(Text("Dark Mode"))
+                .accessibilityHint(Text("Double tap to enable or disable dark mode"))
+                .accessibilityValue(Text(isDarkMode ? "Enabled" : "Disabled"))
+            }
 			
 			Section(header: Text(NSLocalizedString("notifications_key", comment: ""))
 				.foregroundColor(Color("TextColor"))
@@ -45,6 +48,8 @@ struct SettingsView: View {
 						.font(.system(size: 16, weight: .regular, design: .default))
 				}
 				.listRowBackground(Color("MaintenanceHistoryColor"))
+                .accessibilityLabel(Text("Manage Notifications"))
+                .accessibilityHint(Text("Double tap to open iPhone settings and manage notification preferences"))
 			}
 			
 			Section(header: Text(NSLocalizedString("information_key", comment: ""))
@@ -61,7 +66,9 @@ struct SettingsView: View {
                         haptic.impactOccurred()
                     }
                 )
-			}
+                .accessibilityLabel(Text("Legal Notice"))
+                .accessibilityHint(Text("Double tap to view the app’s legal information"))
+            }
 			.listRowBackground(Color("MaintenanceHistoryColor"))
 
 		}

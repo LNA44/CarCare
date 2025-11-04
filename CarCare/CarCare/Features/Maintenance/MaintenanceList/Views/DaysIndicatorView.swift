@@ -57,9 +57,11 @@ struct DaysIndicatorView: View {
 					.shadow(color: isDarkMode ? .clear : colorForRectangle(index: 0).opacity(0.5),
 							   radius: 4, x: 0, y: 2)
 			}
-		}
-	}
-	
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityValue(voiceOverValue())
+    }
+    
 	private func colorForRectangle(index: Int) -> Color {
 		let proportion = min(max(Double(days) / Double(frequency), 0), 1)
 		
@@ -95,4 +97,21 @@ struct DaysIndicatorView: View {
 		let offset = CGFloat(index) * step + rectangleWidth / 2 - totalWidth / 2
 		return offset
 	}
+    
+    private func voiceOverValue() -> String {
+        let proportion = min(max(Double(days) / Double(frequency), 0), 1)
+        let daysInt = days
+
+        let status: String
+        switch proportion {
+        case 0..<1/3:
+            status = "Almost due"
+        case 1/3..<2/3:
+            status = "Medium"
+        default:
+            status = "Still has time"
+        }
+
+        return "Next maintenance in \(daysInt) day\(daysInt > 1 ? "s" : ""), status: \(status)"
+    }
 }

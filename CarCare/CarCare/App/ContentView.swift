@@ -50,7 +50,7 @@ struct ContentView: View {
             
             // Tab Bar
             HStack(spacing: 0) {
-                TabButton(icon: "house", title: "Accueil", isSelected: selectedTab == 0) {
+                TabButton(icon: "house", title: NSLocalizedString("dashboard_key", comment: "Accueil tab"), isSelected: selectedTab == 0) {
                     if selectedTab == 0 {
                         // On crée un décalage temporaire pour déclencher l'animation
                         withAnimation(.easeInOut(duration: 0.3)) {
@@ -67,7 +67,7 @@ struct ContentView: View {
                     }
                 }
                 
-                TabButton(icon: "wrench", title: "Entretiens", isSelected: selectedTab == 1) {
+                TabButton(icon: "wrench", title: NSLocalizedString("maintenance_key", comment: "Entretiens tab"), isSelected: selectedTab == 1) {
                     if selectedTab == 1 {
                         // Forcer la reconstruction de la vue => revient à la racine
                         maintenanceViewID = UUID()
@@ -76,7 +76,7 @@ struct ContentView: View {
                     }
                 }
                 
-                TabButton(icon: "gearshape", title: "Paramètres", isSelected: selectedTab == 2) {
+                TabButton(icon: "gearshape", title: NSLocalizedString("Settings_key", comment: "Paramètres tab"), isSelected: selectedTab == 2) {
                     if selectedTab == 2 {
                         // Forcer la reconstruction de la vue => revient à la racine
                         settingsViewID = UUID()

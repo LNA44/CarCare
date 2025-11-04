@@ -23,10 +23,21 @@ struct LegalView: View {
   This application does not collect any personal data. All information entered remains on the user’s device.
   """)
 				.font(.body)
-			}
-			.padding()
+                .accessibilityLabel(Text("""
+                Publisher: Independent Developer.
+                Address: Pays De La Loire, France.
+                Email: contact at monsite dot fr.
+                Publication Director: Not applicable.
+                Hosting: Not applicable, local application.
+                Intellectual Property: all content and code of this application are protected.
+                Personal Data Protection: this application does not collect any personal data. All information entered remains on the user's device.
+                """))
+                .accessibilityHint(Text("This section provides legal information about the application"))
+            }
+            .padding()
 		}
 		.navigationTitle("Mentions légales")
+        .accessibilityAddTraits(.isHeader)
 	}
 }
 

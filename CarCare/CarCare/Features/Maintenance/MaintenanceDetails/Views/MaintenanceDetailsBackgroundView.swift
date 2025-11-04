@@ -39,6 +39,7 @@ struct MaintenanceDetailsBackgroundView: View {
                             )
                             .offset(y: -2)
                             .padding(.leading, 15)
+                            .accessibilityLabel("Maintenance entry")
                     }
                 }
             }

@@ -82,6 +82,9 @@ struct BikeDetailsSheet: View {
                                     )
                             )
                             .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+                            .accessibilityElement(children: .combine)
+                            .accessibilityLabel("\(bikeVM.brand) \(bikeVM.model), year \(bikeVM.year)")
+                            .accessibilityHint(bikeVM.identificationNumber.isEmpty ? "" : "Identification number \(bikeVM.identificationNumber)")
 
                             
                             VStack(spacing: 10) {
@@ -121,6 +124,10 @@ struct BikeDetailsSheet: View {
                             )
                             .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
                             .cornerRadius(15)
+                            .accessibilityElement(children: .combine)
+                            .accessibilityLabel("Overall maintenance status")
+                            .accessibilityValue(maintenanceVM.overallStatus.label)
+                            .accessibilityHint("Indicates if maintenance is up to date or upcoming")
                         }
                         
                         ZStack {
@@ -130,6 +137,7 @@ struct BikeDetailsSheet: View {
                                 .cornerRadius(10)
                                 .scaledToFit()
                                 .shadow(color: .black.opacity(isDarkMode ? 0.1 : 0.25), radius: 8, x: 0, y: 4)
+                                .accessibilityHidden(true)
                             
                             LinearGradient(
                                 colors: [
@@ -164,6 +172,10 @@ struct BikeDetailsSheet: View {
                             .padding(.horizontal, 10)
                             .padding(.vertical, 10)
                             .frame(width: 350, height: 250, alignment: .bottomLeading)
+                            .accessibilityElement(children: .ignore)
+                            .accessibilityAddTraits(.isStaticText)
+                            .accessibilityLabel("Last maintenance: \(maintenanceVM.generalLastMaintenance?.maintenanceType.localizedName ?? "No maintenance recorded"), \(maintenanceVM.generalLastMaintenance?.date != nil ? formatter.string(from: maintenanceVM.generalLastMaintenance!.date) : "No date")")
+                           
                             
                         }
                         .padding(.horizontal, 10)
@@ -192,14 +204,10 @@ struct BikeDetailsSheet: View {
                                         }
                                     )
                             }
-                            .simultaneousGesture(
-                                TapGesture().onEnded {
-                                    haptic.impactOccurred()
-                                }
-                            )
                             .buttonStyle(.plain)
                             .padding(.horizontal, 10)
                             .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+                            .accessibilityLabel("Modify bike information. Opens the screen to edit your bike's details")
                             
                             Button {
                                 haptic.impactOccurred()
@@ -216,6 +224,7 @@ struct BikeDetailsSheet: View {
                             .padding(.bottom, 20)
                             .padding(.horizontal, 10)
                             .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+                            .accessibilityLabel("Add maintenance. Opens the screen to add a new maintenance entry")
                         }
                         .navigationDestination(isPresented: $goToAdd) {
                             AddMaintenanceView(

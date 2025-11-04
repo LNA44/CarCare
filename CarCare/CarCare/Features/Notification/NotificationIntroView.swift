@@ -7,7 +7,7 @@
 
 import SwiftUI
 import UserNotifications
-//apparait à la première ouverture de l'app
+
 struct NotificationIntroView: View {
 	@ObservedObject var maintenanceVM: MaintenanceVM
 	@ObservedObject var notificationVM: NotificationViewModel
@@ -19,10 +19,14 @@ struct NotificationIntroView: View {
 			Text(NSLocalizedString("stay_informed_key", comment: ""))
 				.font(.title)
 				.padding()
-			
+                .accessibilityAddTraits(.isHeader)
+                .accessibilityLabel(NSLocalizedString("stay_informed_key", comment: "Stay informed title"))
+            
 			Text(NSLocalizedString("enable_notifications_text_key", comment: ""))
 				.multilineTextAlignment(.center)
 				.padding()
+                .accessibilityLabel(NSLocalizedString("enable_notifications_text_key", comment: "Explanation about enabling notifications"))
+                .accessibilityHint("Explains why enabling notifications keeps you updated")
 			
 			Button(NSLocalizedString("enable_notifications_button_key", comment: "")) {
 				Task {
@@ -32,19 +36,23 @@ struct NotificationIntroView: View {
 				}
 			}
 			.buttonStyle(.borderedProminent)
-		}
+            .accessibilityLabel(NSLocalizedString("enable_notifications_button_key", comment: "Enable notifications button"))
+            .accessibilityHint("Double tap to allow notifications and stay updated")
+            .accessibilityAddTraits(.isButton)
+        }
 		.padding()
-		//Comme error est optionnel on crée un binding
-		.alert(NSLocalizedString("error_title_key", comment: "Titre de l'alerte d'erreur"), isPresented: Binding(
+		.alert(NSLocalizedString("error_title_key", comment: "Error title"), isPresented: Binding(
 			get: { notificationVM.error != nil },
-			set: { _ in notificationVM.error = nil } //quand utilisateur ferme l'alerte : error = nil
+			set: { _ in notificationVM.error = nil }
 		)) {
-			Button("OK") { }
-		} message: {
-			Text(notificationVM.error?.localizedDescription ?? "")
-		}
+            Button("OK") { }
+                .accessibilityLabel("OK")
+                .accessibilityHint("Dismiss the error message")
+        } message: {
+            Text(notificationVM.error?.localizedDescription ?? "")
+                .accessibilityLabel(notificationVM.error?.localizedDescription ?? "An unknown error occurred")
+        }
 
-		// Mise à jour du ViewModel avec le vrai maintenanceVM une fois disponible
 		.onAppear {
 			notificationVM.maintenanceVM = maintenanceVM
 		}

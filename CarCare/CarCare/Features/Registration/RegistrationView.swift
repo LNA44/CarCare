@@ -29,9 +29,12 @@ struct RegistrationView: View {
                             Text(NSLocalizedString("welcome_key", comment: ""))
                                 .font(.system(size: 22, weight: .bold, design: .rounded))
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .accessibilityAddTraits(.isHeader)
+                                .accessibilityLabel(NSLocalizedString("welcome_key", comment: "Welcome message for registration"))
                             
                             Text(NSLocalizedString("bike_info_key", comment: ""))
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .accessibilityLabel(NSLocalizedString("bike_info_key", comment: "Prompt for entering bike information"))
                         }
                         .padding(.top, 40)
                         
@@ -41,6 +44,8 @@ struct RegistrationView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 CustomTextField(placeholder: "", text: $brandText)
+                                    .accessibilityLabel("Brand")
+                                    .accessibilityHint("Enter the brand of your bike")
                             }
                             
                             VStack {
@@ -48,6 +53,8 @@ struct RegistrationView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 CustomTextField(placeholder: "", text: $modelText)
+                                    .accessibilityLabel("Model")
+                                    .accessibilityHint("Enter the model of your bike")
                             }
                             
                             VStack {
@@ -66,6 +73,9 @@ struct RegistrationView: View {
                                 .frame(height: 40)
                                 .background(Color("InputSurfaceColor"))
                                 .cornerRadius(10)
+                                .accessibilityLabel("Bike Type")
+                                .accessibilityValue(selectedType.localizedName)
+                                .accessibilityHint("Select the type of your bike")
                             }
                             .frame(maxWidth: .infinity)
                             
@@ -75,6 +85,8 @@ struct RegistrationView: View {
                                 
                                 CustomTextField(placeholder: "", text: $yearText)
                                     .keyboardType(.numberPad)
+                                    .accessibilityLabel("Year of manufacture")
+                                    .accessibilityHint("Enter the year your bike was manufactured")
                             }
                             
                             VStack {
@@ -82,6 +94,8 @@ struct RegistrationView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 CustomTextField(placeholder: "", text: $identificationNumber)
+                                    .accessibilityLabel("Identification Number")
+                                    .accessibilityHint("Enter your bike's identification number")
                             }
                             
                         }
@@ -92,6 +106,8 @@ struct RegistrationView: View {
                     
                     BikePhotoPickerView(selectedImage: $selectedImage)
                         .padding(.top, 20)
+                        .accessibilityLabel("Bike Photo")
+                        .accessibilityHint("Tap to choose or take a photo of your bike")
                     
                     Spacer()
                     
@@ -104,6 +120,8 @@ struct RegistrationView: View {
                         }
                     }
                     .padding(.top, 20)
+                    .accessibilityLabel(NSLocalizedString("button_add_bike_key", comment: "Add bike button"))
+                    .accessibilityHint("Double tap to save your bike information and continue")
                 }
                 .padding(.horizontal, 10)
                 .navigationDestination(isPresented: $shouldNavigate) {

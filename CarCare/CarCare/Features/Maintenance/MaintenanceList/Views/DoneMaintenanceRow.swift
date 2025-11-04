@@ -26,6 +26,9 @@ struct DoneMaintenanceRow: View {
 		}
 		.padding(.trailing, 20)
 		.foregroundColor(Color("TextColor"))
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(maintenance.maintenanceType.localizedName)")
+        .accessibilityValue("Completed on \(formatter.string(from: maintenance.date))")
     }
 }
 

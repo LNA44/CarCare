@@ -16,7 +16,6 @@ struct DashboardView: View {
     @StateObject private var VM: DashboardVM
     @State private var sheetPosition: CGFloat = 0.5 // 0.5 = medium, 0.1 = large
     @State private var dragOffset: CGFloat = 0
-    //@State private var goToAdd = false
     @State private var didLoadData = false
     @State private var showPaywall = false
     @State private var showPopover = false
@@ -39,6 +38,7 @@ struct DashboardView: View {
                         .scaledToFill()
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .ignoresSafeArea()
+                        .accessibilityLabel("Your registered bike")
                 } else if bikeVM.bike == nil {
                     EmptyView()
                 } else {
@@ -47,6 +47,7 @@ struct DashboardView: View {
                         .scaledToFill()
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .ignoresSafeArea()
+                        .accessibilityHidden(true)
                 }
                 if didLoadData {
                     BikeDetailsSheet(bikeVM: bikeVM, maintenanceVM: maintenanceVM, notificationVM: notificationVM, VM: VM)
@@ -75,10 +76,15 @@ struct DashboardView: View {
                                     }
                                 }
                         )
+                        .accessibilityElement(children: .contain)
+                        .accessibilityLabel("Bike Details")
                 }
             }
         }
         .onAppear {
+            if UIAccessibility.isVoiceOverRunning {
+                sheetPosition = 0.1 // sheet complètement visible
+            }
             guard !didLoadData else { return } //evite boucle lors du changement de light dark mode
             didLoadData = true
             bikeVM.fetchBikeData() { //bikeData mises dans publised
