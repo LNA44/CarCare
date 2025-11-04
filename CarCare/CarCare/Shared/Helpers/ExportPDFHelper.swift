@@ -10,7 +10,7 @@ import SwiftUI
 
 final class ExportPDFHelper {
 	
-	func sharePDF(bike: Bike, from maintenances: [Maintenance]) {
+	func sharePDF(bike: Bike, from maintenances: [Maintenance]) throws {
 		// Générer le PDF
 		let pdfData = createBikePDF(bike: bike, from: maintenances)
 		
@@ -20,8 +20,7 @@ final class ExportPDFHelper {
 		do {
 			try pdfData.write(to: tempURL, options: .atomic)
 		} catch {
-			print("Erreur lors de l'écriture du PDF : \(error)")
-			return
+            throw PDFError.writingFailed("Error while writing PDF : \(error.localizedDescription)")
 		}
 		
 		// Présenter UIActivityViewController sur le thread principal

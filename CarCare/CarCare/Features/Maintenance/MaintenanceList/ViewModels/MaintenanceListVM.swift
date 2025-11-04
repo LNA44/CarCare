@@ -27,31 +27,26 @@ final class MaintenanceListVM: ObservableObject {
 	}
 	
 	func calculateNumberOfMaintenance() -> Int {
-		print("calculateNumberOfMaintenance appelée")
 		return maintenanceVM.maintenances.count
 	}
 	
 	func calculateDaysUntilNextMaintenance(type: MaintenanceType) -> Int? {
-		print("daysUntilNextMaintenance appelée")
 		guard let nextDate = calculateNextMaintenanceDate(for: type) else { return nil}
 		return Calendar.current.dateComponents([.day], from: Date(), to: nextDate).day
 	}
 	
 	func calculateNextMaintenanceDate(for type: MaintenanceType) -> Date? {
-		print("nextMaintenanceDate appelée")
 		guard let lastMaintenance = getLastMaintenance(of: type) else { return nil }
 		guard type.frequencyInDays > 0 else { return nil} // Pas de prochaine date pour Unknown
 		return Calendar.current.date(byAdding: .day, value: type.frequencyInDays, to: lastMaintenance.date)
 	}
 	
 	func getLastMaintenance(of type: MaintenanceType) -> Maintenance? {
-		print("lastMaintenance appelée")
 		let filtered = maintenanceVM.maintenances.filter { $0.maintenanceType == type }
 		return filtered.max(by: { $0.date < $1.date })
 	}
 	
 	func fetchAllMaintenanceForOneType(type: MaintenanceType) -> [Maintenance] {
-		print("fetchAllMaintenanceForOneType appelée")
 		do {
 			let allMaintenance = try maintenanceLoader.load()
 			return allMaintenance.filter { $0.maintenanceType == type }

@@ -23,7 +23,6 @@ final class AddMaintenanceVM: ObservableObject {
 	}
 	
 	func addMaintenance(bikeType: BikeType) {
-        print("addMaintenance appelé")
 		if let selectedMaintenanceDate = selectedMaintenanceDate {
 			let maintenance = Maintenance(id: UUID(), maintenanceType: selectedMaintenanceType, date: selectedMaintenanceDate, reminder: true)
 			do {
@@ -63,12 +62,10 @@ final class AddMaintenanceVM: ObservableObject {
 	}*/
 	
 	func calculateNextMaintenanceDate(for type: MaintenanceType, baseMaintenance: Maintenance? = nil) -> Date? {
-        print("on ets dans calculateNextMaintenanceDate")
 		// Priorité à la dernière maintenance existante
 		let lastMaintenanceToUse = getLastMaintenance(of: type) ?? baseMaintenance
 		guard let lastMaintenance = lastMaintenanceToUse else { return nil }
 		guard type.frequencyInDays > 0 else { return nil }
-        print("resultat calculateNextMaintenanceDate: \(Calendar.current.date(byAdding: .day, value: type.frequencyInDays, to: lastMaintenance.date))")
 		return Calendar.current.date(byAdding: .day, value: type.frequencyInDays, to: lastMaintenance.date)
 	}
 	

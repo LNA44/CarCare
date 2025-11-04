@@ -9,12 +9,12 @@ import SwiftUI
 
 struct DashboardView: View {
     @AppStorage("isDarkMode") private var isDarkMode = false
-    @AppStorage("isPremiumUser") private var isPremiumUser = false
+    //@AppStorage("isPremiumUser") private var isPremiumUser = false
     @ObservedObject var bikeVM: BikeVM
     @ObservedObject var maintenanceVM: MaintenanceVM
     @ObservedObject var notificationVM: NotificationViewModel
     @StateObject private var VM: DashboardVM
-    @State private var sheetPosition: CGFloat = 0.5 // 0.5 = medium, 0.1 = large
+    @State private var sheetPosition: CGFloat = 0.8 // 0.8 = medium, 0.1 = large
     @State private var dragOffset: CGFloat = 0
     @State private var didLoadData = false
     @State private var showPaywall = false
@@ -25,7 +25,7 @@ struct DashboardView: View {
         self.bikeVM = bikeVM
         self.maintenanceVM = maintenanceVM
         self.notificationVM = notificationVM
-        _VM = StateObject(wrappedValue: DashboardVM(maintenanceVM: maintenanceVM))
+        _VM = StateObject(wrappedValue: DashboardVM(maintenanceVM: maintenanceVM, bikeVM: bikeVM))
     }
     
     var body: some View {
@@ -69,7 +69,7 @@ struct DashboardView: View {
                                         } else if newPosition > 0.3 && newPosition < 0.6 {
                                             sheetPosition = 0.5 // Position moyenne
                                         } else {
-                                            sheetPosition = 0.65 // Position basse
+                                            sheetPosition = 0.8 // Position basse
                                         }
                                         
                                         dragOffset = 0
@@ -92,11 +92,52 @@ struct DashboardView: View {
                 maintenanceVM.fetchAllMaintenance(for: bikeVM.bikeType) //utile pour statut général entretien
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    haptic.impactOccurred()
+                    VM.exportPDF(maintenances: maintenanceVM.maintenances)
+                }) {
+                    Image(systemName: "square.and.arrow.up")
+                        .imageScale(.large)
+                        .foregroundColor(Color.white)
+                        .offset(y: -2)
+                }
+                /*.popover(isPresented: $showPopover, arrowEdge: .top) {
+                    VStack(spacing: 20) {
+                        Text(NSLocalizedString("premium_feature", comment: ""))
+                            .font(.system(size: 22, weight: .bold, design: .default))
+                        
+                        Text(NSLocalizedString("share_summary_description", comment: ""))
+                            .multilineTextAlignment(.center)
+                            .font(.system(size: 18, weight: .regular, design: .default))
+                            .frame(maxWidth: 250)
+                        
+                        Button(action: {
+                            haptic.impactOccurred()
+                            showPopover = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                showPaywall = true
+                            }
+                        }) {
+                            Text(NSLocalizedString("unlock_now", comment: ""))
+                                .font(.system(size: 18, weight: .bold, design: .default))
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color("MainComponentColor"))
+                                .cornerRadius(10)
+                        }
+                        .padding(.top, 20)
+                    }
+                    .padding()
+                }*/
+            }
+        }
         .ignoresSafeArea()
         .padding(.bottom, 40)
-        .fullScreenCover(isPresented: $showPaywall) {
+        /*.fullScreenCover(isPresented: $showPaywall) {
             PaywallView()
-        }
+        }*/
         .navigationBarTitleDisplayMode(.inline)
         .alert(
             isPresented: Binding(

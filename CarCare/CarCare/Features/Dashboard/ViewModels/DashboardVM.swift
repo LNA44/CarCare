@@ -9,13 +9,15 @@ import Foundation
 
 final class DashboardVM: ObservableObject {
 	private let maintenanceVM: MaintenanceVM
+    private let bikeVM: BikeVM
 	private let maintenanceLoader: LocalMaintenanceLoader
 	@Published var error: AppError?
 	@Published var showAlert: Bool = false
 
-	init(maintenanceLoader: LocalMaintenanceLoader = DependencyContainer.shared.MaintenanceLoader, maintenanceVM: MaintenanceVM) {
+    init(maintenanceLoader: LocalMaintenanceLoader = DependencyContainer.shared.MaintenanceLoader, maintenanceVM: MaintenanceVM, bikeVM: BikeVM) {
 		self.maintenanceLoader = maintenanceLoader
 		self.maintenanceVM = maintenanceVM
+        self.bikeVM = bikeVM
 		}
 	
 	func fetchLastMaintenance(for bikeType: BikeType) {
@@ -59,4 +61,22 @@ final class DashboardVM: ObservableObject {
 			}
 		}
 	}
+    
+    func exportPDF(maintenances: [Maintenance]) {
+        guard let bike = bikeVM.bike else {
+            self.error = AppError.bikeNotFound
+            self.showAlert = true
+            return
+        }
+        do {
+            try ExportPDFHelper().sharePDF(bike: bike, from: maintenances)
+
+        } catch let pdfError as PDFError {
+            self.error = .pdfError(pdfError) // AppError.pdfError(PDFError)
+            self.showAlert = true
+        } catch {
+            self.error = .unknown
+            self.showAlert = true
+        }
+    }
 }

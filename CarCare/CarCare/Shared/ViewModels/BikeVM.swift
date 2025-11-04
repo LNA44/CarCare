@@ -47,7 +47,7 @@ final class BikeVM: ObservableObject {
 					self.identificationNumber = unwrappedBike.identificationNumber
 					self.bike = unwrappedBike
                     
-                    if let imageData = unwrappedBike.imageData {
+                    if unwrappedBike.imageData != nil {
                     } else {
                         self.error = AppError.noImageData
                         self.showAlert = true

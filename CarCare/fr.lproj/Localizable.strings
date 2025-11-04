@@ -89,6 +89,9 @@
 "button_update_key" = "Mettre à jour";
 "maintenance_history_key" = "Historique d'entretien";
 "advice_and_information_key" = "Conseils & infos";
+"maintenance_up_to_date" = "À jour";
+"maintenance_not_yet" = "Pas encore";
+"maintenance_due" = "À faire";
 
 //SettingsView
 "navigation_title_settings_key" = "Paramètres";

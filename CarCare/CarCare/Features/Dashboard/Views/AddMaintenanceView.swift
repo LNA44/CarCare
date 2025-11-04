@@ -95,13 +95,13 @@ struct AddMaintenanceView: View {
 			
 			PrimaryButton(title: NSLocalizedString("button_Add_Maintenance", comment: ""), foregroundColor: .white, backgroundColor: Color("AppPrimaryColor")) {
                 haptic.impactOccurred()
-				if isPremiumUser || maintenanceVM.maintenances.count < 3 {
+				//if isPremiumUser || maintenanceVM.maintenances.count < 3 {
 					VM.addMaintenance(bikeType: bikeVM.bikeType)
 					onAdd() //pour recharger la dernière maintenance dans Dashboard
 					dismiss()
-				} else {
+				/*} else {
 					showPaywall = true // Afficher un sheet ou alert
-				}
+				}*/
 			}
             .accessibilityLabel(NSLocalizedString("button_Add_Maintenance", comment: "Add Maintenance button"))
             .accessibilityHint("Double tap to save this maintenance record")
@@ -136,11 +136,11 @@ struct AddMaintenanceView: View {
 			}
 			.padding()
 		}
-		.sheet(isPresented: $showPaywall) {
+		/*.sheet(isPresented: $showPaywall) {
 			PaywallView()
                 .accessibilityLabel("Paywall")
                 .accessibilityHint("Upgrade to premium to add more maintenance records")
-		}
+		}*/
 		.padding(.horizontal, 10)
 		.padding(.top, 20)
 		.navigationBarBackButtonHidden(true)

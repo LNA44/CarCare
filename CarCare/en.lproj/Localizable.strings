@@ -90,6 +90,9 @@
 "button_update_key" = "Update";
 "maintenance_history_key" = "Maintenance history";
 "advice_and_information_key" = "Advice and information";
+"maintenance_up_to_date" = "Up to date";
+"maintenance_not_yet" = "Not yet";
+"maintenance_due" = "Due";
 
 //SettingsView
 "navigation_title_settings_key" = "Settings";

@@ -16,7 +16,7 @@ struct CarCareApp: App {
 	@StateObject private var bikeVM: BikeVM
 	@StateObject private var maintenanceVM: MaintenanceVM
 	@StateObject private var appState: AppState
-	@StateObject private var subscriptionManager = SubscriptionManager.shared
+	//@StateObject private var subscriptionManager = SubscriptionManager.shared
     @State private var showLaunchView = true
     
 	@AppStorage("hasSeenNotificationIntro") private var hasSeenNotificationIntro: Bool = false
@@ -61,10 +61,10 @@ defaults.set(false, forKey: "isPremiumUser")
 							if hasSeenNotificationIntro {
 								RegistrationView(bikeVM: bikeVM)
 									.environmentObject(appState)
-									.environmentObject(subscriptionManager)
+									//.environmentObject(subscriptionManager)
 							} else {
 								NotificationIntroView(maintenanceVM: maintenanceVM, notificationVM: notificationVM)
-									.environmentObject(subscriptionManager)
+									//.environmentObject(subscriptionManager)
 							}
 						} else {
 							OnboardingView()
@@ -78,7 +78,7 @@ defaults.set(false, forKey: "isPremiumUser")
 				case .ready:
 					ContentView(bikeVM: bikeVM, maintenanceVM: maintenanceVM, notificationVM: notificationVM)
 						.environmentObject(appState)
-						.environmentObject(subscriptionManager)
+						//.environmentObject(subscriptionManager)
 						.transition(.asymmetric(
 								   insertion: .move(edge: .trailing).combined(with: .opacity),
 								   removal: .move(edge: .leading).combined(with: .opacity)
@@ -93,13 +93,13 @@ defaults.set(false, forKey: "isPremiumUser")
                }
             }
             .preferredColorScheme(currentMode)
-			.onChange(of: scenePhase) {_, newPhase in
+			/*.onChange(of: scenePhase) {_, newPhase in
 				if newPhase == .active {
 					Task {
 						await subscriptionManager.checkCurrentEntitlements()
 					}
 				}
-			}
+			}*/
 			.animation(.easeInOut(duration: 0.3), value: appState.status)
             .animation(.easeOut(duration: 0.5), value: showLaunchView)
 			.alert(isPresented: $appState.showAlert) {

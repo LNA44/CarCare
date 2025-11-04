@@ -19,8 +19,12 @@ enum AppError: Error, LocalizedError {
 	//Erreurs liées aux notifications
 	case notificationError(Error)
 	case notificationNotAuthorized
+    case notificationFailed(String)
 	
 	case bikeNotFound
+    
+    case pdfError(PDFError)
+    
 	case unknown
 	
 }
@@ -47,8 +51,14 @@ extension AppError {
 			return NSLocalizedString("notification_error", comment: "Error occurred while sending notification")
 		case .notificationNotAuthorized:
 			return NSLocalizedString("notification_not_authorized", comment: "Notifications not authorized")
+        case .notificationFailed(let message): return message
 		case .bikeNotFound:
-			return NSLocalizedString("bike_not_found", comment: "Bike not found")
+            return NSLocalizedString("bike_not_found", comment: "Bike not found")
+        case .pdfError(let pdfError):
+            switch pdfError {
+            case .writingFailed(let message):
+                return message
+            }
 		case .unknown:
 			return NSLocalizedString("unknown_error_message", comment: "Unexpected error occurred")
 		}
@@ -90,3 +100,6 @@ enum SaveCocoaError: Error {
 	case unknown               // toutes les autres erreurs liées au save
 }
 
+enum PDFError: Error {
+    case writingFailed(String)
+}

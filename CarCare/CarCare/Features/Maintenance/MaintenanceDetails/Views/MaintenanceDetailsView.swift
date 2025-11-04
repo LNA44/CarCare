@@ -372,19 +372,19 @@ struct MaintenanceDetailsView: View {
 extension MaintenanceDetailsView {
 	func message(for days: Int, frequency: Int) -> String {
 		let proportion = min(max(Double(frequency - days) / Double(frequency), 0), 1)
-
-		switch proportion {
-		case 0..<1/3:
-			return "up to date"
-		case 1/3..<2/3:
-			return "no yet"
-		default:
-			return "due"
-		}
-	}
-	
-	func color(for days: Int, frequency: Int) -> Color {
-		let proportion = min(max(Double(frequency - days) / Double(frequency), 0), 1)
+        
+        switch proportion {
+        case 0..<1/3:
+            return NSLocalizedString("maintenance_up_to_date", comment: "")
+        case 1/3..<2/3:
+            return NSLocalizedString("maintenance_not_yet", comment: "")
+        default:
+            return NSLocalizedString("maintenance_due", comment: "")
+        }
+    }
+    
+    func color(for days: Int, frequency: Int) -> Color {
+        let proportion = min(max(Double(frequency - days) / Double(frequency), 0), 1)
 
 		switch proportion {
 		case 0..<1/3:

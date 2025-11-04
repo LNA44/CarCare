@@ -61,11 +61,6 @@ struct SettingsView: View {
 						.foregroundColor(Color("TextColor"))
 						.font(.system(size: 16, weight: .regular, design: .default))
 				}
-                .simultaneousGesture(
-                    TapGesture().onEnded {
-                        haptic.impactOccurred()
-                    }
-                )
                 .accessibilityLabel(Text("Legal Notice"))
                 .accessibilityHint(Text("Double tap to view the app’s legal information"))
             }

@@ -12,25 +12,17 @@ struct LegalView: View {
 		ScrollView {
 			VStack(alignment: .leading, spacing: 15) {
 				Text("""
-  Publisher: Independent Developer
-  Address: Pays De La Loire, France
-  Email: contact@monsite.fr
-  Publication Director: Not applicable
-  Hosting: Not applicable, local application
-  Intellectual Property:
-  All content and code of this application are protected.
-  Personal Data Protection:
-  This application does not collect any personal data. All information entered remains on the user’s device.
+  Privacy Policy \n
+  This application does not collect any personal data. All information used by the app remains solely on your device. No data is transmitted to any server or third party.\n
+  Legal Notice / Terms of Use\n
+  Use of this application is at your own risk. The publisher cannot be held responsible for any loss or damage resulting from the use of the application.
   """)
 				.font(.body)
                 .accessibilityLabel(Text("""
-                Publisher: Independent Developer.
-                Address: Pays De La Loire, France.
-                Email: contact at monsite dot fr.
-                Publication Director: Not applicable.
-                Hosting: Not applicable, local application.
-                Intellectual Property: all content and code of this application are protected.
-                Personal Data Protection: this application does not collect any personal data. All information entered remains on the user's device.
+                  Privacy Policy \n
+                  This application does not collect any personal data. All information used by the app remains solely on your device. No data is transmitted to any server or third party.\n
+                  Legal Notice / Terms of Use\n
+                  Use of this application is at your own risk. The publisher cannot be held responsible for any loss or damage resulting from the use of the application.
                 """))
                 .accessibilityHint(Text("This section provides legal information about the application"))
             }
@@ -38,6 +30,10 @@ struct LegalView: View {
 		}
 		.navigationTitle("Mentions légales")
         .accessibilityAddTraits(.isHeader)
+        .onAppear {
+            let haptic = UIImpactFeedbackGenerator(style: .medium)
+            haptic.impactOccurred()
+        }
 	}
 }
 

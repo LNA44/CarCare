@@ -5,7 +5,7 @@
 //  Created by Ordinateur elena on 15/09/2025.
 //
 
-import Foundation
+/*import Foundation
 import StoreKit
 import SwiftUI
 
@@ -37,7 +37,6 @@ final class SubscriptionManager: ObservableObject {
 		do {
 			let storeProducts = try await Product.products(for: productIDs)
 			products = storeProducts
-            print("Products: \(products)")
 		} catch {
 			lastError = error
 		}
@@ -59,12 +58,12 @@ final class SubscriptionManager: ObservableObject {
 					lastError = verificationError
 					return false
 				}
-			case .userCancelled:
-				print("User cancelled")
-				return false
-			case .pending:
-				print("Purchase pending")
-				return false
+            case .userCancelled:
+                lastError = NSError(domain: "Purchase", code: 1, userInfo: [NSLocalizedDescriptionKey: "The user canceled the purchase"])
+                return false
+            case .pending:
+                lastError = NSError(domain: "Purchase", code: 2, userInfo: [NSLocalizedDescriptionKey: "Waiting for purchase"])
+                return false
 			@unknown default:
 				return false
 			}
@@ -90,7 +89,6 @@ final class SubscriptionManager: ObservableObject {
 			for await verificationResult in Transaction.currentEntitlements {
 				switch verificationResult {
 				case .verified(let transaction):
-					print("Entitled to: \(transaction.productID)")
 					foundAny = true
 					UserDefaults.standard.set(true, forKey: "isPremiumUser")
 				case .unverified(_, _):
@@ -105,23 +103,32 @@ final class SubscriptionManager: ObservableObject {
 	}
 
 	// MARK: - Listen transaction updates (renewals, purchases that happen outside app)
-	private func listenForTransactions() {
-		updateTask?.cancel()
-		updateTask = Task.detached { [weak self] in
-			for await verificationResult in Transaction.updates {
-				if Task.isCancelled { break }
-				switch verificationResult {
-				case .verified(let transaction):
-					await self?.handleTransactionUpdate(transaction)
-				case .unverified(_, let error):
-					print("⚠️ update unverified transaction: \(error.localizedDescription)")
-				}
-			}
-		}
-	}
+    private func listenForTransactions() {
+        updateTask?.cancel()
+        updateTask = Task { [weak self] in
+            guard let self = self else { return }
+            
+            for await verificationResult in Transaction.updates {
+                if Task.isCancelled { break }
+                
+                switch verificationResult {
+                case .verified(let transaction):
+                    await self.handleTransactionUpdate(transaction)
+                    
+                case .unverified(_, let error):
+                    self.lastError = NSError(
+                        domain: "Purchase",
+                        code: 1,
+                        userInfo: [NSLocalizedDescriptionKey: "Erreur transaction non vérifiée : \(error.localizedDescription)"]
+                    )
+                @unknown default:
+                    break
+                }
+            }
+        }
+    }
 
 	private func handleTransactionUpdate(_ transaction: StoreKit.Transaction) async {
-		print("Transaction update: \(transaction.productID)")
 		UserDefaults.standard.set(true, forKey: "isPremiumUser")
 		DispatchQueue.main.async {
 			self.isPremium = true
@@ -134,3 +141,4 @@ final class SubscriptionManager: ObservableObject {
 		await checkCurrentEntitlements()
 	}
 }
+*/

@@ -70,7 +70,6 @@ class MaintenanceVM: ObservableObject {
 	
 	func fetchAllMaintenance(for bikeType: BikeType) {
 		do {
-            print("on est dans fecthAllMaintenance")
 			let loaded = try loader.load()
 			
 			// Filtrage : on exclut la maintenance batterie si le vélo est manuel

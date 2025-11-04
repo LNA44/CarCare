@@ -20,9 +20,7 @@ class LocalMaintenanceLoader {
 	}
 	
 	func save(_ maintenance: Maintenance) throws {
-		print("on est dans save")
 		try store.insert(maintenance.toLocal())
-		print("maintenance toLocal : \(maintenance.toLocal())")
 	}
 	
 	func update(_ maintenance: Maintenance) throws {

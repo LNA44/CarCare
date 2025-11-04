@@ -41,7 +41,6 @@ class NotificationViewModel: ObservableObject {
 	
 	// Planifie les notifications pour un type de maintenance
 	func scheduleNotifications(for type: MaintenanceType, until endDate: Date) {
-        print("on est dans scheduleNotification")
 		guard isAuthorized else { return }
 
 		   // Calcul du nombre de jours restants
@@ -77,9 +76,8 @@ class NotificationViewModel: ObservableObject {
 			
 		notificationCenter.add(request) { error in
 				if let error = error {
-					print("Erreur planification notif: \(error)")
+                    self.error = .notificationFailed(error.localizedDescription)
 				} else {
-					print("Notification planifiée pour \(type.localizedName) le \(date)")
 				}
 			}
 		}

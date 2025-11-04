@@ -55,7 +55,7 @@ struct BikeDetailsSheet: View {
                                     Text(thousandFormatter.string(from: NSNumber(value: bikeVM.year)) ?? "")
                                     if !bikeVM.identificationNumber.isEmpty {
                                         Circle()
-                                            .fill(Color.gray)
+                                            .fill(Color("SecondTextColor"))
                                             .frame(width: 8, height: 8)
                                         Text("\(bikeVM.identificationNumber)")
                                     }

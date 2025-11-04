@@ -8,7 +8,7 @@
 import SwiftUI
 import StoreKit
 
-struct PaywallView: View {
+/*struct PaywallView: View {
 	@Environment(\.presentationMode) var presentationMode
 	@EnvironmentObject var subscriptionManager: SubscriptionManager
 	@AppStorage("isDarkMode") private var isDarkMode = false
@@ -194,3 +194,4 @@ extension PaywallView {
 #Preview {
     PaywallView()
 }
+*/

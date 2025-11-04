@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DashboardOldView: View {
+/*struct DashboardOldView: View {
 	@AppStorage("isDarkMode") private var isDarkMode = false
 	@AppStorage("isPremiumUser") private var isPremiumUser = false
 	@ObservedObject var bikeVM: BikeVM
@@ -32,7 +32,7 @@ struct DashboardOldView: View {
 		self.bikeVM = bikeVM
 		self.maintenanceVM = maintenanceVM
 		self.notificationVM = notificationVM
-		_VM = StateObject(wrappedValue: DashboardVM(maintenanceVM: maintenanceVM))
+        _VM = StateObject(wrappedValue: DashboardVM(maintenanceVM: maintenanceVM, bikeVM: bikeVM))
 	}
 	
 	var body: some View {
@@ -414,3 +414,4 @@ struct DashboardOldView: View {
 	}
 }
 
+*/
