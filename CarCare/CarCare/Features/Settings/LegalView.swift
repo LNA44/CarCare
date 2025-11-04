@@ -28,7 +28,7 @@ struct LegalView: View {
             }
             .padding()
 		}
-		.navigationTitle("Mentions légales")
+        .navigationTitle(NSLocalizedString("legal_mentions_title", comment: ""))
         .accessibilityAddTraits(.isHeader)
         .onAppear {
             let haptic = UIImpactFeedbackGenerator(style: .medium)

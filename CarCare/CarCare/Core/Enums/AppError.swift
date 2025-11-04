@@ -51,13 +51,14 @@ extension AppError {
 			return NSLocalizedString("notification_error", comment: "Error occurred while sending notification")
 		case .notificationNotAuthorized:
 			return NSLocalizedString("notification_not_authorized", comment: "Notifications not authorized")
-        case .notificationFailed(let message): return message
-		case .bikeNotFound:
-            return NSLocalizedString("bike_not_found", comment: "Bike not found")
+        case .notificationFailed(let message):
+            return message.isEmpty ? NSLocalizedString("notification_failed", comment: "") : message
+        case .bikeNotFound:
+            return NSLocalizedString("bike_not_found", comment: "")
         case .pdfError(let pdfError):
             switch pdfError {
-            case .writingFailed(let message):
-                return message
+            case .writingFailed:
+                return NSLocalizedString("pdf_writing_failed", comment: "")
             }
 		case .unknown:
 			return NSLocalizedString("unknown_error_message", comment: "Unexpected error occurred")

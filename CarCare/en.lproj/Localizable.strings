@@ -15,9 +15,9 @@
 "question_welcome" = "Welcome to MyBikeMate!";
 "question_daily_use" = "You use your bike daily and are tired of forgetting when to schedule the next maintenance ?";
 "question_sell_bike" = "You want to prove that your bike is up to date with its maintenance ?";
-"question_share_history" = "You want to share the maintenance history with your mechanic ?";
+"question_share_history" = "Do you want to share your bike’s maintenance history with your mechanic or the future buyer of your bike?";
 "button_next" = "Next";
-"button_start" = "Start";
+"button_start" = "I take care of my bike";
 
 //NotificationIntroView
 "stay_informed_key" = "Stay informed";
@@ -48,6 +48,10 @@
 "premium_feature" = "Premium Feature";
 "share_summary_description" = "Share the full maintenance summary with your mechanic or when selling your bike.";
 "unlock_now" = "Unlock Now";
+
+//BikePhotoPickerView
+"take_photo" = "Take a photo";
+"choose_library" = "Choose from library";
 
 //PDF
 "bike_label" = "Bike";
@@ -102,6 +106,9 @@
 "handle_notifications_key" = "Handle notifications";
 "information_key" = "Information";
 "legal_notice_key" = "Legal notice";
+
+//LegalView
+"legal_mentions_title" = "Legal Notice";
 
 //Enum MaintenanceType
 "tires" = "Tires";
@@ -158,6 +165,9 @@
 "notification_not_authorized" = "Notifications are not authorized.";
 "bike_not_found" = "The bike was not found.";
 "unknown_error_message" = "An unexpected error occurred.";
+"bike_not_found" = "No bike found";
+"notification_failed" = "Notification scheduling failed";
+"pdf_writing_failed" = "Failed to generate the PDF file";
 
 //Enum MaintenanceStatus
 "maintenance_up_to_date" = "Up to date";

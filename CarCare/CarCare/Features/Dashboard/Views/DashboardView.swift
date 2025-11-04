@@ -14,7 +14,7 @@ struct DashboardView: View {
     @ObservedObject var maintenanceVM: MaintenanceVM
     @ObservedObject var notificationVM: NotificationViewModel
     @StateObject private var VM: DashboardVM
-    @State private var sheetPosition: CGFloat = 0.8 // 0.8 = medium, 0.1 = large
+    @State private var sheetPosition: CGFloat = 0.7 // 0.8 = medium, 0.1 = large
     @State private var dragOffset: CGFloat = 0
     @State private var didLoadData = false
     @State private var showPaywall = false
@@ -65,11 +65,11 @@ struct DashboardView: View {
                                         
                                         // Snap vers medium (0.5) ou large (0.1)
                                         if newPosition < 0.3 {
-                                            sheetPosition = 0.1 // Position haute
+                                            sheetPosition = 0.2 // Position haute
                                         } else if newPosition > 0.3 && newPosition < 0.6 {
                                             sheetPosition = 0.5 // Position moyenne
                                         } else {
-                                            sheetPosition = 0.8 // Position basse
+                                            sheetPosition = 0.7 // Position basse
                                         }
                                         
                                         dragOffset = 0
@@ -101,6 +101,7 @@ struct DashboardView: View {
                     Image(systemName: "square.and.arrow.up")
                         .imageScale(.large)
                         .foregroundColor(Color.white)
+                        .shadow(color: .black.opacity(0.6), radius: 1, x: 0, y: 0)
                         .offset(y: -2)
                 }
                 /*.popover(isPresented: $showPopover, arrowEdge: .top) {

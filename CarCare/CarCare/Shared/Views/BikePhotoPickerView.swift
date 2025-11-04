@@ -52,7 +52,7 @@ struct BikePhotoPickerView: View {
                 haptic.impactOccurred()
                 showCamera = true
             }) {
-                Label("Prendre une photo", systemImage: "camera")
+                Label(LocalizedStringKey("take_photo"), systemImage: "camera")
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(Color("AppPrimaryColor"))
@@ -66,7 +66,7 @@ struct BikePhotoPickerView: View {
                 haptic.impactOccurred()
                 showPhotoPicker = true
             }) {
-                Label("Choisir dans la bibliothèque", systemImage: "photo.on.rectangle")
+                Label(LocalizedStringKey("choose_library"), systemImage: "photo.on.rectangle")
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(Color("ButtonColor").opacity(0.8))

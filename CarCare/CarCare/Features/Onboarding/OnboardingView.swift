@@ -29,9 +29,9 @@ struct OnboardingView: View {
 					ForEach(questions.indices, id: \.self) { index in
 						VStack {
 							Text(LocalizedStringKey(questions[index]))
-								.font(currentIndex == index ? .system(size: 28, weight: .bold, design: .default) : .system(size: 18, weight: .bold, design: .default))
+								.font(currentIndex == index ? .system(size: 22, weight: .bold, design: .default) : .system(size: 18, weight: .bold, design: .default))
 								.multilineTextAlignment(.center)
-								.lineLimit(nil)               // ✅ permet plusieurs lignes
+								.lineLimit(nil)              
 								.fixedSize(horizontal: false, vertical: true)
 								.opacity(currentIndex >= index ? 1 : 0)
 								.offset(x: offsetFor(index))

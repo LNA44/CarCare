@@ -51,7 +51,8 @@ struct BikeDetailsSheet: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .font(.system(size: 14, weight: .bold, design: .default))
                                     .foregroundColor(Color("SecondTextColor"))
-                                HStack {
+                                
+                                VStack(alignment: .leading) {
                                     Text(thousandFormatter.string(from: NSNumber(value: bikeVM.year)) ?? "")
                                     if !bikeVM.identificationNumber.isEmpty {
                                         Circle()
@@ -67,7 +68,7 @@ struct BikeDetailsSheet: View {
                             }
                             .padding(.top, 15)
                             .padding(.leading, 20)
-                            .frame(width: 170, height: 110)
+                            .frame(width: 170, height: 140)
                             .background(
                                 RoundedRectangle(cornerRadius: 15)
                                     .fill(
@@ -87,7 +88,7 @@ struct BikeDetailsSheet: View {
                             .accessibilityHint(bikeVM.identificationNumber.isEmpty ? "" : "Identification number \(bikeVM.identificationNumber)")
 
                             
-                            VStack(spacing: 10) {
+                            VStack(spacing: 20) {
                                 Text(NSLocalizedString("maintenance_key", comment: ""))
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .font(.system(size: 14, weight: .bold, design: .default))
@@ -95,7 +96,7 @@ struct BikeDetailsSheet: View {
                                     .padding(.leading, 15)
 
                                 Text("\(maintenanceVM.overallStatus.label)")
-                                    .font(.system(size: 22, weight: .bold, design: .default))
+                                    .font(.system(size: 16, weight: .bold, design: .default))
                                     .foregroundColor(maintenanceVM.overallStatus == .aJour ? Color("DoneColor") :
                                                         maintenanceVM.overallStatus == .bientotAPrevoir ? Color("InProgressColor") :
                                                         Color("ToDoColor"))
@@ -114,7 +115,7 @@ struct BikeDetailsSheet: View {
                                 Spacer()
                             }
                             .padding(.top, 15)
-                            .frame(width: 170, height: 110)
+                            .frame(width: 170, height: 140)
                             .background(
                                 LinearGradient(
                                     colors: [Color("MainComponentColor").opacity(0.3), Color("MainComponentColor2").opacity(0.3)],
@@ -239,12 +240,10 @@ struct BikeDetailsSheet: View {
                         }
                         .padding(.top, 10)
                         
-                        Spacer()
+                        Spacer(minLength: 70)
                     }
-                    .padding(.bottom, 20)
                 }
         }
-        .padding(.bottom, 30)
         .background(
             LinearGradient(
                 gradient: Gradient(colors: [Color("BackgroundColor"), Color("BackgroundColor2")]),
