@@ -16,7 +16,6 @@ struct BikePhotoPickerView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            // Affiche la photo uniquement si elle existe
             if let image = selectedImage {
                 Image(uiImage: image)
                     .resizable()
@@ -25,28 +24,6 @@ struct BikePhotoPickerView: View {
                     .clipShape(Circle())
                     .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
             }
-
-            // Bouton pour prendre une photo
-            /*Button(action: { showCamera = true }) {
-                Label("Prendre une photo", systemImage: "camera")
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color("AppPrimaryColor"))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
-            }
-
-            // Bouton pour choisir dans la bibliothèque
-            Button(action: { showPhotoPicker = true }) {
-                Label("Choisir dans la bibliothèque", systemImage: "photo.on.rectangle")
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color("ButtonColor").opacity(0.8))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
-            }*/
             
             Button(action: {
                 haptic.impactOccurred()
