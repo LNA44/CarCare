@@ -12,7 +12,7 @@
 
 //Onboarding
 "question_welcome" = "Bienvenue dans MyBikeMate !";
-"question_daily_use" = "Tu utilises ton vélo au quotidien et tu en as marre de ne plus te rappeler quand programmer ton prochain entretien ?";
+"question_daily_use" = "Tu utilises ton vélo au quotidien et tu es lassé de ne plus te rappeler quand programmer ton prochain entretien ?";
 "question_sell_bike" = "Tu veux prouver que ton vélo est à jour dans son entretien ?";
 "question_share_history" = "Tu veux partager l’historique d’entretien avec ton réparateur ou le futur acquéreur de ton vélo ?";
 "button_next" = "Suivant";
@@ -29,7 +29,6 @@
 //NotificationVM
 "notification_title" = "Entretien à venir";
 "notification_body" = "Votre entretien %@ est prévu le %@";
-
 
 //RegistrationView
 "welcome_key" = "Bienvenue dans l'application!";
@@ -84,7 +83,7 @@
 //MaintenanceView
 "maintenances_to_come" = "Maintenances à venir";
 "completed_maintenances" = "Maintenances terminées";
-"record_maintenance_instructions_key" = "Enregistrez un entretien réalisé de chaque catégorie pour voir les prochains entretiens à venir et l'historique.";
+"record_maintenance_instructions_key" = "Pour voir les prochains entretiens et votre historique, commencez par enregistrer un entretien terminé dans chaque catégorie. Vous pouvez le faire depuis l’écran d’accueil.";
 
 //ToDoRowMaintenances
 "days_remaining_key" = "%d jour(s) restant(s)";

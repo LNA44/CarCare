@@ -84,7 +84,7 @@
 //MaintenanceView
 "maintenances_to_come" = "Mantenimientos próximos";
 "completed_maintenances" = "Mantenimientos completados";
-"record_maintenance_instructions_key" = "Registre un mantenimiento realizado de cada categoría para ver los próximos mantenimientos y el historial.";
+"record_maintenance_instructions_key" = "Para ver los próximos mantenimientos y tu historial, empieza registrando un mantenimiento completado en cada categoría. Puedes hacerlo desde la pantalla de inicio.";
 
 //ToDoRowMaintenances
 "days_remaining_key" = "%d día(s) restante(s)";

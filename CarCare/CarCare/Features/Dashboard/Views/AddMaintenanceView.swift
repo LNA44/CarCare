@@ -149,9 +149,11 @@ struct AddMaintenanceView: View {
 				Button(action: {
 					dismiss()
 				}) {
-					Text(NSLocalizedString("return_key", comment: ""))
-						.font(.system(size: 16, weight: .regular, design: .default))
-						.foregroundColor(Color("TextColor"))
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 16, weight: .regular))
+                        .foregroundColor(Color("TextColor"))
+                        .accessibilityLabel("Return")
+                        .accessibilityHint("Double tap to go back")
 				}
                 .accessibilityLabel("Return")
                 .accessibilityHint("Double tap to go back")

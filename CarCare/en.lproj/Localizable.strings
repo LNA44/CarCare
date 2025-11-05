@@ -84,7 +84,7 @@
 //MaintenanceView
 "maintenances_to_come" = "Upcoming maintenance";
 "completed_maintenances" = "Completed maintenances";
-"record_maintenance_instructions_key" = "Record a completed maintenance for each category to view upcoming maintenance and history.";
+"record_maintenance_instructions_key" = "To view upcoming maintenance and your history, start by recording a completed maintenance for each category. You can do this from the home screen.";
 
 //ToDoRowMaintenances
 "days_remaining_key" = "%d day(s) remaining";
