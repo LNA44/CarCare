@@ -55,12 +55,7 @@ final class AddMaintenanceVM: ObservableObject {
 			return MaintenanceType.allCases
 		}
 	}
-	
-	/*func calculateDaysUntilNextMaintenance(type: MaintenanceType) -> Int? {
-		guard let nextDate = nextMaintenanceDate(for: type) else { return nil}
-		return Calendar.current.dateComponents([.day], from: Date(), to: nextDate).day
-	}*/
-	
+
 	func calculateNextMaintenanceDate(for type: MaintenanceType, baseMaintenance: Maintenance? = nil) -> Date? {
 		// Priorité à la dernière maintenance existante
 		let lastMaintenanceToUse = getLastMaintenance(of: type) ?? baseMaintenance
