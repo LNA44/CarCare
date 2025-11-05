@@ -26,6 +26,11 @@
 "success_title_key" = "Éxito";
 "notifications_enabled_message_key" = "¡Notificaciones activadas con éxito!";
 
+//NotificationVM
+"notification_title" = "Mantenimiento próximo";
+"notification_body" = "Su mantenimiento de %@ está programado para %@";
+
+
 //RegistrationView
 "welcome_key" = "¡Bienvenido a la aplicación!";
 "bike_info_key" = "Introduce la información de tu bicicleta";

@@ -58,9 +58,11 @@ class NotificationViewModel: ObservableObject {
 	}
 	
 	private func scheduleNotification(for type: MaintenanceType, on date: Date) {
-			let content = UNMutableNotificationContent()
-			content.title = "Entretien à venir"
-			content.body = "Votre entretien \(type.localizedName) est prévu le \(date.formatted(date: .numeric, time: .omitted))"
+        let content = UNMutableNotificationContent()
+        content.title = NSLocalizedString("notification_title", comment: "Title for maintenance notification")
+        
+        let bodyFormat = NSLocalizedString("notification_body", comment: "Body for maintenance notification")
+            content.body = String(format: bodyFormat, type.localizedName, date.formatted(date: .numeric, time: .omitted))
 			content.sound = .default
 			
 			let trigger = UNCalendarNotificationTrigger(
