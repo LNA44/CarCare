@@ -38,9 +38,12 @@ struct DashboardView: View {
                         .scaledToFill()
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .ignoresSafeArea()
-                        .accessibilityLabel("Your registered bike")
+                        .accessibilityHidden(true)
+                        .allowsHitTesting(false)
                 } else if bikeVM.bike == nil {
                     EmptyView()
+                        .accessibilityHidden(true)
+                        .allowsHitTesting(false)
                 } else {
                     Image("Riding")
                         .resizable()
@@ -48,11 +51,12 @@ struct DashboardView: View {
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .ignoresSafeArea()
                         .accessibilityHidden(true)
+                        .allowsHitTesting(false)
                 }
                 if didLoadData {
                     BikeDetailsSheet(bikeVM: bikeVM, maintenanceVM: maintenanceVM, notificationVM: notificationVM, VM: VM)
                         .frame(height: geometry.size.height)
-                        .offset(y: (geometry.size.height * sheetPosition) + dragOffset)
+                        .offset(y: UIAccessibility.isVoiceOverRunning ? 0 : (geometry.size.height * sheetPosition) + dragOffset)
                         .gesture(
                             DragGesture()
                                 .onChanged { value in
@@ -76,7 +80,6 @@ struct DashboardView: View {
                                     }
                                 }
                         )
-                        .accessibilityElement(children: .contain)
                         .accessibilityLabel("Bike Details")
                 }
             }

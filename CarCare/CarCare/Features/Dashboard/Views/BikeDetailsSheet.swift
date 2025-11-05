@@ -225,7 +225,10 @@ struct BikeDetailsSheet: View {
                             .padding(.bottom, 20)
                             .padding(.horizontal, 10)
                             .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
+                            .allowsHitTesting(true)
+                            .contentShape(Rectangle())
                             .accessibilityLabel("Add maintenance. Opens the screen to add a new maintenance entry")
+                            .accessibilityAddTraits(.isButton)
                         }
                         .navigationDestination(isPresented: $goToAdd) {
                             AddMaintenanceView(
@@ -243,6 +246,8 @@ struct BikeDetailsSheet: View {
                         Spacer(minLength: 70)
                     }
                 }
+                .padding(.bottom, UIAccessibility.isVoiceOverRunning ? 0 : 70)
+                .padding(.top, UIAccessibility.isVoiceOverRunning ? 90 : 0)
         }
         .background(
             LinearGradient(
