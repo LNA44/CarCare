@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class MaintenanceVM: ObservableObject {
-	weak var notificationVM: NotificationViewModel?  // Référence faible pour éviter les rétentions cycliques
+	weak var notificationVM: NotificationViewModel?
 	@Published var maintenances: [Maintenance] = []
 	@Published var overallStatus: MaintenanceStatus = .aPrevoir
 	@Published var generalLastMaintenance: Maintenance? = nil
