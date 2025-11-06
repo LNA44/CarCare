@@ -9,6 +9,7 @@ import SwiftUI
 import ConfettiSwiftUI
 
 struct OnboardingView: View {
+    @Environment(\.horizontalSizeClass) var sizeClass
 	@AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
     @State private var confettiTrigger = 0
 	@State private var currentIndex = 0
@@ -24,8 +25,8 @@ struct OnboardingView: View {
 				.frame(width: 20, height: 20)
 				.opacity(0)
 			
-			VStack(spacing: 40) {
-				VStack(spacing: 40) {
+			ZStack {
+				VStack(spacing: 20) {
 					ForEach(questions.indices, id: \.self) { index in
 						VStack {
 							Text(LocalizedStringKey(questions[index]))
@@ -56,36 +57,39 @@ struct OnboardingView: View {
 				}
 				.frame(height:700)
 				
-                
-				if currentIndex < questions.count {
-					Button(action: {
-                        haptic.impactOccurred()
-						if currentIndex < questions.count - 1 {
-							withAnimation {
-								currentIndex += 1
-							}
-						} else {
-                            let successGenerator = UINotificationFeedbackGenerator()
-                            successGenerator.notificationOccurred(.success)
-                            hasSeenOnboarding = true
+                VStack {
+                    Spacer()
+                    if currentIndex < questions.count {
+                        Button(action: {
+                            haptic.impactOccurred()
+                            if currentIndex < questions.count - 1 {
+                                withAnimation {
+                                    currentIndex += 1
+                                }
+                            } else {
+                                let successGenerator = UINotificationFeedbackGenerator()
+                                successGenerator.notificationOccurred(.success)
+                                hasSeenOnboarding = true
+                            }
+                        }) {
+                            Text(LocalizedStringKey(
+                                currentIndex < questions.count - 1 ? ButtonConstants.next : ButtonConstants.start
+                            ))
+                            .font(.system(size: 16, weight: .bold, design: .default))
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color("AppPrimaryColor"))
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
                         }
-					}) {
-						Text(LocalizedStringKey(
-							currentIndex < questions.count - 1 ? ButtonConstants.next : ButtonConstants.start
-						))
-							.font(.system(size: 16, weight: .bold, design: .default))
-							.frame(maxWidth: .infinity)
-							.padding()
-							.background(Color("AppPrimaryColor"))
-							.foregroundColor(.white)
-							.cornerRadius(12)
-					}
-					.padding(.horizontal)
-					.transition(.opacity)
-                    .animation(.easeInOut, value: currentIndex)
-                    .accessibilityLabel(currentIndex < questions.count - 1 ? "Next question" : "Start using the app")
-                    .accessibilityHint(currentIndex < questions.count - 1 ? "Double tap to go to the next question" : "Double tap to start the app")
+                        .padding(.horizontal)
+                        .transition(.opacity)
+                        .animation(.easeInOut, value: currentIndex)
+                        .accessibilityLabel(currentIndex < questions.count - 1 ? "Next question" : "Start using the app")
+                        .accessibilityHint(currentIndex < questions.count - 1 ? "Double tap to go to the next question" : "Double tap to start the app")
+                    }
                 }
+                .padding(.bottom, 20) 
 			}
 			.padding()
 			.background(Color("BackgroundColor"))

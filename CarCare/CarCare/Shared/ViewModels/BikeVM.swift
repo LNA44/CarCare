@@ -49,8 +49,6 @@ final class BikeVM: ObservableObject {
                     
                     if unwrappedBike.imageData != nil {
                     } else {
-                        self.error = AppError.noImageData
-                        self.showAlert = true
                     }
 					completion?()
 				}
